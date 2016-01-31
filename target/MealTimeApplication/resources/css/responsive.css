@@ -1,0 +1,51 @@
+/************* bootstarap viewport breakpoints  ***************/
+
+/* Extra small devices - Phones */
+@media screen and (max-width: 767px) { /* STYLES GO HERE */}
+
+/* Small devices - Tablets */
+@media (min-width: 768px) { /* STYLES GO HERE */}
+
+/* Medium devices - Desktops */
+@media (min-width: 992px) { /* STYLES GO HERE */}
+
+/* Large devices - Desktops */
+@media (min-width: 1200px) { /* STYLES GO HERE */}
+
+@media all and (min-width: 768px) and (max-width: 991px) { /* STYLES GO HERE */}
+@media all and (min-width: 992px) and (max-width: 1199px) { /* STYLES GO HERE */}
+
+/************* bootstarap viewport breakpoints  end ***************/
+
+/* Extra small devices - Phones */
+@media screen and (max-width: 767px) { 
+	
+
+		
+}
+
+/* Small devices - Tablets */
+@media (min-width: 768px) { 
+	
+	
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1024px) and (orientation : landscape) { 
+	
+}
+
+@media (max-width: 991px) {
+/* MOBILE STYLE NAV */
+	
+   
+}
+
+@media (min-width: 1024px) {
+   	
+}
+
+@media (min-width: 1200px) {
+   	
+   	.container { width: 1024px; }
+}
+
