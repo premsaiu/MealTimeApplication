@@ -5,27 +5,24 @@
 		    <div class="col-md-9 col-xs-12 bg-color-s1">
 		    	<h4 class="titile-02">View Profile</h4>
 		    	<div class="clearfix">
-		    	<img src="resources/images/profile-pic.jpg" alt="..." class="img-thumbnail mb20 mr20 pull-left">
+		    	<img src="images/{{user.mobileNumber}}.jpg" style="width: 125px;height: 150px;" alt="..." class="img-thumbnail mb20 mr20 pull-left">
 		    	<div class="form-group pull-left">
 		    		<form class="form-inline edit-enable">
 					  <div class="form-group">
-					    <p class="editor">Ramakrishna Rentala</p>
+					    <p class="editor">{{user.firstName}}</p>
 					    <div class="clearfix"></div>
-					    <p class="editor">9123456789</p>
+					    <p class="editor">{{user.mobileNumber}}</p>
 					    <div class="clearfix"></div>
-					    <p class="editor">someoneperson@email.com</p>
+					    <p class="editor">{{user.email}}</p>
 					    <div class="clearfix"></div>
 					    <p class="editor">
-					    	Address line1,<br>
-					    	Address line2,<br>
-					    	Address line2,<br>
-					    	zip code 00000,<br>
+					    	{{user.address}}
 					    </p>
 					  </div>
 					</form>
 		    	<div>
 				    <a class="btn btn-success mt10" href="#" id="editorBtn" role="button">Edit Profile</a>	
-				    <a class="btn btn-success mt10" ui-sref="viewprofile" id="editorBtn" role="button">Add Profile</a>
+				    <!-- <a class="btn btn-success mt10" ui-sref="viewprofile" id="editorBtn" role="button">Add Profile</a> -->
 				</div>			 
 				</div>
 			    	<br><br>
