@@ -2,18 +2,22 @@
 
 module.controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 	//alert("In Home Controller");
-	$rootScope.user = {firstName : "Visitor"};
+	
 	$scope.checkUser = function(){
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		UserService.checkUser($scope.mobileNumber).then(
                 function(response) {
-                	$rootScope.user = response.data;
-                	$('#myModal').modal('hide');
+                	if(response.data == "" || response.data == null){
+                		$rootScope.user = {firstName : "Visitor", lastName : ""};
+                	}else{
+                		$rootScope.user = response.data;
+                	}
                },
                 function(errResponse){
                     console.error('Error while checking user');
                 }
        );
+		$('#myModal').modal('hide');
 	}
 	$scope.modalShow = function(){
 		$('#myModal').modal('show');
