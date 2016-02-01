@@ -1,3 +1,5 @@
+'use strict';
+
 module.controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 	//alert("In Home Controller");
 	$rootScope.user = {firstName : "Visitor"};
