@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('miniMealApp.controllers', []).
-
-	controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
+module.controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
+	//alert("In Home Controller");
 	
 	$scope.checkUser = function(){
 		console.log("Mobile Number::"+$scope.mobileNumber);
