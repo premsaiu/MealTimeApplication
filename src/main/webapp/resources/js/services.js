@@ -1,6 +1,7 @@
 'use strict';
 
-module.service('UserService', ['$http', '$q', function($http, $q){
+angular.module('miniMealApp.services', [])
+.factory('UserService', ['$http', '$q', function($http, $q){
 
 	/*return {
 			checkUser: function(mobileNo) {
