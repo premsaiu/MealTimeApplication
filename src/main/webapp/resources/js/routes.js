@@ -1,8 +1,7 @@
 'use strict';
 
-var module = angular.module('miniMealApp', ['ui.router']);
-
-module.config(function($stateProvider, $urlRouterProvider) {
+angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers','ui.router'])
+.config(function($stateProvider, $urlRouterProvider) {
     
     $urlRouterProvider.otherwise('/home');
     
@@ -28,7 +27,8 @@ module.config(function($stateProvider, $urlRouterProvider) {
         })
          .state('breakfast', {
             url: '/breakfast',
-            templateUrl: 'views/users/ammeal.html'
+            templateUrl: 'views/users/ammeal.html',
+            controller: 'AmMealCtrl'
         })
           .state('dinner', {
             url: '/dinner',
