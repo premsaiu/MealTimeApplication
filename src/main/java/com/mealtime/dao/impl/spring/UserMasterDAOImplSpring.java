@@ -11,6 +11,7 @@ import com.mealtime.bean.UserMaster;
 import com.mealtime.dao.UserMasterDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -323,6 +324,11 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 	}
 
 	public UserMaster findByMobileNumber(String mobileNumber) {
-		return getJdbcTemplate().queryForObject(SQL_SELECT_BY_MOBILENUMBER, new Object[]{mobileNumber}, getRowMapper());
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECT_BY_MOBILENUMBER, new Object[]{mobileNumber}, getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Empty Result Access Exception occured in findByMobileNumber method::"+e.getMessage());
+			return null;
+		}
 	}
 }

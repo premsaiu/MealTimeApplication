@@ -16,4 +16,6 @@ public class MealTimeService {
 		System.out.println("In MealTimeService :: checkUser()");
 		return userMasterDAO.findByMobileNumber(mobileNumber);
 	}
+	
+	
 }
