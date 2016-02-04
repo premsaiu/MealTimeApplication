@@ -26,21 +26,12 @@
     </div>
 	
 	</div>
-<script src="resources/js/lib/angular.js"></script>
+	<script src="resources/js/lib/jquery.min.1.11.3.js"></script>
+    <script src="resources/js/lib/bootstrap.min.js"></script>
+	<script src="resources/js/lib/angular.js"></script>
     <script src="resources/js/lib/angular-ui-router.js"></script>
     <script src="resources/js/routes.js"></script>
-    <script src="resources/js/controller.js"></script>
     <script src="resources/js/services.js"></script>
-		 <script src="resources/js/lib/jquery.min.1.11.3.js"></script>
-   
-    <script src="resources/js/lib/bootstrap.min.js"></script>
-    
-    <!-- <script type="text/javascript">
-    	//Modal 1
-	    $(window).load(function(){
-	        $('#myModal').modal('show');
-	    });
-	</script> -->€‹
-    
+    <script src="resources/js/controller.js"></script>
   </body>
 </html>

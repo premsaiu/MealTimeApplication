@@ -327,9 +327,11 @@ body {
     border-radius: 4px;
     box-shadow: 0 0 5px 0 rgba(40, 96, 144, 0.1);
     padding: 0px 10px 10px 10px;
-    width: 100%;
+    width: auto !important;
 }
-
+.errorMessage{
+	color:red;
+}
 
 
 
