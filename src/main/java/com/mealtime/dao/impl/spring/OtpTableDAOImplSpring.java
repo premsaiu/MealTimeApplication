@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import com.mealtime.bean.OtpTable;
 import com.mealtime.dao.OtpTableDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +26,9 @@ public class OtpTableDAOImplSpring extends GenericDAO<OtpTable> implements OtpTa
 
 	private final static String SQL_SELECT = 
 		"select email, mobile_number, otp, created_date, updated_date, otp_time from otp_table where ";
+	
+	private final static String SQL_SELECT_BY_MOBILENUMBER = 
+			"select email, mobile_number, otp, created_date, updated_date, otp_time from otp_table where mobile_number=?";
 
 
 	private final static String SQL_INSERT = 
@@ -251,6 +256,15 @@ public class OtpTableDAOImplSpring extends GenericDAO<OtpTable> implements OtpTa
 		public OtpTable mapRow(ResultSet rs, int rowNum) throws SQLException {
 			populateBean(rs, this.bean);
 			return this.bean;
+		}
+	}
+
+	public OtpTable findByMobileNumber(String mobileNo) {
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECT_BY_MOBILENUMBER, new Object[]{mobileNo}, getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Empty Result Access Exception occured in findByMobileNumber method::"+e.getMessage());
+			return null;
 		}
 	}
 }

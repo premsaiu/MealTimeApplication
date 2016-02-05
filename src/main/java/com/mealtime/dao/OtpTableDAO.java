@@ -81,5 +81,7 @@ public interface OtpTableDAO {
 	 * @return
 	 */
 	public long count() ;
+	
+	public OtpTable findByMobileNumber(String mobileNo);
 
 }
