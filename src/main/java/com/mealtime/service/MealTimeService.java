@@ -50,12 +50,12 @@ public class MealTimeService {
 			Date currentTime = sdf.parse(dateStr);
 			otpTable.setOtpTime(currentTime);
 			OtpTable otpTable2 = otpTableDAO.findByMobileNumber(mobileNo);
-			if(otpTable2 != null){
+			if(otpTable2 == null){
 				otpTableDAO.insert(otpTable);
 			}else{
-				otpTable.setOtp(String.valueOf(otp));
-				otpTable.setOtpTime(currentTime);
-				otpTableDAO.update(otpTable2);
+				otpTable2.setOtp(String.valueOf(otp));
+				otpTable2.setOtpTime(currentTime);
+				otpTableDAO.updateByMobileNumber(otpTable2);
 			}
 		}catch(ParseException pe){
 			System.out.println("ParseException raised while parsing date in MealTime Service::saveOTP()"+pe.getMessage());
@@ -86,7 +86,7 @@ public class MealTimeService {
 	
 	public void emailOTP(Integer otp, String email){
 		System.out.println("In MealTimeService :: emailOTP() :: email: "+email);
-		String fromAddress = "";
+		String fromAddress = "premcse41@gmail.com";
 		String toAddress = email;
 		String subject = "MealTime - One Time Password(OTP) ";
 		String msgBody = "<i>Hi!</i><br><br>";
@@ -95,6 +95,13 @@ public class MealTimeService {
 		msgBody += "Treat this as confidential. Sharing it with anyone gives them full access to your MealTime account.<br><br>";
 		msgBody += "Regards, <br>Meal Time Team";
 		mealTimeUtil.sendEmail(toAddress, fromAddress, subject, msgBody);
+	}
+	
+	public int saveProfile(UserMaster userMaster){
+		int userId = 0;
+		userMaster.setRoleId(2);
+		userId  = userMasterDAO.insert(userMaster);
+		return userId;
 	}
 	
 }

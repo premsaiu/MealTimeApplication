@@ -83,5 +83,7 @@ public interface OtpTableDAO {
 	public long count() ;
 	
 	public OtpTable findByMobileNumber(String mobileNo);
+	
+	public int updateByMobileNumber(OtpTable otpTable);
 
 }

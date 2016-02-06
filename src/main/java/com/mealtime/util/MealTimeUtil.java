@@ -9,11 +9,13 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MealTimeUtil {
 	
 	@Autowired
-	private JavaMailSender mealTimeMailSender;
+	private JavaMailSender mailSender;
 	
 	public Integer generateOTP(){
 		Random rnd = new Random();
@@ -31,7 +33,7 @@ public class MealTimeUtil {
                mimeMessage.setContent(msgBody, "text/html");
             }  
 		};  
-    	mealTimeMailSender.send(messagePreparator);
+		mailSender.send(messagePreparator);
 	}
 
 }

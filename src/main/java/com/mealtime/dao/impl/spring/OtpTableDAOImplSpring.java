@@ -36,6 +36,9 @@ public class OtpTableDAOImplSpring extends GenericDAO<OtpTable> implements OtpTa
 
 	private final static String SQL_UPDATE = 
 		"update otp_table set email = ?, mobile_number = ?, otp = ?, created_date = ?, updated_date = ?, otp_time = ? where ";
+	
+	private final static String SQL_UPDATE_BY_MOBILENUMBER = 
+			"update otp_table set otp = ?, otp_time = ? where mobile_number = ?";
 
 	private final static String SQL_DELETE = 
 		"delete from otp_table where ";
@@ -265,6 +268,15 @@ public class OtpTableDAOImplSpring extends GenericDAO<OtpTable> implements OtpTa
 		}catch(EmptyResultDataAccessException e){
 			System.out.println("Empty Result Access Exception occured in findByMobileNumber method::"+e.getMessage());
 			return null;
+		}
+	}
+	
+	public int updateByMobileNumber(OtpTable otpTable) {
+		try{
+			return getJdbcTemplate().update(SQL_UPDATE_BY_MOBILENUMBER, new Object[]{otpTable.getOtp(), otpTable.getOtpTime(), otpTable.getMobileNumber()});
+		}catch(Exception e){
+			System.out.println("Exception occured in updateByMobileNumber method::"+e.getMessage());
+			return 0;
 		}
 	}
 }
