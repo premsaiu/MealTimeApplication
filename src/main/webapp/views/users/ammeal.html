@@ -1,20 +1,20 @@
 		    <div class="col-md-9 col-xs-12 bg-color-s1 pb20 pt10">
 			    <div class="pull-left">
 				    <h4 class="titile-02">AM Meal</h4>
-				    <h5 class="titile-03">{{status}}</h5>
+				    <h5 class="titile-03">{{brkfstObj.status}}</h5>
 				    <div class="pull-left clearfix">
 					    <div class="pull-left custom-thumbs">
-							<img data-ng-src="{{imageSrc}}" class="img-thumbnail" width="180" height="115">
-							<div class="radio custom-thumbs-title">
+							<img data-ng-hide="cancelled" data-ng-src="{{brkfstObj.imgSrc}}" alt="{{brkfstObj.imageName + 'Image'}}" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title" style="text-align: center">
 							   <label>
-							      {{imageName}}
+							      {{brkfstObj.imageName}}
 							   </label>
 							</div>
 						</div>
 				    </div>
 				    <br>
-				    <div class="pull-left clearfix">
-					    <h5 class="titile-04">{{brkfstInfo}}</h5>
+				    <div class="pull-left clearfix" style="text-align: center">
+					    <h5 class="titile-04">{{brkfstObj.brkfstInfo}}</h5>
 				    </div>
 				    
 				    <div data-ng-show="show" class="pull-left clearfix add-on-bg-01">
@@ -33,7 +33,8 @@
 			    </div>
 		    </div>
 		    <div class="col-xs-12 col-md-9 col-md-offset-3">
-		    	<a class="btn btn-success addOn-btn-s1" role="button" data-toggle="modal" data-target="#myAddonModal">Add - Add-on Meal</a>
+		    	<button class="btn btn-success addOn-btn-s1" data-ng-click="chooseItems();">Add - Add-on Meal</button>
+		    	<button class="btn btn-success addOn-btn-s1" data-ng-click="cancelAllItems(brkfstObj);">Cancel Breakfast</button>
 		    
 		    </div>
 		    
@@ -61,7 +62,7 @@
 								    <img data-ng-src="{{comple.ImgSrc}}" class="img-thumbnail" width="180" height="115">
 								    <div class="radio custom-thumbs-title" style="text-align: center">
 								       <label class="radio">
-								         <input data-ng-disabled="complflag" type="checkbox" id="Radio_break1" name="selected" data-ng-model="comple.selected" data-ng-change="updateSelection();">{{comple.Item}}
+								         <input type="checkbox" id="Radio_break1" name="selected" data-ng-model="comple.selected" data-ng-click="updateSelection($event);">{{comple.Item}}
 								       </label>
 								   </div>
 								</div>
@@ -71,9 +72,9 @@
 						    <div role="tabpanel" class="tab-pane" id="supplimentary">
 						    	<div class="pull-left custom-thumbs" data-ng-repeat="suppl in suppleItems">
 								    <img data-ng-src="{{suppl.ImgSrc}}" class="img-thumbnail" width="180" height="115">
-								    <div class="radio custom-thumbs-title" style="text-align: center">
+								    <div id="new" class="radio custom-thumbs-title" style="text-align: center">
 								       <label class="radio">
-								         <input type="radio" data-ng-disabled="supplflag" data-ng-model="$parent.favoriteSuppl" value="{{suppl.Item}}" data-ng-change="updateSelectionSuppl(favoriteSuppl);">{{suppl.Item}}
+								         <input type="radio"  data-ng-model="$parent.favoriteSuppl" value="{{suppl.Item}}" data-ng-click="updateSelectionSuppl($event);">{{suppl.Item}}
 								      </label>
 								   </div>
 								</div>
