@@ -35,7 +35,7 @@ controller('AboutUsCtrl', function ($scope,$http) {
 	
   }).
   
-controller('AmMealCtrl', function ($scope,$http) {
+controller('AmMealCtrl', function ($scope,$http,UserService) {
 	
 	var brkfstObj = {
 			status: "Today's Breakfast Special",
@@ -45,11 +45,6 @@ controller('AmMealCtrl', function ($scope,$http) {
 	}
 	
 	$scope.brkfstObj = brkfstObj;
-	
-	/*$scope.status = "Today's Breakfast Special";
-	$scope.imageSrc = "resources/images/ammeal/meal_01.jpg";
-	$scope.imageName = "Masala Dosa";
-	$scope.brkfstInfo = "Masala Dosa with Chutney";*/
 		
 		var totalAmt = 1000;
 		
@@ -79,7 +74,7 @@ controller('AmMealCtrl', function ($scope,$http) {
 		
 		var finalAmt = 0;
 		
-		$scope.chooseItems = function(){
+		/*$scope.chooseItems = function(){
 			angular.forEach($scope.complItems, function(value,key){
 				if(value.selected){
 					value.selected = false;
@@ -90,14 +85,49 @@ controller('AmMealCtrl', function ($scope,$http) {
 			$scope.showModal = true;
 			
 			$("#myAddonModal").modal('show');
-		};
+		};*/
 		$scope.cancelled = false;
 		$scope.cancelAllItems = function(brkfstObj){
-			delete $scope.brkfstObj;
-			angular.element(brkfstObj).attr("imgSrc","");
-			$scope.cancelled = true;
-			//$scope.brkfstObj.imgSrc = "";
-			$scope.show = false;
+			if(confirm("Are you sure you want to cancel?")){
+				debugger;
+				UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+		                function(response) {
+		                	debugger;
+		                	if(response.status == 200){
+		                		$('#otpModal').modal('show');
+		                	}else{
+		                		console.log("Bad Request");
+		                	}
+		               },
+		                function(errResponse){
+		                    console.error('Something went wrong!!');
+		                }
+		       );
+				
+				$scope.verifyOTP = function(){
+					//$scope.file.files[0]
+					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+							 function(response) {
+								 	if(response.status == 200){
+				                		$('#otpModal').modal('hide');
+				                		console.log(response.data);
+				                		delete $scope.brkfstObj;
+				        				angular.element(brkfstObj).attr("imgSrc","");
+				        				$scope.cancelled = true;
+				        				//$scope.brkfstObj.imgSrc = "";
+				        				$scope.show = false;
+				                	}else{
+				                		console.log("Bad Request");
+				                	}
+				               },
+				                function(errResponse){
+				                    console.error('Something went wrong!!');
+				                }
+				       );
+				}
+			}else{
+				return;
+			}
 		}
 		
 		$scope.updateSelection = function(){
