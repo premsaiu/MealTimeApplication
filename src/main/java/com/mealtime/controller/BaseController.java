@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mealtime.bean.UserMaster;
 import com.mealtime.service.MealTimeService;
 import com.mealtime.util.MealTimeUtil;
+import com.mealtime.util.WSResponseStatus;
 
 @RestController
 public class BaseController {
@@ -42,7 +43,8 @@ public class BaseController {
 	
 	
 	@RequestMapping(value="/sendOTP", method = RequestMethod.GET, produces="application/json")
-	public @ResponseBody ResponseEntity<?> sendOTP(@RequestParam("mobileNo")String mobileNumber, @RequestParam("email")String email){
+	public @ResponseBody WSResponseStatus sendOTP(@RequestParam("mobileNo")String mobileNumber, @RequestParam("email")String email){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		//generate otp
 		int otp = mealTimeUtil.generateOTP();
 		//save otp in table
@@ -52,29 +54,40 @@ public class BaseController {
 		//email otp
 		mealTimeService.emailOTP(otp, email);
 		if(flag == 0){
-			return new ResponseEntity<String>("Failed", HttpStatus.BAD_REQUEST);
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to send OTP");
 		}
 		else{
-			return new ResponseEntity<String>("Success", HttpStatus.OK);
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping(value="/verifyOTP", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody WSResponseStatus verifyOTP(@RequestParam("mobileNo")String mobileNumber, @RequestParam("otp") String submittedOTP ){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		boolean bol = mealTimeService.verifyOTP(mobileNumber, submittedOTP);
+		if(bol == true){
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}else{
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to send OTP");
+		}
+		return wsResponseStatus;
 	}
 	
 	@RequestMapping(value="/saveProfile", method = RequestMethod.POST, produces="application/json", consumes = {"multipart/form-data"})
-	public @ResponseBody ResponseEntity<?> saveProfile(@RequestPart("myObj") String objStr, @RequestPart("file") MultipartFile file){
+	public @ResponseBody WSResponseStatus saveProfile(@RequestParam("model") String objStr, @RequestParam("file") MultipartFile file){
 		System.out.println("In Base Controller :: saveProfile()");
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = null;
 		if (!file.isEmpty()) {
 			try {
 				userMaster = new ObjectMapper().readValue(objStr, UserMaster.class);
 			} catch (JsonParseException e) {
-				e.printStackTrace();
-				return new ResponseEntity<String>("Something went wrong", HttpStatus.BAD_REQUEST);
+				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 			} catch (JsonMappingException e) {
-				e.printStackTrace();
-				return new ResponseEntity<String>("Something went wrong", HttpStatus.BAD_REQUEST);
+				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 			} catch (IOException e) {
-				e.printStackTrace();
-				return new ResponseEntity<String>("Something went wrong", HttpStatus.BAD_REQUEST);
+				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 			}
             try {
                 byte[] bytes = file.getBytes();
@@ -99,20 +112,21 @@ public class BaseController {
                 System.out.println("You successfully uploaded file=" + fileName);
             } catch (Exception e) {
                 System.out.println("You failed to upload " + userMaster.getMobileNumber() + " => " + e.getMessage());
-                return new ResponseEntity<String>("Failed to upload", HttpStatus.BAD_REQUEST);
+                MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
             }
         } else {
             System.out.println("You failed to upload " + userMaster.getMobileNumber()
                     + " because the file was empty.");
-            return new ResponseEntity<String>("No Image found", HttpStatus.BAD_REQUEST);
+            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
         }
 		
 		int userId = mealTimeService.saveProfile(userMaster);
 		if(userId == 0){
-			return new ResponseEntity<String>("Something went wrong", HttpStatus.BAD_REQUEST);
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Insert Failed");
 		}else{
-			return new ResponseEntity<UserMaster>(userMaster, HttpStatus.OK);
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}
+		return wsResponseStatus;
 	}
 	
 }

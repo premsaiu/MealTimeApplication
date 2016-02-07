@@ -15,7 +15,8 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
         })
         .state('profile', {
             url: '/profile',
-            templateUrl: 'views/users/profile.html'
+            templateUrl: 'views/users/profile.html',
+            controller: 'ProfileCtrl'
         })
         .state('aboutus', {
             url: '/aboutus',
@@ -23,7 +24,13 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
         })
         .state('viewprofile', {
             url: '/viewprofile',
-            templateUrl: 'views/users/view-profile.html'
+            templateUrl: 'views/users/profile.html',
+            controller: 'ProfileCtrl'
+        })
+         .state('addprofile', {
+            url: '/addprofile',
+            templateUrl: 'views/users/view-profile.html',
+            controller: 'AddProfileCtrl'
         })
          .state('breakfast', {
             url: '/breakfast',

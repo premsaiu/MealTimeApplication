@@ -5,36 +5,71 @@
 		    	<img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTI1YjEyOTU4NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MjViMTI5NTg1Ij48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjY4NzUiIHk9Ijc0LjM2NDA2MjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="..." class="img-thumbnail mb20 mr20 pull-left">
 		    	<div class="form-group pull-left">
 				    <label for="exampleInputFile">Upload Profile Picture</label>
-				    <input type="file" id="exampleInputFile">
+				    <input type="file" id="profilePic" file-model ng-model="profilePic">
 				    <p class="help-block font-smaller">Picture Size is 140px X 140px</p>
 				 </div>
 			    	<br><br>
 		    	</div>
-		    	<form class="form-inline">
+		    	<form ng-submit="addProfile()" class="form-inline" >
 				  <div class="form-group">
-				    <input type="text" class="form-control" placeholder="First Name">
+				    <input id="firstname" type="text" ng-model="firstName" class="form-control" placeholder="First Name">
 				  </div>
 				  <div class="form-group">
-				    <input type="text" class="form-control" placeholder="Last Name">
-				  </div>
-				  <div>
-				  <div class="form-group">
-				    <input type="number" class="form-control" placeholder="Mobile Number">
-				  </div>
-				  <div class="form-group">
-				    <input type="text" class="form-control" placeholder="E-Mail">
-				  </div>
-				  <div class="form-group">
-				    <textarea class="form-control" rows="3"placeholder="Address"></textarea>
+				    <input id="lastname" type="text" ng-model="lastName" class="form-control" placeholder="Last Name">
 				  </div>
 				  <div>
-				  	<button type="submit" class="btn btn-success mb20">Submit</button>
+				  <div class="form-group">
+				    <input id="mobilenumber" type="number" ng-model="mobileNumber" class="form-control" placeholder="Mobile Number">
+				  </div>
+				  <div class="form-group">
+				    <input id="email" type="text" ng-model="email" class="form-control" placeholder="E-Mail">
+				  </div>
+				  <div class="form-group">
+				    <select id="foodtype" ng-model="foodType" class="form-control">
+				    	<option>Select Food Type</option>
+				    	<option>Veg</option>
+				    	<option>Non-Veg</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				    <select id="foodstyle" ng-model="foodStyle" class="form-control">
+				    	<option>Select Food Style</option>
+				    	<option>South</option>
+				    	<option>North</option>
+				    </select>
+				  </div>
+				  <div class="form-group">
+				    <textarea id="address" ng-model="address" class="form-control" rows="3"placeholder="Address"></textarea>
+				  </div>
+				  <div>
+				  	<button id="addprofilesubmit" type="submit" class="btn btn-success mb20">Submit</button>
 				  	<a class="btn btn-success mb20" ui-sref="profile" id="editorBtn" role="button">View Profile</a>
 				  </div>
 				</form>
 			 </div>
 	
-	  
+	  <!-- OTP Modal -->
+			    <div class="modal fade" id="otpModal">
+				  <div class="modal-dialog max-w400">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">One Time Password</h4>
+				      </div>
+				      <div class="modal-body">
+				        <form>
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label">Please Enter OTP</label>
+				            <input type="number" class="form-control" id="otp" ng-model="otp">
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Submit</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 	
 	    
 	
