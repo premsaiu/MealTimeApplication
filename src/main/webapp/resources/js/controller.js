@@ -37,10 +37,19 @@ controller('AboutUsCtrl', function ($scope,$http) {
   
 controller('AmMealCtrl', function ($scope,$http) {
 	
-		$scope.status = "Today's Breakfast Special";
-		$scope.imageSrc = "resources/images/ammeal/meal_01.jpg";
-		$scope.imageName = "Masala Dosa";
-		$scope.brkfstInfo = "Masala Dosa with Chutney";
+	var brkfstObj = {
+			status: "Today's Breakfast Special",
+			imgSrc: "resources/images/ammeal/meal_01.jpg",
+			imageName: "Masala Dosa",
+			brkfstInfo: "Masala Dosa with Chutney"
+	}
+	
+	$scope.brkfstObj = brkfstObj;
+	
+	/*$scope.status = "Today's Breakfast Special";
+	$scope.imageSrc = "resources/images/ammeal/meal_01.jpg";
+	$scope.imageName = "Masala Dosa";
+	$scope.brkfstInfo = "Masala Dosa with Chutney";*/
 		
 		var totalAmt = 1000;
 		
@@ -69,27 +78,96 @@ controller('AmMealCtrl', function ($scope,$http) {
 		}];
 		
 		var finalAmt = 0;
+		
+		$scope.chooseItems = function(){
+			angular.forEach($scope.complItems, function(value,key){
+				if(value.selected){
+					value.selected = false;
+				}
+			});
+			
+			$scope.favoriteSuppl = "";
+			$scope.showModal = true;
+			
+			$("#myAddonModal").modal('show');
+		};
+		$scope.cancelled = false;
+		$scope.cancelAllItems = function(brkfstObj){
+			delete $scope.brkfstObj;
+			angular.element(brkfstObj).attr("imgSrc","");
+			$scope.cancelled = true;
+			//$scope.brkfstObj.imgSrc = "";
+			$scope.show = false;
+		}
+		
 		$scope.updateSelection = function(){
 			$scope.supplflag = false;
 			$scope.alertShow = false;
-			angular.forEach($scope.complItems, function(value,key){
-				if(value.selected){
-					$scope.supplflag = true;
-				}
-			});
+			/*angular.forEach($scope.complItems, function(value,key){
+			if(value.selected){
+				$scope.supplflag = true;
+			}
+		});*/
+		
+		angular.forEach($scope.suppleItems, function(value,key){
+			if(value.Item==$scope.favoriteSuppl){
+				$scope.supplflag = true;
+			}
+		});
+		
+		if ($scope.supplflag) {
+			if(confirm("Do you want to replace the selected item with existing?")){
+				angular.forEach($scope.suppleItems, function(value,key){
+					if(value.Item==$scope.favoriteSuppl){
+						//value.selected = false;
+						$scope.supplflag = false;
+						$scope.favoriteSuppl = "";
+					}
+				});
+			}else{
+				event.preventDefault();
+				//$scope.supplflag = true;
+				angular.forEach($scope.complItems, function(value,key){
+					if(value.selected){
+						value.selected = false;
+					}
+				});
+			}
 		}
+	}
 		
 		$scope.favoriteSuppl = "" ;
 
 		$scope.updateSelectionSuppl = function(){
 			$scope.complflag = false;
 			$scope.alertShow = false;
-			angular.forEach($scope.suppleItems, function(value,key){
-				if(value.Item==$scope.favoriteSuppl){
-					$scope.complflag = true;
-				}
-			});
+			/*angular.forEach($scope.suppleItems, function(value,key){
+			if(value.Item==$scope.favoriteSuppl){
+				$scope.complflag = true;
+			}
+		});*/
+		
+		angular.forEach($scope.complItems, function(value,key){
+			if(value.selected){
+				$scope.complflag = true;
+			}
+		});
+		
+		if ($scope.complflag) {
+			if(confirm("Do you want to replace the selected item with existing?")){
+				angular.forEach($scope.complItems, function(value,key){
+					if(value.selected){
+						value.selected = false;
+						$scope.complflag = false;
+					}
+				});
+			}else{
+				event.preventDefault();
+				//$scope.complflag = true;
+				$scope.favoriteSuppl = "";
+			}
 		}
+	}
 		
 		$scope.addFinalItems = function(){
 			$scope.show = false;
