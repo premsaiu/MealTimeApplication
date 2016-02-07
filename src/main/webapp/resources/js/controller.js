@@ -3,6 +3,7 @@
 angular.module('miniMealApp.controllers', []).
 
 	controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
+		$rootScope.validUser = false;
 	$scope.checkUser = function(){
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		UserService.checkUser($scope.mobileNumber).then(
@@ -11,6 +12,7 @@ angular.module('miniMealApp.controllers', []).
                 		$rootScope.user = {firstName : "Visitor", lastName : ""};
                 	}else{
                 		$rootScope.user = response.data;
+                		$rootScope.validUser = true;
                 	}
                },
                 function(errResponse){
@@ -141,8 +143,76 @@ controller('PaymentCtrl', function ($scope,$http) {
 	alert("In Payment Controller");
 	
 }).
-controller('ProfileCtrl', function ($scope,$http) {
+controller('ProfileCtrl', function ($scope,$rootScope,$http) {
 	
-	alert("In Profile Controller");
+	if($rootScope.validUser == false){
+		location.href = "#/addprofile";
+	}
+	
+	
+}).
+controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
+	
+	$scope.addProfile = function(){
+		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+                function(response) {
+                	debugger;
+                	if(response.status == 200){
+                		$('#otpModal').modal('show');
+                	}else{
+                		console.log("Bad Request");
+                	}
+               },
+                function(errResponse){
+                    console.error('Something went wrong!!');
+                }
+       );
+		
+		
+	}
+	
+	$scope.verifyOTP = function(){
+		//$scope.file.files[0]
+		UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+				 function(response) {
+					 	if(response.status == 200){
+	                		$('#otpModal').modal('hide');
+	                		console.log(response.data);
+	                		$scope.submitProfile();
+	                	}else{
+	                		console.log("Bad Request");
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Something went wrong!!');
+	                }
+	       );
+	}
+	
+	$scope.submitProfile = function(){
+		var jsonObj = {};
+		jsonObj.firstName = $scope.firstName;
+		jsonObj.lastName = $scope.lastName;
+		jsonObj.email = $scope.email;
+		jsonObj.mobileNumber = $scope.mobileNumber;
+		jsonObj.address = $scope.address;
+		jsonObj.foodStyleS1 = $scope.foodType;
+		jsonObj.foodStyleS2 = $scope.foodStyle;
+		console.log($scope.profilePic);
+		var file = $('#profilePic')[0].files[0];
+		console.log(file);
+		UserService.addUser(jsonObj, file).then(
+				 function(response) {
+					 	if(response.status == 200){
+	                		location.href = "#/viewprofile";
+	                	}else{
+	                		console.log("Bad Request");
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Something went wrong!!');
+	                }
+	       );
+	}
 	
 });

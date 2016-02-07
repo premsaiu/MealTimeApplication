@@ -33,5 +33,6 @@
     <script src="resources/js/routes.js"></script>
     <script src="resources/js/services.js"></script>
     <script src="resources/js/controller.js"></script>
+    <script src="resources/js/directives.js"></script>
   </body>
 </html>

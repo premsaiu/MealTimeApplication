@@ -1,5 +1,7 @@
 package com.mealtime.util;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.Message;
@@ -34,6 +36,26 @@ public class MealTimeUtil {
             }  
 		};  
 		mailSender.send(messagePreparator);
+	}
+	
+	public static void populateWSResponseStatusSuccessResponse(
+			WSResponseStatus wsResponseStatus) {
+		wsResponseStatus.setStatusCode("200");
+		wsResponseStatus.setStatusMessage("success");
+	
+	}
+	
+	public static void populateWSResponseStatusFailsureStatusResponse(
+			WSResponseStatus wsResponseStatus, String errorMsg) {
+		if(wsResponseStatus==null){
+			wsResponseStatus = new WSResponseStatus();
+			Map<String,Object> dataMap = new HashMap<String, Object>(0);
+			wsResponseStatus.setDataMap(dataMap);
+		}
+		wsResponseStatus.setStatusCode("500");
+		wsResponseStatus.setStatusMessage("fail");
+		wsResponseStatus.setErrorMsg(errorMsg);
+		
 	}
 
 }

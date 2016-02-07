@@ -97,6 +97,25 @@ public class MealTimeService {
 		mealTimeUtil.sendEmail(toAddress, fromAddress, subject, msgBody);
 	}
 	
+	public boolean verifyOTP(String mobileNo, String submittedOTP){
+		OtpTable otpTable = otpTableDAO.findByMobileNumber(mobileNo);
+		if(otpTable ==  null){
+			return false;
+		}else{
+			//Date otpTime = otpTable.getOtpTime();
+			//System.out.println("otpTime::"+otpTime);
+			//System.out.println("otpTime in secs::"+otpTime.getTime()/1000);
+			//long diffTimeSecs = (new Date().getTime() - otpTime.getTime()) / 1000;
+			//System.out.println("Time difference in secs :: "+diffTimeSecs);
+			//if(otpTable.getOtp().equals(submittedOTP) && diffTimeSecs < 900){
+			if(otpTable.getOtp().equals(submittedOTP)){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+	
 	public int saveProfile(UserMaster userMaster){
 		int userId = 0;
 		userMaster.setRoleId(2);
