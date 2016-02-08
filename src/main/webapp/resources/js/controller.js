@@ -37,16 +37,27 @@ controller('AboutUsCtrl', function ($scope,$http) {
   
 controller('AmMealCtrl', function ($scope,$http,UserService) {
 	
+	UserService.getSubListItems().then(
+            function(response) {
+            	$scope.complItems = response.data;
+            	$scope.suppleItems = response.data;
+            },
+            function(errResponse){
+                console.error('Error while checking user');
+            }
+   );
+	
 	var brkfstObj = {
 			status: "Today's Breakfast Special",
 			imgSrc: "resources/images/ammeal/meal_01.jpg",
 			imageName: "Masala Dosa",
-			brkfstInfo: "Masala Dosa with Chutney"
+			brkfstInfo: "Masala Dosa with Chutney",
+			cost: 20.00
 	}
 	
 	$scope.brkfstObj = brkfstObj;
 		
-		var totalAmt = 1000;
+		$scope.totalAmt = 1000;
 		
 		$scope.complflag = false;
 		$scope.supplflag = false;
@@ -130,6 +141,28 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 			}
 		}
 		
+		$scope.payment = function(){
+
+			$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+			
+			angular.forEach($scope.suppleItems, function(value,key){
+				if(value.Item==$scope.favoriteSuppl){
+					if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
+						$scope.totalAmt = $scope.totalAmt - value.cost;
+					}else{
+						$scope.totalAmt = 1000;
+						
+						var index = $scope.finalData.indexOf(value);
+						$scope.finalData.splice(index, 1);
+						
+						$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+						$scope.show = false;
+						return false;
+					}
+				}
+			});
+		}
+		
 		$scope.updateSelection = function(){
 			$scope.supplflag = false;
 			$scope.alertShow = false;
@@ -202,21 +235,21 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		$scope.addFinalItems = function(){
 			$scope.show = false;
 			$scope.finalData = [];
-			var totalAmt = 1000;
+			$scope.totalAmt = 1000;
 			angular.forEach($scope.complItems, function(value,key){
 				if(value.selected){
 					$scope.show = true;
 					$scope.finalData.push(value);
-					finalAmt = totalAmt - value.cost;
-					totalAmt = finalAmt;
+					finalAmt = $scope.totalAmt - value.cost;
+					$scope.totalAmt = finalAmt;
 				}
 			});
 			angular.forEach($scope.suppleItems, function(value1,key1){
 				if(value1.Item==$scope.favoriteSuppl && $scope.favoriteSuppl != ''){
 					$scope.show = true;
 					$scope.finalData.push(value1);
-					finalAmt = totalAmt - value1.cost;
-					totalAmt = finalAmt;
+					finalAmt = $scope.totalAmt - value1.cost;
+					$scope.totalAmt = finalAmt;
 				}
 			});
 			
@@ -232,6 +265,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 			var index = $scope.finalData.indexOf(data);
 			$scope.finalData.splice(index, 1);
 			finalAmt = finalAmt + data.cost;
+			$scope.totalAmt = finalAmt;
 			
 			if($scope.finalData.length == 0){
 				$scope.show = false;

@@ -6,10 +6,13 @@ package com.mealtime.dao.impl.spring;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.mealtime.bean.AmSubItems;
 import com.mealtime.dao.AmSubItemsDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +27,9 @@ public class AmSubItemsDAOImplSpring extends GenericDAO<AmSubItems> implements A
 
 	private final static String SQL_SELECT = 
 		"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from am_sub_items where item_id = ?";
+
+	private final static String SQL_SELECT_ITEMS = 
+			"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from am_sub_items where item_id = ?";
 
 
 	private final static String SQL_INSERT = 
@@ -253,6 +259,16 @@ public class AmSubItemsDAOImplSpring extends GenericDAO<AmSubItems> implements A
 		if ( rs.wasNull() ) { amSubItems.setVersion(null); }; // not primitive number => keep null value if any
 	}
 
+	public List<AmSubItems> getItemsList(){
+		try{
+			//not yet done
+			
+			return (List<AmSubItems>) getJdbcTemplate().queryForObject(SQL_SELECT_ITEMS, new Object[]{}, getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Empty Result Access Exception occured in getItemsList method::"+e.getMessage());
+			return null;
+		}
+	}
     //----------------------------------------------------------------------
 	/**
 	 * Specific inner class for 'RowMapper' implementation

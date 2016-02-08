@@ -4,6 +4,8 @@
  */
 package com.mealtime.dao;
 
+import java.util.List;
+
 import com.mealtime.bean.AmSubItems;
 
 /**
@@ -84,5 +86,7 @@ public interface AmSubItemsDAO {
 	 * @return
 	 */
 	public long count() ;
+	
+	public List<AmSubItems> getItemsList();
 
 }

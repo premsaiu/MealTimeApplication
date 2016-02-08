@@ -46,4 +46,13 @@ angular.module('miniMealApp.services',[])
         return request;
     };
     
+    this.getSubListItems = function(){
+    	var request = $http({
+    		method:"get",
+    		url:"http://localhost:8080/MealTimeApplication/subItems.spring",
+    		dataType: "application/json"
+    	});
+    	return request; 
+    }
+    
 }]);
