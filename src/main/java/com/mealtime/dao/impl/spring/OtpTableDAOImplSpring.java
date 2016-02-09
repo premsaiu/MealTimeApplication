@@ -233,7 +233,7 @@ public class OtpTableDAOImplSpring extends GenericDAO<OtpTable> implements OtpTa
 		otpTable.setOtp(rs.getString("otp")); // java.lang.String
 		otpTable.setCreatedDate(rs.getDate("created_date")); // java.util.Date
 		otpTable.setUpdatedDate(rs.getDate("updated_date")); // java.util.Date
-		otpTable.setOtpTime(rs.getDate("otp_time")); // java.util.Date
+		otpTable.setOtpTime(rs.getTimestamp("otp_time")); // java.util.Date
 	}
 
     //----------------------------------------------------------------------

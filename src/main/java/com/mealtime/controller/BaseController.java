@@ -5,13 +5,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,9 +31,11 @@ public class BaseController {
 	@Autowired
 	MealTimeUtil mealTimeUtil;
 	
+	private static final Logger logger = Logger.getLogger(BaseController.class);
+	
 	@RequestMapping(value = "/checkUser", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody UserMaster checkUser(@RequestParam("mobileNo")String mobileNumber){
-		System.out.println("In Base Controller :: checkUser()");
+		logger.info("checkUser():: mobileNo: "+mobileNumber);
 		UserMaster user =  new UserMaster();
 		user = mealTimeService.checkUser(mobileNumber);
 		return user;
@@ -44,13 +44,15 @@ public class BaseController {
 	
 	@RequestMapping(value="/sendOTP", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody WSResponseStatus sendOTP(@RequestParam("mobileNo")String mobileNumber, @RequestParam("email")String email){
+		logger.info("sendOTP():: mobileNo: "+mobileNumber+" ::email: "+email);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		//generate otp
 		int otp = mealTimeUtil.generateOTP();
 		//save otp in table
 		mealTimeService.saveOTP(otp, mobileNumber, email);
 		//sms otp
-		int flag = mealTimeService.smsOTP(otp, mobileNumber);
+		int flag = 1;
+		//int flag = mealTimeService.smsOTP(otp, mobileNumber);
 		//email otp
 		mealTimeService.emailOTP(otp, email);
 		if(flag == 0){
@@ -64,21 +66,24 @@ public class BaseController {
 	
 	@RequestMapping(value="/verifyOTP", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody WSResponseStatus verifyOTP(@RequestParam("mobileNo")String mobileNumber, @RequestParam("otp") String submittedOTP ){
+		logger.info("mobileNo: "+mobileNumber+" ::otp: "+submittedOTP);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		boolean bol = mealTimeService.verifyOTP(mobileNumber, submittedOTP);
 		if(bol == true){
+			logger.info("OTP is correct");
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}else{
-			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to send OTP");
+			logger.info("Invalid OTP");
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Invalid OTP");
 		}
 		return wsResponseStatus;
 	}
 	
 	@RequestMapping(value="/saveProfile", method = RequestMethod.POST, produces="application/json", consumes = {"multipart/form-data"})
 	public @ResponseBody WSResponseStatus saveProfile(@RequestParam("model") String objStr, @RequestParam("file") MultipartFile file){
-		System.out.println("In Base Controller :: saveProfile()");
+		logger.info("saveProfile() :: objStr: "+objStr+" ::file: "+file);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
-		UserMaster userMaster = null;
+		UserMaster userMaster = new UserMaster();
 		if (!file.isEmpty()) {
 			try {
 				userMaster = new ObjectMapper().readValue(objStr, UserMaster.class);
@@ -94,7 +99,7 @@ public class BaseController {
                 String fileName = userMaster.getMobileNumber()+".jpg";
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
-                System.out.println("Catalina Home::"+rootPath);
+                logger.info("Catalina Home::"+rootPath);
                 File dir = new File(rootPath+File.separator+"MealTime_User_Images");
                 if (!dir.exists())
                     dir.mkdirs();
@@ -106,16 +111,16 @@ public class BaseController {
                 stream.write(bytes);
                 stream.close();
  
-                System.out.println("Server File Location="
+                logger.info("Server File Location="
                         + serverFile.getAbsolutePath());
                 userMaster.setFilePath(serverFile.getAbsolutePath());
-                System.out.println("You successfully uploaded file=" + fileName);
+                logger.info("You successfully uploaded file=" + fileName);
             } catch (Exception e) {
-                System.out.println("You failed to upload " + userMaster.getMobileNumber() + " => " + e.getMessage());
+                logger.error("You failed to upload " + userMaster.getMobileNumber() + " => " + e.getMessage());
                 MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
             }
         } else {
-            System.out.println("You failed to upload " + userMaster.getMobileNumber()
+            logger.info("You failed to upload " + userMaster.getMobileNumber()
                     + " because the file was empty.");
             MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
         }
@@ -124,8 +129,8 @@ public class BaseController {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Insert Failed");
 		}else{
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-			wsResponseStatus.setData(userMaster);
 		}
+		wsResponseStatus.setData(userMaster);
 		return wsResponseStatus;
 	}
 	

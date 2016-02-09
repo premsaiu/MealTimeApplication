@@ -5,7 +5,7 @@
 package com.mealtime.bean;
 
 import java.io.Serializable;
-
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -41,7 +41,7 @@ public class OtpTable implements Serializable {
     private Date updatedDate;
 
     // DB : otp_time TIMESTAMP 
-    private Date otpTime;
+    private Timestamp otpTime;
 
 
 
@@ -87,10 +87,10 @@ public class OtpTable implements Serializable {
         return this.updatedDate;
     }
 
-    public void setOtpTime( Date otpTime ) {
+    public void setOtpTime( Timestamp otpTime ) {
         this.otpTime = otpTime;
     }
-    public Date getOtpTime() {
+    public Timestamp getOtpTime() {
         return this.otpTime;
     }
 

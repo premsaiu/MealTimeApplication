@@ -3,10 +3,10 @@ package com.mealtime.service;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,43 +32,37 @@ public class MealTimeService {
 	@Autowired
 	OtpTableDAO otpTableDAO;
 	
+	private static final Logger logger = Logger.getLogger(MealTimeService.class);
+	
 	public UserMaster checkUser(String mobileNumber){
-		System.out.println("In MealTimeService :: checkUser()");
+		logger.info("checkUser() :: mobileNumber: "+mobileNumber);
 		return userMasterDAO.findByMobileNumber(mobileNumber);
 	}
 	
 	public void saveOTP(Integer otp, String mobileNo, String email){
-		try{
-			System.out.println("In MealTimeService :: saveOTP() :: mobileNumber: "+mobileNo+":: email: "+email);
-			OtpTable otpTable = new OtpTable();
-			otpTable.setMobileNumber(mobileNo);
-			otpTable.setEmail(email);
-			otpTable.setOtp(String.valueOf(otp));
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String dateStr = sdf.format(date);
-			Date currentTime = sdf.parse(dateStr);
-			otpTable.setOtpTime(currentTime);
-			OtpTable otpTable2 = otpTableDAO.findByMobileNumber(mobileNo);
-			if(otpTable2 == null){
-				otpTableDAO.insert(otpTable);
-			}else{
-				otpTable2.setOtp(String.valueOf(otp));
-				otpTable2.setOtpTime(currentTime);
-				otpTableDAO.updateByMobileNumber(otpTable2);
-			}
-		}catch(ParseException pe){
-			System.out.println("ParseException raised while parsing date in MealTime Service::saveOTP()"+pe.getMessage());
+		logger.info("saveOTP() :: mobileNumber: "+mobileNo+":: email: "+email);
+		OtpTable otpTable = new OtpTable();
+		otpTable.setMobileNumber(mobileNo);
+		otpTable.setEmail(email);
+		otpTable.setOtp(String.valueOf(otp));
+		Date date = new Date();
+		Timestamp currTime = new java.sql.Timestamp(date.getTime());
+		otpTable.setOtpTime(currTime);
+		OtpTable otpTable2 = otpTableDAO.findByMobileNumber(mobileNo);
+		if(otpTable2 == null){
+			otpTableDAO.insert(otpTable);
+		}else{
+			otpTable2.setOtp(String.valueOf(otp));
+			otpTable2.setOtpTime(currTime);
+			otpTableDAO.updateByMobileNumber(otpTable2);
 		}
 	}
 	
 	public Integer smsOTP(int otp, String mobileNo){
-		System.out.println("In MealTimeService :: smsOTP() :: mobileNumber: "+mobileNo);
+		logger.info("smsOTP() :: mobileNumber: "+mobileNo+" ::otp: "+otp);
 		String message = "";
 		message = "test message "+otp;
 		//message = "test message."+otp+" is your OTP. Treat this as confidential. Sharing it with anyone gives them full access to your MealTime account.";
-		System.out.println("otp:::"+otp);
-		System.out.println("message::"+message);
 		try {
 			sendSMS.processSMS(mobileNo, message);
 		} catch (KeyManagementException e) {
@@ -85,7 +79,7 @@ public class MealTimeService {
 	}
 	
 	public void emailOTP(Integer otp, String email){
-		System.out.println("In MealTimeService :: emailOTP() :: email: "+email);
+		logger.info("emailOTP() :: email: "+email+" ::otp: "+otp);
 		String fromAddress = "premcse41@gmail.com";
 		String toAddress = email;
 		String subject = "MealTime - One Time Password(OTP) ";
@@ -98,17 +92,18 @@ public class MealTimeService {
 	}
 	
 	public boolean verifyOTP(String mobileNo, String submittedOTP){
+		logger.info("verifyOTP() :: mobileNo: "+mobileNo+" ::submittedOTP: "+submittedOTP);
 		OtpTable otpTable = otpTableDAO.findByMobileNumber(mobileNo);
 		if(otpTable ==  null){
 			return false;
 		}else{
-			//Date otpTime = otpTable.getOtpTime();
-			//System.out.println("otpTime::"+otpTime);
-			//System.out.println("otpTime in secs::"+otpTime.getTime()/1000);
-			//long diffTimeSecs = (new Date().getTime() - otpTime.getTime()) / 1000;
-			//System.out.println("Time difference in secs :: "+diffTimeSecs);
-			//if(otpTable.getOtp().equals(submittedOTP) && diffTimeSecs < 900){
-			if(otpTable.getOtp().equals(submittedOTP)){
+			Timestamp otpTime = otpTable.getOtpTime();
+			logger.info("otpTime::"+otpTime.getTime());
+			logger.info("otpTime in secs::"+otpTime.getTime()/1000);
+			long diffTimeSecs = (new Date().getTime() - otpTime.getTime()) / 1000;
+			logger.info("Time difference in secs :: "+diffTimeSecs);
+			if(otpTable.getOtp().equals(submittedOTP) && diffTimeSecs < 900){
+			//if(otpTable.getOtp().equals(submittedOTP)){
 				return true;
 			}else{
 				return false;
