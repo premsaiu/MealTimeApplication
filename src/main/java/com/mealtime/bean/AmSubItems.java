@@ -62,8 +62,8 @@ public class AmSubItems implements Serializable {
 
     // DB : version INT 
     private Integer version;
-
-
+    
+    private boolean selected;
 
     //----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
@@ -196,7 +196,21 @@ public class AmSubItems implements Serializable {
         sb.append("|");
         sb.append(version);
         return sb.toString(); 
-    } 
+    }
+
+	/**
+	 * @return the selected
+	 */
+	public boolean isSelected() {
+		return selected;
+	}
+
+	/**
+	 * @param selected the selected to set
+	 */
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	} 
 
 
 }
