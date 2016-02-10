@@ -8,13 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
 import com.mealtime.bean.AmSubItems;
 import com.mealtime.dao.AmSubItemsDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
-
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * AmSubItems DAO implementation 
@@ -25,6 +27,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AmSubItemsDAOImplSpring extends GenericDAO<AmSubItems> implements AmSubItemsDAO {
 
+	private static final Logger logger = Logger.getLogger(AmSubItemsDAOImplSpring.class);
+	
 	private final static String SQL_SELECT = 
 		"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from am_sub_items where item_id = ?";
 
@@ -261,11 +265,9 @@ public class AmSubItemsDAOImplSpring extends GenericDAO<AmSubItems> implements A
 
 	public List<AmSubItems> getItemsList(){
 		try{
-			//not yet done
-			
-			return (List<AmSubItems>) getJdbcTemplate().queryForObject(SQL_SELECT_ITEMS, new Object[]{}, getRowMapper());
+			return getJdbcTemplate().query(SQL_SELECT_ITEMS,new BeanPropertyRowMapper<AmSubItems>(AmSubItems.class));
 		}catch(EmptyResultDataAccessException e){
-			System.out.println("Empty Result Access Exception occured in getItemsList method::"+e.getMessage());
+			logger.error("Empty Result Access Exception occured in getItemsList method::"+e.getMessage());
 			return null;
 		}
 	}
