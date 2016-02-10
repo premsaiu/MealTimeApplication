@@ -3,30 +3,32 @@
 angular.module('miniMealApp.controllers', []).
 
 	controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
-		$rootScope.loginUser = false;
-	$scope.checkUser = function(){
-		console.log("Mobile Number::"+$scope.mobileNumber);
-		$rootScope.mobileNumber = $scope.mobileNumber;
-		UserService.checkUser($scope.mobileNumber).then(
-                function(response) {
-                	if(response.data == "" || response.data == null){
-                		$rootScope.userName = "Visitor";
-                	}else{
-                		$rootScope.user = response.data;
-                		console.log($rootScope.user);
-                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
-                		$rootScope.loginUser = true;
-                	}
-               },
-                function(errResponse){
-                    console.error('Error while checking user');
-                }
-       );
-		$('#myModal').modal('hide');
-	}
-	$scope.modalShow = function(){
-		$('#myModal').modal('show');
-	}
+		$scope.modalShow = function(){
+			$('#myModal').modal('show');
+		}
+		if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
+			$scope.modalShow();
+		}
+		$scope.checkUser = function(){
+			console.log("Mobile Number::"+$scope.mobileNumber);
+			$rootScope.mobileNumber = $scope.mobileNumber;
+			UserService.checkUser($scope.mobileNumber).then(
+	                function(response) {
+	                	$rootScope.loggedUser = true;
+	                	if(response.data == "" || response.data == null){
+	                		$rootScope.userName = "Visitor";
+	                	}else{
+	                		$rootScope.user = response.data;
+	                		console.log($rootScope.user);
+	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Error while checking user');
+	                }
+	       );
+			$('#myModal').modal('hide');
+		}
   }).
 
 controller('AboutUsCtrl', function ($scope,$http) {
@@ -322,7 +324,6 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	$scope.addProfile = function(){
 		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
                 function(response) {
-                	debugger;
                 	if(response.status == 200){
                 		$('#otpModal').modal('show');
                 	}else{
@@ -369,8 +370,9 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 		console.log(file);
 		UserService.addUser(jsonObj, file).then(
 				 function(response) {
-					 	if(response.status == 200){
-					 		$rootScope.user = response.data;
+					 if(response.data.statusCode == 200){
+					 		console.log(response.data.data);
+					 		$rootScope.user = response.data.data;
 					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                		location.href = "#/profile";
 	                	}else{

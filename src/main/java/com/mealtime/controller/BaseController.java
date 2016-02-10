@@ -124,12 +124,12 @@ public class BaseController {
                     + " because the file was empty.");
             MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
         }
-		int userId = mealTimeService.saveProfile(userMaster);
-		if(userId == 0){
+		mealTimeService.saveProfile(userMaster);
+		/*if(userId == 0){
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Insert Failed");
-		}else{
+		}else{*/
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-		}
+		//}
 		wsResponseStatus.setData(userMaster);
 		return wsResponseStatus;
 	}
