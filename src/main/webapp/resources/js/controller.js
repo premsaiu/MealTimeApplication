@@ -37,15 +37,12 @@ controller('AboutUsCtrl', function ($scope,$http) {
   
 controller('AmMealCtrl', function ($scope,$http,UserService) {
 	
-	UserService.getSubListItems().then(
-            function(response) {
-            	$scope.complItems = response.data;
-            	$scope.suppleItems = response.data;
-            },
-            function(errResponse){
-                console.error('Error while checking user');
-            }
-   );
+	UserService.getSubListItems().then(function(response) {
+            	$scope.complItems = response.data[1];
+            	$scope.suppleItems = response.data[2];
+            },function(errResponse){
+                console.error('Error while retrieving getSubListItems');
+     });
 	
 	var brkfstObj = {
 			status: "Today's Breakfast Special",
@@ -100,10 +97,8 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		$scope.cancelled = false;
 		$scope.cancelAllItems = function(brkfstObj){
 			if(confirm("Are you sure you want to cancel?")){
-				debugger;
 				UserService.sendOTP($scope.mobileNumber, $scope.email).then(
 		                function(response) {
-		                	debugger;
 		                	if(response.status == 200){
 		                		$('#otpModal').modal('show');
 		                	}else{
@@ -116,16 +111,14 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		       );
 				
 				$scope.verifyOTP = function(){
-					//$scope.file.files[0]
 					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
 							 function(response) {
 								 	if(response.status == 200){
 				                		$('#otpModal').modal('hide');
 				                		console.log(response.data);
 				                		delete $scope.brkfstObj;
-				        				angular.element(brkfstObj).attr("imgSrc","");
+				        				//angular.element(brkfstObj).attr("imgSrc","");
 				        				$scope.cancelled = true;
-				        				//$scope.brkfstObj.imgSrc = "";
 				        				$scope.show = false;
 				                	}else{
 				                		console.log("Bad Request");
@@ -142,25 +135,52 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		}
 		
 		$scope.payment = function(){
-
-			$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
 			
-			angular.forEach($scope.suppleItems, function(value,key){
-				if(value.Item==$scope.favoriteSuppl){
-					if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
-						$scope.totalAmt = $scope.totalAmt - value.cost;
-					}else{
-						$scope.totalAmt = 1000;
-						
-						var index = $scope.finalData.indexOf(value);
-						$scope.finalData.splice(index, 1);
-						
-						$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
-						$scope.show = false;
-						return false;
-					}
+			if(!angular.isDefined($scope.finalData) || $scope.finalData.length == 0){
+				if(confirm("Your default breakfast order to be placed")){
+					$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+				}else{
+					//$scope.totalAmt = $scope.totalAmt; // Final Amount from the Admin Table
+					return;
 				}
-			});
+			}
+
+			
+			if(angular.isDefined($scope.finalData) && $scope.finalData.length !== 0){
+				angular.forEach($scope.suppleItems, function(value,key){
+					if(value.Item==$scope.favoriteSuppl){
+						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
+							$scope.totalAmt = $scope.totalAmt - value.cost;
+						}else{
+							$scope.totalAmt = 1000;
+							
+							var index = $scope.finalData.indexOf(value);
+							$scope.finalData.splice(index, 1);
+							
+							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+							$scope.show = false;
+							return false;
+						}
+					}
+				});
+			
+				angular.forEach($scope.complItems, function(value,key){
+					if(value.selected){
+						if(confirm("Your want to add complemenatary Items with default breakfast?")){
+							$scope.totalAmt = $scope.totalAmt - value.cost;
+						}else{
+							$scope.totalAmt = 1000;
+							
+							var index = $scope.finalData.indexOf(value);
+							$scope.finalData.splice(index, 1);
+							
+							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+							$scope.show = false;
+							return false;
+						}
+					}
+				});
+			}
 		}
 		
 		$scope.updateSelection = function(){
@@ -262,6 +282,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		}
 		
 		$scope.deleteItem = function(data){
+			
 			var index = $scope.finalData.indexOf(data);
 			$scope.finalData.splice(index, 1);
 			finalAmt = finalAmt + data.cost;
