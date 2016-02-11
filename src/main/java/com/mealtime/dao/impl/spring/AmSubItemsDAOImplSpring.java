@@ -33,7 +33,7 @@ public class AmSubItemsDAOImplSpring extends GenericDAO<AmSubItems> implements A
 		"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from am_sub_items where item_id = ?";
 
 	private final static String SQL_SELECT_ITEMS = 
-			"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from am_sub_items where item_id = ?";
+			"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from am_sub_items";
 
 
 	private final static String SQL_INSERT = 
