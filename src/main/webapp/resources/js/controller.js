@@ -40,22 +40,22 @@ controller('AboutUsCtrl', function ($scope,$http) {
 controller('AmMealCtrl', function ($scope,$http,UserService) {
 	
 	$scope.complItems = [{
-		"ImgSrc" : "resources/images/ammeal/meal_01.jpg",
-		"Item" : "Allam Chutney",
+		"imagePath" : "resources/images/ammeal/meal_01.jpg",
+		"itemName" : "Allam Chutney",
 		"cost" : 20.00
 	},{
-		"ImgSrc" : "resources/images/ammeal/meal_02.jpg",
-		"Item" : "Coconut Chutney",
+		"imagePath" : "resources/images/ammeal/meal_02.jpg",
+		"itemName" : "Coconut Chutney",
 		"cost" : 10.00
 	}];
 	
 	$scope.suppleItems = [{
-		"ImgSrc" : "resources/images/ammeal/meal_03.jpg",
-		"Item" : "Idly",
+		"imagePath" : "resources/images/ammeal/meal_03.jpg",
+		"itemName" : "Idly",
 		"cost" : 20.00
 	},{
-		"ImgSrc" : "resources/images/ammeal/meal_04.jpg",
-		"Item" : "Wada",
+		"imagePath" : "resources/images/ammeal/meal_04.jpg",
+		"itemName" : "Wada",
 		"cost" : 15.00
 	}];
 	
@@ -139,7 +139,6 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		}
 		
 		$scope.payment = function(){
-			
 			if(!angular.isDefined($scope.finalData) || $scope.finalData.length == 0){
 				if(confirm("Your default breakfast order to be placed")){
 					$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
@@ -148,11 +147,10 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 					return;
 				}
 			}
-
 			
 			if(angular.isDefined($scope.finalData) && $scope.finalData.length !== 0){
 				angular.forEach($scope.suppleItems, function(value,key){
-					if(value.Item==$scope.favoriteSuppl){
+					if(value.itemName == $scope.favoriteSuppl){
 						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
 							$scope.totalAmt = $scope.totalAmt - value.cost;
 						}else{
@@ -197,7 +195,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		});*/
 		
 		angular.forEach($scope.suppleItems, function(value,key){
-			if(value.Item==$scope.favoriteSuppl){
+			if(value.itemName == $scope.favoriteSuppl){
 				$scope.supplflag = true;
 			}
 		});
@@ -205,7 +203,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		if ($scope.supplflag) {
 			if(confirm("Do you want to replace the selected item with existing?")){
 				angular.forEach($scope.suppleItems, function(value,key){
-					if(value.Item==$scope.favoriteSuppl){
+					if(value.itemName == $scope.favoriteSuppl){
 						//value.selected = false;
 						$scope.supplflag = false;
 						$scope.favoriteSuppl = "";
@@ -269,7 +267,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 				}
 			});
 			angular.forEach($scope.suppleItems, function(value1,key1){
-				if(value1.Item==$scope.favoriteSuppl && $scope.favoriteSuppl != ''){
+				if(value1.itemName == $scope.favoriteSuppl && $scope.favoriteSuppl != ''){
 					$scope.show = true;
 					$scope.finalData.push(value1);
 					finalAmt = $scope.totalAmt - value1.cost;
@@ -295,6 +293,18 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 			if($scope.finalData.length == 0){
 				$scope.show = false;
 			}
+			
+			angular.forEach($scope.complItems, function(value,key){
+				if(value.itemName == data.itemName){
+					value.selected = false;
+				}
+			});
+			
+			angular.forEach($scope.suppleItems, function(value,key){
+				if(value.itemName == data.itemName){
+					$scope.favoriteSuppl = "";
+				}
+			});
 		}
 }).
 

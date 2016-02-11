@@ -20,10 +20,10 @@
 				    <div data-ng-show="show" class="pull-left clearfix add-on-bg-01">
 				    	<h5 class="titile-05">Breakfast Add-on Meal's</h5>
 					    <div class="pull-left custom-thumbs" data-ng-repeat="data in finalData">
-							<img data-ng-src="{{data.ImgSrc}}" class="img-thumbnail" width="180" height="115">
+							<img data-ng-src="{{data.imagePath}}" class="img-thumbnail" width="180" height="115">
 							<div class="radio custom-thumbs-title" style="text-align: center">
 							   <label class="radio h40">
-							      {{data.Item}}
+							      {{data.itemName}}
 							   </label>
 							</div>
 							<a class="btn btn-primary center-block mb8" role="button" data-ng-click="deleteItem(data);">Delete Add-on</a>
@@ -60,10 +60,10 @@
 						  <div class="tab-content">
 						    <div role="tabpanel" class="tab-pane active" id="breakfast">
 							    <div class="pull-left custom-thumbs" data-ng-repeat="comple in complItems">
-								    <img data-ng-src="{{comple.ImgSrc}}" class="img-thumbnail" width="180" height="115">
+								    <img data-ng-src="{{comple.imagePath}}" class="img-thumbnail" width="180" height="115">
 								    <div class="radio custom-thumbs-title" style="text-align: center">
 								       <label class="radio">
-								         <input type="checkbox" id="Radio_break1" name="selected" data-ng-model="comple.selected" data-ng-click="updateSelection($event);">{{comple.Item}}
+								         <input type="checkbox" id="Radio_break1" name="selected" data-ng-model="comple.selected" data-ng-click="updateSelection($event);">{{comple.itemName}}
 								       </label>
 								   </div>
 								</div>
@@ -72,10 +72,10 @@
 						    
 						    <div role="tabpanel" class="tab-pane" id="supplimentary">
 						    	<div class="pull-left custom-thumbs" data-ng-repeat="suppl in suppleItems">
-								    <img data-ng-src="{{suppl.ImgSrc}}" class="img-thumbnail" width="180" height="115">
+								    <img data-ng-src="{{suppl.imagePath}}" class="img-thumbnail" width="180" height="115">
 								    <div id="new" class="radio custom-thumbs-title" style="text-align: center">
 								       <label class="radio">
-								         <input type="radio"  data-ng-model="$parent.favoriteSuppl" value="{{suppl.Item}}" data-ng-click="updateSelectionSuppl($event);">{{suppl.Item}}
+								         <input type="radio"  data-ng-model="$parent.favoriteSuppl" value="{{suppl.itemName}}" data-ng-click="updateSelectionSuppl($event);">{{suppl.itemName}}
 								      </label>
 								   </div>
 								</div>

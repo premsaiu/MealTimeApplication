@@ -55,4 +55,17 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
+    this.payment = function (obj) {
+        var request = $http({
+            method:"post",
+            url:  baseURL+'payment.spring',
+            data : obj,
+            headers : {
+                'Content-Type' : "application/json"
+               },
+            transformRequest : angular.identity,
+        });
+        return request;
+    };
+    
 }]);
