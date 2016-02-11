@@ -25,17 +25,18 @@ public class AMMealItemsService {
 		
 		Map<Integer,List<AmSubItems>> map = new HashMap<Integer,List<AmSubItems>>();
 		
-		List<AmSubItems> itemsList = new ArrayList<AmSubItems>();
+		List<AmSubItems> complItemsList = new ArrayList<AmSubItems>();
+		List<AmSubItems> supplItemsList = new ArrayList<AmSubItems>();
 		
 		for(AmSubItems item: amSubItems){
-			if(item.getItemType() == COMPLEMENTARY){
-				itemsList.add(item);
-				map.put(1, itemsList);
+			if(item.getItemType().equalsIgnoreCase(COMPLEMENTARY)){
+				complItemsList.add(item);
 			}else{
-				itemsList.add(item);
-				map.put(2,itemsList);
+				supplItemsList.add(item);
 			}
 		}
+		map.put(1, complItemsList);
+		map.put(2,supplItemsList);
 		return map;
 	}
 
