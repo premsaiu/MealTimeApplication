@@ -101,38 +101,50 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		$scope.cancelled = false;
 		$scope.cancelAllItems = function(brkfstObj){
 			if(confirm("Are you sure you want to cancel?")){
-				UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-		                function(response) {
-		                	if(response.status == 200){
-		                		$('#otpModal').modal('show');
-		                	}else{
-		                		console.log("Bad Request");
-		                	}
-		               },
-		                function(errResponse){
-		                    console.error('Something went wrong!!');
-		                }
-		       );
-				
-				$scope.verifyOTP = function(){
-					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
-							 function(response) {
-								 	if(response.status == 200){
-				                		$('#otpModal').modal('hide');
-				                		console.log(response.data);
-				                		delete $scope.brkfstObj;
-				        				//angular.element(brkfstObj).attr("imgSrc","");
-				        				$scope.cancelled = true;
-				        				$scope.show = false;
-				                	}else{
-				                		console.log("Bad Request");
-				                	}
-				               },
-				                function(errResponse){
-				                    console.error('Something went wrong!!');
-				                }
-				       );
-				}
+				UserService.checkUser($scope.mobileNumber).then(
+						 function(response) {
+			                	if(response.status == 200){
+			                		$scope.email = response.data.email;
+			                		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+			        		                function(response) {
+			        		                	if(response.status == 200){
+			        		                		$('#otpModal').modal('show');
+			        		                	}else{
+			        		                		console.log("Bad Request");
+			        		                	}
+			        		               },
+			        		                function(errResponse){
+			        		                    console.error('Something went wrong!!');
+			        		                }
+			        		       );
+			        				
+			        				$scope.verifyOTP = function(){
+			        					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+			        							 function(response) {
+			        								 	if(response.status == 200){
+			        				                		$('#otpModal').modal('hide');
+			        				                		console.log(response.data);
+			        				                		delete $scope.brkfstObj;
+			        				        				//angular.element(brkfstObj).attr("imgSrc","");
+			        				        				$scope.cancelled = true;
+			        				        				$scope.show = false;
+			        				                	}else{
+			        				                		console.log("Bad Request");
+			        				                	}
+			        				               },
+			        				                function(errResponse){
+			        				                    console.error('Something went wrong!!');
+			        				                }
+			        				       );
+			        				}
+			                	}else{
+			                		console.log("Bad Request");
+			                	}
+			               },
+			                function(errResponse){
+			                    console.error('Something went wrong!!');
+			                }	
+				);
 			}else{
 				return;
 			}
