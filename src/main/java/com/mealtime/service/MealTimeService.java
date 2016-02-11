@@ -111,11 +111,11 @@ public class MealTimeService {
 		}
 	}
 	
-	public int saveProfile(UserMaster userMaster){
-		int userId = 0;
+	public void saveProfile(UserMaster userMaster){
+		//int userId = 0;
 		userMaster.setRoleId(2);
-		userId  = userMasterDAO.insert(userMaster);
-		return userId;
+		userMasterDAO.insert(userMaster);
+		//return userId;
 	}
 	
 }
