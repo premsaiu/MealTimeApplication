@@ -2,11 +2,11 @@
 
 angular.module('miniMealApp.services',[])
 .service('UserService', ['$http', '$q', function($http, $q){
-
+	var baseURL = "http://localhost:8181/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
         var request = $http({
             method:"get",
-            url:  'http://localhost:8080/MealTimeApplication/checkUser.spring?mobileNo='+mobileNo,
+            url:  baseURL+'checkUser.spring?mobileNo='+mobileNo,
             dataType: "application/json"
         });
         return request;
@@ -15,7 +15,7 @@ angular.module('miniMealApp.services',[])
     this.sendOTP = function (mobileNo, email) {
         var request = $http({
             method:"get",
-            url:  'http://localhost:8080/MealTimeApplication/sendOTP.spring?mobileNo='+mobileNo+'&email='+email,
+            url:  baseURL+'sendOTP.spring?mobileNo='+mobileNo+'&email='+email,
             dataType: "application/json"
         });
         return request;
@@ -24,7 +24,7 @@ angular.module('miniMealApp.services',[])
     this.verifyOTP = function (mobileNo, otp) {
         var request = $http({
             method:"get",
-            url:  'http://localhost:8080/MealTimeApplication/verifyOTP.spring?mobileNo='+mobileNo+'&otp='+otp,
+            url:  baseURL+'verifyOTP.spring?mobileNo='+mobileNo+'&otp='+otp,
             dataType: "application/json"
         });
         return request;
@@ -36,7 +36,7 @@ angular.module('miniMealApp.services',[])
     	fd.append("model", JSON.stringify(obj));
         var request = $http({
             method:"post",
-            url:  'http://localhost:8080/MealTimeApplication/saveProfile.spring',
+            url:  baseURL+'saveProfile.spring',
             data : fd,
             headers : {
                 'Content-Type' : undefined
@@ -49,10 +49,10 @@ angular.module('miniMealApp.services',[])
     this.getSubListItems = function(){
     	var request = $http({
     		method:"get",
-    		url:"http://localhost:8080/MealTimeApplication/subItems.spring",
+    		url:baseURL+"subItems.spring",
     		dataType: "application/json"
     	});
     	return request; 
-    }
+    };
     
 }]);
