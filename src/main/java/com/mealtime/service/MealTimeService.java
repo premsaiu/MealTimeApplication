@@ -112,10 +112,14 @@ public class MealTimeService {
 	}
 	
 	public void saveProfile(UserMaster userMaster){
-		//int userId = 0;
 		userMaster.setRoleId(2);
 		userMasterDAO.insert(userMaster);
-		//return userId;
+	}
+	
+	public int updateProfile(UserMaster userMaster){
+		int count = 0;
+		count  = userMasterDAO.update(userMaster);
+		return count;
 	}
 	
 }

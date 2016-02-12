@@ -39,7 +39,7 @@ controller('AboutUsCtrl', function ($scope,$http) {
   
 controller('AmMealCtrl', function ($scope,$http,UserService) {
 	
-	$scope.complItems = [{
+	/*$scope.complItems = [{
 		"imagePath" : "resources/images/ammeal/meal_01.jpg",
 		"itemName" : "Allam Chutney",
 		"cost" : 20.00
@@ -57,7 +57,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		"imagePath" : "resources/images/ammeal/meal_04.jpg",
 		"itemName" : "Wada",
 		"cost" : 15.00
-	}];
+	}];*/
 	
 	var brkfstObj = {
 			status: "Today's Breakfast Special",

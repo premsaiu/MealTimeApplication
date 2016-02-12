@@ -84,16 +84,49 @@ public class BaseController {
 		logger.info("saveProfile() :: objStr: "+objStr+" ::file: "+file);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = new UserMaster();
+		try {
+			userMaster = new ObjectMapper().readValue(objStr, UserMaster.class);
+		} catch (JsonParseException e) {
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
+		} catch (JsonMappingException e) {
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
+		} catch (IOException e) {
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
+		}
+		uploadProfilePic(file, userMaster, wsResponseStatus);
+		mealTimeService.saveProfile(userMaster);
+		MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		wsResponseStatus.setData(userMaster);
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping(value="/updateProfile", method = RequestMethod.POST, produces="application/json", consumes = {"multipart/form-data"})
+	public @ResponseBody WSResponseStatus updateProfile(@RequestParam("model") String objStr, @RequestParam("file") MultipartFile file){
+		logger.info("saveProfile() :: objStr: "+objStr+" ::file: "+file);
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		UserMaster userMaster = new UserMaster();
+		try {
+			userMaster = new ObjectMapper().readValue(objStr, UserMaster.class);
+		} catch (JsonParseException e) {
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
+		} catch (JsonMappingException e) {
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
+		} catch (IOException e) {
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
+		}
+		uploadProfilePic(file, userMaster, wsResponseStatus);
+		int count = mealTimeService.updateProfile(userMaster);
+		if(count == 0){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Insert Failed");
+		}else{
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+			wsResponseStatus.setData(userMaster);
+		}
+		return wsResponseStatus;
+	}
+	
+	public void uploadProfilePic(MultipartFile file, UserMaster userMaster, WSResponseStatus wsResponseStatus){
 		if (!file.isEmpty()) {
-			try {
-				userMaster = new ObjectMapper().readValue(objStr, UserMaster.class);
-			} catch (JsonParseException e) {
-				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
-			} catch (JsonMappingException e) {
-				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
-			} catch (IOException e) {
-				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
-			}
             try {
                 byte[] bytes = file.getBytes();
                 String fileName = userMaster.getMobileNumber()+".jpg";
@@ -104,15 +137,11 @@ public class BaseController {
                 if (!dir.exists())
                     dir.mkdirs();
                 // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + fileName);
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
+                File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
- 
-                logger.info("Server File Location="
-                        + serverFile.getAbsolutePath());
+                logger.info("Server File Location=" + serverFile.getAbsolutePath());
                 userMaster.setFilePath(serverFile.getAbsolutePath());
                 logger.info("You successfully uploaded file=" + fileName);
             } catch (Exception e) {
@@ -120,18 +149,9 @@ public class BaseController {
                 MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
             }
         } else {
-            logger.info("You failed to upload " + userMaster.getMobileNumber()
-                    + " because the file was empty.");
+            logger.info("You failed to upload " + userMaster.getMobileNumber() + " because the file was empty.");
             MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
         }
-		mealTimeService.saveProfile(userMaster);
-		/*if(userId == 0){
-			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Insert Failed");
-		}else{*/
-			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-		//}
-		wsResponseStatus.setData(userMaster);
-		return wsResponseStatus;
 	}
 	
 }
