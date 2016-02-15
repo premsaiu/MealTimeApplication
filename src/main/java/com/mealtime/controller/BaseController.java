@@ -93,15 +93,20 @@ public class BaseController {
 		} catch (IOException e) {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 		}
-		uploadProfilePic(file, userMaster, wsResponseStatus);
-		mealTimeService.saveProfile(userMaster);
-		MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-		wsResponseStatus.setData(userMaster);
+		if (!file.isEmpty()) {
+			uploadProfilePic(file, userMaster, wsResponseStatus);
+			mealTimeService.saveProfile(userMaster);
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+			wsResponseStatus.setData(userMaster);
+		}else {
+            logger.info("You failed to upload " + userMaster.getMobileNumber() + " because the file was empty.");
+            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
+        }
 		return wsResponseStatus;
 	}
 	
 	@RequestMapping(value="/updateProfile", method = RequestMethod.POST, produces="application/json", consumes = {"multipart/form-data"})
-	public @ResponseBody WSResponseStatus updateProfile(@RequestParam("model") String objStr, @RequestParam("file") MultipartFile file){
+	public @ResponseBody WSResponseStatus updateProfile(@RequestParam("model") String objStr, @RequestParam(value="file", required=false) MultipartFile file){
 		logger.info("saveProfile() :: objStr: "+objStr+" ::file: "+file);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = new UserMaster();
@@ -117,7 +122,7 @@ public class BaseController {
 		uploadProfilePic(file, userMaster, wsResponseStatus);
 		int count = mealTimeService.updateProfile(userMaster);
 		if(count == 0){
-			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Insert Failed");
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Update Failed");
 		}else{
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 			wsResponseStatus.setData(userMaster);
@@ -126,32 +131,30 @@ public class BaseController {
 	}
 	
 	public void uploadProfilePic(MultipartFile file, UserMaster userMaster, WSResponseStatus wsResponseStatus){
-		if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-                String fileName = userMaster.getMobileNumber()+".jpg";
-                // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
-                logger.info("Catalina Home::"+rootPath);
-                File dir = new File(rootPath+File.separator+"MealTime_User_Images");
-                if (!dir.exists())
-                    dir.mkdirs();
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-                logger.info("Server File Location=" + serverFile.getAbsolutePath());
-                userMaster.setFilePath(serverFile.getAbsolutePath());
-                logger.info("You successfully uploaded file=" + fileName);
-            } catch (Exception e) {
-                logger.error("You failed to upload " + userMaster.getMobileNumber() + " => " + e.getMessage());
-                MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
-            }
-        } else {
-            logger.info("You failed to upload " + userMaster.getMobileNumber() + " because the file was empty.");
-            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
+		 logger.info("Uploading Profile Picture..");
+        try {
+            byte[] bytes = file.getBytes();
+            logger.info("Content Type::"+file.getContentType());
+            String fileName = userMaster.getMobileNumber()+".jpg";
+            // Creating the directory to store file
+            String rootPath = System.getProperty("catalina.home");
+            logger.info("Catalina Home::"+rootPath);
+            File dir = new File(rootPath+File.separator+"MealTime_User_Images");
+            if (!dir.exists())
+                dir.mkdirs();
+            // Create the file on server
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
+            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+            stream.write(bytes);
+            stream.close();
+            logger.info("Server File Location=" + serverFile.getAbsolutePath());
+            userMaster.setFilePath(serverFile.getAbsolutePath());
+            logger.info("You successfully uploaded file=" + fileName);
+        } catch (Exception e) {
+            logger.error("You failed to upload " + userMaster.getMobileNumber() + " => " + e.getMessage());
+            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
         }
+        logger.info("Uploaded successfully");
 	}
 	
 }

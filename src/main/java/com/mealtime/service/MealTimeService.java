@@ -118,7 +118,16 @@ public class MealTimeService {
 	
 	public int updateProfile(UserMaster userMaster){
 		int count = 0;
-		count  = userMasterDAO.update(userMaster);
+		UserMaster user = userMasterDAO.find(userMaster.getUserId());
+		user.setFilePath(userMaster.getFilePath());
+		user.setFirstName(userMaster.getFirstName());
+		user.setLastName(userMaster.getLastName());
+		user.setMobileNumber(userMaster.getMobileNumber());
+		user.setEmail(userMaster.getEmail());
+		user.setFoodStyleS1(userMaster.getFoodStyleS1());
+		user.setFoodStyleS2(userMaster.getFoodStyleS2());
+		user.setAddress(userMaster.getAddress());
+		count  = userMasterDAO.update(user);
 		return count;
 	}
 	

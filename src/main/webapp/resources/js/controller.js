@@ -342,6 +342,10 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http) {
 	}
 	
 	
+	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
+	$rootScope.foodStyle = [{'label':'North','value':'north'},{'label':'South','value':'south'}];
+	
+	
 }).
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
@@ -358,8 +362,6 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
                     console.error('Something went wrong!!');
                 }
        );
-		
-		
 	}
 	
 	$scope.verifyOTP = function(){
