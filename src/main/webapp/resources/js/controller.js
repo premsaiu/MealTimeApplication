@@ -341,45 +341,72 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http) {
 		location.href = "#/addprofile";
 	}
 	
-	
 	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
 	$rootScope.foodStyle = [{'label':'North','value':'north'},{'label':'South','value':'south'}];
+	
+	console.log($rootScope.user);
+	
+	$scope.editProfile = function(){
+		console.log($rootScope.user);
+		$rootScope.sendOTP();
+	}
+	$scope.verifyOTP = function(){
+		var isOTPValidated = $rootScope.validateOTP();
+		if(isOTPValidated){
+			$('#otpModal').modal('hide');
+			console.log(response.data);
+			//$scope.updateProfile();
+		}else{
+			console.log("Wrong OTP");
+		}
+	}
 	
 	
 }).
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
 	$scope.addProfile = function(){
-		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-                function(response) {
-                	if(response.status == 200){
-                		$('#otpModal').modal('show');
-                	}else{
-                		console.log("Bad Request");
-                	}
-               },
-                function(errResponse){
-                    console.error('Something went wrong!!');
-                }
-       );
+		$rootScope.sendOTP();
 	}
-	
+	$rootScope.sendOTP =function(){
+		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+				function(response) {
+					if(response.status == 200){
+						$('#otpModal').modal('show');
+					}else{
+						console.log("Bad Request");
+					}
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+				}
+		);
+	}
 	$scope.verifyOTP = function(){
-		//$scope.file.files[0]
+		var isOTPValidated = $rootScope.validateOTP();
+		if(isOTPValidated){
+			$('#otpModal').modal('hide');
+			console.log(response.data);
+			$scope.submitProfile();
+		}else{
+			console.log("Wrong OTP");
+		}
+	}
+	$rootScope.validateOTP = function(){
 		UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
-				 function(response) {
-					 	if(response.status == 200){
-	                		$('#otpModal').modal('hide');
-	                		console.log(response.data);
-	                		$scope.submitProfile();
-	                	}else{
-	                		console.log("Bad Request");
-	                	}
-	               },
-	                function(errResponse){
-	                    console.error('Something went wrong!!');
-	                }
-	       );
+				function(response) {
+					if(response.status == 200){
+						return true;
+					}else{
+						console.log("Bad Request");
+						return false;
+					}
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+					return false;
+				}
+		);
 	}
 	
 	$scope.submitProfile = function(){
