@@ -6,12 +6,17 @@ package com.mealtime.dao.impl.spring;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import com.mealtime.bean.PmSubItems;
 import com.mealtime.dao.PmSubItemsDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * PmSubItems DAO implementation 
@@ -22,6 +27,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PmSubItemsDAOImplSpring extends GenericDAO<PmSubItems> implements PmSubItemsDAO {
 
+	private static final Logger logger = Logger.getLogger(PmSubItemsDAOImplSpring.class);
+
+	private final static String SQL_SELECT_ITEMS = 
+			"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from pm_sub_items";
+
+	
 	private final static String SQL_SELECT = 
 		"select item_id, item_name, item_desc, image_path, item_type, cost, created_date, updated_date, created_by, updated_by, status, is_active, version from pm_sub_items where item_id = ?";
 
@@ -251,6 +262,15 @@ public class PmSubItemsDAOImplSpring extends GenericDAO<PmSubItems> implements P
 		pmSubItems.setIsActive(rs.getString("is_active")); // java.lang.String
 		pmSubItems.setVersion(rs.getInt("version")); // java.lang.Integer
 		if ( rs.wasNull() ) { pmSubItems.setVersion(null); }; // not primitive number => keep null value if any
+	}
+	
+	public List<PmSubItems> getItemsList(){
+		try{
+			return getJdbcTemplate().query(SQL_SELECT_ITEMS,new BeanPropertyRowMapper<PmSubItems>(PmSubItems.class));
+		}catch(EmptyResultDataAccessException e){
+			logger.error("Empty Result Access Exception occured in getItemsList method::"+e.getMessage());
+			return null;
+		}
 	}
 
     //----------------------------------------------------------------------
