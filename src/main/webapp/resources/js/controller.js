@@ -29,6 +29,21 @@ angular.module('miniMealApp.controllers', []).
 	       );
 			$('#myModal').modal('hide');
 		}
+		
+		$rootScope.sendOTP =function(){
+			UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+					function(response) {
+						if(response.status == 200){
+							$('#otpModal').modal('show');
+						}else{
+							console.log("Bad Request");
+						}
+					},
+					function(errResponse){
+						console.error('Something went wrong!!');
+					}
+			);
+		}
   }).
 
 controller('AboutUsCtrl', function ($scope,$http) {
@@ -335,7 +350,7 @@ controller('PaymentCtrl', function ($scope,$http) {
 	alert("In Payment Controller");
 	
 }).
-controller('ProfileCtrl', function ($scope,$rootScope,$http) {
+controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
 		location.href = "#/addprofile";
@@ -351,14 +366,40 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http) {
 		$rootScope.sendOTP();
 	}
 	$scope.verifyOTP = function(){
-		var isOTPValidated = $rootScope.validateOTP();
-		if(isOTPValidated){
-			$('#otpModal').modal('hide');
-			console.log(response.data);
-			//$scope.updateProfile();
-		}else{
-			console.log("Wrong OTP");
-		}
+		UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+				function(response) {
+					if(response.status == 200){
+						$('#otpModal').modal('hide');
+						$scope.updateProfile();
+					}else{
+						$('#otpModal').modal('hide');
+						console.log("Bad Request");
+					}
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+				}
+		);
+	}
+	
+	$scope.updateProfile = function(){
+		var user = $rootScope.user;
+		var file = $('#profilePic')[0].files[0];
+		UserService.updateUser(user, file).then(
+				 function(response) {
+					 if(response.data.statusCode == 200){
+					 		console.log(response.data.data);
+					 		$rootScope.user = response.data.data;
+					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+	                		location.href = "#/profile";
+	                	}else{
+	                		console.log("Bad Request");
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Something went wrong!!');
+	                }
+	       );
 	}
 	
 	
@@ -368,21 +409,8 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	$scope.addProfile = function(){
 		$rootScope.sendOTP();
 	}
-	$rootScope.sendOTP =function(){
-		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-				function(response) {
-					if(response.status == 200){
-						$('#otpModal').modal('show');
-					}else{
-						console.log("Bad Request");
-					}
-				},
-				function(errResponse){
-					console.error('Something went wrong!!');
-				}
-		);
-	}
-	$scope.verifyOTP = function(){
+	
+	/*$scope.verifyOTP = function(){
 		var isOTPValidated = $rootScope.validateOTP();
 		if(isOTPValidated){
 			$('#otpModal').modal('hide');
@@ -391,23 +419,23 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 		}else{
 			console.log("Wrong OTP");
 		}
-	}
-	$rootScope.validateOTP = function(){
+	}*/
+	//$rootScope.validateOTP = function(){
 		UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
 				function(response) {
 					if(response.status == 200){
-						return true;
+						$('#otpModal').modal('hide');
+						$scope.submitProfile();
 					}else{
+						$('#otpModal').modal('hide');
 						console.log("Bad Request");
-						return false;
 					}
 				},
 				function(errResponse){
 					console.error('Something went wrong!!');
-					return false;
 				}
 		);
-	}
+	//}
 	
 	$scope.submitProfile = function(){
 		var jsonObj = {};

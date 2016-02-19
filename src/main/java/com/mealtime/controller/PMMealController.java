@@ -24,7 +24,7 @@ public class PMMealController {
 	
 	private static final Logger logger = Logger.getLogger(PMMealController.class);
 	
-	@RequestMapping(value = "/getSubItemsList", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/getSubItemsList1", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody WSResponseStatus getSubItemsList(){
 		WSResponseStatus wsResponseStatus = null;
 		try{

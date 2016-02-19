@@ -46,6 +46,22 @@ angular.module('miniMealApp.services',[])
         return request;
     };
     
+    this.updateUser = function (obj, file) {
+    	var fd = new FormData();
+    	fd.append("file", file);
+    	fd.append("model", JSON.stringify(obj));
+        var request = $http({
+            method:"post",
+            url:  baseURL+'updateProfile.spring',
+            data : fd,
+            headers : {
+                'Content-Type' : undefined
+               },
+            transformRequest : angular.identity,
+        });
+        return request;
+    };
+    
     this.getSubListItems = function(){
     	var request = $http({
     		method:"get",
