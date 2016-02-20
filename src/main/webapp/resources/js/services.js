@@ -71,7 +71,7 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
-    this.getSubListItems = function(){
+    this.getSubListItems1 = function(){
     	var request = $http({
     		method:"get",
     		url:baseURL+'getSubItemsList1.spring',
