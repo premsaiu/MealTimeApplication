@@ -633,9 +633,13 @@ controller('PaymentCtrl', function ($scope,$http) {
 }).
 controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 	
+	$scope.isEditForm=false;
+	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
 		location.href = "#/addprofile";
 	}
+	var mobileNumber = $rootScope.user.mobileNumber;
+	$rootScope.userProfilePic = "images/"+mobileNumber+".jpg";
 	
 	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
 	$rootScope.foodStyle = [{'label':'North','value':'north'},{'label':'South','value':'south'}];
@@ -664,6 +668,7 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 	}
 	
 	$scope.updateProfile = function(){
+		$scope.otp = "";
 		var user = $rootScope.user;
 		var file = $('#profilePic')[0].files[0];
 		UserService.updateUser(user, file).then(
@@ -672,6 +677,9 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 					 		console.log(response.data.data);
 					 		$rootScope.user = response.data.data;
 					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+					 		var mobileNumber = $rootScope.user.mobileNumber;
+					 		$rootScope.userProfilePic = "images/"+mobileNumber+".jpg";
+					 		$scope.isEditForm=false;
 	                		location.href = "#/profile";
 	                	}else{
 	                		console.log("Bad Request");
@@ -719,6 +727,7 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	//}
 	
 	$scope.submitProfile = function(){
+		$scope.otp = "";
 		var jsonObj = {};
 		jsonObj.firstName = $scope.firstName;
 		jsonObj.lastName = $scope.lastName;
