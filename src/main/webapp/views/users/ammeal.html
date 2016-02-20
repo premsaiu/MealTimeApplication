@@ -3,6 +3,10 @@
 				    <h4 class="titile-02">AM Meal</h4>
 				    <h5 class="titile-03">{{brkfstObj.status}} --- {{totalAmt}}</h5>
 				    <div class="pull-left clearfix">
+				    
+   				      <div data-ng-show="cancelledMsg" class="errorMessage" style="text-align: center;margin-bottom: 2px;">{{alertCancelledMsg}}</div>
+				    
+				    
 					    <div class="pull-left custom-thumbs">
 							<img data-ng-hide="cancelled" data-ng-src="{{brkfstObj.imgSrc}}" alt="{{brkfstObj.imageName + 'Image'}}" class="img-thumbnail" width="180" height="115">
 							<div class="radio custom-thumbs-title" style="text-align: center">

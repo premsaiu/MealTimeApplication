@@ -58,6 +58,8 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 	$scope.addbrkbtn = false;
 	$scope.showbtn = true;
 	
+	$scope.cancelledMsg = false;
+	
 	/*$scope.complItems = [{
 		"imagePath" : "resources/images/ammeal/meal_01.jpg",
 		"itemName" : "Allam Chutney",
@@ -119,9 +121,20 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		};*/
 		
 		$scope.addbrkfst = function(brkfstObj){
+			
+			var brkfstObj = {
+					status: "Today's Breakfast Special",
+					imgSrc: "resources/images/ammeal/meal_01.jpg",
+					imageName: "Masala Dosa",
+					brkfstInfo: "Masala Dosa with Chutney",
+					cost: 20.00
+			}
+			
 			$scope.brkfstObj = brkfstObj;
+			$scope.cancelled = false;
 			$scope.addbrkbtn = false;
 			$scope.showbtn = true;
+			$scope.cancelledMsg = true;
 		};
 		
 		
@@ -129,9 +142,6 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		$scope.cancelAllItems = function(brkfstObj){
 			if(confirm("Are you sure you want to cancel?")){
 				$scope.confirmation();
-				$scope.totalAmt = 1000;
-				$scope.addbrkbtn = true;
-				$scope.showbtn = false;
 			}else{
 				return;
 			}
@@ -157,14 +167,29 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
                 		$scope.verifyOTP = function(){
         					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
     							 function(response) {
-    								 	if(response.status == 200){
+    								 	if(response.data.statusCode == 200){
     				                		$('#otpModal').modal('hide');
     				                		console.log(response.data);
     				                		delete $scope.brkfstObj;
     				        				//angular.element(brkfstObj).attr("imgSrc","");
     				        				$scope.cancelled = true;
     				        				$scope.show = false;
+    				        				
+    				        				$scope.totalAmt = 1000;
+    				        				$scope.addbrkbtn = true;
+    				        				$scope.showbtn = false;
+    				        				$scope.otp = "";
+    				        				
+    				        				$scope.cancelledMsg = true;
+    				        				
+    				        				$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
+    				        				
     				                	}else{
+    				                		if(confirm("Invalid OTP Entered!!!")){
+    				                			
+    				                		}else{
+    				                			
+    				                		}
     				                		console.log("Bad Request");
     				                	}
     				               },
