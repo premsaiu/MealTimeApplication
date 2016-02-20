@@ -1,5 +1,5 @@
-'use strict';
-
+//define(function () {
+	'use strict';
 angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers','ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
     
@@ -37,7 +37,8 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
         })
           .state('dinner', {
             url: '/dinner',
-            templateUrl: 'views/users/pmmeal.html'
+            templateUrl: 'views/users/pmmeal.html',
+            controller: 'PmMealCtrl'
         })
           .state('payment', {
             url: '/payment',
@@ -58,6 +59,7 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
 			    }
 			});
  });
+//});
 //fucntion checks whether user logged in before routing
 /*var checkRouting= function ($q, $rootScope, $location) {
     if ($rootScope.loginUser) {

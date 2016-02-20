@@ -54,6 +54,10 @@ controller('AboutUsCtrl', function ($scope,$http) {
   
 controller('AmMealCtrl', function ($scope,$http,UserService) {
 	
+	$scope.paymentbtn = false;
+	$scope.addbrkbtn = false;
+	$scope.showbtn = true;
+	
 	/*$scope.complItems = [{
 		"imagePath" : "resources/images/ammeal/meal_01.jpg",
 		"itemName" : "Allam Chutney",
@@ -113,62 +117,75 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 			
 			$("#myAddonModal").modal('show');
 		};*/
+		
+		$scope.addbrkfst = function(brkfstObj){
+			$scope.brkfstObj = brkfstObj;
+			$scope.addbrkbtn = false;
+			$scope.showbtn = true;
+		};
+		
+		
 		$scope.cancelled = false;
 		$scope.cancelAllItems = function(brkfstObj){
 			if(confirm("Are you sure you want to cancel?")){
-				UserService.checkUser($scope.mobileNumber).then(
-						 function(response) {
-			                	if(response.status == 200){
-			                		$scope.email = response.data.email;
-			                		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-			        		                function(response) {
-			        		                	if(response.status == 200){
-			        		                		$('#otpModal').modal('show');
-			        		                	}else{
-			        		                		console.log("Bad Request");
-			        		                	}
-			        		               },
-			        		                function(errResponse){
-			        		                    console.error('Something went wrong!!');
-			        		                }
-			        		       );
-			        				
-			        				$scope.verifyOTP = function(){
-			        					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
-			        							 function(response) {
-			        								 	if(response.status == 200){
-			        				                		$('#otpModal').modal('hide');
-			        				                		console.log(response.data);
-			        				                		delete $scope.brkfstObj;
-			        				        				//angular.element(brkfstObj).attr("imgSrc","");
-			        				        				$scope.cancelled = true;
-			        				        				$scope.show = false;
-			        				                	}else{
-			        				                		console.log("Bad Request");
-			        				                	}
-			        				               },
-			        				                function(errResponse){
-			        				                    console.error('Something went wrong!!');
-			        				                }
-			        				       );
-			        				}
-			                	}else{
-			                		console.log("Bad Request");
-			                	}
-			               },
-			                function(errResponse){
-			                    console.error('Something went wrong!!');
-			                }	
-				);
+				$scope.confirmation();
+				$scope.totalAmt = 1000;
+				$scope.addbrkbtn = true;
+				$scope.showbtn = false;
 			}else{
 				return;
 			}
 		}
 		
+		$scope.confirmation = function(){
+			UserService.checkUser($scope.mobileNumber).then(
+				 function(response) {
+                	if(response.status == 200){
+                		$scope.email = response.data.email;
+                		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+        		                function(response) {
+        		                	if(response.status == 200){
+        		                		$('#otpModal').modal('show');
+        		                	}else{
+        		                		console.log("Bad Request");
+        		                	}
+        		               },
+        		                function(errResponse){
+        		                    console.error('Something went wrong!!');
+        		                });
+		        				
+                		$scope.verifyOTP = function(){
+        					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+    							 function(response) {
+    								 	if(response.status == 200){
+    				                		$('#otpModal').modal('hide');
+    				                		console.log(response.data);
+    				                		delete $scope.brkfstObj;
+    				        				//angular.element(brkfstObj).attr("imgSrc","");
+    				        				$scope.cancelled = true;
+    				        				$scope.show = false;
+    				                	}else{
+    				                		console.log("Bad Request");
+    				                	}
+    				               },
+    				                function(errResponse){
+    				                    console.error('Something went wrong!!');
+    				                }
+    				       )}}else{
+		                		console.log("Bad Request");
+		                	}
+		               },
+		                function(errResponse){
+		                    console.error('Something went wrong!!');
+		                }	
+			)};
+
+		
 		$scope.payment = function(){
 			if(!angular.isDefined($scope.finalData) || $scope.finalData.length == 0){
 				if(confirm("Your default breakfast order to be placed")){
 					$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+					$scope.confirmation();
 				}else{
 					//$scope.totalAmt = $scope.totalAmt; // Final Amount from the Admin Table
 					return;
@@ -180,6 +197,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 					if(value.itemName == $scope.favoriteSuppl){
 						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
 							$scope.totalAmt = $scope.totalAmt - value.cost;
+							$scope.confirmation();
 						}else{
 							$scope.totalAmt = 1000;
 							
@@ -197,6 +215,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 					if(value.selected){
 						if(confirm("Your want to add complemenatary Items with default breakfast?")){
 							$scope.totalAmt = $scope.totalAmt - value.cost;
+							$scope.confirmation();
 						}else{
 							$scope.totalAmt = 1000;
 							
@@ -303,6 +322,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 			});
 			
 			if($scope.show){
+				$scope.paymentbtn = true;
 				$("#myAddonModal").modal('hide');
 			}else{
 				$scope.alertShow = true;
@@ -318,6 +338,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 			$scope.totalAmt = finalAmt;
 			
 			if($scope.finalData.length == 0){
+				$scope.paymentbtn = false;
 				$scope.show = false;
 			}
 			
@@ -338,6 +359,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 controller('PmMealCtrl', function ($scope,$http, UserService) {
 	
 
+	$scope.paymentbtn = false;
 	
 	$scope.complItems = [{
 		"imagePath" : "resources/images/ammeal/meal_01.jpg",
@@ -359,13 +381,30 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 		"cost" : 15.00
 	}];
 	
-	var brkfstObj = {
+	var brkfstObj1 = {
 			status: "Today's Breakfast Special",
 			imgSrc: "resources/images/ammeal/meal_01.jpg",
-			imageName: "Masala Dosa",
-			brkfstInfo: "Masala Dosa with Chutney",
+			imageName: "Chapathi",
+			brkfstInfo: "Chapathi with Curry",
 			cost: 20.00
 	}
+	
+	$scope.dinnerObjList =[{
+		imgSrc: "resources/images/ammeal/meal_01.jpg",
+		imageName: "Rice",
+		brkfstInfo: "Rice with Curry",
+		cost: 20.00
+	},{
+		imgSrc: "resources/images/ammeal/meal_02.jpg",
+		imageName: "Rice with Chapathi",
+		brkfstInfo: "Rice with Chapathi with Curry",
+		cost: 20.00
+	},{
+		imgSrc: "resources/images/ammeal/meal_03.jpg",
+		imageName: "Chapathi",
+		brkfstInfo: "Chapathi with Curry",
+		cost: 20.00
+	}]
 
 	/*UserService.getSubListItems1().then(function(response) {
             	$scope.complItems = response.data.data[1];
@@ -376,7 +415,7 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 	
 	
 	
-	$scope.brkfstObj = brkfstObj;
+	$scope.brkfstObj1 = brkfstObj1;
 		
 		$scope.totalAmt = 1000;
 		
@@ -401,60 +440,61 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 		$scope.cancelled = false;
 		$scope.cancelAllItems = function(brkfstObj){
 			if(confirm("Are you sure you want to cancel?")){
-				UserService.checkUser($scope.mobileNumber).then(
-						 function(response) {
-			                	if(response.status == 200){
-			                		$scope.email = response.data.email;
-			                		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-			        		                function(response) {
-			        		                	if(response.status == 200){
-			        		                		$('#otpModal').modal('show');
-			        		                	}else{
-			        		                		console.log("Bad Request");
-			        		                	}
-			        		               },
-			        		                function(errResponse){
-			        		                    console.error('Something went wrong!!');
-			        		                }
-			        		       );
-			        				
-			        				$scope.verifyOTP = function(){
-			        					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
-			        							 function(response) {
-			        								 	if(response.status == 200){
-			        				                		$('#otpModal').modal('hide');
-			        				                		console.log(response.data);
-			        				                		delete $scope.brkfstObj;
-			        				        				//angular.element(brkfstObj).attr("imgSrc","");
-			        				        				$scope.cancelled = true;
-			        				        				$scope.show = false;
-			        				                	}else{
-			        				                		console.log("Bad Request");
-			        				                	}
-			        				               },
-			        				                function(errResponse){
-			        				                    console.error('Something went wrong!!');
-			        				                }
-			        				       );
-			        				}
-			                	}else{
-			                		console.log("Bad Request");
-			                	}
-			               },
-			                function(errResponse){
-			                    console.error('Something went wrong!!');
-			                }	
-				);
+				$scope.confirmation();
 			}else{
 				return;
 			}
 		}
 		
+		$scope.confirmation = function(){
+			UserService.checkUser($scope.mobileNumber).then(
+				 function(response) {
+                	if(response.status == 200){
+                		$scope.email = response.data.email;
+                		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+        		                function(response) {
+        		                	if(response.status == 200){
+        		                		$('#otpModal').modal('show');
+        		                	}else{
+        		                		console.log("Bad Request");
+        		                	}
+        		               },
+        		                function(errResponse){
+        		                    console.error('Something went wrong!!');
+        		                });
+		        				
+                		$scope.verifyOTP = function(){
+        					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+    							 function(response) {
+    								 	if(response.status == 200){
+    				                		$('#otpModal').modal('hide');
+    				                		console.log(response.data);
+    				                		delete $scope.brkfstObj;
+    				        				//angular.element(brkfstObj).attr("imgSrc","");
+    				        				$scope.cancelled = true;
+    				        				$scope.show = false;
+    				                	}else{
+    				                		console.log("Bad Request");
+    				                	}
+    				               },
+    				                function(errResponse){
+    				                    console.error('Something went wrong!!');
+    				                }
+    				       )}}else{
+		                		console.log("Bad Request");
+		                	}
+		               },
+		                function(errResponse){
+		                    console.error('Something went wrong!!');
+		                }	
+			)};
+		
 		$scope.payment = function(){
 			if(!angular.isDefined($scope.finalData) || $scope.finalData.length == 0){
 				if(confirm("Your default breakfast order to be placed")){
 					$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
-				}else{
+					$scope.confirmation();
+					}else{
 					//$scope.totalAmt = $scope.totalAmt; // Final Amount from the Admin Table
 					return;
 				}
@@ -465,7 +505,8 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 					if(value.itemName == $scope.favoriteSuppl){
 						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
 							$scope.totalAmt = $scope.totalAmt - value.cost;
-						}else{
+							$scope.confirmation();
+							}else{
 							$scope.totalAmt = 1000;
 							
 							var index = $scope.finalData.indexOf(value);
@@ -482,7 +523,8 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 					if(value.selected){
 						if(confirm("Your want to add complemenatary Items with default breakfast?")){
 							$scope.totalAmt = $scope.totalAmt - value.cost;
-						}else{
+							$scope.confirmation();
+							}else{
 							$scope.totalAmt = 1000;
 							
 							var index = $scope.finalData.indexOf(value);
@@ -588,6 +630,7 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 			});
 			
 			if($scope.show){
+				$scope.paymentbtn = true;
 				$("#myAddonModal").modal('hide');
 			}else{
 				$scope.alertShow = true;
@@ -604,6 +647,7 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 			
 			if($scope.finalData.length == 0){
 				$scope.show = false;
+				$scope.paymentbtn = false;
 			}
 			
 			angular.forEach($scope.complItems, function(value,key){
