@@ -1,5 +1,8 @@
 package com.mealtime.util;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -19,6 +22,9 @@ public class MealTimeUtil {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	@Autowired
+	private SendSMS sendSMS;
+	
 	public Integer generateOTP(){
 		Random rnd = new Random();
 		int otp = 100000 + rnd.nextInt(900000);
@@ -36,6 +42,18 @@ public class MealTimeUtil {
             }  
 		};  
 		mailSender.send(messagePreparator);
+	}
+	
+	public void sendSMS(String mobileNumber, String message){
+		try {
+			sendSMS.processSMS(mobileNumber, message);
+		} catch (KeyManagementException e) {
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void populateWSResponseStatusSuccessResponse(

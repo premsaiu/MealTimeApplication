@@ -823,14 +823,37 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 		});
 	}
 }).
-controller('ContactCtrl', function ($scope,$http) {
+controller('ContactCtrl', function ($scope, $http) {
 	
 	alert("In Contact Us Controller");
 	
 }).
-controller('PaymentCtrl', function ($scope,$http) {
+controller('PaymentCtrl', function ($scope, $rootScope, UserService) {
 	
-	alert("In Payment Controller");
+	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
+		location.href = "#/addprofile";
+	}else{
+		$scope.proceed = function(){
+			$scope.subscribeUser($rootScope.user);
+		}
+		
+		$scope.subscribeUser = function(user){
+			UserService.subscribeUser(user).then(
+					function(response) {
+						if(response.data.statusCode == 200){
+							console.log("Response :: "+response.data);
+							location.href = "#/paymentsuccess";
+						}else{
+							console.log("Bad Request");
+						}
+					},
+					function(errResponse){
+						console.error('Something went wrong!!');
+					}
+			);
+		}
+	}
+	
 	
 }).
 controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
