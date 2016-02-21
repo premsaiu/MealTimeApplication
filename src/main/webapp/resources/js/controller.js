@@ -168,7 +168,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 				 function(response) {
                 	if(response.status == 200){
                 		$scope.email = response.data.email;
-                		var subject = "MealTime - Cancel Breakfast - One Time Password(OTP)";
+                		var subject = "MealTime - Breakfast Cancellation - One Time Password(OTP)";
                 		UserService.sendOTP($scope.mobileNumber, $scope.email, subject).then(
         		                function(response) {
         		                	if(response.status == 200){
@@ -565,7 +565,7 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 			 function(response) {
             	if(response.status == 200){
             		$scope.email = response.data.email;
-            		var subject = "MealTime - Cancel Breakfast - One Time Password(OTP)";
+            		var subject = "MealTime - Dinner Cancellation - One Time Password(OTP)";
             		UserService.sendOTP($scope.mobileNumber, $scope.email, subject).then(
     		                function(response) {
     		                	if(response.status == 200){
