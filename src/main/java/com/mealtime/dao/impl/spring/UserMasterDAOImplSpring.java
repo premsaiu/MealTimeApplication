@@ -44,6 +44,8 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 
 	private final static String SQL_COUNT = 
 		"select count(*) from user_master where user_id = ?";
+	
+	private final static String SQL_LAST_USER_ID = "select user_id from user_master order by user_id desc limit 1";
 
     //----------------------------------------------------------------------
 	/**
@@ -301,5 +303,9 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 			System.out.println("Empty Result Access Exception occured in findByMobileNumber method::"+e.getMessage());
 			return null;
 		}
+	}
+
+	public String getLastUserId() {
+		return getJdbcTemplate().queryForObject(SQL_LAST_USER_ID, String.class);
 	}
 }

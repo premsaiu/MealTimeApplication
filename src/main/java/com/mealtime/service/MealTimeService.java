@@ -116,6 +116,10 @@ public class MealTimeService {
 		userMasterDAO.insert(userMaster);
 	}
 	
+	public String getLastUserId(){
+		return userMasterDAO.getLastUserId();
+	}
+	
 	public int updateProfile(UserMaster userMaster){
 		int count = 0;
 		UserMaster user = userMasterDAO.find(userMaster.getUserId());

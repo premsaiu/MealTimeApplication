@@ -84,6 +84,12 @@ public class BaseController {
 		logger.info("saveProfile() :: objStr: "+objStr+" ::file: "+file);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = new UserMaster();
+		String lastUserId = mealTimeService.getLastUserId();
+		System.out.println("Last User Id: "+lastUserId);
+		int id = Integer.parseInt(lastUserId.substring(lastUserId.length()-3));
+		System.out.println("id:"+id);
+		String userId= "MT" + String.format("%03d", id+1);
+		System.out.println("User Id: "+userId);
 		try {
 			userMaster = new ObjectMapper().readValue(objStr, UserMaster.class);
 		} catch (JsonParseException e) {
@@ -94,10 +100,11 @@ public class BaseController {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 		}
 		if (!file.isEmpty()) {
-			uploadProfilePic(file, userMaster, wsResponseStatus);
+			uploadProfilePic(file, userMaster, userId, wsResponseStatus);
 			mealTimeService.saveProfile(userMaster);
+			UserMaster user = mealTimeService.checkUser(userMaster.getMobileNumber());
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-			wsResponseStatus.setData(userMaster);
+			wsResponseStatus.setData(user);
 		}else {
             logger.info("You failed to upload " + userMaster.getMobileNumber() + " because the file was empty.");
             MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
@@ -119,7 +126,7 @@ public class BaseController {
 		} catch (IOException e) {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 		}
-		uploadProfilePic(file, userMaster, wsResponseStatus);
+		uploadProfilePic(file, userMaster, userMaster.getUserId(), wsResponseStatus);
 		int count = mealTimeService.updateProfile(userMaster);
 		if(count == 0){
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Update Failed");
@@ -130,12 +137,13 @@ public class BaseController {
 		return wsResponseStatus;
 	}
 	
-	public void uploadProfilePic(MultipartFile file, UserMaster userMaster, WSResponseStatus wsResponseStatus){
+	public void uploadProfilePic(MultipartFile file, UserMaster userMaster, String userId, WSResponseStatus wsResponseStatus){
 		 logger.info("Uploading Profile Picture..");
         try {
             byte[] bytes = file.getBytes();
             logger.info("Content Type::"+file.getContentType());
-            String fileName = userMaster.getMobileNumber()+".jpg";
+            //String fileName = userMaster.getMobileNumber()+".jpg";
+            String fileName = userId+".jpg";
             // Creating the directory to store file
             String rootPath = System.getProperty("catalina.home");
             logger.info("Catalina Home::"+rootPath);
@@ -151,7 +159,7 @@ public class BaseController {
             userMaster.setFilePath(serverFile.getAbsolutePath());
             logger.info("You successfully uploaded file=" + fileName);
         } catch (Exception e) {
-            logger.error("You failed to upload " + userMaster.getMobileNumber() + " => " + e.getMessage());
+            logger.error("You failed to upload " + userId + " => " + e.getMessage());
             MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
         }
         logger.info("Uploaded successfully");

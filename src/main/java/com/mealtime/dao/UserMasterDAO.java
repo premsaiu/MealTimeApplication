@@ -86,5 +86,7 @@ public interface UserMasterDAO {
 	public long count() ;
 	
 	public UserMaster findByMobileNumber(String mobileNumber);
+	
+	public String getLastUserId();
 
 }
