@@ -39,6 +39,16 @@ http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
 	<mvc:resources mapping="/images/**" location="file:${catalina.home}/MealTime_User_Images/" />
 	<mvc:annotation-driven />
 	
+	<mvc:interceptors>
+    <bean id="webContentInterceptor" 
+          class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+        <property name="cacheSeconds" value="0"/>
+        <property name="useExpiresHeader" value="true"/>
+        <property name="useCacheControlHeader" value="true"/>
+        <property name="useCacheControlNoStore" value="true"/>
+    </bean>
+</mvc:interceptors>
+	
 	<!-- DriverManagerDataSource : Spring simplest implementation of a DataSource (doesn�??t support database connection pooling)-->
 	
 	<bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">

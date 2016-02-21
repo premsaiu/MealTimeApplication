@@ -45,37 +45,38 @@
 		    	</div>
 		    	<form ng-submit="editProfile()" class="form-inline" >
 				  <div class="form-group">
-				    <input id="firstname" type="text" ng-model="user.firstName" class="form-control" placeholder="First Name">
+				    <input id="firstname" type="text" ng-model="editUser.firstName" class="form-control" placeholder="First Name">
 				  </div>
 				  <div class="form-group">
-				    <input id="lastname" type="text" ng-model="user.lastName" class="form-control" placeholder="Last Name">
+				    <input id="lastname" type="text" ng-model="editUser.lastName" class="form-control" placeholder="Last Name">
 				  </div>
 				  <div>
 				  <div class="form-group">
-				    <input id="mobilenumber" type="text" ng-model="user.mobileNumber" class="form-control" placeholder="Mobile Number">
+				    <input id="mobilenumber" type="text" ng-model="editUser.mobileNumber" class="form-control" placeholder="Mobile Number">
 				  </div>
 				  <div class="form-group">
-				    <input id="email" type="text" ng-model="user.email" class="form-control" placeholder="E-Mail">
+				    <input id="email" type="text" ng-model="editUser.email" class="form-control" placeholder="E-Mail">
 				  </div>
 				  <div class="form-group">
-				    <select class="form-control" ng-model="user.foodStyleS1">
+				    <select class="form-control" ng-model="editUser.foodStyleS1">
          				<option value="">Select Food Type</option>
-         				<option ng-selected="user.foodStyleS1 == item.value" ng-repeat="item in foodType" ng-value="item.value">{{item.label}}</option>
+         				<option ng-selected="editUser.foodStyleS1 == item.value" ng-repeat="item in foodType" ng-value="item.value">{{item.label}}</option>
     				</select>
 				    
 				  </div>
 				  <div class="form-group">
-				    <select id="foodstyle" ng-model="user.foodStyleS2" class="form-control">
+				    <select id="foodstyle" ng-model="editUser.foodStyleS2" class="form-control">
 				    	<option value="">Select Food Style</option>
-				    	<option ng-selected="user.foodStyleS2 == item.value" ng-repeat="item in foodStyle" ng-value="item.value">{{item.label}}</option>
+				    	<option ng-selected="editUser.foodStyleS2 == item.value" ng-repeat="item in foodStyle" ng-value="item.value">{{item.label}}</option>
 				    </select>
 				  </div>
 				  <div class="form-group">
-				    <textarea id="address" ng-model="user.address" class="form-control" rows="3"placeholder="Address"></textarea>
+				    <textarea id="address" ng-model="editUser.address" class="form-control" rows="3"placeholder="Address"></textarea>
 				  </div>
 				  <div>
 				  	<button id="editprofilesubmit" type="submit" class="btn btn-success mb20" >Submit</button>
-				  	<!-- <a class="btn btn-success mb20" ui-sref="profile" id="editorBtn" role="button">View Profile</a> -->
+				  	<!-- <button id="editprofilesubmit" type="submit" class="btn btn-success mb20" >Submit</button> -->
+				  	<a class="btn btn-success mb20" ng-click="isEditForm=false;" ui-sref="profile" id="editorBtn" role="button">Cancel</a>
 				  </div>
 				</form>
 			 </div>
@@ -93,6 +94,7 @@
 				        <h4 class="modal-title">One Time Password</h4>
 				      </div>
 				      <div class="modal-body">
+				      <span style="color:red;">{{wrongOTPMsg}}</span>
 				        <form>
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label">Please Enter OTP</label>
@@ -102,6 +104,29 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Submit</button>
+				        <button type="submit" class="btn btn-success" data-ng-click="cancelEdit('otpModal')">Cancel</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+				
+				<!-- Edit Success OTP Modal -->
+			    <div class="modal fade" id="editSuccessModal" >
+				  <div class="modal-dialog max-w400">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">Success</h4>
+				      </div>
+				      <div class="modal-body">
+				        <form>
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label">Your Profile has been Updated Successfully</label>
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="submit" class="btn btn-success" data-ng-click="closeModal('editSuccessModal')">Ok</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
