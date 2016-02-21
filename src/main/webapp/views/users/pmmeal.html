@@ -3,27 +3,19 @@
 				    <h4 class="titile-02">PM Meal</h4>
 				    <h5 class="titile-03">{{brkfstObj1.status}} --- {{totalAmt}}</h5>
 				    <div class="pull-left clearfix">
-					    <div class="pull-left custom-thumbs" data-ng-repeat="dinnerObj in dinnerObjList">
+   				     <div data-ng-show="cancelledMsg" class="errorMessage" style="text-align: center;margin-bottom: 2px;">{{alertCancelledMsg}}</div>
+				     <div class="pull-left custom-thumbs" data-ng-repeat="dinnerObj in dinnerObjList">
 							<img data-ng-hide="cancelled" data-ng-src="{{dinnerObj.imgSrc}}" alt="{{dinnerObj.imageName + 'Image'}}" class="img-thumbnail" width="180" height="115">
 							<div class="radio custom-thumbs-title" style="text-align: center">
 							   <label class="radio">
-							      <input type="radio" name="select_breakmeal" id="select_breakmeal1">{{dinnerObj.imageName}}
+							      <input type="radio" name="select_breakmeal" id="select_breakmeal1" data-ng-model="$parent.favoriteDinner" value="{{dinnerObj.imageName}}" data-ng-click="updateSelectionDinner($event);">{{dinnerObj.imageName}}
 							   </label>
 							</div>
-						</div>
-						
-						<!-- <div class="pull-left custom-thumbs">
-							<img data-ng-hide="cancelled" data-ng-src="{{brkfstObj1.imgSrc}}" alt="{{brkfstObj.imageName + 'Image'}}" class="img-thumbnail" width="180" height="115">
-							<div class="radio custom-thumbs-title" style="text-align: center">
-							   <label class="radio">
-							      <input type="radio" name="select_breakmeal" id="select_breakmeal1">{{brkfstObj1.imageName}}
-							   </label>
-							</div>
-						</div> -->
-				    </div>
-				    <br>
-				    <div class="pull-left clearfix" style="text-align: center">
-					    <h5 class="titile-04">{{brkfstObj1.brkfstInfo}}</h5>
+						    <div class="clearfix" style="text-align: center">
+							    <h5 class="titile-04">{{dinnerObj.brkfstInfo}}</h5>
+						    </div>
+					</div>
+					    
 				    </div>
 				    
 				    <div data-ng-show="show" class="pull-left clearfix add-on-bg-01">
@@ -42,9 +34,10 @@
 			    </div>
 		    </div>
 		    <div class="col-xs-12 col-md-9 col-md-offset-3">
-		    	<button class="btn btn-success addOn-btn-s1" data-toggle="modal" data-target="#myAddonModal">Add - Add-on Meal</button>
-		    	<button class="btn btn-success addOn-btn-s1" data-ng-click="cancelAllItems(brkfstObj);">Cancel Breakfast</button>
-		    	<button class="btn btn-success addOn-btn-s1" data-ng-click="payment()">Payment</button>
+		    <button class="btn btn-success addOn-btn-s1" data-ng-show="addbrkbtn" data-ng-click="addbrkfst(dinnerObjList);">Add Breakfast</button>
+		    	<button class="btn btn-success addOn-btn-s1" data-ng-show="showbtn" data-toggle="modal" data-target="#myAddonModal">Add - Add-on Meal</button>
+		    	<button class="btn btn-success addOn-btn-s1" data-ng-show="showbtn" data-ng-click="cancelAllItems(dinnerObjList);">Cancel Breakfast</button>
+		    	<button class="btn btn-success addOn-btn-s1" data-ng-show="paymentbtn" data-ng-click="payment()">Payment</button>
 		    
 		    </div>
 		    

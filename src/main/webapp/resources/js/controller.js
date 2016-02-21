@@ -134,7 +134,8 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 			$scope.cancelled = false;
 			$scope.addbrkbtn = false;
 			$scope.showbtn = true;
-			$scope.cancelledMsg = true;
+			$scope.cancelledMsg = false;
+			$scope.paymentbtn = false;
 		};
 		
 		
@@ -142,12 +143,23 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 		$scope.cancelAllItems = function(brkfstObj){
 			if(confirm("Are you sure you want to cancel?")){
 				$scope.confirmation(brkfstObj);
+				
+				angular.forEach($scope.complItems, function(value,key){
+					if(value.selected){
+						value.selected = false;
+					}
+				});
+				
+				angular.forEach($scope.suppleItems, function(value,key){
+						$scope.favoriteSuppl = "";
+				});
+				
 			}else{
 				return;
 			}
 		}
 		
-		$scope.confirmation = function(obj){
+		$scope.confirmation = function(Obj){
 			UserService.checkUser($scope.mobileNumber).then(
 				 function(response) {
                 	if(response.status == 200){
@@ -155,6 +167,7 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
                 		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
         		                function(response) {
         		                	if(response.status == 200){
+        		                		$("#otp").val('');
         		                		$('#otpModal').modal('show');
         		                	}else{
         		                		console.log("Bad Request");
@@ -171,27 +184,39 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
     				                		$('#otpModal').modal('hide');
     				                		console.log(response.data);
     				                		
-    				                		if(angular.isDefined(obj)){
+    				                		if(angular.isDefined(Obj)){
 	    				                		delete $scope.brkfstObj;
 	    				        				//angular.element(brkfstObj).attr("imgSrc","");
 	    				        				$scope.cancelled = true;
 	    				        				$scope.show = false;
+	    				        				$scope.paymentbtn = false;
 	    				        				
 	    				        				$scope.totalAmt = 1000;
 	    				        				$scope.addbrkbtn = true;
 	    				        				$scope.showbtn = false;
-	    				        				$scope.otp = "";
+	    				        				
+	    				        				if(angular.isDefined($scope.otp)){
+    				                				$scope.otp = "";
+    				                			}else{
+    				                				$("#otp").val('');
+    				                				
+    				                			}	
 	    				        				
 	    				        				$scope.cancelledMsg = true;
 	    				        				$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
+    				                		}else{
+    				                			alert("Payment Done Successfully!!!");
     				                		}
-    				        				
     				                	}else{
     				                		if(confirm("Invalid OTP Entered!!!")){
     				                			
     				                		}else{
     				                			$('#otpModal').modal('hide');
-    				                			$scope.otp = "";
+    				                			if(angular.isDefined($scope.otp)){
+    				                				$scope.otp = "";
+    				                			}else{
+    				                				$("#otp").val('');
+    				                			}
     				                		}
     				                		console.log("Bad Request");
     				                	}
@@ -388,6 +413,10 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 	
 
 	$scope.paymentbtn = false;
+	$scope.addbrkbtn = false;
+	$scope.showbtn = true;
+	
+	$scope.cancelledMsg = false;
 	
 	$scope.complItems = [{
 		"imagePath" : "resources/images/ammeal/meal_01.jpg",
@@ -410,7 +439,7 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 	}];
 	
 	var brkfstObj1 = {
-			status: "Today's Breakfast Special",
+			status: "Today's Dinner Special",
 			imgSrc: "resources/images/ammeal/meal_01.jpg",
 			imageName: "Chapathi",
 			brkfstInfo: "Chapathi with Curry",
@@ -425,14 +454,14 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 	},{
 		imgSrc: "resources/images/ammeal/meal_02.jpg",
 		imageName: "Rice with Chapathi",
-		brkfstInfo: "Rice with Chapathi with Curry",
+		brkfstInfo: "Rice & Chapathi with Curry",
 		cost: 20.00
 	},{
 		imgSrc: "resources/images/ammeal/meal_03.jpg",
 		imageName: "Chapathi",
 		brkfstInfo: "Chapathi with Curry",
 		cost: 20.00
-	}]
+	}];
 
 	/*UserService.getSubListItems1().then(function(response) {
             	$scope.complItems = response.data.data[1];
@@ -440,258 +469,355 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
             },function(errResponse){
                 console.error('Error while retrieving getSubListItems');
      });*/
-	
-	
-	
 	$scope.brkfstObj1 = brkfstObj1;
+	
+	$scope.totalAmt = 1000;
+	
+	$scope.complflag = false;
+	$scope.supplflag = false;
+	$scope.alertShow = false;
+	$scope.favoriteDinner = "Rice";
+	
+	var finalAmt = 0;
+	
+	/*$scope.updateSelectionDinner = function(e){
 		
-		$scope.totalAmt = 1000;
-		
-		$scope.complflag = false;
-		$scope.supplflag = false;
-		$scope.alertShow = false;
-		
-		var finalAmt = 0;
-		
-		/*$scope.chooseItems = function(){
-			angular.forEach($scope.complItems, function(value,key){
-				if(value.selected){
-					value.selected = false;
-				}
-			});
-			
-			$scope.favoriteSuppl = "";
-			$scope.showModal = true;
-			
-			$("#myAddonModal").modal('show');
-		};*/
-		$scope.cancelled = false;
-		$scope.cancelAllItems = function(brkfstObj){
-			if(confirm("Are you sure you want to cancel?")){
-				$scope.confirmation();
-			}else{
-				return;
-			}
-		}
-		
-		$scope.confirmation = function(){
-			UserService.checkUser($scope.mobileNumber).then(
-				 function(response) {
-                	if(response.status == 200){
-                		$scope.email = response.data.email;
-                		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-        		                function(response) {
-        		                	if(response.status == 200){
-        		                		$('#otpModal').modal('show');
-        		                	}else{
-        		                		console.log("Bad Request");
-        		                	}
-        		               },
-        		                function(errResponse){
-        		                    console.error('Something went wrong!!');
-        		                });
-		        				
-                		$scope.verifyOTP = function(){
-        					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
-    							 function(response) {
-    								 	if(response.status == 200){
-    				                		$('#otpModal').modal('hide');
-    				                		console.log(response.data);
-    				                		delete $scope.brkfstObj;
-    				        				//angular.element(brkfstObj).attr("imgSrc","");
-    				        				$scope.cancelled = true;
-    				        				$scope.show = false;
-    				                	}else{
-    				                		console.log("Bad Request");
-    				                	}
-    				               },
-    				                function(errResponse){
-    				                    console.error('Something went wrong!!');
-    				                }
-    				       )}}else{
-		                		console.log("Bad Request");
-		                	}
-		               },
-		                function(errResponse){
-		                    console.error('Something went wrong!!');
-		                }	
-			)};
-		
-		$scope.payment = function(){
-			if(!angular.isDefined($scope.finalData) || $scope.finalData.length == 0){
-				if(confirm("Your default breakfast order to be placed")){
-					$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
-					$scope.confirmation();
-					}else{
-					//$scope.totalAmt = $scope.totalAmt; // Final Amount from the Admin Table
-					return;
-				}
-			}
-			
-			if(angular.isDefined($scope.finalData) && $scope.finalData.length !== 0){
-				angular.forEach($scope.suppleItems, function(value,key){
-					if(value.itemName == $scope.favoriteSuppl){
-						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
-							$scope.totalAmt = $scope.totalAmt - value.cost;
-							$scope.confirmation();
-							}else{
-							$scope.totalAmt = 1000;
-							
-							var index = $scope.finalData.indexOf(value);
-							$scope.finalData.splice(index, 1);
-							
-							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
-							$scope.show = false;
-							return false;
-						}
-					}
-				});
-			
-				angular.forEach($scope.complItems, function(value,key){
-					if(value.selected){
-						if(confirm("Your want to add complemenatary Items with default breakfast?")){
-							$scope.totalAmt = $scope.totalAmt - value.cost;
-							$scope.confirmation();
-							}else{
-							$scope.totalAmt = 1000;
-							
-							var index = $scope.finalData.indexOf(value);
-							$scope.finalData.splice(index, 1);
-							
-							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
-							$scope.show = false;
-							return false;
-						}
-					}
-				});
-			}
-		}
-		
-		$scope.updateSelection = function(){
-			$scope.supplflag = false;
-			$scope.alertShow = false;
-			/*angular.forEach($scope.complItems, function(value,key){
-			if(value.selected){
-				$scope.supplflag = true;
-			}
-		});*/
-		
-		angular.forEach($scope.suppleItems, function(value,key){
-			if(value.itemName == $scope.favoriteSuppl){
-				$scope.supplflag = true;
-			}
-		});
-		
-		if ($scope.supplflag) {
-			if(confirm("Do you want to replace the selected item with existing?")){
-				angular.forEach($scope.suppleItems, function(value,key){
-					if(value.itemName == $scope.favoriteSuppl){
-						//value.selected = false;
-						$scope.supplflag = false;
-						$scope.favoriteSuppl = "";
-					}
-				});
-			}else{
-				event.preventDefault();
-				//$scope.supplflag = true;
-				angular.forEach($scope.complItems, function(value,key){
-					if(value.selected){
-						value.selected = false;
-					}
-				});
-			}
-		}
-	}
-		
-		$scope.favoriteSuppl = "" ;
-
-		$scope.updateSelectionSuppl = function(){
-			$scope.complflag = false;
-			$scope.alertShow = false;
-			/*angular.forEach($scope.suppleItems, function(value,key){
-			if(value.Item==$scope.favoriteSuppl){
-				$scope.complflag = true;
-			}
-		});*/
-		
+	}*/
+	
+	/*$scope.chooseItems = function(){
 		angular.forEach($scope.complItems, function(value,key){
 			if(value.selected){
-				$scope.complflag = true;
+				value.selected = false;
 			}
 		});
 		
-		if ($scope.complflag) {
-			if(confirm("Do you want to replace the selected item with existing?")){
-				angular.forEach($scope.complItems, function(value,key){
-					if(value.selected){
-						value.selected = false;
-						$scope.complflag = false;
-					}
-				});
-			}else{
-				event.preventDefault();
-				//$scope.complflag = true;
-				$scope.favoriteSuppl = "";
-			}
-		}
-	}
+		$scope.favoriteSuppl = "";
+		$scope.showModal = true;
 		
-		$scope.addFinalItems = function(){
-			$scope.show = false;
-			$scope.finalData = [];
-			$scope.totalAmt = 1000;
+		$("#myAddonModal").modal('show');
+	};*/
+	
+	$scope.addbrkfst = function(brkfstObj){
+		
+		var brkfstObj = {
+				status: "Today's Breakfast Special",
+				imgSrc: "resources/images/ammeal/meal_01.jpg",
+				imageName: "Masala Dosa",
+				brkfstInfo: "Masala Dosa with Chutney",
+				cost: 20.00
+		}
+		
+		$scope.brkfstObj1 = brkfstObj;
+		
+		$scope.dinnerObjList =[{
+			imgSrc: "resources/images/ammeal/meal_01.jpg",
+			imageName: "Rice",
+			brkfstInfo: "Rice with Curry",
+			cost: 20.00
+		},{
+			imgSrc: "resources/images/ammeal/meal_02.jpg",
+			imageName: "Rice with Chapathi",
+			brkfstInfo: "Rice & Chapathi with Curry",
+			cost: 20.00
+		},{
+			imgSrc: "resources/images/ammeal/meal_03.jpg",
+			imageName: "Chapathi",
+			brkfstInfo: "Chapathi with Curry",
+			cost: 20.00
+		}];
+		
+		$scope.cancelled = false;
+		$scope.addbrkbtn = false;
+		$scope.showbtn = true;
+		$scope.cancelledMsg = false;
+		$scope.paymentbtn = false;
+	};
+	
+	
+	$scope.cancelled = false;
+	$scope.cancelAllItems = function(brkfstObj){
+		if(confirm("Are you sure you want to cancel?")){
+			$scope.confirmation(brkfstObj);
+			
 			angular.forEach($scope.complItems, function(value,key){
 				if(value.selected){
-					$scope.show = true;
-					$scope.finalData.push(value);
-					finalAmt = $scope.totalAmt - value.cost;
-					$scope.totalAmt = finalAmt;
-				}
-			});
-			angular.forEach($scope.suppleItems, function(value1,key1){
-				if(value1.itemName == $scope.favoriteSuppl && $scope.favoriteSuppl != ''){
-					$scope.show = true;
-					$scope.finalData.push(value1);
-					finalAmt = $scope.totalAmt - value1.cost;
-					$scope.totalAmt = finalAmt;
-				}
-			});
-			
-			if($scope.show){
-				$scope.paymentbtn = true;
-				$("#myAddonModal").modal('hide');
-			}else{
-				$scope.alertShow = true;
-				$scope.alertMsg = "Add any item or click on cancel";
-			}
-		}
-		
-		$scope.deleteItem = function(data){
-			
-			var index = $scope.finalData.indexOf(data);
-			$scope.finalData.splice(index, 1);
-			finalAmt = finalAmt + data.cost;
-			$scope.totalAmt = finalAmt;
-			
-			if($scope.finalData.length == 0){
-				$scope.show = false;
-				$scope.paymentbtn = false;
-			}
-			
-			angular.forEach($scope.complItems, function(value,key){
-				if(value.itemName == data.itemName){
 					value.selected = false;
 				}
 			});
 			
 			angular.forEach($scope.suppleItems, function(value,key){
-				if(value.itemName == data.itemName){
 					$scope.favoriteSuppl = "";
+			});
+			
+		}else{
+			return;
+		}
+	}
+	
+	$scope.confirmation = function(Obj){
+		UserService.checkUser($scope.mobileNumber).then(
+			 function(response) {
+            	if(response.status == 200){
+            		$scope.email = response.data.email;
+            		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+    		                function(response) {
+    		                	if(response.status == 200){
+    		                		$("#otp").val('');
+    		                		$('#otpModal').modal('show');
+    		                	}else{
+    		                		console.log("Bad Request");
+    		                	}
+    		               },
+    		                function(errResponse){
+    		                    console.error('Something went wrong!!');
+    		                });
+	        				
+            		$scope.verifyOTP = function(){
+    					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+							 function(response) {
+								 	if(response.data.statusCode == 200){
+				                		$('#otpModal').modal('hide');
+				                		console.log(response.data);
+				                		
+				                		if(angular.isDefined(Obj)){
+				                			
+				                			$scope.dinnerObjList = [];
+    				                		delete $scope.brkfstObj1;
+    				        				//angular.element(brkfstObj).attr("imgSrc","");
+    				        				$scope.cancelled = true;
+    				        				$scope.show = false;
+    				        				$scope.paymentbtn = false;
+    				        				
+    				        				$scope.totalAmt = 1000;
+    				        				$scope.addbrkbtn = true;
+    				        				$scope.showbtn = false;
+    				        				
+    				        				if(angular.isDefined($scope.otp)){
+				                				$scope.otp = "";
+				                			}else{
+				                				$("#otp").val('');
+				                				
+				                			}	
+    				        				
+    				        				$scope.cancelledMsg = true;
+    				        				$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
+				                		}else{
+				                			alert("Payment Done Successfully!!!");
+				                		}
+				                	}else{
+				                		if(confirm("Invalid OTP Entered!!!")){
+				                			
+				                		}else{
+				                			$('#otpModal').modal('hide');
+				                			if(angular.isDefined($scope.otp)){
+				                				$scope.otp = "";
+				                			}else{
+				                				$("#otp").val('');
+				                			}
+				                		}
+				                		console.log("Bad Request");
+				                	}
+				               },
+				                function(errResponse){
+				                    console.error('Something went wrong!!');
+				                }
+				       )}}else{
+	                		console.log("Bad Request");
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Something went wrong!!');
+	                }	
+		)};
+
+	
+	$scope.payment = function(){
+		if(!angular.isDefined($scope.finalData) || $scope.finalData.length == 0){
+			if(confirm("Your default breakfast order to be placed")){
+				
+				angular.forEach($scope.brkfstObj1, function(value,key){
+					if(value.imageName == $scope.favoriteDinner){
+						$scope.totalAmt = $scope.totalAmt - value.cost;
+					}
+				});
+				
+				$scope.confirmation();
+			}else{
+				//$scope.totalAmt = $scope.totalAmt; // Final Amount from the Admin Table
+				return;
+			}
+		}
+		
+		if(angular.isDefined($scope.finalData) && $scope.finalData.length !== 0){
+			angular.forEach($scope.suppleItems, function(value,key){
+				if(value.itemName == $scope.favoriteSuppl){
+					if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
+						$scope.totalAmt = $scope.totalAmt - value.cost;
+						$scope.confirmation();
+					}else{
+						$scope.totalAmt = 1000;
+						
+						var index = $scope.finalData.indexOf(value);
+						$scope.finalData.splice(index, 1);
+						
+						angular.forEach($scope.brkfstObj1, function(value,key){
+							if(value.imageName == $scope.favoriteDinner){
+								$scope.totalAmt = $scope.totalAmt - value.cost;
+							}
+						});
+						$scope.show = false;
+						return false;
+					}
+				}
+			});
+		
+			angular.forEach($scope.complItems, function(value,key){
+				if(value.selected){
+					if(confirm("Your want to add complemenatary Items with default breakfast?")){
+						$scope.totalAmt = $scope.totalAmt - value.cost;
+						$scope.confirmation();
+					}else{
+						$scope.totalAmt = 1000;
+						
+						var index = $scope.finalData.indexOf(value);
+						$scope.finalData.splice(index, 1);
+						
+						angular.forEach($scope.brkfstObj1, function(value,key){
+							if(value.imageName == $scope.favoriteDinner){
+								$scope.totalAmt = $scope.totalAmt - value.cost;
+							}
+						});
+						$scope.show = false;
+						return false;
+					}
 				}
 			});
 		}
-
+	}
 	
+	$scope.updateSelection = function(){
+		$scope.supplflag = false;
+		$scope.alertShow = false;
+		/*angular.forEach($scope.complItems, function(value,key){
+		if(value.selected){
+			$scope.supplflag = true;
+		}
+	});*/
+	
+	angular.forEach($scope.suppleItems, function(value,key){
+		if(value.itemName == $scope.favoriteSuppl){
+			$scope.supplflag = true;
+		}
+	});
+	
+	if ($scope.supplflag) {
+		if(confirm("Do you want to replace the selected item with existing?")){
+			angular.forEach($scope.suppleItems, function(value,key){
+				if(value.itemName == $scope.favoriteSuppl){
+					//value.selected = false;
+					$scope.supplflag = false;
+					$scope.favoriteSuppl = "";
+				}
+			});
+		}else{
+			event.preventDefault();
+			//$scope.supplflag = true;
+			angular.forEach($scope.complItems, function(value,key){
+				if(value.selected){
+					value.selected = false;
+				}
+			});
+		}
+	}
+}
+	
+	$scope.favoriteSuppl = "" ;
+
+	$scope.updateSelectionSuppl = function(){
+		$scope.complflag = false;
+		$scope.alertShow = false;
+		/*angular.forEach($scope.suppleItems, function(value,key){
+		if(value.Item==$scope.favoriteSuppl){
+			$scope.complflag = true;
+		}
+	});*/
+	
+	angular.forEach($scope.complItems, function(value,key){
+		if(value.selected){
+			$scope.complflag = true;
+		}
+	});
+	
+	if ($scope.complflag) {
+		if(confirm("Do you want to replace the selected item with existing?")){
+			angular.forEach($scope.complItems, function(value,key){
+				if(value.selected){
+					value.selected = false;
+					$scope.complflag = false;
+				}
+			});
+		}else{
+			event.preventDefault();
+			//$scope.complflag = true;
+			$scope.favoriteSuppl = "";
+		}
+	}
+}
+	
+	$scope.addFinalItems = function(){
+		$scope.show = false;
+		$scope.finalData = [];
+		$scope.totalAmt = 1000;
+		angular.forEach($scope.complItems, function(value,key){
+			if(value.selected){
+				$scope.show = true;
+				$scope.finalData.push(value);
+				finalAmt = $scope.totalAmt - value.cost;
+				$scope.totalAmt = finalAmt;
+			}
+		});
+		angular.forEach($scope.suppleItems, function(value1,key1){
+			if(value1.itemName == $scope.favoriteSuppl && $scope.favoriteSuppl != ''){
+				$scope.show = true;
+				$scope.finalData.push(value1);
+				finalAmt = $scope.totalAmt - value1.cost;
+				$scope.totalAmt = finalAmt;
+			}
+		});
+		
+		if($scope.show){
+			$scope.paymentbtn = true;
+			$("#myAddonModal").modal('hide');
+		}else{
+			$scope.alertShow = true;
+			$scope.alertMsg = "Add any item or click on cancel";
+		}
+	}
+	
+	$scope.deleteItem = function(data){
+		
+		var index = $scope.finalData.indexOf(data);
+		$scope.finalData.splice(index, 1);
+		finalAmt = finalAmt + data.cost;
+		$scope.totalAmt = finalAmt;
+		
+		if($scope.finalData.length == 0){
+			$scope.paymentbtn = false;
+			$scope.show = false;
+		}
+		
+		angular.forEach($scope.complItems, function(value,key){
+			if(value.itemName == data.itemName){
+				value.selected = false;
+			}
+		});
+		
+		angular.forEach($scope.suppleItems, function(value,key){
+			if(value.itemName == data.itemName){
+				$scope.favoriteSuppl = "";
+			}
+		});
+	}
 }).
 controller('ContactCtrl', function ($scope,$http) {
 	
