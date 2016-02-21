@@ -333,7 +333,14 @@ body {
 	color:red;
 }
 
-
+ .success{  background-color: #3CB85E!important;
+  border: 1px solid  #3CB85E !important;
+  border-radius: 4px;
+  line-height: 20px;
+  padding: 5px;
+  color: #000000!important;
+  font-size: 15px;
+  }
 
 
 

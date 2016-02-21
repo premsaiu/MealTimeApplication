@@ -199,13 +199,14 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
     				                				$scope.otp = "";
     				                			}else{
     				                				$("#otp").val('');
-    				                				
     				                			}	
 	    				        				
 	    				        				$scope.cancelledMsg = true;
 	    				        				$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
     				                		}else{
-    				                			alert("Payment Done Successfully!!!");
+//    				                			alert("Payment Done Successfully!!!");
+    				                			$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
+    				                			$('#scesavemsg').delay(5000).fadeOut('slow');
     				                		}
     				                	}else{
     				                		if(confirm("Invalid OTP Entered!!!")){
@@ -596,13 +597,13 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 				                				$scope.otp = "";
 				                			}else{
 				                				$("#otp").val('');
-				                				
 				                			}	
     				        				
     				        				$scope.cancelledMsg = true;
     				        				$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
 				                		}else{
-				                			alert("Payment Done Successfully!!!");
+				                			$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
+				                			$('#scesavemsg').delay(5000).fadeOut('slow');
 				                		}
 				                	}else{
 				                		if(confirm("Invalid OTP Entered!!!")){
