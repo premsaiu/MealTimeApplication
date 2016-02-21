@@ -34,8 +34,8 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 		$('#'+modalId).modal('hide');
 	}
 	
-	$rootScope.sendOTP =function(mobileNumber, email){
-		UserService.sendOTP(mobileNumber, email).then(
+	$rootScope.sendOTP =function(mobileNumber, email, subject){
+		UserService.sendOTP(mobileNumber, email, subject).then(
 				function(response) {
 					if(response.status == 200){
 						$('#otpModal').modal('show');
@@ -168,7 +168,8 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 				 function(response) {
                 	if(response.status == 200){
                 		$scope.email = response.data.email;
-                		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+                		var subject = "MealTime - Cancel Breakfast - One Time Password(OTP)";
+                		UserService.sendOTP($scope.mobileNumber, $scope.email, subject).then(
         		                function(response) {
         		                	if(response.status == 200){
         		                		$("#otp").val('');
@@ -564,7 +565,8 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 			 function(response) {
             	if(response.status == 200){
             		$scope.email = response.data.email;
-            		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
+            		var subject = "MealTime - Cancel Breakfast - One Time Password(OTP)";
+            		UserService.sendOTP($scope.mobileNumber, $scope.email, subject).then(
     		                function(response) {
     		                	if(response.status == 200){
     		                		$("#otp").val('');
@@ -876,7 +878,8 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 	
 	$scope.editProfile = function(){
 		console.log($scope.editUser);
-		$rootScope.sendOTP($scope.editUser.mobileNumber, $scope.editUser.email);
+		var subject = "MealTime - Edit Profile - One Time Password(OTP)";
+		$rootScope.sendOTP($scope.editUser.mobileNumber, $scope.editUser.email, subject);
 		$scope.otp = "";
 		$scope.wrongOTPMsg ="";
 	}
@@ -936,7 +939,8 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
 	$scope.addProfile = function(){
-		$rootScope.sendOTP($scope.mobileNumber, $scope.email);
+		var subject = "MealTime - Create Profile - One Time Password(OTP)";
+		$rootScope.sendOTP($scope.mobileNumber, $scope.email, subject);
 		$scope.otp = "";
 	}
 	

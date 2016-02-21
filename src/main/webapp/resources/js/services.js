@@ -12,10 +12,10 @@ angular.module('miniMealApp.services',[])
         return request;
     };
     
-    this.sendOTP = function (mobileNo, email) {
+    this.sendOTP = function (mobileNo, email, subject) {
         var request = $http({
             method:"get",
-            url:  baseURL+'sendOTP.spring?mobileNo='+mobileNo+'&email='+email,
+            url:  baseURL+'sendOTP.spring?mobileNo='+mobileNo+'&email='+email+'&subject='+subject,
             dataType: "application/json"
         });
         return request;

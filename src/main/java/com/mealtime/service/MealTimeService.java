@@ -78,11 +78,11 @@ public class MealTimeService {
 		return otp;
 	}
 	
-	public void emailOTP(Integer otp, String email){
+	public void emailOTP(Integer otp, String email, String subject){
 		logger.info("emailOTP() :: email: "+email+" ::otp: "+otp);
 		String fromAddress = "premcse41@gmail.com";
 		String toAddress = email;
-		String subject = "MealTime - One Time Password(OTP) ";
+		//String subject = "MealTime - One Time Password(OTP) ";
 		String msgBody = "<i>Hi!</i><br><br>";
 		msgBody += "<b>Welcome to MealTime!</b><br>";
 		msgBody += "Your One Time Password(OTP) is <b> "+otp+"</b>.<br>";

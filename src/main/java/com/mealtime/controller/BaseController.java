@@ -43,7 +43,7 @@ public class BaseController {
 	
 	
 	@RequestMapping(value="/sendOTP", method = RequestMethod.GET, produces="application/json")
-	public @ResponseBody WSResponseStatus sendOTP(@RequestParam("mobileNo")String mobileNumber, @RequestParam("email")String email){
+	public @ResponseBody WSResponseStatus sendOTP(@RequestParam("mobileNo")String mobileNumber, @RequestParam("email")String email, @RequestParam("subject") String subject){
 		logger.info("sendOTP():: mobileNo: "+mobileNumber+" ::email: "+email);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		//generate otp
@@ -54,7 +54,7 @@ public class BaseController {
 		int flag = 1;
 		//int flag = mealTimeService.smsOTP(otp, mobileNumber);
 		//email otp
-		mealTimeService.emailOTP(otp, email);
+		mealTimeService.emailOTP(otp, email, subject);
 		if(flag == 0){
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to send OTP");
 		}
