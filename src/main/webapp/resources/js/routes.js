@@ -42,11 +42,16 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
         })
           .state('payment', {
             url: '/payment',
-            templateUrl: 'views/users/payment.html'
+            templateUrl: 'views/users/payment.html',
+            controller: 'PaymentCtrl'
         })
           .state('contactus', {
             url: '/contact',
             templateUrl: 'views/users/contact.html'
+        })
+        .state('paymentsuccess', {
+            url: '/paymentsuccess',
+            templateUrl: 'views/users/payment-success.html'
         })
 })
 .run( function($rootScope, $location) {

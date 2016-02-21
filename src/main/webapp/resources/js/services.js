@@ -93,4 +93,14 @@ angular.module('miniMealApp.services',[])
         return request;
     };
     
+    this.subscribeUser = function(user){
+    	var request = $http({
+    		method:"post",
+    		url:baseURL+'subscribeuser.spring',
+    		dataType: "application/json",
+    		data : user
+    	});
+    	return request; 
+    };
+    
 }]);

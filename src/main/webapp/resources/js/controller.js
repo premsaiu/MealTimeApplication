@@ -2,49 +2,53 @@
 
 angular.module('miniMealApp.controllers', []).
 
-	controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
-		$scope.modalShow = function(){
-			$('#myModal').modal('show');
-		}
-		if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
-			$scope.modalShow();
-		}
-		$scope.checkUser = function(){
-			console.log("Mobile Number::"+$scope.mobileNumber);
-			$rootScope.mobileNumber = $scope.mobileNumber;
-			UserService.checkUser($scope.mobileNumber).then(
-	                function(response) {
-	                	$rootScope.loggedUser = true;
-	                	if(response.data == "" || response.data == null){
-	                		$rootScope.userName = "Visitor";
-	                	}else{
-	                		$rootScope.user = response.data;
-	                		console.log($rootScope.user);
-	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
-	                	}
-	               },
-	                function(errResponse){
-	                    console.error('Error while checking user');
-	                }
-	       );
-			$('#myModal').modal('hide');
-		}
-		
-		$rootScope.sendOTP =function(){
-			UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-					function(response) {
-						if(response.status == 200){
-							$('#otpModal').modal('show');
-						}else{
-							console.log("Bad Request");
-						}
-					},
-					function(errResponse){
-						console.error('Something went wrong!!');
+controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
+	$scope.modalShow = function(){
+		$('#myModal').modal('show');
+	}
+	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
+		$scope.modalShow();
+	}
+	$scope.checkUser = function(){
+		console.log("Mobile Number::"+$scope.mobileNumber);
+		$rootScope.mobileNumber = $scope.mobileNumber;
+		UserService.checkUser($scope.mobileNumber).then(
+                function(response) {
+                	$rootScope.loggedUser = true;
+                	if(response.data == "" || response.data == null){
+                		$rootScope.userName = "Visitor";
+                	}else{
+                		$rootScope.user = response.data;
+                		console.log($rootScope.user);
+                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+                	}
+               },
+                function(errResponse){
+                    console.error('Error while checking user');
+                }
+       );
+		$('#myModal').modal('hide');
+	}
+	
+	$rootScope.closeModal =function(modalId){
+		$('#'+modalId).modal('hide');
+	}
+	
+	$rootScope.sendOTP =function(mobileNumber, email){
+		UserService.sendOTP(mobileNumber, email).then(
+				function(response) {
+					if(response.status == 200){
+						$('#otpModal').modal('show');
+					}else{
+						console.log("Bad Request");
 					}
-			);
-		}
-  }).
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+				}
+		);
+	}
+}).
 
 controller('AboutUsCtrl', function ($scope,$http) {
 	
@@ -820,43 +824,70 @@ controller('PmMealCtrl', function ($scope,$http, UserService) {
 		});
 	}
 }).
-controller('ContactCtrl', function ($scope,$http) {
+controller('ContactCtrl', function ($scope, $http) {
 	
 	alert("In Contact Us Controller");
 	
 }).
-controller('PaymentCtrl', function ($scope,$http) {
+controller('PaymentCtrl', function ($scope, $rootScope, UserService) {
 	
-	alert("In Payment Controller");
+	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
+		location.href = "#/addprofile";
+	}else{
+		$scope.proceed = function(){
+			$scope.subscribeUser($rootScope.user);
+		}
+		
+		$scope.subscribeUser = function(user){
+			UserService.subscribeUser(user).then(
+					function(response) {
+						if(response.data.statusCode == 200){
+							console.log("Response :: "+response.data);
+							location.href = "#/paymentsuccess";
+						}else{
+							console.log("Bad Request");
+						}
+					},
+					function(errResponse){
+						console.error('Something went wrong!!');
+					}
+			);
+		}
+	}
+	
 	
 }).
 controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 	
+	$scope.editUser = angular.copy($rootScope.user);
+	//console.log(user);
 	$scope.isEditForm=false;
+	$scope.wrongOTPMsg="";
 	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
 		location.href = "#/addprofile";
 	}
-	var mobileNumber = $rootScope.user.mobileNumber;
+	var mobileNumber = $scope.editUser.mobileNumber;
 	$rootScope.userProfilePic = "images/"+mobileNumber+".jpg";
 	
 	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
 	$rootScope.foodStyle = [{'label':'North','value':'north'},{'label':'South','value':'south'}];
 	
-	console.log($rootScope.user);
 	
 	$scope.editProfile = function(){
-		console.log($rootScope.user);
-		$rootScope.sendOTP();
+		console.log($scope.editUser);
+		$rootScope.sendOTP($scope.editUser.mobileNumber, $scope.editUser.email);
+		$scope.otp = "";
+		$scope.wrongOTPMsg ="";
 	}
 	$scope.verifyOTP = function(){
-		UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
+		UserService.verifyOTP($scope.editUser.mobileNumber, $scope.otp).then(
 				function(response) {
-					if(response.status == 200){
+					if(response.data.statusCode == 200){
 						$('#otpModal').modal('hide');
 						$scope.updateProfile();
 					}else{
-						$('#otpModal').modal('hide');
+						$scope.wrongOTPMsg="Invalid OTP. Please enter Correct OTP";
 						console.log("Bad Request");
 					}
 				},
@@ -866,13 +897,23 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 		);
 	}
 	
+	$scope.cancelEdit = function(modalId){
+		$scope.editUser = angular.copy($rootScope.user);
+		$rootScope.closeModal(modalId);
+	}
+	
 	$scope.updateProfile = function(){
 		$scope.otp = "";
-		var user = $rootScope.user;
+		var user = $scope.editUser;
 		var file = $('#profilePic')[0].files[0];
+		console.log(file);
+		if(file){
+			$rootScope.userProfilePic = "";
+		}
 		UserService.updateUser(user, file).then(
 				 function(response) {
 					 if(response.data.statusCode == 200){
+						 	$('#editSuccessModal').modal('show');
 					 		console.log(response.data.data);
 					 		$rootScope.user = response.data.data;
 					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
@@ -895,7 +936,8 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
 	$scope.addProfile = function(){
-		$rootScope.sendOTP();
+		$rootScope.sendOTP($scope.mobileNumber, $scope.email);
+		$scope.otp = "";
 	}
 	
 	/*$scope.verifyOTP = function(){
