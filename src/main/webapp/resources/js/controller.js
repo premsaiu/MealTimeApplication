@@ -56,7 +56,12 @@ controller('AboutUsCtrl', function ($scope,$http) {
 	
   }).
   
-controller('AmMealCtrl', function ($scope,$http,UserService) {
+controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
+	
+	if ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false || $rootScope.userName == "Visitor") {
+    	$state.go("profile");
+    	return false;
+    }
 	
 	$scope.paymentbtn = false;
 	$scope.addbrkbtn = false;
@@ -422,7 +427,11 @@ controller('AmMealCtrl', function ($scope,$http,UserService) {
 
 controller('PmMealCtrl', function ($scope,$http, UserService) {
 	
-
+	if ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false || $rootScope.userName == "Visitor") {
+    	$state.go("profile");
+    	return false;
+    }
+	
 	$scope.paymentbtn = false;
 	$scope.addbrkbtn = false;
 	$scope.showbtn = true;
