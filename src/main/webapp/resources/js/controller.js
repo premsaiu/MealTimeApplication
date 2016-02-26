@@ -426,7 +426,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 		}
 }).
 
-controller('PmMealCtrl', function ($scope,$http, UserService) {
+controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserService) {
 	
 	if ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false || $rootScope.userName == "Visitor") {
     	$state.go("profile");
