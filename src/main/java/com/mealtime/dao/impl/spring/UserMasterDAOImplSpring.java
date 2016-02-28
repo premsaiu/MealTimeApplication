@@ -28,7 +28,7 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 		"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2 from user_master where user_id = ?";
 	
 	private final static String SQL_SELECT_BY_MOBILENUMBER = 
-			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2 from user_master where mobile_number = ?";
+			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where mobile_number = ?";
 
 	private final static String SQL_INSERT = 
 		"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2 ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
@@ -190,7 +190,8 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 			userMaster.getRoleId() , // "role_id" : java.lang.Integer
 			userMaster.getFilePath() , // "file_path" : java.lang.String
 			userMaster.getFoodStyleS1() , // "food_style_s1" : java.lang.String
-			userMaster.getFoodStyleS2()  // "food_style_s2" : java.lang.String
+			userMaster.getFoodStyleS2() , // "food_style_s2" : java.lang.String
+			userMaster.getPassword()
 		};
 	}
     //----------------------------------------------------------------------
@@ -214,6 +215,7 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 			userMaster.getFilePath(), // "file_path" : java.lang.String
 			userMaster.getFoodStyleS1(), // "food_style_s1" : java.lang.String
 			userMaster.getFoodStyleS2(), // "food_style_s2" : java.lang.String
+			userMaster.getPassword(),
 			//--- Returns PRIMARY KEY at the end ( for SQL "WHERE key=?, ..." )
 			userMaster.getUserId()  // "user_id" : java.lang.String
 		};
@@ -268,6 +270,7 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 		userMaster.setFilePath(rs.getString("file_path")); // java.lang.String
 		userMaster.setFoodStyleS1(rs.getString("food_style_s1")); // java.lang.String
 		userMaster.setFoodStyleS2(rs.getString("food_style_s2")); // java.lang.String
+		userMaster.setPassword(rs.getString("password"));
 	}
 
     //----------------------------------------------------------------------

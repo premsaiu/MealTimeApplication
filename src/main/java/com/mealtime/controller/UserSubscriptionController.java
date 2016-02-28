@@ -21,7 +21,7 @@ public class UserSubscriptionController {
 	@Autowired
 	MealTimeUtil mealTimeUtil;
 	
-	@RequestMapping(value="subscribeuser", method = RequestMethod.POST)
+	@RequestMapping(value="/subscribeuser", method = RequestMethod.POST)
 	public @ResponseBody WSResponseStatus subscribeUser(@RequestBody UserMaster user){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		userSubscriptionService.subscribeUser(user);

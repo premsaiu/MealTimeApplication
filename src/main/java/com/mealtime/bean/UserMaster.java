@@ -75,7 +75,7 @@ public class UserMaster implements Serializable {
     // DB : food_style_s2 VARCHAR 
     private String foodStyleS2;
 
-
+    private String password;
 
     //----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
@@ -244,7 +244,21 @@ public class UserMaster implements Serializable {
         sb.append("|");
         sb.append(foodStyleS2);
         return sb.toString(); 
-    } 
+    }
+
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	} 
 
 
 }
