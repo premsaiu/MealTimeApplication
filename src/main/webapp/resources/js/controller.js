@@ -221,6 +221,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
     				                		}else{
 //    				                			alert("Payment Done Successfully!!!");
     				                			window.scrollTo(0,0);
+    				                			$scope.paymentbtn = false;
     				                			$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
     				                			$('#scesavemsg').delay(5000).fadeOut('slow');
     				                		}
@@ -626,9 +627,10 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 				                			}	
     				        				
     				        				$scope.cancelledMsg = true;
-    				        				$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
+    				        				$scope.alertCancelledMsg = "Meal has Cacelled!!!";
 				                		}else{
 				                			window.scrollTo(0,0);
+				                			$scope.paymentbtn = false;
 				                			$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
 				                			$('#scesavemsg').delay(5000).fadeOut('slow');
 				                		}
