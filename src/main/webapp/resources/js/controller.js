@@ -9,10 +9,33 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
 		$scope.modalShow();
 	}
+	$scope.adminchk=function(){
+		UserService.adminchk($scope.mobileNumber).then(
+                function(response) {
+                	$rootScope.loggedUser = true;
+                	if(response.data == "" || response.data == null){
+                		$rootScope.adminuser = "";
+                	}else{
+                		$rootScope.adminuser = response.data;
+                		console.log($rootScope.adminuser);
+                		
+                	}
+               },
+                function(errResponse){
+                    console.error('Error while checking user');
+                }
+       );
+	}
 	$scope.checkUser = function(){
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		$rootScope.mobileNumber = $scope.mobileNumber;
-		UserService.checkUser($scope.mobileNumber).then(
+		
+		if($scope.password){
+			$scope.login={
+					mobile:$scope.mobileNumber,
+					password:$scope.password
+			}
+			UserService.checkUser($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
                 	if(response.data == "" || response.data == null){
@@ -27,6 +50,24 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
                     console.error('Error while checking user');
                 }
        );
+		}
+		else{
+			UserService.checkUser($scope.mobileNumber).then(
+	                function(response) {
+	                	$rootScope.loggedUser = true;
+	                	if(response.data == "" || response.data == null){
+	                		$rootScope.userName = "Visitor";
+	                	}else{
+	                		$rootScope.user = response.data;
+	                		console.log($rootScope.user);
+	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Error while checking user');
+	                }
+	       );
+		}
 		$('#myModal').modal('hide');
 	}
 	

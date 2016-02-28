@@ -11,7 +11,30 @@ angular.module('miniMealApp.services',[])
         });
         return request;
     };
-    
+   
+    this.checkUser = function (mobileNo,password) {
+		var logindata={
+				mobileNumber:mobileNo,
+				password:password
+		}
+
+    	var request = $http({
+    		method:"post",
+    		url:baseURL+'checkAdminExistence.spring',
+    		dataType: "application/json",
+    		data : logindata
+    	});
+    	return request;
+    	};
+    this.adminchk = function(mobileNo){
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'checkUserRole.spring?mobileNo='+mobileNo,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    };
+   
     this.sendOTP = function (mobileNo, email, subject) {
         var request = $http({
             method:"get",
@@ -102,5 +125,6 @@ angular.module('miniMealApp.services',[])
     	});
     	return request; 
     };
+    
     
 }]);
