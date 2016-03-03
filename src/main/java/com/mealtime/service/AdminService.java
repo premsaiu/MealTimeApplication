@@ -14,6 +14,7 @@ import com.mealtime.bean.OtpTable;
 import com.mealtime.bean.UserMaster;
 import com.mealtime.dao.OtpTableDAO;
 import com.mealtime.dao.UserMasterDAO;
+import com.mealtime.form.UserForm;
 import com.mealtime.util.MealTimeUtil;
 import com.mealtime.util.SendSMS;
 
@@ -63,6 +64,25 @@ public class AdminService {
 			}
 		}
 		return null;		
+	}
+	
+	public boolean changePassword(UserForm user){
+		UserMaster userMaster = userMasterDAO.find(user.getUserId());
+		if(userMaster != null){
+			if(userMaster.getPassword().equals(user.getPassword())){
+				userMaster.setPassword(user.getNewPassword());
+				int count = userMasterDAO.update(userMaster);
+				if(count >0){
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
 	}
 	
 	public void saveOTP(Integer otp, String mobileNo, String email){

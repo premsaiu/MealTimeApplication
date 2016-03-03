@@ -25,7 +25,7 @@ import com.mealtime.dao.impl.spring.commons.GenericDAO;
 public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements UserMasterDAO {
 
 	private final static String SQL_SELECT = 
-		"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2 from user_master where user_id = ?";
+		"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where user_id = ?";
 	
 	private final static String SQL_SELECT_BY_MOBILENUMBER = 
 			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where mobile_number = ?";
@@ -34,7 +34,7 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 		"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2 ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private final static String SQL_UPDATE = 
-		"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ? where user_id = ?";
+		"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ?, password = ? where user_id = ?";
 
 	private final static String SQL_DELETE = 
 		"delete from user_master where user_id = ?";
