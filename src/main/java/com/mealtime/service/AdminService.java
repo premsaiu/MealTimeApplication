@@ -52,18 +52,26 @@ public class AdminService {
 	}
 	
 	public UserMaster checkAdminExistence(UserMaster userMaster){
-		logger.info("checkUser() :: mobileNumber: "+userMaster.getMobileNumber());
-		
+		logger.info("checkAdminExistence() :: mobileNumber: "+userMaster.getMobileNumber());
 		if(userMaster.getMobileNumber().matches("\\d{10}")){
 			UserMaster userMaster1 = userMasterDAO.findByMobileNumber(userMaster.getMobileNumber());
-			if(userMaster.getRoleId() == 1 && userMaster.getPassword() != null){
-				if(userMaster.getPassword().equals(userMaster.getPassword())){
-					userMaster.setStatus("400");
-					return userMaster1;
+			if(userMaster1 != null){
+				if(userMaster1.getRoleId() == 1 && userMaster1.getPassword() != null){
+					if(userMaster.getPassword().equals(userMaster1.getPassword())){
+						//userMaster.setStatus("400");
+						return userMaster1;
+					}else{
+						return null;
+					}
+				}else{
+					return null;
 				}
+			}else{
+				return null;
 			}
+		}else{
+			return null;		
 		}
-		return null;		
 	}
 	
 	public boolean changePassword(UserForm user){

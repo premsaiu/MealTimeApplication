@@ -38,10 +38,10 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
-                	if(response.data == "" || response.data == null){
+                	if(response.data.data == "" || response.data.data == null){
                 		$rootScope.userName = "Visitor";
                 	}else{
-                		$rootScope.user = response.data;
+                		$rootScope.user = response.data.data;
                 		console.log($rootScope.user);
                 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
                 	}
