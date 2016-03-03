@@ -40,9 +40,11 @@ public class AdminService {
 		if(mobileNumber.matches("\\d{10}")){
 			UserMaster userMaster = userMasterDAO.findByMobileNumber(mobileNumber);
 			if(userMaster.getRoleId() == 1 && userMaster.getPassword() != null){
-				userMaster.setStatus("200");
+				//userMaster.setStatus("200");
+				return userMaster;
+			}else{
+				return null;
 			}
-			return userMaster;
 		}
 		
 		return null;		

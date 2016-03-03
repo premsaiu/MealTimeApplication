@@ -12,7 +12,7 @@ angular.module('miniMealApp.services',[])
         return request;
     };
    
-    this.checkUser = function (mobileNo,password) {
+    this.checkAdmin = function (mobileNo,password) {
 		var logindata={
 				mobileNumber:mobileNo,
 				password:password

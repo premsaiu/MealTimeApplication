@@ -35,7 +35,7 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 					mobile:$scope.mobileNumber,
 					password:$scope.password
 			}
-			UserService.checkUser($scope.mobileNumber,$scope.password).then(
+			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
                 	if(response.data == "" || response.data == null){
