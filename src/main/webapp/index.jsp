@@ -9,7 +9,9 @@
     <link href="resources/css/responsive.css" rel="stylesheet">
     <link href="resources/css/styles1.css" rel="stylesheet">
     <link href="resources/css/responsive1.css" rel="stylesheet">
-    
+     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
+   
     
    <!--  <link rel="icon" type="image/png" href="resources/images/favicon-16x16.png" sizes="16x16"/>
  -->

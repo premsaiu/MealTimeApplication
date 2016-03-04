@@ -53,6 +53,35 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
             url: '/paymentsuccess',
             templateUrl: 'views/users/payment-success.html'
         })
+        .state('adminhome', {
+            url: '/adminhome',
+            templateUrl: 'views/admin/access.html'
+        })
+        .state('changepassword', {
+            url: '/changepwd',
+            templateUrl: 'views/admin/change_password.html'
+        })
+        .state('adminprofile', {
+            url: '/admprofile',
+            templateUrl: 'views/admin/profile_admin.html'
+        })
+        .state('adminbreakfast', {
+            url: '/admbreakfast',
+            templateUrl: 'views/admin/breakfast.html'
+        })
+        .state('admindinner', {
+            url: '/admdinner',
+            templateUrl: 'views/admin/dinner.html'
+        })
+        .state('adminpayment', {
+            url: '/admpayment',
+            templateUrl: 'views/admin/payment_admin.html'
+        })
+        .state('enteramount', {
+            url: '/enteramount',
+            templateUrl: 'views/admin/enteramount_admin.html'
+        })
+        
 })
 .run( function($rootScope, $location) {
     // register listener to watch route changes

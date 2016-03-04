@@ -2,14 +2,15 @@
 
 angular.module('miniMealApp.controllers', []).
 
-controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
+controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
+	$rootScope.status=true;
 	$scope.modalShow = function(){
 		$('#myModal').modal('show');
 	}
 	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
 		$scope.modalShow();
 	}
-	$scope.adminchk=function(){
+	$rootScope.adminchk=function(){
 		UserService.adminchk($scope.mobileNumber).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
@@ -26,31 +27,32 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
                 }
        );
 	}
-	$scope.checkUser = function(){
+	$rootScope.checkUser = function(){
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		$rootScope.mobileNumber = $scope.mobileNumber;
 		
 		if($scope.password){
-			$scope.login={
-					mobile:$scope.mobileNumber,
-					password:$scope.password
-			}
+			
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
-                	if(response.data.data == "" || response.data.data == null){
+                	if(response.data == "" || response.data == null){
                 		$rootScope.userName = "Visitor";
                 	}else{
-                		$rootScope.user = response.data.data;
+                		$rootScope.user = response.data;
                 		console.log($rootScope.user);
-                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
-                	}
+                		$rootScope.status=false;
+                		$rootScope.userName = $rootScope.user.data.firstName+" "+$rootScope.user.data.lastName;
+                		debugger;
+                		$('#myModal').modal('hide');
+                		$state.go('adminhome')
+                		}
                },
                 function(errResponse){
                     console.error('Error while checking user');
                 }
        );
-		}
+				}
 		else{
 			UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
@@ -60,6 +62,8 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 	                	}else{
 	                		$rootScope.user = response.data;
 	                		console.log($rootScope.user);
+	                		$rootScope.status=true;
+	                		
 	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                	}
 	               },

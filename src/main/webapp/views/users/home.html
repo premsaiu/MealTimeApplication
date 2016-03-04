@@ -1,4 +1,4 @@
- <div>
+ <div ng-show='status'>
 		    
 		    <div class="col-md-9 col-xs-12">
 			    <div id="carousel-example-generic" class="carousel slide mt10 mb115" data-ride="carousel">
@@ -66,39 +66,7 @@
 		    	<a class="btn btn-danger subscribe-btn pull-right" href="#" role="button">Subscribe Now</a>
 		    </div>
 		    
-		    	<!-- Home Modal -->
-			    <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false">
-				  <div class="modal-dialog max-w400">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-				        <h4 class="modal-title">Log Account</h4>
-				      </div>
-				      <div class="modal-body">
-				        <form name="myForm">
-				          <div class="form-group">
-				            <label for="recipient-name" class="control-label">Registered Mobile No:</label>
-				            <input type="number" class="form-control" id="mobileNo" name="mobileNo" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()">
-				      		  </div>
-				      		   <span data-ng-show="myForm.mobileNo.$error.pattern">Not a valid number!</span>
-    							<span data-ng-show="myForm.mobileNo.$error.minlength">Enter 10 digit number </span>
-				          
-				          <div class="form-group" data-ng-show="adminuser">
-				            <label for="recipient-name" class="control-label">Password:</label>
-				            <input type="password" class="form-control" id="password" ng-model="password">
-				          </div>
-				          
-   
-				        </form>
-	
-				      </div>
-				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-success" data-ng-click="checkUser()">Submit</button>
-				      </div>
-				    </div><!-- /.modal-content -->
-				  </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-				
+		   	
 				 
 	
 				
