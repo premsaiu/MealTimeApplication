@@ -1,0 +1,510 @@
+
+
+    <div class="container-fluid">
+    <div class="container custom-container mt20 mb20">
+	    
+	    <div class="row">
+		    
+		    <div class="col-md-9 col-xs-12 bg-color-s1">
+
+				<div class="row searchbg">
+				  <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+					  <select id="select" name="select" class="form-control">
+						  <option value="option1">Select Meal</option>
+						  <option value="option2">AM Meal</option>
+						  <option value="option3">PM Meal</option>
+						  <option value="option4">Supplementary</option>
+						  <option value="option5">Complementary</option>
+						  <option value="option6">Free Sample Meal</option>
+					</select>
+				  </div>
+				  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"></div>
+				  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				    <div class="input-group">
+				      <input type="text" class="form-control" placeholder="Search for...">
+				      <span class="input-group-btn">
+				        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				      </span>
+				    </div><!-- /input-group -->
+				  </div><!-- /.col-lg-6 -->
+				</div><!-- /.row -->
+				
+				<div class="option1 col-lg-12 mb20" style="display: block;">
+					<br><br><br>
+					<p>Please select the meal...</p>
+					<br><br><br><br><br><br><br><br><br>				
+			    </div>
+				
+				<div class="option2 col-lg-12 mb20" style="display:none;">
+					<h4 class="titile-02">AM Meal</h4>
+					<!-- <div class="col-lg-1"></div> -->
+					<div class="col-lg-12">
+						<form class="form-horizontal">
+					  	<div class="form-group">
+					    <label for="inputitem" class="col-sm-1 control-label">Date</label>
+					    <div class="col-sm-5">
+					      <label for="inputitem" class="col-sm-12 control-label text-align-left fnt-weight-normal">02/22/2016 9:01 AM</label>
+					    </div>
+					    
+						<div class="pull-left col-sm-12 custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail" width="180" height="115">
+						</div>​
+						<div class="col-sm-5">
+							<label for="inputitem" class="col-xs-12 col-sm-12 control-label text-align-left fnt-weight-normal">Masala Dosa</label>
+						</div>
+						
+						<!--
+						<div class="pull-left clearfix mb10">
+						    <div class="radio">
+							   <label class="radio col-sm-4"> <input type="radio" name="select_breakmeal" id="select_breakmeal3">Allam Chutney with Dosa </label>
+							   <label class="radio col-sm-4"> <input type="radio" name="select_breakmeal" id="select_breakmeal3">Allam Chutney with Dosa </label>
+							   <label class="radio col-sm-4"> <input type="radio" name="select_breakmeal" id="select_breakmeal3">Allam Chutney with Dosa </label>
+							</div>
+						</div> -->
+					    
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-12">
+					      <button type="button" class="btn btn-success btn_custom_margin change-item">Edit</button>
+					      <!-- <button type="button" class="btn btn-success btn_custom_margin change-item">Add New</button> -->
+					    </div>
+					  </div>
+					  
+					  <!-- edit mode output -->
+					  <div class="hide-item">
+						  <div class="form-group">
+						  		<div class="col-sm-12 mb10 p0"> <label for="inputEmail3" class="col-sm-5 text-align-left control-label">Date</label> </div>
+							    <div class="col-sm-5 col-xs-9 input-group date mb10 pl15" id='datetimepicker3'>
+							      <input type='text' class="form-control">
+							      <span class="input-group-addon">
+								  		<span class="glyphicon glyphicon-calendar"></span>
+								  </span>
+							    </div>
+							    
+								<div class="col-sm-12 custom-thumbs">
+									<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail pull-left" width="180" height="115">
+									<div class="form-group pull-left ml20">
+									    <label for="exampleInputFile">File input</label>
+									    <input type="file" id="exampleInputFile">
+									    <p class="help-block">Change Picture</p>
+									</div>
+									<div class="clearfix"></div>
+								</div>​
+								<div class="mt10 col-sm-4 col-xs-9">
+										<select class="form-control col-xs-12 col-sm-5">
+											 <option>Masala Dosa</option>
+											 <option>Masala Dosa with Chutney</option>
+											 <option>Allam Chutney with Dosa</option>
+											 <option>Plli Chutney with Dosa</option>
+											 <option>Pudena Chutney with Dosa</option>
+										</select>
+									</div>
+							  </div>
+							  <div class="form-group">
+							    <div class="col-sm-12">
+							      <button type="button" class="btn btn-success btn_custom_margin change-item">Update</button>
+							      <!-- <button type="button" class="btn btn-success btn_custom_margin change-item">Add New</button> -->
+							    </div>
+							  </div>
+							  
+					  </div>
+					</form>
+					</div>
+					<!-- <div class="col-lg-5"></div> -->
+					
+			    </div>
+			    
+			    <div class="option3 col-lg-12 mb20" style="display:none;">
+					<h4 class="titile-02">PM Meal</h4>
+					<!-- <div class="col-lg-1"></div> -->
+					<div class="col-lg-12">
+						<form class="form-horizontal">
+					  	<div class="form-group">
+					    <label for="inputitem" class="col-sm-1 control-label">Date</label>
+					    <div class="col-sm-5">
+					      <label for="inputitem" class="col-sm-12 control-label text-align-left fnt-weight-normal">02/22/2016 9:01 AM</label>
+					    </div>
+					    
+						<div class="pull-left col-sm-12 custom-thumbs">
+							<img src="resources/images/ammeal/meal_02.jpg" class="img-thumbnail" width="180" height="115">
+						</div>​
+						<div class="col-sm-5">
+							<label for="inputitem" class="col-xs-12 col-sm-12 control-label text-align-left fnt-weight-normal">Masala Dosa</label>
+						</div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-12">
+					      <button type="button" class="btn btn-success btn_custom_margin change-item">Edit</button>
+					      <!-- <button type="button" class="btn btn-success btn_custom_margin change-item">Add New</button> -->
+					    </div>
+					  </div>
+					  
+					  <!-- edit mode output -->
+					  <div class="hide-item">
+						  <div class="form-group">
+						  		<div class="col-sm-12 mb10 p0"> <label for="inputEmail3" class="col-sm-5 text-align-left control-label">Date</label> </div>
+							    <div class="col-sm-5 col-xs-9 input-group date mb10 pl15" id='datetimepicker4'>
+							      <input type='text' class="form-control">
+							      <span class="input-group-addon">
+								  		<span class="glyphicon glyphicon-calendar"></span>
+								  </span>
+							    </div>
+							    
+								<div class="col-sm-12 custom-thumbs">
+									<img src="resources/images/ammeal/meal_03.jpg" class="img-thumbnail pull-left" width="180" height="115">
+									<div class="form-group pull-left ml20">
+									    <label for="exampleInputFile">File input</label>
+									    <input type="file" id="exampleInputFile">
+									    <p class="help-block">Change Picture</p>
+									</div>
+									<div class="clearfix"></div>
+								</div>​
+								<div class="mt10 col-sm-4 col-xs-9">
+										<select class="form-control col-xs-12 col-sm-5">
+											 <option>Masala Dosa</option>
+											 <option>Masala Dosa with Chutney</option>
+											 <option>Allam Chutney with Dosa</option>
+											 <option>Plli Chutney with Dosa</option>
+											 <option>Pudena Chutney with Dosa</option>
+										</select>
+									</div>
+							  </div>
+							  <div class="form-group">
+							    <div class="col-sm-12">
+							      <button type="button" class="btn btn-success btn_custom_margin change-item">Update</button>
+							      <!-- <button type="button" class="btn btn-success btn_custom_margin change-item">Add New</button> -->
+							    </div>
+							  </div>
+							  
+					  </div>
+					</form>
+					</div>
+					<!-- <div class="col-lg-5"></div> -->
+			    </div>
+			    
+			    <div class="option4 col-lg-12 mb20" style="display:none;">
+			    	<h4 class="titile-02">Supplementary</h4>
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_03.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_02.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Allam Chutney with Wada
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_04.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_03.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Allam Chutney with Wada
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+						
+					<div class="col-xs-12 col-md-9">
+						<a class="btn btn-success addOn-btn-s1 btn_custom_margin change-item" href="#" role="button">Edit</a>
+					    <a class="btn btn-success addOn-btn-s1 btn_custom_margin" data-toggle="modal" data-target="#addNew" href="#" role="button">Add New</a>
+					</div>
+			    </div>
+			    
+			    <div class="option5 col-lg-12 mb20" style="display:none;">
+			    	<h4 class="titile-02">Complementary</h4>
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_03.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_02.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Allam Chutney with Wada
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_04.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_03.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Allam Chutney with Wada
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+						
+					<div class="col-xs-12 col-md-9">
+						<a class="btn btn-success addOn-btn-s1 change-item" href="#" role="button">Edit</a>
+					    <a class="btn btn-success addOn-btn-s1 btn_custom_margin" data-toggle="modal" data-target="#addNew" href="#" role="button">Add New</a>
+					</div>
+			    </div>
+			    
+			    <div class="option6 col-lg-12 mb20" style="display:none;">
+			    	<h4 class="titile-02">Free Sample Meal</h4>
+			    	<div class="col-lg-1"></div>
+					<div class="col-lg-7">
+						<h5 class="titile-04">Add Personal info</h5>
+						<form class="form-horizontal">
+						<div class="form-group">
+					    <label for="inputitem" class="col-sm-4 control-label">Name</label>
+					    <div class="col-sm-8">
+					      <input type="text" class="form-control">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="inputitem" class="col-sm-4 control-label">Mobile No</label>
+					    <div class="col-sm-8">
+					      <input type="number" class="form-control">
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="inputitem" class="col-sm-4 control-label">Address</label>
+					    <div class="col-sm-8">
+					      <textarea class="form-control" rows="3"></textarea>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <label for="inputEmail3" class="col-sm-4 control-label">Date</label>
+					    <div class="col-sm-8 input-group date" id='datetimepicker2'>
+					      <input type='text' class="form-control">
+					      <span class="input-group-addon">
+						  		<span class="glyphicon glyphicon-calendar"></span>
+						  </span>
+					    </div>
+					  </div>
+					  
+					  <div class="form-group">
+					    <div class="col-sm-offset-4 col-sm-8">
+					      <button type="submit" class="btn btn-success btn_custom_margin">Submit</button>
+					    </div>
+					  </div>
+					  
+					</form>
+					</div>
+					<div class="col-lg-4"></div>
+			    	<div class="clearfix"></div>
+			    	
+			    	<h5 class="titile-04">Selected Meal</h5>
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_03.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_02.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Allam Chutney with Wada
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_04.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Masala Dosa
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+					<div class="pull-left custom-thumbs">
+							<img src="resources/images/ammeal/meal_03.jpg" class="img-thumbnail" width="180" height="115">
+							<div class="radio custom-thumbs-title">
+							   <label class="radio h40">
+							      Allam Chutney with Wada
+							   </label>
+							</div>
+							<a class="btn btn-primary center-block mb8 w100p hide-item" href="#" role="button">Delete Add-on</a>
+						</div>​
+						
+					<div class="col-xs-12 col-md-9">
+						<a class="btn btn-success addOn-btn-s1 change-item" href="#" role="button">Edit</a>
+					    <a class="btn btn-success addOn-btn-s1" href="#" role="button">Cancel</a>
+					</div>
+			    </div>
+
+		    </div>
+		    
+		    <!-- Home Modal -->
+			    <div class="modal fade" id="addNew" tabindex="-1" role="dialog">
+				  <div class="modal-dialog max-w800">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">Add New</h4>
+				      </div>
+				      <div class="modal-body">
+				      
+				      
+				        <div class="col-sm-12 custom-thumbs">
+							<img src="resources/images/ammeal/meal_01.jpg" class="img-thumbnail pull-left mr10" width="180" height="115">
+							<div class="form-group pull-left">
+							    <label for="exampleInputFile">File input</label>
+							    <input type="file" id="exampleInputFile">
+							    <p class="help-block">Change Picture</p>
+							</div>
+						</div>​
+						<div class="mt10 col-sm-5">
+										<select class="form-control col-xs-12 col-sm-5">
+											 <option>Masala Dosa</option>
+											 <option>Masala Dosa with Chutney</option>
+											 <option>Allam Chutney with Dosa</option>
+											 <option>Plli Chutney with Dosa</option>
+											 <option>Pudena Chutney with Dosa</option>
+										</select>
+						</div>
+						<div class="pull-left clearfix mt10">
+					    <h5 class="titile-04">Allam Chutney with Wada - Selected Meal info</h5>
+					    <p>
+						    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+					    </p>
+				    </div>
+						<div class="clearfix"></div>
+				      </div>
+				      <div class="modal-footer">
+				        <!-- <button type="button" class="btn btn-success" onclick="window.open('http://www.google.com')">Submit</button> -->
+				        <!-- <button type="button" class="btn btn-success" onclick="window.open('welcome.html')">Submit</button> -->
+				        <button type="button" class="btn btn-success" id="openlink-1">Add</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+		    	
+	    </div>
+	    
+	   
+	    
+    </div>
+	
+	
+	</div>
+	
+    <script type="text/javascript">
+    	//open a given url in a new tab by clicking a button
+	    $("#openlink-1").click(function () {
+			window.location = "index_admin.html"  //open on same tab			
+	  });
+	  
+	  //hide and show onclick
+		$(".change-item").click(function(){
+		   $(".hide-item").toggleClass("show-item");
+		});
+	  
+	  //Show div based on select value
+	  var hideAll = function() {
+		  $('div[class^=option]').hide();
+	  }
+	  $('#select').on('change', function() {
+		  hideAll();
+		  var category = $(this).val();
+		
+		  $('.' + category).show();
+	  });
+	  
+	  //calender
+	  $(function () {
+          $('#datetimepicker1').datetimepicker();
+          $('#datetimepicker2').datetimepicker();
+          $('#datetimepicker3').datetimepicker();
+          $('#datetimepicker4').datetimepicker();
+      });
+    </script>​
+     
+  
