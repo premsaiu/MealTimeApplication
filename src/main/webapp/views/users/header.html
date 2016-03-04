@@ -11,7 +11,7 @@
 			    </ul>
 			    <div class="clearfix"></div>
 			    <h1 class="titile-01">Meal Time Online Food Ordering Service</h1>
-			    <li>
+			    <li ng-show='status'>
 				    <div class="btn-group pull-right dd-custom-s1 open">
 			    	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						<span class="caret"></span>
@@ -21,6 +21,21 @@
 						</ul>
 		    		</div>
 			    	</li>
+			    	<div class="col-md-9 col-sm-9" ng-hide='status'>
+			    <div class="btn-group pull-right dd-custom-s1">
+					    	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="caret"></span>
+						    </button>
+							<ul class="dropdown-menu ">
+								<li><a ui-sref="changepassword">Change Password</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="#" id="openlink-1">Sign Out</a></li>
+							</ul>
+				    	</div>
+			   
+			    
+		    </div>
+	    
 			    <span style="float: right;">Welcome {{userName}}</span>
 		    </div>
 	    </div>
