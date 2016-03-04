@@ -59,6 +59,7 @@
 				        <h4 class="modal-title">One Time Password</h4>
 				      </div>
 				      <div class="modal-body">
+				       <span style="color:red;">{{wrongOTPMsg}}</span>
 				        <form>
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label">Please Enter OTP</label>
@@ -68,6 +69,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Submit</button>
+				        <button type="submit" class="btn btn-success" data-ng-click="closeModal('otpModal')">Cancel</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->

@@ -2,14 +2,15 @@
 
 angular.module('miniMealApp.controllers', []).
 
-controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
+controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
+	$rootScope.status=true;
 	$scope.modalShow = function(){
 		$('#myModal').modal('show');
 	}
 	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
 		$scope.modalShow();
 	}
-	$scope.adminchk=function(){
+	$rootScope.adminchk=function(){
 		UserService.adminchk($scope.mobileNumber).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
@@ -26,31 +27,32 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
                 }
        );
 	}
-	$scope.checkUser = function(){
+	$rootScope.checkUser = function(){
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		$rootScope.mobileNumber = $scope.mobileNumber;
 		
 		if($scope.password){
-			$scope.login={
-					mobile:$scope.mobileNumber,
-					password:$scope.password
-			}
+			
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
-                	if(response.data.data == "" || response.data.data == null){
+                	if(response.data == "" || response.data == null){
                 		$rootScope.userName = "Visitor";
                 	}else{
-                		$rootScope.user = response.data.data;
+                		$rootScope.user = response.data;
                 		console.log($rootScope.user);
-                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
-                	}
+                		$rootScope.status=false;
+                		$rootScope.userName = $rootScope.user.data.firstName+" "+$rootScope.user.data.lastName;
+                		debugger;
+                		$('#myModal').modal('hide');
+                		$state.go('adminhome')
+                		}
                },
                 function(errResponse){
                     console.error('Error while checking user');
                 }
        );
-		}
+				}
 		else{
 			UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
@@ -60,6 +62,8 @@ controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 	                	}else{
 	                		$rootScope.user = response.data;
 	                		console.log($rootScope.user);
+	                		$rootScope.status=true;
+	                		
 	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                	}
 	               },
@@ -1011,24 +1015,14 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 		$scope.otp = "";
 	}
 	
-	/*$scope.verifyOTP = function(){
-		var isOTPValidated = $rootScope.validateOTP();
-		if(isOTPValidated){
-			$('#otpModal').modal('hide');
-			console.log(response.data);
-			$scope.submitProfile();
-		}else{
-			console.log("Wrong OTP");
-		}
-	}*/
 	$scope.verifyOTP = function(){
 		UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
 				function(response) {
-					if(response.status == 200){
+					if(response.data.statusCode == 200){
 						$('#otpModal').modal('hide');
 						$scope.submitProfile();
 					}else{
-						$('#otpModal').modal('hide');
+						$scope.wrongOTPMsg="Invalid OTP. Please enter Correct OTP";
 						console.log("Bad Request");
 					}
 				},

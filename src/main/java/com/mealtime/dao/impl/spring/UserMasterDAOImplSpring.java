@@ -31,7 +31,7 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where mobile_number = ?";
 
 	private final static String SQL_INSERT = 
-		"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2 ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 	private final static String SQL_UPDATE = 
 		"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ?, password = ? where user_id = ?";
