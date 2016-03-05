@@ -23,7 +23,7 @@ public class UserSubscriptionService {
 		userSubscription.setSubscriptionId(1);
 		userSubscription.setStatus("In Progress");
 		userSubscription.setIsActive("NO");
-		Date date = new Date();
+		/*Date date = new Date();
 		DateFormat currentDate = DateFormat.getDateInstance();
 		Date startDate = null;
 		Date endDate = null;
@@ -36,7 +36,7 @@ public class UserSubscriptionService {
 		System.out.println("Start Date: "+startDate);
 		System.out.println("End Date: "+endDate);
 		userSubscription.setStartDate(startDate);
-		userSubscription.setEndDate(endDate);
+		userSubscription.setEndDate(endDate);*/
 		userSubscriptionDAO.insert(userSubscription);
 	}
 	

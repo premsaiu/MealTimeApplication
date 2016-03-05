@@ -63,7 +63,8 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
         })
         .state('adminprofile', {
             url: '/admprofile',
-            templateUrl: 'views/admin/profile_admin.html'
+            templateUrl: 'views/admin/profile_admin.html',
+            controller: 'AdminProfileCtrl'
         })
         .state('adminbreakfast', {
             url: '/admbreakfast',

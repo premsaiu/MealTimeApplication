@@ -136,4 +136,17 @@ angular.module('miniMealApp.services',[])
     };
     
     
+}]).
+service('AdminService', ['$http', '$q', function($http, $q){
+	
+	var baseURL = "http://localhost:8080/MealTimeApplication/admin/";
+	/*this.checkUser = function (mobileNo) {
+        var request = $http({
+            method:"get",
+            url:  baseURL+'checkUser.spring?mobileNo='+mobileNo,
+            dataType: "application/json"
+        });
+        return request;
+    };*/
+	
 }]);
