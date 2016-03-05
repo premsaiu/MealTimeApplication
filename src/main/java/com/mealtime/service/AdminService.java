@@ -46,9 +46,9 @@ public class AdminService {
 			}else{
 				return null;
 			}
+		}else{
+			return null;
 		}
-		
-		return null;		
 	}
 	
 	public UserMaster checkAdminExistence(UserMaster userMaster){

@@ -913,6 +913,11 @@ controller('PaymentCtrl', function ($scope, $rootScope, UserService) {
 						console.log("Response :: "+response.data.data);
 						$rootScope.subscribeUserDetails = response.data.data;
 						$rootScope.isUserSubscribed = true;
+						if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
+							$rootScope.isActive = true;
+						}else{
+							$rootScope.isActive = false;
+						}
 					}else{
 						$rootScope.isUserSubscribed = false;
 					}
