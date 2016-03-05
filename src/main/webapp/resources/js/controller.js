@@ -28,6 +28,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
        );
 	}
 	$rootScope.checkUser = function(){
+		$rootScope.loginError = "";
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		$rootScope.mobileNumber = $scope.mobileNumber;
 		
@@ -36,19 +37,20 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
-                	if(response.data == "" || response.data == null){
-                		$rootScope.userName = "Visitor";
+                	if(response.data.data == "" || response.data.data == null){
+                		//$rootScope.userName = "Visitor";
+                		$rootScope.loginError = "Invalid Credentials. Please try again later";
                 	}else{
-                		$rootScope.user = response.data;
+                		$rootScope.user = response.data.data;
                 		console.log($rootScope.user);
                 		$rootScope.status=false;
-                		$rootScope.userName = $rootScope.user.data.firstName+" "+$rootScope.user.data.lastName;
-                		debugger;
+                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
                 		$('#myModal').modal('hide');
                 		$state.go('adminhome')
                 		}
                },
                 function(errResponse){
+            	    $scope.loginError = "Invalid Credentials. Please try again later";
                     console.error('Error while checking user');
                 }
        );
@@ -71,8 +73,8 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	                    console.error('Error while checking user');
 	                }
 	       );
+			$('#myModal').modal('hide');
 		}
-		$('#myModal').modal('hide');
 	}
 	
 	$rootScope.closeModal =function(modalId){

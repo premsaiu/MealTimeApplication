@@ -35,6 +35,7 @@
 				        <h4 class="modal-title">Log Account</h4>
 				      </div>
 				      <div class="modal-body">
+				      <span style="color:red;">{{loginError}}</span>
 				        <form name="myForm">
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label">Registered Mobile No:</label>
