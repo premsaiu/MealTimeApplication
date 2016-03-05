@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mealtime.bean.UserMaster;
+import com.mealtime.bean.UserSubscription;
 import com.mealtime.service.UserSubscriptionService;
 import com.mealtime.util.MealTimeUtil;
 import com.mealtime.util.WSResponseStatus;
@@ -38,4 +40,14 @@ public class UserSubscriptionController {
 		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		return wsResponseStatus;
 	}
+	
+	@RequestMapping(value="/subscribecheck", method = RequestMethod.GET)
+	public @ResponseBody WSResponseStatus checkSubscribtion(@RequestParam("userId")String userId){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		UserSubscription userSubscription = userSubscriptionService.checkSubscription(userId);
+		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		wsResponseStatus.setData(userSubscription);
+		return wsResponseStatus;
+	}
+	
 }

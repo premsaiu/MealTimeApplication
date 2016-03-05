@@ -2,7 +2,7 @@
 <html lang="en">
 
   
-		    <div class="col-md-9 col-xs-12 bg-color-s1">
+		    <div class="col-md-9 col-xs-12 bg-color-s1" ng-hide="isUserSubscribed">
 		    	<h4 class="titile-02">Payment</h4>
 				<div class="mb20">
 					Please pay the amount for subscription.<br/>
@@ -16,6 +16,17 @@
 				</div>
 				<br/>
 				<button style="float: right;margin-right: 165px;" type="submit" class="btn btn-success" data-ng-click="proceed();">Proceed</button>
+				
+		    </div>
+		    
+		    <div class="col-md-9 col-xs-12 bg-color-s1" ng-show="isUserSubscribed">
+		    	<h4 class="titile-02">Your Subscription Details</h4>
+				<div class="mb20">
+					<label>Start Date: {{subscribeUserDetails.startDate}}</label><br/>
+					<label>End Date: {{subscribeUserDetails.endDate}}</label><br/>
+				</div>
+				<br/>
+				<!-- <button style="float: right;margin-right: 165px;" type="submit" class="btn btn-success" data-ng-click="proceed();">Proceed</button> -->
 				
 		    </div>
 		    	

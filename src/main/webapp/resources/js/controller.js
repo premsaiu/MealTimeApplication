@@ -906,6 +906,23 @@ controller('PaymentCtrl', function ($scope, $rootScope, UserService) {
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
 		location.href = "#/addprofile";
 	}else{
+		$rootScope.isUserSubscribed = true;
+		UserService.checkSubscription($rootScope.user.userId).then(
+				function(response) {
+					if(response.data.data != "" && response.data.data != null){
+						console.log("Response :: "+response.data.data);
+						$rootScope.subscribeUserDetails = response.data.data;
+						$rootScope.isUserSubscribed = true;
+					}else{
+						$rootScope.isUserSubscribed = false;
+					}
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+				}
+		);
+		
+		
 		$scope.proceed = function(){
 			$scope.subscribeUser($rootScope.user);
 		}

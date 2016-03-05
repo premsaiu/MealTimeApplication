@@ -126,5 +126,14 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
+    this.checkSubscription = function(userId){
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'subscribecheck.spring?userId='+userId,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    };
+    
     
 }]);

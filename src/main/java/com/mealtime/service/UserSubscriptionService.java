@@ -39,5 +39,11 @@ public class UserSubscriptionService {
 		userSubscription.setEndDate(endDate);
 		userSubscriptionDAO.insert(userSubscription);
 	}
+	
+	public UserSubscription checkSubscription(String userId){
+		UserSubscription userSubscription = new UserSubscription();
+		userSubscription = userSubscriptionDAO.findByUserId(userId);
+		return userSubscription;
+	}
 
 }
