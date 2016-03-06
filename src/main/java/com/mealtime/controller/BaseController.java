@@ -1,8 +1,5 @@
 package com.mealtime.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -100,7 +97,7 @@ public class BaseController {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 		}
 		if (!file.isEmpty()) {
-			uploadProfilePic(file, userMaster, userId, wsResponseStatus);
+			MealTimeUtil.uploadProfilePic(file, userMaster, userId, wsResponseStatus);
 			mealTimeService.saveProfile(userMaster);
 			UserMaster user = mealTimeService.checkUser(userMaster.getMobileNumber());
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
@@ -126,7 +123,7 @@ public class BaseController {
 		} catch (IOException e) {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 		}
-		uploadProfilePic(file, userMaster, userMaster.getUserId(), wsResponseStatus);
+		MealTimeUtil.uploadProfilePic(file, userMaster, userMaster.getUserId(), wsResponseStatus);
 		int count = mealTimeService.updateProfile(userMaster);
 		if(count == 0){
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Update Failed");
@@ -135,34 +132,6 @@ public class BaseController {
 			wsResponseStatus.setData(userMaster);
 		}
 		return wsResponseStatus;
-	}
-	
-	public void uploadProfilePic(MultipartFile file, UserMaster userMaster, String userId, WSResponseStatus wsResponseStatus){
-		 logger.info("Uploading Profile Picture..");
-        try {
-            byte[] bytes = file.getBytes();
-            logger.info("Content Type::"+file.getContentType());
-            //String fileName = userMaster.getMobileNumber()+".jpg";
-            String fileName = userId+".jpg";
-            // Creating the directory to store file
-            String rootPath = System.getProperty("catalina.home");
-            logger.info("Catalina Home::"+rootPath);
-            File dir = new File(rootPath+File.separator+"MealTime_User_Images");
-            if (!dir.exists())
-                dir.mkdirs();
-            // Create the file on server
-            File serverFile = new File(dir.getAbsolutePath() + File.separator + fileName);
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
-            logger.info("Server File Location=" + serverFile.getAbsolutePath());
-            userMaster.setFilePath(serverFile.getAbsolutePath());
-            logger.info("You successfully uploaded file=" + fileName);
-        } catch (Exception e) {
-            logger.error("You failed to upload " + userId + " => " + e.getMessage());
-            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
-        }
-        logger.info("Uploaded successfully");
 	}
 	
 }

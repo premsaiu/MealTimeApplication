@@ -185,6 +185,8 @@ public class AdminService {
 		user.setFoodStyleS1(userMaster.getFoodStyleS1());
 		user.setFoodStyleS2(userMaster.getFoodStyleS2());
 		user.setAddress(userMaster.getAddress());
+		user.setUpdatedBy(userMaster.getUpdatedBy());
+		user.setUpdatedDate(new Date());
 		count  = userMasterDAO.update(user);
 		return count;
 	}

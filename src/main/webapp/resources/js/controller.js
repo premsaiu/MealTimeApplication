@@ -1087,7 +1087,7 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	}
 	
 }).
-controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
+controller('AdminProfileCtrl', function ($scope,$rootScope,UserService,AdminService) {
 	$scope.isSelectedUser = false;
 	$scope.isEditForm=false;
 	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
@@ -1129,12 +1129,13 @@ controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
 	$scope.selectedUserUpdateProfile = function(){
 		$('#selected-user-edit-confirm-modal').modal('hide');
 		var user = $scope.selectedEditUser;
+		user.updatedBy = $rootScope.user.userId;
 		var file = $('#selectedUserProfilePic')[0].files[0];
 		console.log(file);
 		if(file){
 			$rootScope.selectedUserProfilePic = "";
 		}
-		UserService.updateUser(user, file).then(
+		AdminService.updateUser(user, file).then(
 				 function(response) {
 					 if(response.data.statusCode == 200){
 						 	$('#selectedUserEditSuccessModal').modal('show');
@@ -1167,11 +1168,15 @@ controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
 					 function(response) {
 						 if(response.data.statusCode == 200){
 						 		console.log(response.data.data);
-						 		$scope.changed="true";
+						 		//$scope.changed="true";
+						 		//fadeIn fadeout url
+						 		/*http://jsfiddle.net/sunnypmody/XDaEk/
+*/						 		$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 						 		$scope.opassword='';
 						 		$scope.newPassword='';
 						 		$scope.reenterNewPassword='';
 						 		$scope.form.$setPristine();
+						 		 
 		                	}else{
 		                		console.log("Bad Request");
 		                	}

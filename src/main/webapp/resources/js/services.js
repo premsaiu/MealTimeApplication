@@ -149,13 +149,20 @@ angular.module('miniMealApp.services',[])
 service('AdminService', ['$http', '$q', function($http, $q){
 	
 	var baseURL = "http://localhost:8080/MealTimeApplication/admin/";
-	/*this.checkUser = function (mobileNo) {
+	this.updateUser = function (obj, file) {
+    	var fd = new FormData();
+    	fd.append("file", file);
+    	fd.append("model", JSON.stringify(obj));
         var request = $http({
-            method:"get",
-            url:  baseURL+'checkUser.spring?mobileNo='+mobileNo,
-            dataType: "application/json"
+            method:"post",
+            url:  baseURL+'updateUser.spring',
+            data : fd,
+            headers : {
+                'Content-Type' : undefined
+               },
+            transformRequest : angular.identity,
         });
         return request;
-    };*/
+    };
 	
 }]);
