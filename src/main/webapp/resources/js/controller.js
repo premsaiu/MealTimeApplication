@@ -33,7 +33,6 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 		$rootScope.mobileNumber = $scope.mobileNumber;
 		
 		if($scope.password){
-			
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
@@ -52,11 +51,9 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
                 function(errResponse){
             	    $scope.loginError = "Invalid Credentials. Please try again later";
                     console.error('Error while checking user');
-                }
-       );
-				}
-		else{
-			UserService.checkUser($scope.mobileNumber).then(
+                });
+				}else{
+					UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
 	                	$rootScope.loggedUser = true;
 	                	if(response.data == "" || response.data == null){
@@ -65,7 +62,6 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	                		$rootScope.user = response.data;
 	                		console.log($rootScope.user);
 	                		$rootScope.status=true;
-	                		
 	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                	}
 	               },
@@ -93,56 +89,32 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 				function(errResponse){
 					console.error('Something went wrong!!');
 				}
-		);
-	}
+		)}
 }).
 
 controller('AboutUsCtrl', function ($scope,$http) {
-	
 	alert("In About Us Controller");
-	
   }).
   
 controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
-	
 	if ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false || $rootScope.userName == "Visitor") {
-    	$state.go("profile");
+		if(!angular.isDefined($rootScope.user)) $state.go("profile");
     	return false;
     }
-	
 	$scope.paymentbtn = false;
 	$scope.addbrkbtn = false;
 	$scope.showbtn = true;
-	
 	$scope.cancelledMsg = false;
 	
-	/*$scope.complItems = [{
-		"imagePath" : "resources/images/ammeal/meal_01.jpg",
-		"itemName" : "Allam Chutney",
-		"cost" : 20.00
-	},{
-		"imagePath" : "resources/images/ammeal/meal_02.jpg",
-		"itemName" : "Coconut Chutney",
-		"cost" : 10.00
-	}];
-	
-	$scope.suppleItems = [{
-		"imagePath" : "resources/images/ammeal/meal_03.jpg",
-		"itemName" : "Idly",
-		"cost" : 20.00
-	},{
-		"imagePath" : "resources/images/ammeal/meal_04.jpg",
-		"itemName" : "Wada",
-		"cost" : 15.00
-	}];*/
-	
-	var brkfstObj = {
-			status: "Today's Breakfast Special",
-			imgSrc: "resources/images/ammeal/meal_01.jpg",
-			imageName: "Masala Dosa",
-			brkfstInfo: "Masala Dosa with Chutney",
-			cost: 20.00
-	}
+	UserService.getBreakfastItem($rootScope.user.userId,0).then(function(response) {
+		if(response.status == 200 && response.data.data != null){
+			$scope.brkfstObj = response.data.data;
+		}else{
+			$scope.cancelled = true;
+			$scope.showbtn = false;
+			$scope.addbrkbtn = true;
+		}
+	});
 
 	UserService.getSubListItems().then(function(response) {
             	$scope.complItems = response.data.data[1];
@@ -151,16 +123,10 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
                 console.error('Error while retrieving getSubListItems');
      });
 	
-	
-	
-	$scope.brkfstObj = brkfstObj;
-		
 		$scope.totalAmt = 1000;
-		
 		$scope.complflag = false;
 		$scope.supplflag = false;
 		$scope.alertShow = false;
-		
 		var finalAmt = 0;
 		
 		/*$scope.chooseItems = function(){
@@ -177,39 +143,29 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 		};*/
 		
 		$scope.addbrkfst = function(brkfstObj){
-			
-			var brkfstObj = {
-					status: "Today's Breakfast Special",
-					imgSrc: "resources/images/ammeal/meal_01.jpg",
-					imageName: "Masala Dosa",
-					brkfstInfo: "Masala Dosa with Chutney",
-					cost: 20.00
-			}
-			
-			$scope.brkfstObj = brkfstObj;
-			$scope.cancelled = false;
-			$scope.addbrkbtn = false;
-			$scope.showbtn = true;
-			$scope.cancelledMsg = false;
-			$scope.paymentbtn = false;
+			UserService.getBreakfastItem($rootScope.user.userId,1).then(function(response) {
+				$scope.brkfstObj = response.data.data;
+				//$scope.brkfstObj = brkfstObj;
+				$scope.cancelled = false;
+				$scope.addbrkbtn = false;
+				$scope.showbtn = true;
+				$scope.cancelledMsg = false;
+				$scope.paymentbtn = false;
+			});
 		};
-		
 		
 		$scope.cancelled = false;
 		$scope.cancelAllItems = function(brkfstObj){
 			if(confirm("Are you sure you want to cancel?")){
 				$scope.confirmation(brkfstObj);
-				
 				angular.forEach($scope.complItems, function(value,key){
 					if(value.selected){
 						value.selected = false;
 					}
 				});
-				
 				angular.forEach($scope.suppleItems, function(value,key){
 						$scope.favoriteSuppl = "";
 				});
-				
 			}else{
 				return;
 			}
@@ -243,35 +199,34 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
         					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
     							 function(response) {
     								 	if(response.data.statusCode == 200){
-    				                		$('#otpModal').modal('hide');
-    				                		console.log(response.data);
-    				                		
-    				                		if(angular.isDefined(Obj)){
-	    				                		delete $scope.brkfstObj;
-	    				        				//angular.element(brkfstObj).attr("imgSrc","");
-	    				        				$scope.cancelled = true;
-	    				        				$scope.show = false;
-	    				        				$scope.paymentbtn = false;
-	    				        				
-	    				        				$scope.totalAmt = 1000;
-	    				        				$scope.addbrkbtn = true;
-	    				        				$scope.showbtn = false;
-	    				        				
-	    				        				if(angular.isDefined($scope.otp)){
-    				                				$scope.otp = "";
-    				                			}else{
-    				                				$("#otp").val('');
-    				                			}	
-	    				        				
-	    				        				$scope.cancelledMsg = true;
-	    				        				$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
-    				                		}else{
-//    				                			alert("Payment Done Successfully!!!");
-    				                			window.scrollTo(0,0);
-    				                			$scope.paymentbtn = false;
-    				                			$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
-    				                			$('#scesavemsg').delay(5000).fadeOut('slow');
-    				                		}
+    								 		UserService.cancelItems(Obj.itemId,$rootScope.user.userId).then(function(response){
+    								 			if(response.status == 200){
+    								 				$('#otpModal').modal('hide');
+    								 				if(angular.isDefined(Obj)){
+    								 					delete $scope.brkfstObj;
+    								 					$scope.cancelled = true;
+    								 					$scope.show = false;
+    								 					$scope.paymentbtn = false;
+    								 					
+    								 					$scope.totalAmt = 1000;
+    								 					$scope.addbrkbtn = true;
+    								 					$scope.showbtn = false;
+    								 					
+    								 					if(angular.isDefined($scope.otp)){
+    								 						$scope.otp = "";
+    								 					}else{
+    								 						$("#otp").val('');
+    								 					}	
+    								 					$scope.cancelledMsg = true;
+    								 					$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
+    								 				}else{
+    								 					window.scrollTo(0,0);
+    								 					$scope.paymentbtn = false;
+    								 					$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
+    								 					$('#scesavemsg').delay(5000).fadeOut('slow');
+    								 				}
+    								 			}
+    								 		});
     				                	}else{
     				                		if(confirm("Invalid OTP Entered!!!")){
     				                			
@@ -302,7 +257,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 		$scope.payment = function(){
 			if(!angular.isDefined($scope.finalData) || $scope.finalData.length == 0){
 				if(confirm("Your default breakfast order to be placed")){
-					$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+					$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.itemPrice;
 					$scope.confirmation();
 				}else{
 					//$scope.totalAmt = $scope.totalAmt; // Final Amount from the Admin Table
@@ -314,7 +269,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				angular.forEach($scope.suppleItems, function(value,key){
 					if(value.itemName == $scope.favoriteSuppl){
 						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
-							$scope.totalAmt = $scope.totalAmt - value.cost;
+							$scope.totalAmt = $scope.totalAmt - value.itemPrice;
 							$scope.confirmation();
 						}else{
 							$scope.totalAmt = 1000;
@@ -322,7 +277,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 							var index = $scope.finalData.indexOf(value);
 							$scope.finalData.splice(index, 1);
 							
-							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.itemPrice;
 							$scope.show = false;
 							return false;
 						}
@@ -332,7 +287,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				angular.forEach($scope.complItems, function(value,key){
 					if(value.selected){
 						if(confirm("Your want to add complemenatary Items with default breakfast?")){
-							$scope.totalAmt = $scope.totalAmt - value.cost;
+							$scope.totalAmt = $scope.totalAmt - value.itemPrice;
 							$scope.confirmation();
 						}else{
 							$scope.totalAmt = 1000;
@@ -340,7 +295,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 							var index = $scope.finalData.indexOf(value);
 							$scope.finalData.splice(index, 1);
 							
-							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.cost;
+							$scope.totalAmt = $scope.totalAmt - $scope.brkfstObj.itemPrice;
 							$scope.show = false;
 							return false;
 						}
@@ -426,7 +381,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				if(value.selected){
 					$scope.show = true;
 					$scope.finalData.push(value);
-					finalAmt = $scope.totalAmt - value.cost;
+					finalAmt = $scope.totalAmt - value.itemPrice;
 					$scope.totalAmt = finalAmt;
 				}
 			});
@@ -434,7 +389,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				if(value1.itemName == $scope.favoriteSuppl && $scope.favoriteSuppl != ''){
 					$scope.show = true;
 					$scope.finalData.push(value1);
-					finalAmt = $scope.totalAmt - value1.cost;
+					finalAmt = $scope.totalAmt - value1.itemPrice;
 					$scope.totalAmt = finalAmt;
 				}
 			});
@@ -452,7 +407,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 			
 			var index = $scope.finalData.indexOf(data);
 			$scope.finalData.splice(index, 1);
-			finalAmt = finalAmt + data.cost;
+			finalAmt = finalAmt + data.itemPrice;
 			$scope.totalAmt = finalAmt;
 			
 			if($scope.finalData.length == 0){
@@ -1086,4 +1041,71 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	       );
 	}
 	
+}).
+controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
+	$scope.isSelectedUser = false;
+	$scope.isEditForm=false;
+	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
+	$rootScope.foodStyle = [{'label':'North','value':'north'},{'label':'South','value':'south'}];
+	$scope.searchUser = function(){
+		UserService.checkUser($scope.searchMobileNumber).then(
+	            function(response) {
+	            	if(response.data == "" || response.data == null){
+	            		$scope.isSelectedUserExists = false;
+	            		$scope.isSelectedUser = true;
+	            	}else{
+	            		$scope.isSelectedUser = true;
+	            		$scope.isSelectedUserExists = true;
+	            		$rootScope.selectedUser = response.data;
+	            		$scope.selectedUserProfilePic = "images/"+$rootScope.selectedUser.userId+".jpg";
+	            		$scope.selectedEditUser = angular.copy($rootScope.selectedUser);
+	            	}
+	           },
+	            function(errResponse){
+	                console.error('Error while checking user');
+	            }
+	   );
+	}
+	$scope.selectedUserEditProfile = function(){
+		$('#selected-user-edit-confirm-modal').modal('show');
+	}
+	
+	$scope.cancel = function(){
+		$scope.selectedEditUser = angular.copy($rootScope.selectedUser);
+		$scope.isEditForm=false;
+		location.href = "#/admprofile";
+	}
+	
+	$scope.selectedUserCancelEdit = function(modalId){
+		//$scope.selectedEditUser = angular.copy($rootScope.selectedUser);
+		$rootScope.closeModal(modalId);
+	}
+	
+	$scope.selectedUserUpdateProfile = function(){
+		$('#selected-user-edit-confirm-modal').modal('hide');
+		var user = $scope.selectedEditUser;
+		var file = $('#selectedUserProfilePic')[0].files[0];
+		console.log(file);
+		if(file){
+			$rootScope.selectedUserProfilePic = "";
+		}
+		UserService.updateUser(user, file).then(
+				 function(response) {
+					 if(response.data.statusCode == 200){
+						 	$('#selectedUserEditSuccessModal').modal('show');
+					 		console.log(response.data.data);
+					 		$rootScope.selectedUser = response.data.data;
+					 		var userId = $rootScope.selectedUser.userId;
+					 		$rootScope.selectedUserProfilePic = "images/"+userId+".jpg";
+					 		$scope.isEditForm=false;
+	                		location.href = "#/admprofile";
+	                	}else{
+	                		console.log("Bad Request");
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Something went wrong!!');
+	                }
+	       );
+	}
 });
