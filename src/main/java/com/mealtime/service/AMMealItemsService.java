@@ -71,7 +71,7 @@ public class AMMealItemsService {
 									DateFormat hourFormat = new SimpleDateFormat("HH");
 							        
 							        int i = amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
-						    		if(i == 0){
+						    		//if(i == 0){
 						    			AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
 						    			amUpdatedItems1.setItemId(amItems.getItemId());
 						    			amUpdatedItems1.setUserId(userId);
@@ -79,7 +79,7 @@ public class AMMealItemsService {
 						    			amUpdatedItems1.setStatus("Active");
 						    			amUpdatedItems1.setIsActive("YES");
 						    			amUpdatedItemsDAO.insert(amUpdatedItems1);
-						    		}
+						    		//}
 							        
 							        if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
 							        	amItems.setStatus("Today's Breakfast Special");
