@@ -30,12 +30,14 @@ public class UserWalletDAOImplSpring extends GenericDAO<UserWallet> implements U
 	private final static String SQL_SELECTBY_USERID = 
 			"select user_id, cash, created_by, updated_by, status, is_active, version from user_wallet where user_id = ?";
 	
-
+	private final static String DELETE_USERRECORD = 
+			"delete from user_wallet where user_id = ?";
+	
 	private final static String SQL_INSERT = 
 		"insert into user_wallet ( user_id, cash, created_by, updated_by, status, is_active, version ) values ( ?, ?, ?, ?, ?, ?, ? )";
 
 	private final static String SQL_UPDATE = 
-		"update user_wallet set user_id = ?, cash = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ? where ";
+		"update user_wallet set cash = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ? where user_id = ?";
 
 	private final static String SQL_DELETE = 
 		"delete from user_wallet where ";
@@ -271,5 +273,15 @@ public class UserWalletDAOImplSpring extends GenericDAO<UserWallet> implements U
 			System.out.println("Exception in findByUserId:::"+e.getMessage());
 		}
 		return null;
+	}
+
+	public int deleteUserRecord(String userId) {
+		try{
+			int i = getJdbcTemplate().update(DELETE_USERRECORD, new Object[]{userId});
+			return i;
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in deleteUserRecord:::"+e.getMessage());
+		}
+		return 1;
 	}
 }

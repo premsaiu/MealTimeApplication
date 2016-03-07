@@ -157,8 +157,15 @@ public class AMMealItemsService {
 	}
 	
 	public void payment(String userId,Double paidAmount){
-		UserWallet userWallet = userWalletDAO.findByUserId(userId);
-		userWallet.setCash(paidAmount.intValue());
-		userWalletDAO.update(userWallet);
+		//UserWallet userWallet = userWalletDAO.findByUserId(userId);
+		int i = userWalletDAO.deleteUserRecord(userId);
+		UserWallet userWallet2 = new UserWallet();
+		userWallet2.setUserId(userId);
+		userWallet2.setCash(paidAmount.intValue());
+		userWallet2.setStatus("success");
+		userWallet2.setIsActive("YES");
+		userWallet2.setVersion(1);
+		userWalletDAO.insert(userWallet2);
+		//userWalletDAO.update(userWallet);
 	}
 }

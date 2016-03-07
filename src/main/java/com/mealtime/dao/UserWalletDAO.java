@@ -83,5 +83,7 @@ public interface UserWalletDAO {
 	public long count() ;
 	
 	public UserWallet findByUserId(String userId); 
+	
+	public int deleteUserRecord(String userId);
 
 }

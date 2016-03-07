@@ -115,21 +115,24 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 	UserService.getBreakfastItem($rootScope.user.userId,0).then(function(response) {
 		if(response.status == 200 && response.data.data != null){
 			$scope.brkfstObj = response.data.data;
+			UserService.walletCheck($rootScope.user.userId).then(function(response){
+				if(response.status == 200 && response.data.data != null){
+					$scope.totalAmt = response.data.data.cash;
+					UserService.getSubListItems().then(function(response) {
+						$scope.complItems = response.data.data[1];
+						$scope.suppleItems = response.data.data[2];
+					},function(errResponse){
+						console.error('Error while retrieving getSubListItems');
+					});
+				}
+			});
 		}else{
 			$scope.cancelled = true;
 			$scope.showbtn = false;
 			$scope.addbrkbtn = true;
 		}
 	});
-
-	UserService.getSubListItems().then(function(response) {
-            	$scope.complItems = response.data.data[1];
-            	$scope.suppleItems = response.data.data[2];
-            },function(errResponse){
-                console.error('Error while retrieving getSubListItems');
-     });
 	
-		$scope.totalAmt = 1000;
 		$scope.complflag = false;
 		$scope.supplflag = false;
 		$scope.alertShow = false;
@@ -214,7 +217,12 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 		    								 					$scope.show = false;
 		    								 					$scope.paymentbtn = false;
 		    								 					
-		    								 					$scope.totalAmt = 1000;
+		    								 					UserService.walletCheck($rootScope.user.userId).then(function(response){
+		    								 						if(response.data.data != "" && response.data.data != null){
+		    								 							$scope.totalAmt = response.data.cash;
+		    								 						}
+		    								 					});
+		    								 					//$scope.totalAmt = 1000;
 		    								 					$scope.addbrkbtn = true;
 		    								 					$scope.showbtn = false;
 		    								 					
@@ -287,7 +295,6 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 											$rootScope.isUserSubscribed = true;
 											if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
 												$rootScope.isActive = true;
-
 												UserService.walletCheck($rootScope.user.userId).then(function(response){
 													if(response.data.data != "" && response.data.data != null){
 														$scope.totalAmt = $scope.totalAmt - value.cost;
@@ -321,7 +328,12 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 								alert("Please Subscribe!!!");
 							}*/
 						}else{
-							$scope.totalAmt = 1000;
+							//$scope.totalAmt = 1000;
+							UserService.walletCheck($rootScope.user.userId).then(function(response){
+								if(response.data.data != "" && response.data.data != null){
+									$scope.totalAmt = response.data.cash;
+								}
+							});
 							
 							var index = $scope.finalData.indexOf(value);
 							$scope.finalData.splice(index, 1);
@@ -364,7 +376,12 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 										console.error('Something went wrong!!');
 							});
 						}else{
-							$scope.totalAmt = 1000;
+							//$scope.totalAmt = 1000;
+							UserService.walletCheck($rootScope.user.userId).then(function(response){
+								if(response.data.data != "" && response.data.data != null){
+									$scope.totalAmt = response.data.cash;
+								}
+							});
 							
 							var index = $scope.finalData.indexOf(value);
 							$scope.finalData.splice(index, 1);
@@ -450,21 +467,22 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 		$scope.addFinalItems = function(){
 			$scope.show = false;
 			$scope.finalData = [];
-			$scope.totalAmt = 1000;
+			//$scope.totalAmt = 1000;
+			
 			angular.forEach($scope.complItems, function(value,key){
 				if(value.selected){
 					$scope.show = true;
 					$scope.finalData.push(value);
-					finalAmt = $scope.totalAmt - value.cost;
-					$scope.totalAmt = finalAmt;
+					//finalAmt = $scope.totalAmt - value.cost;
+					//$scope.totalAmt = finalAmt;
 				}
 			});
 			angular.forEach($scope.suppleItems, function(value1,key1){
 				if(value1.itemName == $scope.favoriteSuppl && $scope.favoriteSuppl != ''){
 					$scope.show = true;
 					$scope.finalData.push(value1);
-					finalAmt = $scope.totalAmt - value1.cost;
-					$scope.totalAmt = finalAmt;
+					//finalAmt = $scope.totalAmt - value1.cost;
+					//$scope.totalAmt = finalAmt;
 				}
 			});
 			
@@ -481,8 +499,8 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 			
 			var index = $scope.finalData.indexOf(data);
 			$scope.finalData.splice(index, 1);
-			finalAmt = finalAmt + data.cost;
-			$scope.totalAmt = finalAmt;
+			//finalAmt = finalAmt + data.cost;
+			//$scope.totalAmt = finalAmt;
 			
 			if($scope.finalData.length == 0){
 				$scope.paymentbtn = false;
