@@ -3,6 +3,12 @@
 angular.module('miniMealApp.controllers', []).
 
 controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
+	
+	    $('.menuSelect').click(function(){
+	    	$('.menuSelect').removeClass('active');
+	         $(this).addClass("active");
+	    });
+	
 	$rootScope.status=true;
 	$scope.modalShow = function(){
 		$('#myModal').modal('show');
@@ -19,7 +25,6 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
                 	}else{
                 		$rootScope.adminuser = response.data;
                 		console.log($rootScope.adminuser);
-                		
                 	}
                },
                 function(errResponse){
@@ -97,6 +102,7 @@ controller('AboutUsCtrl', function ($scope,$http) {
   }).
   
 controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
+	
 	if ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false || $rootScope.userName == "Visitor") {
 		if(!angular.isDefined($rootScope.user)) $state.go("profile");
     	return false;
