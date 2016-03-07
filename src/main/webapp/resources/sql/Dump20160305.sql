@@ -95,7 +95,7 @@ DROP TABLE IF EXISTS `am_updated_items`;
 CREATE TABLE `am_updated_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `item_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
   `modified_item_date` date DEFAULT NULL,
   `created_date` date DEFAULT NULL,
   `updated_date` date DEFAULT NULL,
@@ -106,7 +106,7 @@ CREATE TABLE `am_updated_items` (
   `version` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_am_item_id` (`item_id`),
-  CONSTRAINT `fk_am_item_id` FOREIGN KEY (`item_id`) REFERENCES `pm_items` (`item_id`)
+  CONSTRAINT `fk_am_item_id` FOREIGN KEY (`item_id`) REFERENCES `am_items` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

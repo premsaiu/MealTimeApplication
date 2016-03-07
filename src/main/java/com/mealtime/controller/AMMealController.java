@@ -7,9 +7,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mealtime.bean.AmItems;
 import com.mealtime.bean.AmSubItems;
 import com.mealtime.service.AMMealItemsService;
 import com.mealtime.util.MealTimeUtil;
@@ -32,11 +34,40 @@ public class AMMealController {
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 			wsResponseStatus.setData(itemsList);
 		}catch(Exception e){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in getSubItemsList Method of Controller");
 			logger.error("Exception in getSubItemsList---"+e.getMessage());
 		}
 		return wsResponseStatus;
 	}
 	
+	@RequestMapping(value = "/getBreakfastItem", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody WSResponseStatus getBreakfastItem(@RequestParam(value="userId")String userId, @RequestParam(value="addId", required=false)Integer addId){
+		WSResponseStatus wsResponseStatus = null;
+		try{
+			AmItems amItems = amMealItemsService.getBreakfastItem(userId,addId);
+			wsResponseStatus=new WSResponseStatus();
+			wsResponseStatus.setData(amItems);
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}catch(Exception e){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in getBreakfastItem Method of Controller");
+			logger.error("Exception in getBreakfastItem---"+e.getMessage());
+		}
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping(value = "/cancelItem", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody WSResponseStatus cancelItem(@RequestParam(value="itemId")int itemId,@RequestParam(value="userId")String userId){
+		WSResponseStatus wsResponseStatus = null;
+		try{
+			amMealItemsService.cancelItem(itemId,userId);
+			wsResponseStatus=new WSResponseStatus();
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}catch(Exception e){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in cancelItem Method of Controller");
+			logger.error("Exception in getBreakfastItem---"+e.getMessage());
+		}
+		return wsResponseStatus;
+	}
 	/*@RequestMapping(value = "/payment", method = RequestMethod.POST, produces="application/json")
 	public @ResponseBody WSResponseStatus payment(@RequestBody List<AmSubItems> amSubItems){
 		WSResponseStatus wsResponseStatus = null;

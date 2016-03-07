@@ -11,17 +11,17 @@
 				    
 				    
 					    <div class="pull-left custom-thumbs">
-							<img data-ng-hide="cancelled" data-ng-src="{{brkfstObj.imgSrc}}" alt="{{brkfstObj.imageName + 'Image'}}" class="img-thumbnail" width="180" height="115">
+							<img data-ng-hide="cancelled" data-ng-src="{{brkfstObj.itemImage}}" alt="{{brkfstObj.itemName + 'Image'}}" class="img-thumbnail" width="180" height="115">
 							<div class="radio custom-thumbs-title" style="text-align: center">
 							   <label>
-							      {{brkfstObj.imageName}}
+							      {{brkfstObj.itemName}}
 							   </label>
 							</div>
 						</div>
 				    </div>
 				    <br>
 				    <div class="pull-left clearfix" style="text-align: center">
-					    <h5 class="titile-04">{{brkfstObj.brkfstInfo}}</h5>
+					    <h5 class="titile-04">{{brkfstObj.itemDesc}}</h5>
 				    </div>
 				    
 				    <div data-ng-show="show" class="pull-left clearfix add-on-bg-01">
