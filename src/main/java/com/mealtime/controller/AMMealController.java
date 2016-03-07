@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mealtime.bean.AmItems;
 import com.mealtime.bean.AmSubItems;
+import com.mealtime.bean.UserWallet;
 import com.mealtime.service.AMMealItemsService;
 import com.mealtime.util.MealTimeUtil;
 import com.mealtime.util.WSResponseStatus;
@@ -64,24 +65,36 @@ public class AMMealController {
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}catch(Exception e){
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in cancelItem Method of Controller");
-			logger.error("Exception in getBreakfastItem---"+e.getMessage());
+			logger.error("Exception in cancelItem---"+e.getMessage());
 		}
 		return wsResponseStatus;
 	}
-	/*@RequestMapping(value = "/payment", method = RequestMethod.POST, produces="application/json")
-	public @ResponseBody WSResponseStatus payment(@RequestBody List<AmSubItems> amSubItems){
+	
+	@RequestMapping(value = "/walletCheck", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody WSResponseStatus walletCheck(@RequestParam(value="userId")String userId){
 		WSResponseStatus wsResponseStatus = null;
 		try{
-			for(AmSubItems amSubItems1: amSubItems){
-				
-			}
-			
+			UserWallet userWallet = amMealItemsService.walletCheck(userId);
 			wsResponseStatus=new WSResponseStatus();
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-			//wsResponseStatus.setData(itemsList);
+			wsResponseStatus.setData(userWallet);
+		}catch(Exception e){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in walletCheck Method of Controller");
+			logger.error("Exception in walletCheck---"+e.getMessage());
+		}
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping(value = "/payment", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody WSResponseStatus payment(@RequestParam(value="userId")String userId,@RequestParam(value="paidAmount")Double paidAmount){
+		WSResponseStatus wsResponseStatus = null;
+		try{
+			amMealItemsService.payment(userId,paidAmount);
+			wsResponseStatus=new WSResponseStatus();
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}catch(Exception e){
 			logger.error("Exception in payment---"+e.getMessage());
 		}
 		return wsResponseStatus;
-	}*/ 
+	}
 }

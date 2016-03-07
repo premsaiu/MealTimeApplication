@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 import com.mealtime.bean.AmItems;
 import com.mealtime.bean.AmSubItems;
 import com.mealtime.bean.AmUpdatedItems;
+import com.mealtime.bean.UserWallet;
 import com.mealtime.dao.AmItemsDAO;
 import com.mealtime.dao.AmSubItemsDAO;
 import com.mealtime.dao.AmUpdatedItemsDAO;
+import com.mealtime.dao.UserWalletDAO;
 
 @Service
 public class AMMealItemsService {
@@ -30,6 +32,9 @@ public class AMMealItemsService {
 	
 	@Autowired
 	private AmItemsDAO amItemsDAO;
+	
+	@Autowired
+	private UserWalletDAO userWalletDAO;
 	
 	private static String COMPLEMENTARY = "Complementary"; 
 	
@@ -63,15 +68,17 @@ public class AMMealItemsService {
 			if(amUpdatedItems != null && dateFormat.format(amUpdatedItems.getModifiedItemDate()).equals(dateFormat.format(date))){
 					if(amUpdatedItems.getStatus().equalsIgnoreCase("cancelled")){
 						if(addId != 0){
-							//int i =	amUpdatedItemsDAO.updateUserRecord(userId,new Date(),"Active");
-							
-							//if(i == 0 && amUpdatedItems.getStatus().equalsIgnoreCase("Active")){
 								AmItems amItems = amItemsDAO.getAMItemObj();
 								if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
 									DateFormat hourFormat = new SimpleDateFormat("HH");
-							        
-							        int i = amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
-						    		//if(i == 0){
+									/*AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
+									amUpdatedItems1.setItemId(amItems.getItemId());
+									amUpdatedItems1.setUserId(userId);
+									amUpdatedItems1.setModifiedItemDate(new Date());
+									amUpdatedItems1.setStatus("Active");
+									amUpdatedItems1.setIsActive("YES");
+									int i =	amUpdatedItemsDAO.update(amUpdatedItems1);*/
+							       int i = amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
 						    			AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
 						    			amUpdatedItems1.setItemId(amItems.getItemId());
 						    			amUpdatedItems1.setUserId(userId);
@@ -79,7 +86,6 @@ public class AMMealItemsService {
 						    			amUpdatedItems1.setStatus("Active");
 						    			amUpdatedItems1.setIsActive("YES");
 						    			amUpdatedItemsDAO.insert(amUpdatedItems1);
-						    		//}
 							        
 							        if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
 							        	amItems.setStatus("Today's Breakfast Special");
@@ -90,7 +96,6 @@ public class AMMealItemsService {
 								}else{
 									return null;
 								}
-							//}
 						}else {
 							return null;
 						}
@@ -140,5 +145,20 @@ public class AMMealItemsService {
 			amUpdatedItems.setIsActive("YES");
 		amUpdatedItemsDAO.insert(amUpdatedItems);
 		//}
+	}
+	
+	public UserWallet walletCheck(String userId){
+		UserWallet userWallet = userWalletDAO.findByUserId(userId);
+		if(userWallet.getCash() != 0 && userWallet.getIsActive().equalsIgnoreCase("YES")){
+			return userWallet;	
+		}else{
+			return null;
+		}
+	}
+	
+	public void payment(String userId,Double paidAmount){
+		UserWallet userWallet = userWalletDAO.findByUserId(userId);
+		userWallet.setCash(paidAmount.intValue());
+		userWalletDAO.update(userWallet);
 	}
 }

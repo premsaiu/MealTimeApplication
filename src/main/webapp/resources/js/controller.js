@@ -183,7 +183,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
                 	if(response.status == 200){
                 		$scope.email = response.data.email;
                 		var subject = "";
-                		if(angular.isDefined(Obj)){
+                		if(angular.isDefined(Obj) && typeof Obj != "number"){
                 			subject = "MealTime - Breakfast Cancellation - One Time Password(OTP)";
                 		}else{
                 			subject = "MealTime - Breakfast Payment - One Time Password(OTP)";
@@ -205,34 +205,38 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
         					UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
     							 function(response) {
     								 	if(response.data.statusCode == 200){
-    								 		UserService.cancelItems(Obj.itemId,$rootScope.user.userId).then(function(response){
-    								 			if(response.status == 200){
     								 				$('#otpModal').modal('hide');
-    								 				if(angular.isDefined(Obj)){
-    								 					delete $scope.brkfstObj;
-    								 					$scope.cancelled = true;
-    								 					$scope.show = false;
-    								 					$scope.paymentbtn = false;
-    								 					
-    								 					$scope.totalAmt = 1000;
-    								 					$scope.addbrkbtn = true;
-    								 					$scope.showbtn = false;
-    								 					
-    								 					if(angular.isDefined($scope.otp)){
-    								 						$scope.otp = "";
-    								 					}else{
-    								 						$("#otp").val('');
-    								 					}	
-    								 					$scope.cancelledMsg = true;
-    								 					$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
+    								 				if(angular.isDefined(Obj) && typeof Obj != "number"){
+    								 					UserService.cancelItems(Obj.itemId,$rootScope.user.userId).then(function(response){
+    								 						if(response.status == 200){
+	    								 						delete $scope.brkfstObj;
+		    								 					$scope.cancelled = true;
+		    								 					$scope.show = false;
+		    								 					$scope.paymentbtn = false;
+		    								 					
+		    								 					$scope.totalAmt = 1000;
+		    								 					$scope.addbrkbtn = true;
+		    								 					$scope.showbtn = false;
+		    								 					
+		    								 					if(angular.isDefined($scope.otp)){
+		    								 						$scope.otp = "";
+		    								 					}else{
+		    								 						$("#otp").val('');
+		    								 					}	
+		    								 					$scope.cancelledMsg = true;
+		    								 					$scope.alertCancelledMsg = "Your Breakfast is Cacelled!!!";
+    								 						}
+    								 					});
     								 				}else{
-    								 					window.scrollTo(0,0);
-    								 					$scope.paymentbtn = false;
-    								 					$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
-    								 					$('#scesavemsg').delay(5000).fadeOut('slow');
+    								 					UserService.payment($rootScope.user.userId,Obj).then(function(response){
+    								 						if(response.data.statusCode == 200){
+    								 							window.scrollTo(0,0);
+    								 							$scope.paymentbtn = false;
+    								 							$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
+    								 							$('#scesavemsg').delay(5000).fadeOut('slow');
+    								 						}
+    								 					});
     								 				}
-    								 			}
-    								 		});
     				                	}else{
     				                		if(confirm("Invalid OTP Entered!!!")){
     				                			
@@ -275,8 +279,47 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				angular.forEach($scope.suppleItems, function(value,key){
 					if(value.itemName == $scope.favoriteSuppl){
 						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
-							$scope.totalAmt = $scope.totalAmt - value.itemPrice;
-							$scope.confirmation();
+							
+							UserService.checkSubscription($rootScope.user.userId).then(
+									function(response) {
+										if(response.data.data != "" && response.data.data != null){
+											$rootScope.subscribeUserDetails = response.data.data;
+											$rootScope.isUserSubscribed = true;
+											if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
+												$rootScope.isActive = true;
+
+												UserService.walletCheck($rootScope.user.userId).then(function(response){
+													if(response.data.data != "" && response.data.data != null){
+														$scope.totalAmt = $scope.totalAmt - value.cost;
+														$scope.confirmation($scope.totalAmt);
+													}else{
+														alert("Dont have minimum balance for payment");
+													}
+												});
+											}else{
+												$rootScope.isActive = false;
+												alert("Please Subscribe!!!");
+											}
+										}else{
+											$rootScope.isUserSubscribed = false;
+										}
+									},
+									function(errResponse){
+										console.error('Something went wrong!!');
+									});
+							
+							/*if($rootScope.isActive){
+								UserService.walletCheck($rootScope.user.userId).then(function(response){
+									if(response.data.data != "" && response.data.data != null){
+										$scope.totalAmt = $scope.totalAmt - value.cost;
+										$scope.confirmation($scope.totalAmt);
+									}else{
+										alert("Dont have minimum balance for payment");
+									}
+								});
+							}else{
+								alert("Please Subscribe!!!");
+							}*/
 						}else{
 							$scope.totalAmt = 1000;
 							
@@ -293,8 +336,33 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				angular.forEach($scope.complItems, function(value,key){
 					if(value.selected){
 						if(confirm("Your want to add complemenatary Items with default breakfast?")){
-							$scope.totalAmt = $scope.totalAmt - value.itemPrice;
-							$scope.confirmation();
+							UserService.checkSubscription($rootScope.user.userId).then(
+									function(response) {
+										if(response.data.data != "" && response.data.data != null){
+											$rootScope.subscribeUserDetails = response.data.data;
+											$rootScope.isUserSubscribed = true;
+											if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
+												$rootScope.isActive = true;
+
+												UserService.walletCheck($rootScope.user.userId).then(function(response){
+													if(response.data.data != "" && response.data.data != null){
+														$scope.totalAmt = $scope.totalAmt - value.cost;
+														$scope.confirmation($scope.totalAmt);
+													}else{
+														alert("Dont have minimum balance for payment");
+													}
+												});
+											}else{
+												$rootScope.isActive = false;
+												alert("Please Subscribe!!!");
+											}
+										}else{
+											$rootScope.isUserSubscribed = false;
+										}
+									},
+									function(errResponse){
+										console.error('Something went wrong!!');
+							});
 						}else{
 							$scope.totalAmt = 1000;
 							
@@ -387,7 +455,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				if(value.selected){
 					$scope.show = true;
 					$scope.finalData.push(value);
-					finalAmt = $scope.totalAmt - value.itemPrice;
+					finalAmt = $scope.totalAmt - value.cost;
 					$scope.totalAmt = finalAmt;
 				}
 			});
@@ -395,7 +463,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				if(value1.itemName == $scope.favoriteSuppl && $scope.favoriteSuppl != ''){
 					$scope.show = true;
 					$scope.finalData.push(value1);
-					finalAmt = $scope.totalAmt - value1.itemPrice;
+					finalAmt = $scope.totalAmt - value1.cost;
 					$scope.totalAmt = finalAmt;
 				}
 			});
@@ -413,7 +481,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 			
 			var index = $scope.finalData.indexOf(data);
 			$scope.finalData.splice(index, 1);
-			finalAmt = finalAmt + data.itemPrice;
+			finalAmt = finalAmt + data.cost;
 			$scope.totalAmt = finalAmt;
 			
 			if($scope.finalData.length == 0){

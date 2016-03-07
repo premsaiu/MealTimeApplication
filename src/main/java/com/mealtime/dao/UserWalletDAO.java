@@ -81,5 +81,7 @@ public interface UserWalletDAO {
 	 * @return
 	 */
 	public long count() ;
+	
+	public UserWallet findByUserId(String userId); 
 
 }

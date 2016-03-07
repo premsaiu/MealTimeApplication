@@ -7,11 +7,13 @@ package com.mealtime.dao.impl.spring;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
 import com.mealtime.bean.UserWallet;
 import com.mealtime.dao.UserWalletDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 
 /**
  * UserWallet DAO implementation 
@@ -25,6 +27,9 @@ public class UserWalletDAOImplSpring extends GenericDAO<UserWallet> implements U
 	private final static String SQL_SELECT = 
 		"select user_id, cash, created_by, updated_by, status, is_active, version from user_wallet where ";
 
+	private final static String SQL_SELECTBY_USERID = 
+			"select user_id, cash, created_by, updated_by, status, is_active, version from user_wallet where user_id = ?";
+	
 
 	private final static String SQL_INSERT = 
 		"insert into user_wallet ( user_id, cash, created_by, updated_by, status, is_active, version ) values ( ?, ?, ?, ?, ?, ?, ? )";
@@ -257,5 +262,14 @@ public class UserWalletDAOImplSpring extends GenericDAO<UserWallet> implements U
 			populateBean(rs, this.bean);
 			return this.bean;
 		}
+	}
+
+	public UserWallet findByUserId(String userId) {
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECTBY_USERID, new Object[]{userId},getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in findByUserId:::"+e.getMessage());
+		}
+		return null;
 	}
 }
