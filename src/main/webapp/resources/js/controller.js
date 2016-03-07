@@ -229,7 +229,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
     								 					});
     								 				}else{
     								 					UserService.payment($rootScope.user.userId,Obj).then(function(response){
-    								 						if(response.data.statusCode == 200){
+    								 						if(response.status == 200){
     								 							window.scrollTo(0,0);
     								 							$scope.paymentbtn = false;
     								 							$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">×</button><strong>Payment Done Successfully!!!...</strong></div>');
