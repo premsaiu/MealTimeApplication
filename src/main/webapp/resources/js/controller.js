@@ -1167,11 +1167,15 @@ controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
 					 function(response) {
 						 if(response.data.statusCode == 200){
 						 		console.log(response.data.data);
-						 		$scope.changed="true";
+						 		//$scope.changed="true";
+						 		//fadeIn fadeout url
+						 		/*http://jsfiddle.net/sunnypmody/XDaEk/
+*/						 		$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
 						 		$scope.opassword='';
 						 		$scope.newPassword='';
 						 		$scope.reenterNewPassword='';
 						 		$scope.form.$setPristine();
+						 		 
 		                	}else{
 		                		console.log("Bad Request");
 		                	}
