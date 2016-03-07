@@ -94,6 +94,24 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
+    this.getBreakfastItem = function(userId,addId){
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'getBreakfastItem.spring?userId='+userId+'&addId='+addId,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    };
+    
+    this.cancelItems = function(itemId,userId) {
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'cancelItem.spring?itemId='+itemId+'&userId='+userId,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    }
+    
     this.getSubListItems1 = function(){
     	var request = $http({
     		method:"get",
