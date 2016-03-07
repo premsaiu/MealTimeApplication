@@ -59,7 +59,8 @@ angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers',
         })
         .state('changepassword', {
             url: '/changepwd',
-            templateUrl: 'views/admin/change_password.html'
+            templateUrl: 'views/admin/change_password.html',
+            controller: 'changePwdCtrl'
         })
         .state('adminprofile', {
             url: '/admprofile',

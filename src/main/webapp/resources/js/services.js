@@ -134,8 +134,17 @@ angular.module('miniMealApp.services',[])
     	});
     	return request; 
     };
-    
-    
+
+    this.chngPasswordService = function (obj) {
+        var request = $http({
+            method:"post",
+            url:  baseURL+'changepwd.spring',
+            data : obj,
+            dataType: "application/json"
+        });
+        return request;
+    };
+
 }]).
 service('AdminService', ['$http', '$q', function($http, $q){
 	

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miniMealApp.controllers', []).
+angular.module('miniMealApp.controllers', ['miniMealApp.directives']).
 
 controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	$rootScope.status=true;
@@ -1152,5 +1152,37 @@ controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
 	                    console.error('Something went wrong!!');
 	                }
 	       );
-	}
-});
+}
+})
+.controller('changePwdCtrl', function ($scope, $rootScope,UserService) {
+		
+		var obj={};
+		$scope.chgpwd = function(){
+		if($scope.newPassword === $scope.reenterNewPassword){
+			obj.userId = $rootScope.user.userId;
+			obj.mobileNumber = $rootScope.user.mobileNumber;
+			obj.password = $scope.opassword;
+			obj.newPassword = $scope.newPassword;
+			UserService.chngPasswordService(obj).then(
+					 function(response) {
+						 if(response.data.statusCode == 200){
+						 		console.log(response.data.data);
+						 		$scope.changed="true";
+						 		$scope.opassword='';
+						 		$scope.newPassword='';
+						 		$scope.reenterNewPassword='';
+						 		$scope.form.$setPristine();
+		                	}else{
+		                		console.log("Bad Request");
+		                	}
+		               },
+		                function(errResponse){
+		                    console.error('Something went wrong!!');
+		                }
+		       );
+		}else{
+			console.log("error")
+		}
+		
+		}
+	});
