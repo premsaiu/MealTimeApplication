@@ -2,7 +2,7 @@
 
 angular.module('miniMealApp.services',[])
 .service('UserService', ['$http', '$q', function($http, $q){
-	var baseURL = "http://localhost:8181/MealTimeApplication/";
+	var baseURL = "http://localhost:8080/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
         var request = $http({
             method:"get",
@@ -131,7 +131,7 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
-    this.payment = function (obj) {
+   /* this.payment = function (obj) {
         var request = $http({
             method:"post",
             url:  baseURL+'payment.spring',
@@ -142,7 +142,7 @@ angular.module('miniMealApp.services',[])
             transformRequest : angular.identity,
         });
         return request;
-    };
+    };*/
     
     this.subscribeUser = function(user){
     	var request = $http({
