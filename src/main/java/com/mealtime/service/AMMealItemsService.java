@@ -63,13 +63,24 @@ public class AMMealItemsService {
 			if(amUpdatedItems != null && dateFormat.format(amUpdatedItems.getModifiedItemDate()).equals(dateFormat.format(date))){
 					if(amUpdatedItems.getStatus().equalsIgnoreCase("cancelled")){
 						if(addId != 0){
-							int i =	amUpdatedItemsDAO.updateUserRecord(userId,new Date(),"Active");
+							//int i =	amUpdatedItemsDAO.updateUserRecord(userId,new Date(),"Active");
 							
 							//if(i == 0 && amUpdatedItems.getStatus().equalsIgnoreCase("Active")){
 								AmItems amItems = amItemsDAO.getAMItemObj();
 								if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
 									DateFormat hourFormat = new SimpleDateFormat("HH");
-							        logger.debug(date.getTime());
+							        
+							        int i = amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
+						    		if(i == 0){
+						    			AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
+						    			amUpdatedItems1.setItemId(amItems.getItemId());
+						    			amUpdatedItems1.setUserId(userId);
+						    			amUpdatedItems1.setModifiedItemDate(new Date());
+						    			amUpdatedItems1.setStatus("Active");
+						    			amUpdatedItems1.setIsActive("YES");
+						    			amUpdatedItemsDAO.insert(amUpdatedItems1);
+						    		}
+							        
 							        if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
 							        	amItems.setStatus("Today's Breakfast Special");
 							        }else{
@@ -120,7 +131,7 @@ public class AMMealItemsService {
 	
 	public void cancelItem(int itemId,String userId){
 		int i = amUpdatedItemsDAO.deleteUserRecord(itemId,userId);
-		if(i == 0){
+		//if(i == 0){
 			AmUpdatedItems amUpdatedItems = new AmUpdatedItems();
 			amUpdatedItems.setItemId(itemId);
 			amUpdatedItems.setUserId(userId);
@@ -128,6 +139,6 @@ public class AMMealItemsService {
 			amUpdatedItems.setStatus("cancelled");
 			amUpdatedItems.setIsActive("YES");
 		amUpdatedItemsDAO.insert(amUpdatedItems);
-		}
+		//}
 	}
 }
