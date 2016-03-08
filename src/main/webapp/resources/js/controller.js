@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miniMealApp.controllers', []).
+angular.module('miniMealApp.controllers', ['miniMealApp.directives']).
 
 controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	
@@ -42,7 +42,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
                 function(response) {
                 	$rootScope.loggedUser = true;
                 	if(response.data.data == "" || response.data.data == null){
-                		//$rootScope.userName = "Visitor";
+                		console.log("Visitor");
                 		$rootScope.loginError = "Invalid Credentials. Please try again later";
                 	}else{
                 		$rootScope.user = response.data.data;
@@ -1132,7 +1132,43 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	}
 	
 }).
-controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
+controller('changePwdCtrl', function ($scope, $rootScope,UserService) {
+	
+	var obj={};
+	$scope.chgpwd = function(){
+	if($scope.newPassword === $scope.reenterNewPassword){
+		obj.userId = $rootScope.user.userId;
+		obj.mobileNumber = $rootScope.user.mobileNumber;
+		obj.password = $scope.opassword;
+		obj.newPassword = $scope.newPassword;
+		UserService.chngPasswordService(obj).then(
+				 function(response) {
+					 if(response.data.statusCode == 200){
+					 		console.log(response.data.data);
+					 		//$scope.changed="true";
+					 		//fadeIn fadeout url
+					 		/*http://jsfiddle.net/sunnypmody/XDaEk/
+*/						 		$( "div.success" ).fadeIn( 300 ).delay( 1500 ).fadeOut( 400 );
+					 		$scope.opassword='';
+					 		$scope.newPassword='';
+					 		$scope.reenterNewPassword='';
+					 		$scope.form.$setPristine();
+					 		 
+	                	}else{
+	                		console.log("Bad Request");
+	                	}
+	               },
+	                function(errResponse){
+	                    console.error('Something went wrong!!');
+	                }
+	       );
+	}else{
+		console.log("error")
+	}
+	
+	}
+}).
+controller('AdminProfileCtrl', function ($scope,$rootScope,UserService,AdminService) {
 	$scope.isSelectedUser = false;
 	$scope.isEditForm=false;
 	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
@@ -1174,12 +1210,13 @@ controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
 	$scope.selectedUserUpdateProfile = function(){
 		$('#selected-user-edit-confirm-modal').modal('hide');
 		var user = $scope.selectedEditUser;
+		user.updatedBy = $rootScope.user.userId;
 		var file = $('#selectedUserProfilePic')[0].files[0];
 		console.log(file);
 		if(file){
 			$rootScope.selectedUserProfilePic = "";
 		}
-		UserService.updateUser(user, file).then(
+		AdminService.updateUser(user, file).then(
 				 function(response) {
 					 if(response.data.statusCode == 200){
 						 	$('#selectedUserEditSuccessModal').modal('show');
@@ -1197,5 +1234,5 @@ controller('AdminProfileCtrl', function ($scope,$rootScope,UserService) {
 	                    console.error('Something went wrong!!');
 	                }
 	       );
-	}
+}
 });
