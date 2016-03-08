@@ -37,7 +37,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		$rootScope.mobileNumber = $scope.mobileNumber;
 		
-		if($scope.password){
+		if($rootScope.adminuser.roleId==1){
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
