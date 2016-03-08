@@ -118,12 +118,6 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 			UserService.walletCheck($rootScope.user.userId).then(function(response){
 				if(response.status == 200 && response.data.data != null){
 					$scope.totalAmt = response.data.data.cash;
-					UserService.getSubListItems().then(function(response) {
-						$scope.complItems = response.data.data[1];
-						$scope.suppleItems = response.data.data[2];
-					},function(errResponse){
-						console.error('Error while retrieving getSubListItems');
-					});
 				}
 			});
 		}else{
@@ -131,6 +125,12 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 			$scope.showbtn = false;
 			$scope.addbrkbtn = true;
 		}
+	});
+	UserService.getSubListItems().then(function(response) {
+		$scope.complItems = response.data.data[1];
+		$scope.suppleItems = response.data.data[2];
+	},function(errResponse){
+		console.error('Error while retrieving getSubListItems');
 	});
 	
 		$scope.complflag = false;
