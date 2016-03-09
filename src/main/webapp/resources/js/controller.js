@@ -37,7 +37,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		$rootScope.mobileNumber = $scope.mobileNumber;
 		
-		if($rootScope.adminuser.roleId==1){
+		if($scope.password){
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
                 function(response) {
                 	$rootScope.loggedUser = true;
@@ -107,25 +107,53 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 		if(!angular.isDefined($rootScope.user)) $state.go("profile");
     	return false;
     }
+	
+	if(angular.isDefined($rootScope.user.userId)){
+		UserService.checkSubscription($rootScope.user.userId).then(
+				function(response) {
+					if(response.data.data != "" && response.data.data != null){
+						console.log("Response :: "+response.data.data);
+						$rootScope.subscribeUserDetails = response.data.data;
+						$rootScope.isUserSubscribed = true;
+						if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
+							$rootScope.isActive = true;
+							UserService.getBreakfastItem($rootScope.user.userId,0).then(function(response) {
+								if(response.status == 200 && response.data.data != null){
+									$scope.brkfstObj = response.data.data;
+									UserService.walletCheck($rootScope.user.userId).then(function(response){
+										if(response.status == 200 && response.data.data != null){
+											$scope.totalAmt = response.data.data.cash;
+										}
+									});
+								}else{
+									$scope.cancelled = true;
+									$scope.showbtn = false;
+									$scope.addbrkbtn = true;
+								}
+							});
+						}else{
+							$rootScope.isActive = false;
+							$tate.go('home');
+							alert("Your Subsciption is Still Pending, Kindly contact Admin");
+							return false;
+						}
+					}else{
+						$rootScope.isUserSubscribed = false;
+						$state.go("payment");
+						return false;
+					}
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+				}
+		);
+	}
+	
 	$scope.paymentbtn = false;
 	$scope.addbrkbtn = false;
 	$scope.showbtn = true;
 	$scope.cancelledMsg = false;
 	
-	UserService.getBreakfastItem($rootScope.user.userId,0).then(function(response) {
-		if(response.status == 200 && response.data.data != null){
-			$scope.brkfstObj = response.data.data;
-			UserService.walletCheck($rootScope.user.userId).then(function(response){
-				if(response.status == 200 && response.data.data != null){
-					$scope.totalAmt = response.data.data.cash;
-				}
-			});
-		}else{
-			$scope.cancelled = true;
-			$scope.showbtn = false;
-			$scope.addbrkbtn = true;
-		}
-	});
 	UserService.getSubListItems().then(function(response) {
 		$scope.complItems = response.data.data[1];
 		$scope.suppleItems = response.data.data[2];
@@ -288,13 +316,14 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 					if(value.itemName == $scope.favoriteSuppl){
 						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
 							
-							UserService.checkSubscription($rootScope.user.userId).then(
+							/*UserService.checkSubscription($rootScope.user.userId).then(
 									function(response) {
 										if(response.data.data != "" && response.data.data != null){
 											$rootScope.subscribeUserDetails = response.data.data;
 											$rootScope.isUserSubscribed = true;
 											if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
-												$rootScope.isActive = true;
+												$rootScope.isActive = true;*/
+											if($rootScope.isUserSubscribed && $rootScope.isActive){
 												UserService.walletCheck($rootScope.user.userId).then(function(response){
 													if(response.data.data != "" && response.data.data != null){
 														$scope.totalAmt = $scope.totalAmt - value.cost;
@@ -304,16 +333,15 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 													}
 												});
 											}else{
-												$rootScope.isActive = false;
-												alert("Please Subscribe!!!");
+												$state.go("payment");
 											}
-										}else{
+											/*}else{
 											$rootScope.isUserSubscribed = false;
 										}
 									},
 									function(errResponse){
 										console.error('Something went wrong!!');
-									});
+									});*/
 							
 							/*if($rootScope.isActive){
 								UserService.walletCheck($rootScope.user.userId).then(function(response){
@@ -348,33 +376,18 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				angular.forEach($scope.complItems, function(value,key){
 					if(value.selected){
 						if(confirm("Your want to add complemenatary Items with default breakfast?")){
-							UserService.checkSubscription($rootScope.user.userId).then(
-									function(response) {
-										if(response.data.data != "" && response.data.data != null){
-											$rootScope.subscribeUserDetails = response.data.data;
-											$rootScope.isUserSubscribed = true;
-											if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
-												$rootScope.isActive = true;
-
-												UserService.walletCheck($rootScope.user.userId).then(function(response){
-													if(response.data.data != "" && response.data.data != null){
-														$scope.totalAmt = $scope.totalAmt - value.cost;
-														$scope.confirmation($scope.totalAmt);
-													}else{
-														alert("Dont have minimum balance for payment");
-													}
-												});
-											}else{
-												$rootScope.isActive = false;
-												alert("Please Subscribe!!!");
-											}
-										}else{
-											$rootScope.isUserSubscribed = false;
-										}
-									},
-									function(errResponse){
-										console.error('Something went wrong!!');
-							});
+												if($rootScope.isUserSubscribed && $rootScope.isActive){
+													UserService.walletCheck($rootScope.user.userId).then(function(response){
+														if(response.data.data != "" && response.data.data != null){
+															$scope.totalAmt = $scope.totalAmt - value.cost;
+															$scope.confirmation($scope.totalAmt);
+														}else{
+															alert("Dont have minimum balance for payment");
+														}
+													});
+												}else{
+													$state.go("payment");
+												}
 						}else{
 							//$scope.totalAmt = 1000;
 							UserService.walletCheck($rootScope.user.userId).then(function(response){

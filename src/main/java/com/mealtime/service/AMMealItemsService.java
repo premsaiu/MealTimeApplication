@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 import com.mealtime.bean.AmItems;
 import com.mealtime.bean.AmSubItems;
 import com.mealtime.bean.AmUpdatedItems;
+import com.mealtime.bean.UserSubscription;
 import com.mealtime.bean.UserWallet;
 import com.mealtime.dao.AmItemsDAO;
 import com.mealtime.dao.AmSubItemsDAO;
 import com.mealtime.dao.AmUpdatedItemsDAO;
+import com.mealtime.dao.UserSubscriptionDAO;
 import com.mealtime.dao.UserWalletDAO;
 
 @Service
@@ -35,6 +37,9 @@ public class AMMealItemsService {
 	
 	@Autowired
 	private UserWalletDAO userWalletDAO;
+	
+	@Autowired
+	UserSubscriptionDAO userSubscriptionDAO;
 	
 	private static String COMPLEMENTARY = "Complementary"; 
 	
@@ -64,38 +69,43 @@ public class AMMealItemsService {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		if(userId != null){
-			AmUpdatedItems amUpdatedItems = amUpdatedItemsDAO.findByUserId(userId);
-			if(amUpdatedItems != null && dateFormat.format(amUpdatedItems.getModifiedItemDate()).equals(dateFormat.format(date))){
+			
+			UserSubscription userSubscription = userSubscriptionDAO.findByUserId(userId);
+			if(userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
+					userSubscription.getEndDate().after(date)){
+				
+				AmUpdatedItems amUpdatedItems = amUpdatedItemsDAO.findByUserId(userId);
+				if(amUpdatedItems != null && dateFormat.format(amUpdatedItems.getModifiedItemDate()).equals(dateFormat.format(date))){
 					if(amUpdatedItems.getStatus().equalsIgnoreCase("cancelled")){
 						if(addId != 0){
-								AmItems amItems = amItemsDAO.getAMItemObj();
-								if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
-									DateFormat hourFormat = new SimpleDateFormat("HH");
-									/*AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
+							AmItems amItems = amItemsDAO.getAMItemObj();
+							if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
+								DateFormat hourFormat = new SimpleDateFormat("HH");
+								/*AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
 									amUpdatedItems1.setItemId(amItems.getItemId());
 									amUpdatedItems1.setUserId(userId);
 									amUpdatedItems1.setModifiedItemDate(new Date());
 									amUpdatedItems1.setStatus("Active");
 									amUpdatedItems1.setIsActive("YES");
 									int i =	amUpdatedItemsDAO.update(amUpdatedItems1);*/
-							       int i = amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
-						    			AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
-						    			amUpdatedItems1.setItemId(amItems.getItemId());
-						    			amUpdatedItems1.setUserId(userId);
-						    			amUpdatedItems1.setModifiedItemDate(new Date());
-						    			amUpdatedItems1.setStatus("Active");
-						    			amUpdatedItems1.setIsActive("YES");
-						    			amUpdatedItemsDAO.insert(amUpdatedItems1);
-							        
-							        if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
-							        	amItems.setStatus("Today's Breakfast Special");
-							        }else{
-							        	amItems.setStatus("Tommorow's Breakfast Special");
-							        }
-									return amItems;
+								int i = amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
+								AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
+								amUpdatedItems1.setItemId(amItems.getItemId());
+								amUpdatedItems1.setUserId(userId);
+								amUpdatedItems1.setModifiedItemDate(new Date());
+								amUpdatedItems1.setStatus("Active");
+								amUpdatedItems1.setIsActive("YES");
+								amUpdatedItemsDAO.insert(amUpdatedItems1);
+								
+								if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
+									amItems.setStatus("Today's Breakfast Special");
 								}else{
-									return null;
+									amItems.setStatus("Tommorow's Breakfast Special");
 								}
+								return amItems;
+							}else{
+								return null;
+							}
 						}else {
 							return null;
 						}
@@ -103,31 +113,34 @@ public class AMMealItemsService {
 						AmItems amItems = amItemsDAO.getAMItemObj();
 						if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
 							DateFormat hourFormat = new SimpleDateFormat("HH");
-					        logger.debug(date.getTime());
-					        if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
-					        	amItems.setStatus("Today's Breakfast Special");
-					        }else{
-					        	amItems.setStatus("Tommorow's Breakfast Special");
-					        }
+							logger.debug(date.getTime());
+							if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
+								amItems.setStatus("Today's Breakfast Special");
+							}else{
+								amItems.setStatus("Tommorow's Breakfast Special");
+							}
 							return amItems;
 						}else{
 							return null;
 						}
 					}
-			}else{
-				AmItems amItems = amItemsDAO.getAMItemObj();
-				if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
-					DateFormat hourFormat = new SimpleDateFormat("HH");
-			        logger.debug(date.getTime());
-			        if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
-			        	amItems.setStatus("Today's Breakfast Special");
-			        }else{
-			        	amItems.setStatus("Tommorow's Breakfast Special");
-			        }
-					return amItems;
 				}else{
-					return null;
+					AmItems amItems = amItemsDAO.getAMItemObj();
+					if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
+						DateFormat hourFormat = new SimpleDateFormat("HH");
+						logger.debug(date.getTime());
+						if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
+							amItems.setStatus("Today's Breakfast Special");
+						}else{
+							amItems.setStatus("Tommorow's Breakfast Special");
+						}
+						return amItems;
+					}else{
+						return null;
+					}
 				}
+			}else{
+				return null;
 			}
 		}else{
 			return null;
