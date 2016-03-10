@@ -75,6 +75,15 @@
     <script src="resources/js/routes.js"></script>
     <script src="resources/js/services.js"></script>
     <script src="resources/js/controller.js"></script>
+    <script src="resources/js/aboutusctrl.js"></script>
+    <script src="resources/js/addprofilectrl.js"></script>
+    <script src="resources/js/ammealctrl.js"></script>
+    <script src="resources/js/contactusctrl.js"></script>
+    <script src="resources/js/homectrl.js"></script>
+    <script src="resources/js/paymentctrl.js"></script>
+    <script src="resources/js/pmmealctrl.js"></script>
+    <script src="resources/js/profilectrl.js"></script>
+<!--     <script src="resources/js/controllers/controller.js"></script> -->
     <script src="resources/js/directives.js"></script>
   </body>
 </html>

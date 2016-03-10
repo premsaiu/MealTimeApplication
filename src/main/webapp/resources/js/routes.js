@@ -1,6 +1,14 @@
 //define(function () {
 	'use strict';
-angular.module('miniMealApp', ['miniMealApp.services','miniMealApp.controllers','ui.router'])
+angular.module('miniMealApp', ['miniMealApp.services',
+                               'miniMealApp.aboutusCtrl',
+                               'miniMealApp.addprofileCtrl',
+                               'miniMealApp.ammealCtrl',
+                               'miniMealApp.contactusCtrl',
+                               'miniMealApp.homeCtrl',
+                               'miniMealApp.paymentCtrl',
+                               'miniMealApp.profileCtrl',
+                               'miniMealApp.controllers','ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
     
     $urlRouterProvider.otherwise('/home');
