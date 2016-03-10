@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miniMealApp.controllers', []).
+angular.module('miniMealApp.profileCtrl', []).
 	controller('ProfileCtrl', function ($scope,$rootScope,$http) {
 	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){

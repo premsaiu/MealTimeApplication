@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miniMealApp.controllers', []).
+angular.module('miniMealApp.addprofileCtrl', []).
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
 	$scope.addProfile = function(){

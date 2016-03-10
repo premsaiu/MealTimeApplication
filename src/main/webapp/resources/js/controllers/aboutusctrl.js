@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miniMealApp.controllers', []).
+angular.module('miniMealApp.aboutusCtrl', []).
 
 	controller('AboutUsCtrl', function ($scope,$http) {
 	

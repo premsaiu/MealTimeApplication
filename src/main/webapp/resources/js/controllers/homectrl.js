@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miniMealApp.controllers', []).
+angular.module('miniMealApp.homeCtrl', []).
 
 	controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
 		$scope.modalShow = function(){
