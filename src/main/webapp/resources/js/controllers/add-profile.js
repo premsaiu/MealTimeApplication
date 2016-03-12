@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('miniMealApp.addprofileCtrl', []).
-controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
+controller('AddProfileCtrl', function ($scope,$state,$rootScope,UserService) {
 	
 	$scope.addProfileErrorMsg = "";
 	$scope.addProfile = function(){
@@ -56,7 +56,8 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 					 		console.log(response.data.data);
 					 		$rootScope.user = response.data.data;
 					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
-	                		location.href = "#/profile";
+	                		//location.href = "#/profile";
+	                		$state.go("profile");
 	                	}else if(response.data.statusCode == 500){
 	                		$scope.addProfileErrorMsg = response.data.errorMsg;
 	                		console.log("Error while adding user"+response.data.errorMsg);

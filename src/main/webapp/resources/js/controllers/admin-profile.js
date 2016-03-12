@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('miniMealApp.adminprofileCtrl', []).
-controller('AdminProfileCtrl', function ($scope,$rootScope,UserService,AdminService) {
+controller('AdminProfileCtrl', function ($scope,$state,$rootScope,UserService,AdminService) {
 	$scope.isSelectedUser = false;
 	$scope.isEditForm=false;
 	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
@@ -32,7 +32,8 @@ controller('AdminProfileCtrl', function ($scope,$rootScope,UserService,AdminServ
 	$scope.cancel = function(){
 		$scope.selectedEditUser = angular.copy($rootScope.selectedUser);
 		$scope.isEditForm=false;
-		location.href = "#/admprofile";
+		//location.href = "#/admprofile";
+		$state.go("admprofile");
 	}
 	
 	$scope.selectedUserCancelEdit = function(modalId){

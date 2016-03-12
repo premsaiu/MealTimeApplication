@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('miniMealApp.profileCtrl', []).
-controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
+controller('ProfileCtrl', function ($scope,$state,$rootScope,$http,UserService) {
 	
 	$scope.editUser = angular.copy($rootScope.user);
 	//console.log(user);
@@ -9,7 +9,8 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 	$scope.wrongOTPMsg="";
 	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
-		location.href = "#/addprofile";
+		//location.href = "#/addprofile";
+		$state.go("addprofile");
 	}else{
 		//var mobileNumber = $scope.editUser.mobileNumber;
 		var userId = $rootScope.user.userId;
@@ -67,7 +68,8 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 						 		var userId = $rootScope.user.userId;
 						 		$rootScope.userProfilePic = "images/"+userId+".jpg";
 						 		$scope.isEditForm=false;
-		                		location.href = "#/profile";
+		                		//location.href = "#/profile";
+		                		$state.go("profile");
 		                	}else{
 		                		console.log("Bad Request");
 		                	}

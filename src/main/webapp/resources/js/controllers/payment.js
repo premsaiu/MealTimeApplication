@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('miniMealApp.paymentCtrl', []).
-controller('PaymentCtrl', function ($scope, $rootScope, UserService) {
+controller('PaymentCtrl', function ($scope, $state, $rootScope, UserService) {
 	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
-		location.href = "#/addprofile";
+		//location.href = "#/addprofile";
+		$state.go("addprofile");
 	}else{
 		$rootScope.isUserSubscribed = true;
 		UserService.checkSubscription($rootScope.user.userId).then(
@@ -37,7 +38,8 @@ controller('PaymentCtrl', function ($scope, $rootScope, UserService) {
 					function(response) {
 						if(response.data.statusCode == 200){
 							console.log("Response :: "+response.data);
-							location.href = "#/paymentsuccess";
+							//location.href = "#/paymentsuccess";
+							$state.go("paymentsuccess");
 						}else{
 							console.log("Bad Request");
 						}

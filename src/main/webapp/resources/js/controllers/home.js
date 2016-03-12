@@ -10,6 +10,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
     });
 
 	$rootScope.status=true;
+	$rootScope.regUser = false;
 	$scope.modalShow = function(){
 		$('#myModal').modal('show');
 	}
@@ -48,6 +49,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	            		$rootScope.user = response.data.data;
 	            		console.log($rootScope.user);
 	            		$rootScope.status=false;
+	            		$rootScope.regUser = true;
 	            		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	            		$('#myModal').modal('hide');
 	            		$state.go('adminhome')
@@ -67,6 +69,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	                		$rootScope.user = response.data;
 	                		console.log($rootScope.user);
 	                		$rootScope.status=true;
+	                		$rootScope.regUser = true;
 	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                	}
 	               },
