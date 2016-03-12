@@ -87,6 +87,8 @@ public interface UserMasterDAO {
 	
 	public UserMaster findByMobileNumber(String mobileNumber);
 	
+	public UserMaster findByEmail(String email);
+	
 	public String getLastUserId();
 
 }

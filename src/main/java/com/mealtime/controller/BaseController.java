@@ -76,8 +76,25 @@ public class BaseController {
 		return wsResponseStatus;
 	}
 	
+	@RequestMapping("/checkMobileOrEmail")
+	public @ResponseBody WSResponseStatus checkMobileOrEmail(@RequestParam("mobileNumber") String mobileNumber, @RequestParam("email") String email){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		UserMaster userExists = mealTimeService.checkUser(mobileNumber);
+		if(userExists == null){
+			boolean isEmailExists = mealTimeService.emailExists(email);
+			if(!isEmailExists){
+				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+			}else {
+	            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Email already exists");
+	        }
+		}else {
+            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Mobile Number already exists");
+        }
+		return wsResponseStatus;
+	}
+	
 	@RequestMapping(value="/saveProfile", method = RequestMethod.POST, produces="application/json", consumes = {"multipart/form-data"})
-	public @ResponseBody WSResponseStatus saveProfile(@RequestParam("model") String objStr, @RequestParam("file") MultipartFile file){
+	public @ResponseBody WSResponseStatus saveProfile(@RequestParam("model") String objStr, @RequestParam(value="file", required=false) MultipartFile file){
 		logger.info("saveProfile() :: objStr: "+objStr+" ::file: "+file);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = new UserMaster();
@@ -96,15 +113,25 @@ public class BaseController {
 		} catch (IOException e) {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 		}
-		if (!file.isEmpty()) {
-			MealTimeUtil.uploadProfilePic(file, userMaster, userId, wsResponseStatus);
-			mealTimeService.saveProfile(userMaster);
-			UserMaster user = mealTimeService.checkUser(userMaster.getMobileNumber());
-			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-			wsResponseStatus.setData(user);
+		if (file != null && !file.isEmpty()) {
+			UserMaster userExists = mealTimeService.checkUser(userMaster.getMobileNumber());
+			if(userExists == null){
+				boolean isEmailExists = mealTimeService.emailExists(userMaster.getEmail());
+				if(!isEmailExists){
+					MealTimeUtil.uploadProfilePic(file, userMaster, userId, wsResponseStatus);
+					mealTimeService.saveProfile(userMaster);
+					UserMaster user = mealTimeService.checkUser(userMaster.getMobileNumber());
+					MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+					wsResponseStatus.setData(user);
+				}else {
+		            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Email already exists");
+		        }
+			}else {
+	            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Mobile Number already exists");
+	        }
 		}else {
             logger.info("You failed to upload " + userMaster.getMobileNumber() + " because the file was empty.");
-            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "No Image Found");
+            MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Profile Picture not found");
         }
 		return wsResponseStatus;
 	}

@@ -1091,10 +1091,20 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 }).
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
+	$scope.addProfileErrorMsg = "";
 	$scope.addProfile = function(){
-		var subject = "MealTime - Create Profile - One Time Password(OTP)";
-		$rootScope.sendOTP($scope.mobileNumber, $scope.email, subject);
-		$scope.otp = "";
+		$scope.addProfileErrorMsg = "";
+		UserService.checkMobileOrEmail($scope.mobileNumber, $scope.email).then(
+				function(response){
+					if(response.data.statusCode == 200){
+						var subject = "MealTime - Create Profile - One Time Password(OTP)";
+						$rootScope.sendOTP($scope.mobileNumber, $scope.email, subject);
+						$scope.otp = "";
+					}else if(response.data.statusCode == 500){
+						$scope.addProfileErrorMsg = response.data.errorMsg;
+                		console.log("Error while adding user"+response.data.errorMsg);
+					}
+		});
 	}
 	
 	$scope.verifyOTP = function(){
@@ -1115,6 +1125,7 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	}
 	
 	$scope.submitProfile = function(){
+		$scope.addProfileErrorMsg = "";
 		$scope.otp = "";
 		var jsonObj = {};
 		jsonObj.firstName = $scope.firstName;
@@ -1134,8 +1145,9 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 					 		$rootScope.user = response.data.data;
 					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                		location.href = "#/profile";
-	                	}else{
-	                		console.log("Bad Request");
+	                	}else if(response.data.statusCode == 500){
+	                		$scope.addProfileErrorMsg = response.data.errorMsg;
+	                		console.log("Error while adding user"+response.data.errorMsg);
 	                	}
 	               },
 	                function(errResponse){

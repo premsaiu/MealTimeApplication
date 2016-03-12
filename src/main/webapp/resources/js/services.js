@@ -34,6 +34,15 @@ angular.module('miniMealApp.services',[])
     	});
     	return request; 
     };
+    
+    this.checkMobileOrEmail = function (mobileNo, email) {
+        var request = $http({
+            method:"get",
+            url:  baseURL+'checkMobileOrEmail.spring?mobileNumber='+mobileNo+'&email='+email,
+            dataType: "application/json"
+        });
+        return request;
+    };
    
     this.sendOTP = function (mobileNo, email, subject) {
         var request = $http({
