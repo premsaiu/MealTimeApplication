@@ -3,51 +3,42 @@
 angular.module('miniMealApp.addprofileCtrl', []).
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
+	$scope.addProfileErrorMsg = "";
 	$scope.addProfile = function(){
-		$rootScope.sendOTP();
-	}
-	$rootScope.sendOTP =function(){
-		UserService.sendOTP($scope.mobileNumber, $scope.email).then(
-				function(response) {
-					if(response.status == 200){
-						$('#otpModal').modal('show');
-					}else{
-						console.log("Bad Request");
+		$scope.addProfileErrorMsg = "";
+		UserService.checkMobileOrEmail($scope.mobileNumber, $scope.email).then(
+				function(response){
+					if(response.data.statusCode == 200){
+						var subject = "MealTime - Create Profile - One Time Password(OTP)";
+						$rootScope.sendOTP($scope.mobileNumber, $scope.email, subject);
+						$scope.otp = "";
+					}else if(response.data.statusCode == 500){
+						$scope.addProfileErrorMsg = response.data.errorMsg;
+                		console.log("Error while adding user"+response.data.errorMsg);
 					}
-				},
-				function(errResponse){
-					console.error('Something went wrong!!');
-				}
-		);
+		});
 	}
+	
 	$scope.verifyOTP = function(){
-		var isOTPValidated = $rootScope.validateOTP();
-		if(isOTPValidated){
-			$('#otpModal').modal('hide');
-			console.log(response.data);
-			$scope.submitProfile();
-		}else{
-			console.log("Wrong OTP");
-		}
-	}
-	$rootScope.validateOTP = function(){
 		UserService.verifyOTP($scope.mobileNumber, $scope.otp).then(
 				function(response) {
-					if(response.status == 200){
-						return true;
+					if(response.data.statusCode == 200){
+						$('#otpModal').modal('hide');
+						$scope.submitProfile();
 					}else{
+						$scope.wrongOTPMsg="Invalid OTP. Please enter Correct OTP";
 						console.log("Bad Request");
-						return false;
 					}
 				},
 				function(errResponse){
 					console.error('Something went wrong!!');
-					return false;
 				}
 		);
 	}
 	
 	$scope.submitProfile = function(){
+		$scope.addProfileErrorMsg = "";
+		$scope.otp = "";
 		var jsonObj = {};
 		jsonObj.firstName = $scope.firstName;
 		jsonObj.lastName = $scope.lastName;
@@ -66,8 +57,9 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 					 		$rootScope.user = response.data.data;
 					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                		location.href = "#/profile";
-	                	}else{
-	                		console.log("Bad Request");
+	                	}else if(response.data.statusCode == 500){
+	                		$scope.addProfileErrorMsg = response.data.errorMsg;
+	                		console.log("Error while adding user"+response.data.errorMsg);
 	                	}
 	               },
 	                function(errResponse){

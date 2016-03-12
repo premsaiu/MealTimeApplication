@@ -2,8 +2,7 @@
 
 angular.module('miniMealApp.pmmealCtrl', []).
 
-	  
-controller('PmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
+controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserService) {
 	
 	if ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false || $rootScope.userName == "Visitor") {
     	$state.go("profile");

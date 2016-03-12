@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('miniMealApp.homeCtrl', ['miniMealApp.directives']).
+angular.module('miniMealApp.homeCtrl', []).
 
-	controller('HomeCtrl',  function ($scope,$rootScope, UserService) {
+controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	
-	    $('.menuSelect').click(function(){
-	    	$('.menuSelect').removeClass('active');
-	         $(this).addClass("active");
-	    });
-	
+    $('.menuSelect').click(function(){
+    	$('.menuSelect').removeClass('active');
+         $(this).addClass("active");
+    });
+
 	$rootScope.status=true;
 	$scope.modalShow = function(){
 		$('#myModal').modal('show');
@@ -18,19 +18,19 @@ angular.module('miniMealApp.homeCtrl', ['miniMealApp.directives']).
 	}
 	$rootScope.adminchk=function(){
 		UserService.adminchk($scope.mobileNumber).then(
-                function(response) {
-                	$rootScope.loggedUser = true;
-                	if(response.data == "" || response.data == null){
-                		$rootScope.adminuser = "";
-                	}else{
-                		$rootScope.adminuser = response.data;
-                		console.log($rootScope.adminuser);
-                	}
-               },
-                function(errResponse){
-                    console.error('Error while checking user');
-                }
-       );
+	            function(response) {
+	            	$rootScope.loggedUser = true;
+	            	if(response.data == "" || response.data == null){
+	            		$rootScope.adminuser = "";
+	            	}else{
+	            		$rootScope.adminuser = response.data;
+	            		console.log($rootScope.adminuser);
+	            	}
+	           },
+	            function(errResponse){
+	                console.error('Error while checking user');
+	            }
+	   );
 	}
 	$rootScope.checkUser = function(){
 		$rootScope.loginError = "";
@@ -39,24 +39,24 @@ angular.module('miniMealApp.homeCtrl', ['miniMealApp.directives']).
 		
 		if($scope.password){
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
-                function(response) {
-                	$rootScope.loggedUser = true;
-                	if(response.data.data == "" || response.data.data == null){
-                		console.log("Visitor");
-                		$rootScope.loginError = "Invalid Credentials. Please try again later";
-                	}else{
-                		$rootScope.user = response.data.data;
-                		console.log($rootScope.user);
-                		$rootScope.status=false;
-                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
-                		$('#myModal').modal('hide');
-                		$state.go('adminhome')
-                		}
-               },
-                function(errResponse){
-            	    $scope.loginError = "Invalid Credentials. Please try again later";
-                    console.error('Error while checking user');
-                });
+	            function(response) {
+	            	$rootScope.loggedUser = true;
+	            	if(response.data.data == "" || response.data.data == null){
+	            		console.log("Visitor");
+	            		$rootScope.loginError = "Invalid Credentials. Please try again later";
+	            	}else{
+	            		$rootScope.user = response.data.data;
+	            		console.log($rootScope.user);
+	            		$rootScope.status=false;
+	            		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+	            		$('#myModal').modal('hide');
+	            		$state.go('adminhome')
+	            		}
+	           },
+	            function(errResponse){
+	        	    $scope.loginError = "Invalid Credentials. Please try again later";
+	                console.error('Error while checking user');
+	            });
 				}else{
 					UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
@@ -94,5 +94,6 @@ angular.module('miniMealApp.homeCtrl', ['miniMealApp.directives']).
 				function(errResponse){
 					console.error('Something went wrong!!');
 				}
-		)}
-});
+		);
+	}
+})

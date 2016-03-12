@@ -1,14 +1,18 @@
 //define(function () {
 	'use strict';
 angular.module('miniMealApp', ['miniMealApp.services',
+                               'miniMealApp.directives',
+                               'miniMealApp.homeCtrl',
                                'miniMealApp.aboutusCtrl',
                                'miniMealApp.addprofileCtrl',
                                'miniMealApp.ammealCtrl',
-                               'miniMealApp.contactusCtrl',
-                               'miniMealApp.homeCtrl',
-                               'miniMealApp.paymentCtrl',
+                               'miniMealApp.pmmealCtrl',
                                'miniMealApp.profileCtrl',
-                               'miniMealApp.controllers','ui.router'])
+                               'miniMealApp.paymentCtrl',
+                               'miniMealApp.contactusCtrl',
+                               'miniMealApp.adminprofileCtrl',
+                               'miniMealApp.changepwdCtrl',
+                               'ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
     
     $urlRouterProvider.otherwise('/home');
@@ -68,7 +72,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
         .state('changepassword', {
             url: '/changepwd',
             templateUrl: 'views/admin/change_password.html',
-            controller: 'changePwdCtrl'
+            controller: 'ChangePwdCtrl'
         })
         .state('adminprofile', {
             url: '/admprofile',

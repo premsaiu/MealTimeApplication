@@ -73,17 +73,20 @@
     <script src="resources/js/lib/angular.js"></script>
     <script src="resources/js/lib/angular-ui-router.js"></script>
     <script src="resources/js/routes.js"></script>
-    <script src="resources/js/services.js"></script>
-    <script src="resources/js/controller.js"></script>
-    <script src="resources/js/aboutusctrl.js"></script>
-    <script src="resources/js/addprofilectrl.js"></script>
-    <script src="resources/js/ammealctrl.js"></script>
-    <script src="resources/js/contactusctrl.js"></script>
-    <script src="resources/js/homectrl.js"></script>
-    <script src="resources/js/paymentctrl.js"></script>
-    <script src="resources/js/pmmealctrl.js"></script>
-    <script src="resources/js/profilectrl.js"></script>
+    <script src="resources/js/services/services.js"></script>
+    <script src="resources/js/directives/directives.js"></script>
+   <!--  <script src="resources/js/controller.js"></script> -->
+    <script src="resources/js/controllers/about-us.js"></script>
+    <script src="resources/js/controllers/add-profile.js"></script>
+    <script src="resources/js/controllers/admin-profile.js"></script>
+    <script src="resources/js/controllers/am-meal.js"></script>
+    <script src="resources/js/controllers/change-password.js"></script>
+    <script src="resources/js/controllers/contact-us.js"></script>
+    <script src="resources/js/controllers/home.js"></script>
+    <script src="resources/js/controllers/payment.js"></script>
+    <script src="resources/js/controllers/pm-meal.js"></script>
+    <script src="resources/js/controllers/profile.js"></script>
 <!--     <script src="resources/js/controllers/controller.js"></script> -->
-    <script src="resources/js/directives.js"></script>
+    
   </body>
 </html>
