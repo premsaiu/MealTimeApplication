@@ -1147,7 +1147,11 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	                		location.href = "#/profile";
 	                	}else if(response.data.statusCode == 500){
 	                		$scope.addProfileErrorMsg = response.data.errorMsg;
+<<<<<<< HEAD
 	                		console.log("Error while adding user"+response.data.errorMsg);
+=======
+	                		console.log("Bad Request");
+>>>>>>> refs/remotes/origin/master
 	                	}
 	               },
 	                function(errResponse){
