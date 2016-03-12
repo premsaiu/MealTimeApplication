@@ -12,14 +12,17 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mealtime.bean.AMFinalSubItems;
 import com.mealtime.bean.AmItems;
 import com.mealtime.bean.AmSubItems;
 import com.mealtime.bean.AmUpdatedItems;
+import com.mealtime.bean.AmUpdatedSubItems;
 import com.mealtime.bean.UserSubscription;
 import com.mealtime.bean.UserWallet;
 import com.mealtime.dao.AmItemsDAO;
 import com.mealtime.dao.AmSubItemsDAO;
 import com.mealtime.dao.AmUpdatedItemsDAO;
+import com.mealtime.dao.AmUpdatedSubItemsDAO;
 import com.mealtime.dao.UserSubscriptionDAO;
 import com.mealtime.dao.UserWalletDAO;
 
@@ -39,7 +42,10 @@ public class AMMealItemsService {
 	private UserWalletDAO userWalletDAO;
 	
 	@Autowired
-	UserSubscriptionDAO userSubscriptionDAO;
+	private UserSubscriptionDAO userSubscriptionDAO;
+	
+	@Autowired
+	private AmUpdatedSubItemsDAO amUpdatedSubItemsDAO;
 	
 	private static String COMPLEMENTARY = "Complementary"; 
 	
@@ -71,7 +77,7 @@ public class AMMealItemsService {
 		if(userId != null){
 			
 			UserSubscription userSubscription = userSubscriptionDAO.findByUserId(userId);
-			if(userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
+			if(userSubscription != null && userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
 					userSubscription.getEndDate().after(date)){
 				
 				AmUpdatedItems amUpdatedItems = amUpdatedItemsDAO.findByUserId(userId);
@@ -88,7 +94,7 @@ public class AMMealItemsService {
 									amUpdatedItems1.setStatus("Active");
 									amUpdatedItems1.setIsActive("YES");
 									int i =	amUpdatedItemsDAO.update(amUpdatedItems1);*/
-								int i = amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
+								amUpdatedItemsDAO.deleteUserRecord(amItems.getItemId(),userId);
 								AmUpdatedItems amUpdatedItems1 = new AmUpdatedItems();
 								amUpdatedItems1.setItemId(amItems.getItemId());
 								amUpdatedItems1.setUserId(userId);
@@ -147,6 +153,100 @@ public class AMMealItemsService {
 		}
 	}
 	
+	public AMFinalSubItems getBreakfastSubItem(AMFinalSubItems amMfinalSubItems){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		List<AmSubItems> amSubItemsList = null;
+		if(amMfinalSubItems.getUserId() != null){
+			AMFinalSubItems amMfinalSubItems2 = null;
+			UserSubscription userSubscription = userSubscriptionDAO.findByUserId(amMfinalSubItems.getUserId());
+			if(userSubscription != null && userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
+					userSubscription.getEndDate().after(date)){
+				if(amMfinalSubItems.getAddId() != 0 && amMfinalSubItems.getAmSubItemsList().size() > 0){
+					amMfinalSubItems2 = new AMFinalSubItems();
+					List<AmSubItems> amSubItems = new ArrayList<AmSubItems>();
+					
+					amUpdatedSubItemsDAO.deleteCurDateUserRecord(amMfinalSubItems.getUserId(),dateFormat.format(date));
+					
+					for (AmSubItems amSubItems1 : amMfinalSubItems.getAmSubItemsList()) {
+						AmUpdatedSubItems amUpdatedSubItems = amUpdatedSubItemsDAO.findByUserId(amMfinalSubItems.getUserId(),amSubItems1.getItemId());
+								amSubItemsList = new ArrayList<AmSubItems>();
+									if(amUpdatedSubItems != null && dateFormat.format(amUpdatedSubItems.getModifiedItemDate()).equals(dateFormat.format(date))){
+											if(amMfinalSubItems.getAddId() != 0 && amUpdatedSubItems.getStatus().equalsIgnoreCase("cancelled")){
+												AmItems amItems = amItemsDAO.getAMItemObj();
+												if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
+													amUpdatedSubItemsDAO.deleteUserRecord(amUpdatedSubItems.getSubItemId(),amMfinalSubItems.getUserId());
+													AmUpdatedSubItems amUpdatedSubItems3 = new AmUpdatedSubItems();
+													amUpdatedSubItems3.setSubItemId(amSubItems1.getItemId());
+													amUpdatedSubItems3.setUserId(amMfinalSubItems.getUserId());
+													amUpdatedSubItems3.setModifiedItemDate(new Date());
+													amUpdatedSubItems3.setStatus("Active");
+													amUpdatedSubItems3.setIsActive("YES");
+													amUpdatedSubItemsDAO.insert(amUpdatedSubItems3);
+													amSubItems1.setSelected(true);
+													amSubItemsList.add(amSubItems1);
+												}else{
+													return null;
+												}
+										}else if(amMfinalSubItems.getAddId() != 0 && amUpdatedSubItems.getStatus().equalsIgnoreCase("Active")){
+											AmItems amItems = amItemsDAO.getAMItemObj();
+											if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
+												amSubItems1.setSelected(true);
+												amSubItemsList.add(amSubItems1);
+											}else{
+												return null;
+											}
+										}
+										else{
+											return null;
+										}
+									}else{
+										//amUpdatedSubItemsDAO.deleteUserRecord(amUpdatedSubItems.getSubItemId(),amMfinalSubItems.getUserId());
+										AmUpdatedSubItems amUpdatedSubItems3 = new AmUpdatedSubItems();
+										amUpdatedSubItems3.setSubItemId(amSubItems1.getItemId());
+										amUpdatedSubItems3.setUserId(amMfinalSubItems.getUserId());
+										amUpdatedSubItems3.setModifiedItemDate(new Date());
+										amUpdatedSubItems3.setStatus("Active");
+										amUpdatedSubItems3.setIsActive("YES");
+										amUpdatedSubItemsDAO.insert(amUpdatedSubItems3);
+										amSubItems1.setSelected(true);
+										amSubItemsList.add(amSubItems1);
+									}
+									amSubItems.addAll(amSubItemsList);
+					}
+					amMfinalSubItems2.setAmSubItemsList(amSubItems);
+					return amMfinalSubItems2;
+				}else{
+					List<AmUpdatedSubItems> amUpdatedSubItems = amUpdatedSubItemsDAO.findById(amMfinalSubItems.getUserId());
+					//AmSubItems amSubItems1 = new AmSubItems();
+					List<AmSubItems> amSubItems = new ArrayList<AmSubItems>();
+					amMfinalSubItems2 = new AMFinalSubItems();
+					for (AmUpdatedSubItems amUpdatedSubItems2 : amUpdatedSubItems) {
+						if(amUpdatedSubItems2 != null && dateFormat.format(amUpdatedSubItems2.getModifiedItemDate()).equals(dateFormat.format(date))
+								&& amMfinalSubItems.getAddId() == 0 && amUpdatedSubItems2.getStatus().equalsIgnoreCase("Active")){
+							AmItems amItems = amItemsDAO.getAMItemObj();
+							AmSubItems amSubItems2 = amSubItemsDAO.find(amUpdatedSubItems2.getSubItemId());
+							amSubItemsList = new ArrayList<AmSubItems>();
+							if(dateFormat.format(amItems.getItemDate()).equals(dateFormat.format(date))){
+								amSubItems2.setSelected(true);
+								amSubItemsList.add(amSubItems2);
+							}else{
+								return null;
+							}
+							amSubItems.addAll(amSubItemsList);
+						}
+					}
+					amMfinalSubItems2.setAmSubItemsList(amSubItems);
+					return amMfinalSubItems2;
+					}
+			}else{
+				return null;
+			}
+		}else{
+			return null;
+		}
+	}
+	
 	public void cancelItem(int itemId,String userId){
 		int i = amUpdatedItemsDAO.deleteUserRecord(itemId,userId);
 		//if(i == 0){
@@ -180,5 +280,9 @@ public class AMMealItemsService {
 		userWallet2.setVersion(1);
 		userWalletDAO.insert(userWallet2);
 		//userWalletDAO.update(userWallet);
+	}
+	
+	public void deleteSubItemAddon(Integer subItemId, String userId){
+		amUpdatedSubItemsDAO.deleteUserRecord(subItemId,userId);
 	}
 }

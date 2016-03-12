@@ -6,7 +6,10 @@ package com.mealtime.dao.impl.spring;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +29,12 @@ public class AmUpdatedSubItemsDAOImplSpring extends GenericDAO<AmUpdatedSubItems
 	private final static String SQL_SELECT = 
 		"select id, sub_item_id, user_id, modified_item_date, created_date, updated_date, created_by, updated_by, status, is_active, version from am_updated_sub_items where id = ?";
 
+	private final static String SQL_SELECTBY_USERID = 
+			"select id, sub_item_id, user_id, modified_item_date, created_date, updated_date, created_by, updated_by, status, is_active, version from am_updated_sub_items where user_id = ? and sub_item_id = ?";
+	
+	private final static String SQL_SELECTBY_ID =
+			"select id, sub_item_id, user_id, modified_item_date, created_date, updated_date, created_by, updated_by, status, is_active, version from am_updated_sub_items where user_id = ?";
+	
 	// NB : This entity has an auto-incremented primary key : "id"
 	private final static String AUTO_INCREMENTED_COLUMN = "id";
 
@@ -50,6 +59,12 @@ public class AmUpdatedSubItemsDAOImplSpring extends GenericDAO<AmUpdatedSubItems
 
 	private final static String SQL_DELETE = 
 		"delete from am_updated_sub_items where id = ?";
+	
+	private final static String DELETE_ITEMRECORD =
+			"delete from am_updated_sub_items where sub_item_id = ? and user_id = ?";
+	
+	private final static String DELETE_RECORDBY_USERID =
+			"delete from am_updated_sub_items where user_id = ? and modified_item_date = ?";
 
 	private final static String SQL_COUNT_ALL = 
 		"select count(*) from am_updated_sub_items";
@@ -278,5 +293,43 @@ public class AmUpdatedSubItemsDAOImplSpring extends GenericDAO<AmUpdatedSubItems
 			populateBean(rs, this.bean);
 			return this.bean;
 		}
+	}
+
+	public AmUpdatedSubItems findByUserId(String userId, Integer itemId) {
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECTBY_USERID,new Object[]{userId,itemId}, new BeanPropertyRowMapper<AmUpdatedSubItems>(AmUpdatedSubItems.class));
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in findByUserId:::"+e.getMessage());
+		}
+		return null;
+	}
+
+	public int deleteUserRecord(int itemId, String userId) {
+		try{
+			int i = getJdbcTemplate().update(DELETE_ITEMRECORD, new Object[]{itemId,userId});
+			return i;
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in deleteUserRecord:::"+e.getMessage());
+		}
+		return 1;
+	}
+
+	public List<AmUpdatedSubItems> findById(String userId) {
+		try{
+			return getJdbcTemplate().query(SQL_SELECTBY_ID,new Object[]{userId}, new BeanPropertyRowMapper<AmUpdatedSubItems>(AmUpdatedSubItems.class));
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in findById:::"+e.getMessage());
+		}
+		return null;
+	}
+
+	public int deleteCurDateUserRecord(String userId, String date) {
+		try{
+			int i = getJdbcTemplate().update(DELETE_RECORDBY_USERID, new Object[]{userId,date});
+			return i;
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in deleteUserRecord:::"+e.getMessage());
+		}
+		return 1;
 	}
 }

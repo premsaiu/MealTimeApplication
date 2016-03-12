@@ -32,6 +32,41 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 									$scope.addbrkbtn = true;
 								}
 							});
+							
+							$scope.AMFinalSubItems = {};
+							
+							$scope.AMFinalSubItems.userId = $rootScope.user.userId;
+							
+							$scope.AMFinalSubItems.addId = 0;
+							
+							$scope.AMFinalSubItems.amSubItemsList = [];
+
+							$scope.finalData = [];
+							
+							UserService.checkSubItem($scope.AMFinalSubItems).then(function(response){
+								if(response.status == 200 && response.data.data != null){
+									angular.forEach(response.data.data.amSubItemsList, function(value,key){
+										$scope.show = true;
+										value.selected = true;
+										angular.forEach($scope.complItems, function(value1,key1){
+											if(value1.itemId == value.itemId){
+												value1.selected = true;
+												$scope.paymentbtn = true;
+											}
+										});
+										
+										angular.forEach($scope.suppleItems, function(value2,key2){
+											$scope.favoriteSuppl = "";
+											if(value2.itemId == value.itemId){
+												$scope.favoriteSuppl = value2.itemName;
+												$scope.paymentbtn = true;
+											}
+										});
+										
+										$scope.finalData.push(value);
+									});
+								}
+							});
 						}else{
 							$rootScope.isActive = false;
 							$tate.go('home');
@@ -381,22 +416,54 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 		$scope.addFinalItems = function(){
 			$scope.show = false;
 			$scope.finalData = [];
+			
+			$scope.AMFinalSubItems = {};
+			
+			$scope.AMFinalSubItems.userId = $rootScope.user.userId;
+			
+			$scope.AMFinalSubItems.addId = 1;
+			
+			$scope.AMFinalSubItems.amSubItemsList = [];
+			
 			//$scope.totalAmt = 1000;
 			
 			angular.forEach($scope.complItems, function(value,key){
 				if(value.selected){
 					$scope.show = true;
-					$scope.finalData.push(value);
+					//$scope.finalData.push(value);
+					$scope.AMFinalSubItems.amSubItemsList.push(value);
 					//finalAmt = $scope.totalAmt - value.cost;
 					//$scope.totalAmt = finalAmt;
 				}
 			});
+			
 			angular.forEach($scope.suppleItems, function(value1,key1){
 				if(value1.itemName == $scope.favoriteSuppl && $scope.favoriteSuppl != ''){
 					$scope.show = true;
-					$scope.finalData.push(value1);
+					$scope.AMFinalSubItems.amSubItemsList.push(value1);
+//					$scope.finalData.push(value1);
+					//$scope.finalData = $scope.AMFinalSubItems.amSubItemsList.push(value1);
+					/*UserService.checkSubItem($scope.AMFinalSubItems).then(function(response){
+						if(response.status == 200 && response.data.data != null){
+							$.angular.forEach(response.data.data, function(value,key){
+							});
+						}
+					});*/
 					//finalAmt = $scope.totalAmt - value1.cost;
 					//$scope.totalAmt = finalAmt;
+				}
+			});
+
+			UserService.checkSubItem($scope.AMFinalSubItems).then(function(response){
+				if(response.status == 200 && response.data.data != null){
+					angular.forEach(response.data.data.amSubItemsList, function(value1,key1){
+						if(value1.selected && value1.itemType == "complementary"){
+							$scope.finalData.push(value1);	
+						}else if(value1.itemType != "complementary"){
+							$scope.favoriteSuppl = value1.itemName;
+							$scope.finalData.push(value1);
+						}
+					});
 				}
 			});
 			
@@ -430,6 +497,12 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 			angular.forEach($scope.suppleItems, function(value,key){
 				if(value.itemName == data.itemName){
 					$scope.favoriteSuppl = "";
+				}
+			});
+			
+			UserService.deleteSubItemAddon(data.itemId,$rootScope.user.userId).then(function(response){
+				if(response.status == 200){
+					
 				}
 			});
 		}

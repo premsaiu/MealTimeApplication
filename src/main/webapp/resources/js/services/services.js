@@ -26,6 +26,26 @@ angular.module('miniMealApp.services',[])
     	});
     	return request;
     	};
+    	
+	this.checkSubItem = function (subItemsdata) {
+		var request = $http({
+    		method:"post",
+    		url:baseURL+'getBreakfastSubItem.spring',
+    		dataType: "application/json",
+    		data : subItemsdata
+    	});
+    	return request;
+	}
+	
+	this.deleteSubItemAddon = function (itemId, userId) {
+        var request = $http({
+            method:"get",
+            url:  baseURL+'deleteSubItemAddon.spring?itemId='+itemId+'&userId='+userId,
+            dataType: "application/json"
+        });
+        return request;
+    };
+        
     this.adminchk = function(mobileNo){
     	var request = $http({
     		method:"get",

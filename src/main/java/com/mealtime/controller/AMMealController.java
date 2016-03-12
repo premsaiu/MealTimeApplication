@@ -5,12 +5,14 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mealtime.bean.AMFinalSubItems;
 import com.mealtime.bean.AmItems;
 import com.mealtime.bean.AmSubItems;
 import com.mealtime.bean.UserWallet;
@@ -52,6 +54,37 @@ public class AMMealController {
 		}catch(Exception e){
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in getBreakfastItem Method of Controller");
 			logger.error("Exception in getBreakfastItem---"+e.getMessage());
+		}
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping(value = "/getBreakfastSubItem", method = RequestMethod.POST, produces="application/json")
+	public @ResponseBody WSResponseStatus getBreakfastSubItem(@RequestBody AMFinalSubItems amMfinalSubItems){
+		WSResponseStatus wsResponseStatus = null;
+		try{
+			AMFinalSubItems amMfinalSubItems1 = amMealItemsService.getBreakfastSubItem(amMfinalSubItems);
+			wsResponseStatus=new WSResponseStatus();
+			wsResponseStatus.setData(amMfinalSubItems1);
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}catch(Exception e){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in getBreakfastSubItem Method of Controller");
+			logger.error("Exception in getBreakfastSubItem---"+e.getMessage());
+		}
+		return wsResponseStatus;
+	}
+	
+	
+	@RequestMapping(value = "/deleteSubItemAddon", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody WSResponseStatus deleteSubItemAddon(@RequestParam(value="itemId")Integer itemId, @RequestParam(value="userId")String userId){
+		WSResponseStatus wsResponseStatus = null;
+		try{
+			amMealItemsService.deleteSubItemAddon(itemId,userId);
+			wsResponseStatus=new WSResponseStatus();
+			wsResponseStatus.setData("success");
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}catch(Exception e){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in deleteSubItemAddon Method of Controller");
+			logger.error("Exception in getBreakfastSubItem---"+e.getMessage());
 		}
 		return wsResponseStatus;
 	}
