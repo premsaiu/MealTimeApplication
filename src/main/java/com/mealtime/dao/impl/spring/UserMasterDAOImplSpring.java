@@ -29,6 +29,9 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 	
 	private final static String SQL_SELECT_BY_MOBILENUMBER = 
 			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where mobile_number = ?";
+	
+	private final static String SQL_SELECT_BY_EMAIL = 
+			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where email = ?";
 
 	private final static String SQL_INSERT = 
 		"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -302,6 +305,15 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 	public UserMaster findByMobileNumber(String mobileNumber) {
 		try{
 			return getJdbcTemplate().queryForObject(SQL_SELECT_BY_MOBILENUMBER, new Object[]{mobileNumber}, getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Empty Result Access Exception occured in findByMobileNumber method::"+e.getMessage());
+			return null;
+		}
+	}
+	
+	public UserMaster findByEmail(String email) {
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECT_BY_EMAIL, new Object[]{email}, getRowMapper());
 		}catch(EmptyResultDataAccessException e){
 			System.out.println("Empty Result Access Exception occured in findByMobileNumber method::"+e.getMessage());
 			return null;

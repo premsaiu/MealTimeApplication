@@ -1091,6 +1091,7 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 }).
 controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	
+	$scope.addProfileErrorMsg = "";
 	$scope.addProfile = function(){
 		var subject = "MealTime - Create Profile - One Time Password(OTP)";
 		$rootScope.sendOTP($scope.mobileNumber, $scope.email, subject);
@@ -1115,6 +1116,7 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 	}
 	
 	$scope.submitProfile = function(){
+		$scope.addProfileErrorMsg = "";
 		$scope.otp = "";
 		var jsonObj = {};
 		jsonObj.firstName = $scope.firstName;
@@ -1134,7 +1136,8 @@ controller('AddProfileCtrl', function ($scope,$rootScope,UserService) {
 					 		$rootScope.user = response.data.data;
 					 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 	                		location.href = "#/profile";
-	                	}else{
+	                	}else if(response.data.statusCode == 500){
+	                		$scope.addProfileErrorMsg = response.data.errorMsg;
 	                		console.log("Bad Request");
 	                	}
 	               },

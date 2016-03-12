@@ -116,6 +116,15 @@ public class MealTimeService {
 		userMasterDAO.insert(userMaster);
 	}
 	
+	public boolean emailExists(String email){
+		UserMaster userMaster = userMasterDAO.findByEmail(email);
+		if(userMaster != null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public String getLastUserId(){
 		return userMasterDAO.getLastUserId();
 	}
