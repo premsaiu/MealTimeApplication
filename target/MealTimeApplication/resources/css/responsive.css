@@ -19,18 +19,187 @@
 
 /* Extra small devices - Phones */
 @media screen and (max-width: 767px) { 
+
+	.mb115 { margin-bottom: 115px; }
 	
+	.logo {
+	    margin: 10px auto;
+	}
+	
+	.list-1 li {
+		margin: 0 0 10px 0 !important;
+		display: block !important;
+	}
+	.list-2 {
+		margin: 10px 0 0 0;
+	}
+	.list-2 li {
+	    display: block;
+	    margin: 0;
+	}
+	.list-2 li:first-child {
+		opacity: 0.6;
+		width: auto;
+		margin-bottom: 0;
+	}
+	.list-2 li:last-child {
+		opacity: 0.6;
+		transform: rotate(180deg);
+		width: auto;
+		margin-top: 0;
+		margin-bottom: 10px;
+	}
+	.list-2 li:nth-last-child(2) {
+		border-bottom: none;
+	}
+	.list-3 {
+		margin: 25px 0 0 0;
+	}
+	.list-3 li {
+		display: block;
+		margin: 0 0 10px 0;
+	}
+	.list-3 li + span {
+		display: none;
+	}
+	.list-4 {
+		margin: 0;
+	}
+	.titile-01 {
+		margin-top: 10px;
+		font-size: 2em;
+	}
+	.carousel-indicators li {
+	    display: block;
+	    margin: 1px 1px 4px 1px !important;
+	}
+	.carousel-indicators {
+	    bottom: -122px;
+	    margin-left: -50%;
+	    width: 100%;
+	}
+	.subscribe-btn {
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	}
+	.addOn-btn-s1 {
+	    top: 4px;
+	    left: 0;
+	    width: 100%;
+	    margin-bottom: 5px;
+	}
 
 		
 }
 
 /* Small devices - Tablets */
 @media (min-width: 768px) { 
+	.logo {
+	    margin: 10px auto;
+	}
+	.titile-01 {
+		margin-top: 25px;
+		font-size: 2em;
+	}
 	
+	.list-1 li {
+		margin: 0 10px 10px !important;
+		display: inline-block !important;
+	}
+	.list-2 {
+		margin: 5px 0 0 0;
+	}
+	.list-2 li {
+	    display: inline-block;
+	    margin: 0 10px 0 0;
+	    width: 31%;
+	}
+	.list-2 li:first-child {
+		opacity: 0.6;
+		width: 100%;
+		margin-top: 0;
+		margin-bottom: 15px;
+	}
+	.list-2 li:last-child {
+		opacity: 0.6;
+		transform: rotate(180deg);
+		width: 100%;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	.list-2 li:nth-last-child(2) {
+		border-bottom: 1px solid #ccc;
+	}
+	.list-3 {
+		float: left;
+		margin: 30px 0 0 0;
+	}
+	.list-3 li {
+		display: inline;
+		margin: 0 0 10px 0;
+	}
+	.list-3 li + span {
+		display: inline;
+		margin: 0 5px;
+	}
+	.list-4 {
+		margin: 30px 0 0 0;
+	}
+	
+	.carousel-indicators {
+	    bottom: -47px;
+	    margin-left: -50%;
+	    width: auto;
+	}
+	.subscribe-btn {
+	    top: 4px;
+	    left: 0;
+	    width: auto;
+	}
+	.addOn-btn-s1 {
+	    top: 4px;
+	    left: 0;
+	    width: auto;
+	}
+	
+	.form-inline .form-control {
+	    margin: 0 20px 15px 0;
+	    width: 335px;
+	}
 	
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1024px) and (orientation : landscape) { 
+
+	.list-2 li {
+	    display: block;
+	    margin: 0;
+	    width: auto;
+	}
+	.list-2 li:first-child {
+		opacity: 0.6;
+		width: 100%;
+		margin-top: 15px;
+		margin-bottom: 0;
+	}
+	.list-2 li:last-child {
+		margin-top: 0;
+		margin-bottom: 15px;
+	}
+	.list-2 li:nth-last-child(2) {
+		border-bottom: none;
+	}
+	.carousel-indicators {
+	    bottom: -50px;
+	    margin-left: -51%;
+	    width: 70%;
+	}
+	
+	.form-inline .form-control {
+	    margin: 0 20px 15px 0;
+	    width: 325px;
+	}
 	
 }
 
@@ -40,7 +209,83 @@
    
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
+
+	.mb115 { margin-bottom: 0px; }
+	
+	.logo {
+	    margin: 10px 0 0 44px;
+	}
+	
+	.list-1 li {
+		margin: 0 20px 0 0;
+		display: inline;
+	}
+	.list-2 {
+		margin: 30px 0 0 0;
+	}
+	.list-2 li {
+	    display: block;
+	    margin: 0;
+	    width: auto;
+	}
+	.list-2 li:first-child {
+		opacity: 0.6;
+		width: auto;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	.list-2 li:last-child {
+		opacity: 0.6;
+		transform: rotate(180deg);
+		width: auto;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	.list-2 li:nth-last-child(2) {
+		border-bottom: none;
+	}
+	.list-3 {
+		margin: 50px 0 0 0;
+	}
+	.list-3 li {
+		display: inline;
+		margin: 0;
+	}
+	.list-3 li + span {
+		display: inline;
+		margin: 0 5px;
+	}
+	.list-4 {
+		margin: 50px 0 0 0;
+	}
+	.titile-01 {
+		margin-top: 35px;
+		font-size: 2.571em;
+	}
+	.carousel-indicators li {
+	    display: inline-block;
+	    margin: 1px;
+	}
+	.carousel-indicators {
+	    bottom: -50px;
+	    margin-left: -49%;
+	    width: 66%;
+	}
+	.subscribe-btn {
+	    top: 6px;
+	    left: -24px;
+	}
+	.addOn-btn-s1 {
+	    top: 6px;
+	    left: 0;
+	    margin-bottom: 0;
+	}
+	
+	.form-inline .form-control {
+	    margin: 0 20px 15px 0;
+	    width: 345px;
+	}
    	
 }
 
