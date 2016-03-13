@@ -77,7 +77,7 @@ public class AMMealItemsService {
 		if(userId != null){
 			
 			UserSubscription userSubscription = userSubscriptionDAO.findByUserId(userId);
-			if(userSubscription != null && userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
+			if(userSubscription != null && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
 					userSubscription.getEndDate().after(date)){
 				
 				AmUpdatedItems amUpdatedItems = amUpdatedItemsDAO.findByUserId(userId);
@@ -160,7 +160,7 @@ public class AMMealItemsService {
 		if(amMfinalSubItems.getUserId() != null){
 			AMFinalSubItems amMfinalSubItems2 = null;
 			UserSubscription userSubscription = userSubscriptionDAO.findByUserId(amMfinalSubItems.getUserId());
-			if(userSubscription != null && userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
+			if(userSubscription != null && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
 					userSubscription.getEndDate().after(date)){
 				if(amMfinalSubItems.getAddId() != 0 && amMfinalSubItems.getAmSubItemsList().size() > 0){
 					amMfinalSubItems2 = new AMFinalSubItems();

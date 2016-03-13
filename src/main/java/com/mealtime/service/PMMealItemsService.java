@@ -77,7 +77,7 @@ public class PMMealItemsService {
 		if(userId != null){
 			
 			UserSubscription userSubscription = userSubscriptionDAO.findByUserId(userId);
-			if(userSubscription != null && userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
+			if(userSubscription != null && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
 					userSubscription.getEndDate().after(date)){
 				
 				PmUpdatedItems pmUpdatedItems = pmUpdatedItemsDAO.findByUserId(userId);
@@ -169,7 +169,7 @@ public class PMMealItemsService {
 		if(pmMfinalSubItems.getUserId() != null){
 			PMFinalSubItems pmMfinalSubItems2 = null;
 			UserSubscription userSubscription = userSubscriptionDAO.findByUserId(pmMfinalSubItems.getUserId());
-			if(userSubscription != null && userSubscription.getStatus().equalsIgnoreCase("success") && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
+			if(userSubscription != null && userSubscription.getIsActive().equalsIgnoreCase("YES") &&
 					userSubscription.getEndDate().after(date)){
 				if(pmMfinalSubItems.getAddId() != 0 && pmMfinalSubItems.getPmSubItemsList().size() > 0){
 					pmMfinalSubItems2 = new PMFinalSubItems();

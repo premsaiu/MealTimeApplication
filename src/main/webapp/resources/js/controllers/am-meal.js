@@ -16,7 +16,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 						console.log("Response :: "+response.data.data);
 						$rootScope.subscribeUserDetails = response.data.data;
 						$rootScope.isUserSubscribed = true;
-						if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
+						if($rootScope.subscribeUserDetails.isActive.toLowerCase() == "yes"){
 							$rootScope.isActive = true;
 							UserService.getBreakfastItem($rootScope.user.userId,0).then(function(response) {
 								if(response.status == 200 && response.data.data != null){
