@@ -121,6 +121,7 @@ public class BaseController {
 					MealTimeUtil.uploadProfilePic(file, userMaster, userId, wsResponseStatus);
 					mealTimeService.saveProfile(userMaster);
 					UserMaster user = mealTimeService.checkUser(userMaster.getMobileNumber());
+					mealTimeService.subscribeUser(user);
 					MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 					wsResponseStatus.setData(user);
 				}else {
