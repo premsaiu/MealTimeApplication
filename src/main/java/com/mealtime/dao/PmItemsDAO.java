@@ -4,6 +4,8 @@
  */
 package com.mealtime.dao;
 
+import java.util.List;
+
 import com.mealtime.bean.PmItems;
 
 /**
@@ -86,4 +88,5 @@ public interface PmItemsDAO {
 	 */
 	public long count() ;
 
+	public List<PmItems> getPMItemList(String date);
 }

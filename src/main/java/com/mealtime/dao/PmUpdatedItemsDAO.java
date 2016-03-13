@@ -4,6 +4,8 @@
  */
 package com.mealtime.dao;
 
+import java.util.List;
+
 import com.mealtime.bean.PmUpdatedItems;
 
 /**
@@ -20,6 +22,8 @@ public interface PmUpdatedItemsDAO {
 	 * @return the bean found or null if not found 
 	 */
 	public PmUpdatedItems find( Integer id ) ;
+	
+	public PmUpdatedItems findByUserId(String userId);
 
 	//----------------------------------------------------------------------
 	/**
@@ -85,5 +89,7 @@ public interface PmUpdatedItemsDAO {
 	 * @return
 	 */
 	public long count() ;
+	
+	public int deleteUserRecord(int itemId,String userId);
 
 }

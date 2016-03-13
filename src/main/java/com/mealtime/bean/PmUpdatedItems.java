@@ -31,7 +31,7 @@ public class PmUpdatedItems implements Serializable {
     private Integer itemId;
 
     // DB : user_id INT 
-    private Integer userId;
+    private String userId;
 
     // DB : modified_item_date DATE 
     private Date modifiedItemDate;
@@ -81,10 +81,10 @@ public class PmUpdatedItems implements Serializable {
         return this.itemId;
     }
 
-    public void setUserId( Integer userId ) {
+    public void setUserId( String userId ) {
         this.userId = userId;
     }
-    public Integer getUserId() {
+    public String getUserId() {
         return this.userId;
     }
 

@@ -4,18 +4,18 @@
 		    
 			    <div class="pull-left">
 				    <h4 class="titile-02">PM Meal</h4>
-				    <h5 class="titile-03">{{brkfstObj1.status}} --- {{totalAmt}}</h5>
+				    <h5 class="titile-03">{{brkfstObj1.status}}</h5>
 				    <div class="pull-left clearfix">
    				     <div data-ng-show="cancelledMsg" class="errorMessage" style="text-align: center;margin-bottom: 2px;">{{alertCancelledMsg}}</div>
 				     <div class="pull-left custom-thumbs" data-ng-repeat="dinnerObj in dinnerObjList">
-							<img data-ng-hide="cancelled" data-ng-src="{{dinnerObj.imgSrc}}" alt="{{dinnerObj.imageName + 'Image'}}" class="img-thumbnail" width="180" height="115">
+							<img data-ng-hide="cancelled" data-ng-src="{{dinnerObj.itemImage}}" alt="{{dinnerObj.itemName + 'Image'}}" class="img-thumbnail" width="180" height="115">
 							<div class="radio custom-thumbs-title" style="text-align: center">
 							   <label class="radio">
-							      <input type="radio" name="select_breakmeal" id="select_breakmeal1" data-ng-model="$parent.favoriteDinner" value="{{dinnerObj.imageName}}" data-ng-click="updateSelectionDinner($event);">{{dinnerObj.imageName}}
+							      <input type="radio" name="select_breakmeal" id="select_breakmeal1" data-ng-model="$parent.favoriteDinner" value="{{dinnerObj.itemName}}" data-ng-click="updateSelectionDinner($event);">{{dinnerObj.itemName}}
 							   </label>
 							</div>
 						    <div class="clearfix" style="text-align: center">
-							    <h5 class="titile-04">{{dinnerObj.brkfstInfo}}</h5>
+							    <h5 class="titile-04">{{dinnerObj.itemDesc}}</h5>
 						    </div>
 					</div>
 					    

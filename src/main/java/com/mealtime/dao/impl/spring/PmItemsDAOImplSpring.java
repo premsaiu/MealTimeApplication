@@ -6,10 +6,15 @@ package com.mealtime.dao.impl.spring;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.mealtime.bean.AmUpdatedSubItems;
 import com.mealtime.bean.PmItems;
 import com.mealtime.dao.PmItemsDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
@@ -23,9 +28,15 @@ import com.mealtime.dao.impl.spring.commons.GenericDAO;
 @Repository
 public class PmItemsDAOImplSpring extends GenericDAO<PmItems> implements PmItemsDAO {
 
+	private static final Logger logger = Logger.getLogger(PmItemsDAOImplSpring.class);
+	
 	private final static String SQL_SELECT = 
 		"select item_id, item_name, item_desc, item_image, item_price, item_date, created_date, updated_date, created_by, updated_by, status, is_active, version from pm_items where item_id = ?";
 
+	private final static String SQL_SELECT_ITEMS =
+			"select item_id, item_name, item_desc, item_image, item_price, item_date, created_date, updated_date, created_by, updated_by, status, is_active, version from pm_items where item_date=?";
+
+	
 	// NB : This entity has an auto-incremented primary key : "item_id"
 	private final static String AUTO_INCREMENTED_COLUMN = "item_id";
 
@@ -286,5 +297,14 @@ public class PmItemsDAOImplSpring extends GenericDAO<PmItems> implements PmItems
 			populateBean(rs, this.bean);
 			return this.bean;
 		}
+	}
+	
+	public List<PmItems> getPMItemList(String date) {
+		try{
+			return getJdbcTemplate().query(SQL_SELECT_ITEMS,new Object[]{date}, new BeanPropertyRowMapper<PmItems>(PmItems.class));
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in getPMItemList:::"+e.getMessage());
+		}
+		return null;
 	}
 }

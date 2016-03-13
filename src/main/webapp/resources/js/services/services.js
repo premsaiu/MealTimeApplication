@@ -37,10 +37,29 @@ angular.module('miniMealApp.services',[])
     	return request;
 	}
 	
+	this.checkDinnerSubItem = function (subItemsdata) {
+		var request = $http({
+    		method:"post",
+    		url:baseURL+'getDinnerSubItem.spring',
+    		dataType: "application/json",
+    		data : subItemsdata
+    	});
+    	return request;
+	}
+	
 	this.deleteSubItemAddon = function (itemId, userId) {
         var request = $http({
             method:"get",
             url:  baseURL+'deleteSubItemAddon.spring?itemId='+itemId+'&userId='+userId,
+            dataType: "application/json"
+        });
+        return request;
+    };
+    
+    this.deleteDinnerSubItemAddon = function (itemId, userId) {
+        var request = $http({
+            method:"get",
+            url:  baseURL+'deleteDinnerSubItemAddon.spring?itemId='+itemId+'&userId='+userId,
             dataType: "application/json"
         });
         return request;
@@ -133,6 +152,15 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
+    this.getDinnerItem = function(userId,addId){
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'getDinnerItem.spring?userId='+userId+'&addId='+addId,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    };
+    
     this.payment = function(userId,paidAmount){
     	var request = $http({
     		method:"get",
@@ -151,6 +179,15 @@ angular.module('miniMealApp.services',[])
     	return request; 
     }
     
+    this.cancelDinnerItems = function(itemId,userId) {
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'cancelDinnerItem.spring?itemIds='+itemId[0].itemId+'&itemIds='+itemId[1].itemId+'&itemIds='+itemId[1].itemId+'&userId='+userId,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    }
+    //ids[]=id1&ids[]=id2&ids[]=id3&ids[]=id4&ids[]=id5
     this.getSubListItems1 = function(){
     	var request = $http({
     		method:"get",

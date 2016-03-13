@@ -284,5 +284,12 @@ public class AMMealItemsService {
 	
 	public void deleteSubItemAddon(Integer subItemId, String userId){
 		amUpdatedSubItemsDAO.deleteUserRecord(subItemId,userId);
+		AmUpdatedSubItems amUpdatedSubItems3 = new AmUpdatedSubItems();
+		amUpdatedSubItems3.setSubItemId(subItemId);
+		amUpdatedSubItems3.setUserId(userId);
+		amUpdatedSubItems3.setModifiedItemDate(new Date());
+		amUpdatedSubItems3.setStatus("Cancelled");
+		amUpdatedSubItems3.setIsActive("YES");
+		amUpdatedSubItemsDAO.insert(amUpdatedSubItems3);
 	}
 }

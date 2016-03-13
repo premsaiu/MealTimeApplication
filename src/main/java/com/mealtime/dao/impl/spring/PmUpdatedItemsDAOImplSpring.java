@@ -7,6 +7,7 @@ package com.mealtime.dao.impl.spring;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -26,12 +27,16 @@ public class PmUpdatedItemsDAOImplSpring extends GenericDAO<PmUpdatedItems> impl
 	private final static String SQL_SELECT = 
 		"select id, item_id, user_id, modified_item_date, created_date, updated_date, created_by, updated_by, status, is_active, version from pm_updated_items where id = ?";
 
+	private final static String SQL_SELECTBY_USERID = 
+			"select id, item_id, user_id, modified_item_date, created_date, updated_date, created_by, updated_by, status, is_active, version from pm_updated_items where user_id = ?";
+
+	
 	// NB : This entity has an auto-incremented primary key : "id"
 	private final static String AUTO_INCREMENTED_COLUMN = "id";
 
 	private final static int[] SQL_INSERT_TYPES = new int[] {
 			java.sql.Types.INTEGER ,  // "item_id" : INT - java.lang.Integer
-			java.sql.Types.INTEGER ,  // "user_id" : INT - java.lang.Integer
+			java.sql.Types.VARCHAR ,  // "user_id" : INT - java.lang.Integer
 			java.sql.Types.DATE ,  // "modified_item_date" : DATE - java.util.Date
 			java.sql.Types.DATE ,  // "created_date" : DATE - java.util.Date
 			java.sql.Types.DATE ,  // "updated_date" : DATE - java.util.Date
@@ -51,6 +56,9 @@ public class PmUpdatedItemsDAOImplSpring extends GenericDAO<PmUpdatedItems> impl
 	private final static String SQL_DELETE = 
 		"delete from pm_updated_items where id = ?";
 
+	private final static String DELETE_USERRECORD = 
+			"delete from pm_updated_items where item_id = ? and user_id = ?";
+	
 	private final static String SQL_COUNT_ALL = 
 		"select count(*) from pm_updated_items";
 
@@ -178,7 +186,7 @@ public class PmUpdatedItemsDAOImplSpring extends GenericDAO<PmUpdatedItems> impl
 			//--- Returns PRIMARY KEY and DATA ( for SQL "SET x=?, y=?, ..." )
 			// "id" is auto-incremented => no set in insert		
 			pmUpdatedItems.getItemId() , // "item_id" : java.lang.Integer
-			pmUpdatedItems.getUserId() , // "user_id" : java.lang.Integer
+			pmUpdatedItems.getUserId() , // "user_id" : java.lang.String
 			pmUpdatedItems.getModifiedItemDate() , // "modified_item_date" : java.util.Date
 			pmUpdatedItems.getCreatedDate() , // "created_date" : java.util.Date
 			pmUpdatedItems.getUpdatedDate() , // "updated_date" : java.util.Date
@@ -195,7 +203,7 @@ public class PmUpdatedItemsDAOImplSpring extends GenericDAO<PmUpdatedItems> impl
 		return new Object[] {		
 			//--- Returns DATA first ( for SQL "SET x=?, y=?, ..." )
 			pmUpdatedItems.getItemId(), // "item_id" : java.lang.Integer
-			pmUpdatedItems.getUserId(), // "user_id" : java.lang.Integer
+			pmUpdatedItems.getUserId(), // "user_id" : java.lang.String
 			pmUpdatedItems.getModifiedItemDate(), // "modified_item_date" : java.util.Date
 			pmUpdatedItems.getCreatedDate(), // "created_date" : java.util.Date
 			pmUpdatedItems.getUpdatedDate(), // "updated_date" : java.util.Date
@@ -243,7 +251,7 @@ public class PmUpdatedItemsDAOImplSpring extends GenericDAO<PmUpdatedItems> impl
 		if ( rs.wasNull() ) { pmUpdatedItems.setId(null); }; // not primitive number => keep null value if any
 		pmUpdatedItems.setItemId(rs.getInt("item_id")); // java.lang.Integer
 		if ( rs.wasNull() ) { pmUpdatedItems.setItemId(null); }; // not primitive number => keep null value if any
-		pmUpdatedItems.setUserId(rs.getInt("user_id")); // java.lang.Integer
+		pmUpdatedItems.setUserId(rs.getString("user_id")); // java.lang.Integer
 		if ( rs.wasNull() ) { pmUpdatedItems.setUserId(null); }; // not primitive number => keep null value if any
 		pmUpdatedItems.setModifiedItemDate(rs.getDate("modified_item_date")); // java.util.Date
 		pmUpdatedItems.setCreatedDate(rs.getDate("created_date")); // java.util.Date
@@ -280,4 +288,24 @@ public class PmUpdatedItemsDAOImplSpring extends GenericDAO<PmUpdatedItems> impl
 			return this.bean;
 		}
 	}
+
+	public PmUpdatedItems findByUserId(String userId) {
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECTBY_USERID, new Object[]{userId},getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in findByUserId:::"+e.getMessage());
+		}
+		return null;
+	}
+	
+	public int deleteUserRecord(int itemId, String userId) {
+		try{
+			int i = getJdbcTemplate().update(DELETE_USERRECORD, new Object[]{itemId,userId});
+			return i;
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Exception in deleteUserRecord:::"+e.getMessage());
+		}
+		return 1;
+	}
+	
 }
