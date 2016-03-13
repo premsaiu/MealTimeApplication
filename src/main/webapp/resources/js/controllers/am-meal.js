@@ -259,7 +259,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 											$rootScope.isUserSubscribed = true;
 											if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
 												$rootScope.isActive = true;*/
-											if($rootScope.isUserSubscribed && $rootScope.isActive){
+											if($rootScope.isUserSubscribed && $rootScope.isActive && $rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
 												UserService.walletCheck($rootScope.user.userId).then(function(response){
 													if(response.data.data != "" && response.data.data != null){
 														$scope.totalAmt = $scope.totalAmt - value.cost;
@@ -270,6 +270,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 												});
 											}else{
 												$state.go("payment");
+												alert("Your Subscription is still pending with Admin");
 											}
 											/*}else{
 											$rootScope.isUserSubscribed = false;
@@ -312,7 +313,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 				angular.forEach($scope.complItems, function(value,key){
 					if(value.selected){
 						if(confirm("Your want to add complemenatary Items with default breakfast?")){
-												if($rootScope.isUserSubscribed && $rootScope.isActive){
+												if($rootScope.isUserSubscribed && $rootScope.isActive && $rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
 													UserService.walletCheck($rootScope.user.userId).then(function(response){
 														if(response.data.data != "" && response.data.data != null){
 															$scope.totalAmt = $scope.totalAmt - value.cost;
@@ -323,6 +324,7 @@ controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
 													});
 												}else{
 													$state.go("payment");
+													alert("Your Subscription is still pending with Admin");
 												}
 						}else{
 							//$scope.totalAmt = 1000;
