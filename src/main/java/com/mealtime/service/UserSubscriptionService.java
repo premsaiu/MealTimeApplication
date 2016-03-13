@@ -17,27 +17,30 @@ public class UserSubscriptionService {
 	@Autowired
 	UserSubscriptionDAO userSubscriptionDAO;
 	
-	public void subscribeUser(UserMaster user){
-		UserSubscription userSubscription = new UserSubscription();
-		userSubscription.setUserId(user.getUserId());
-		userSubscription.setSubscriptionId(1);
-		userSubscription.setStatus("In Progress");
-		userSubscription.setIsActive("NO");
-		/*Date date = new Date();
-		DateFormat currentDate = DateFormat.getDateInstance();
-		Date startDate = null;
-		Date endDate = null;
-		try {
-			startDate = currentDate.parse(currentDate.format(date.getTime() + 1 * 1000 * 60 * 60 * 24));
-			endDate = currentDate.parse(currentDate.format(date.getTime() + 30L * 1000 * 60 * 60 * 24));
-		} catch (ParseException e) {
-			e.printStackTrace();
+	public int subscribeUser(UserMaster user){
+		int count = 0;
+		UserSubscription userSubscription = userSubscriptionDAO.findByUserId(user.getUserId());
+		if(userSubscription != null){
+			userSubscription.setStatus("Pending");
+			userSubscription.setUpdatedDate(new Date());
+			userSubscription.setUpdatedBy(user.getUserId());
+			/*Date date = new Date();
+			DateFormat currentDate = DateFormat.getDateInstance();
+			Date startDate = null;
+			Date endDate = null;
+			try {
+				startDate = currentDate.parse(currentDate.format(date.getTime() + 1 * 1000 * 60 * 60 * 24));
+				endDate = currentDate.parse(currentDate.format(date.getTime() + 30L * 1000 * 60 * 60 * 24));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Start Date: "+startDate);
+			System.out.println("End Date: "+endDate);
+			userSubscription.setStartDate(startDate);
+			userSubscription.setEndDate(endDate);*/
+			count = userSubscriptionDAO.update(userSubscription);
 		}
-		System.out.println("Start Date: "+startDate);
-		System.out.println("End Date: "+endDate);
-		userSubscription.setStartDate(startDate);
-		userSubscription.setEndDate(endDate);*/
-		userSubscriptionDAO.insert(userSubscription);
+		return count;
 	}
 	
 	public UserSubscription checkSubscription(String userId){

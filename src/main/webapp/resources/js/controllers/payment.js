@@ -13,7 +13,11 @@ controller('PaymentCtrl', function ($scope, $state, $rootScope, UserService) {
 					if(response.data.data != "" && response.data.data != null){
 						console.log("Response :: "+response.data.data);
 						$rootScope.subscribeUserDetails = response.data.data;
-						$rootScope.isUserSubscribed = true;
+						if($rootScope.subscribeUserDetails.status.toLowerCase() == "open"){
+							$rootScope.isUserSubscribed = false;
+						}else{
+							$rootScope.isUserSubscribed = true;
+						}
 						if($rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
 							$rootScope.isActive = true;
 						}else{

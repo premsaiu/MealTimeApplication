@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.mealtime.bean.OtpTable;
 import com.mealtime.bean.UserMaster;
+import com.mealtime.bean.UserSubscription;
 import com.mealtime.dao.OtpTableDAO;
 import com.mealtime.dao.UserMasterDAO;
+import com.mealtime.dao.UserSubscriptionDAO;
 import com.mealtime.util.MealTimeUtil;
 import com.mealtime.util.SendSMS;
 
@@ -31,6 +33,9 @@ public class MealTimeService {
 	
 	@Autowired
 	OtpTableDAO otpTableDAO;
+	
+	@Autowired
+	UserSubscriptionDAO userSubscriptionDAO;
 	
 	private static final Logger logger = Logger.getLogger(MealTimeService.class);
 	
@@ -127,6 +132,17 @@ public class MealTimeService {
 	
 	public String getLastUserId(){
 		return userMasterDAO.getLastUserId();
+	}
+	
+	public void subscribeUser(UserMaster user){
+		UserSubscription userSubscription = new UserSubscription();
+		userSubscription.setUserId(user.getUserId());
+		userSubscription.setSubscriptionId(1);
+		userSubscription.setStatus("Open");
+		userSubscription.setIsActive("NO");
+		userSubscription.setCreatedBy(user.getUserId());
+		userSubscription.setCreatedDate(new Date());
+		userSubscriptionDAO.insert(userSubscription);
 	}
 	
 	public int updateProfile(UserMaster userMaster){

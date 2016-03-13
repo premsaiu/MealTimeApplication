@@ -26,18 +26,22 @@ public class UserSubscriptionController {
 	@RequestMapping(value="/subscribeuser", method = RequestMethod.POST)
 	public @ResponseBody WSResponseStatus subscribeUser(@RequestBody UserMaster user){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
-		userSubscriptionService.subscribeUser(user);
-		String subject = "Meal Time Subscription";
-		String msgBody = "<i>Hi!</i><br><br>";
-		msgBody += "<b>Welcome to MealTime!</b><br>";
-		msgBody += "Your Subscription request for Meal Time is in process</b>.<br>";
-		msgBody += "Our excecutive will reach you shortly and collect the payment. After payment your subscription will become active<br><br>";
-		msgBody += "Regards, <br>Meal Time Team";
-		mealTimeUtil.sendEmail("premcse41@gmail.com", user.getEmail(), subject, msgBody);
-		/*String message = "";
-		message = "test message "+"Your Subscription request for Meal Time is in process";
-		MealTimeUtil.sendSMS(user.getMobileNumber(), message);*/
-		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		int count = userSubscriptionService.subscribeUser(user);
+		if(count > 0){
+			String subject = "Meal Time Payment";
+			String msgBody = "<i>Hi!</i><br><br>";
+			msgBody += "<b>Welcome to MealTime!</b><br>";
+			msgBody += "Your Payment request for Meal Time is in process</b>.<br>";
+			msgBody += "Our excecutive will reach you shortly and collect the payment. After payment your subscription will become active<br><br>";
+			msgBody += "Regards, <br>Meal Time Team";
+			mealTimeUtil.sendEmail("premcse41@gmail.com", user.getEmail(), subject, msgBody);
+			/*String message = "";
+			message = "test message "+"Your Subscription request for Meal Time is in process";
+			MealTimeUtil.sendSMS(user.getMobileNumber(), message);*/
+			mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}else{
+			mealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong");
+		}
 		return wsResponseStatus;
 	}
 	
