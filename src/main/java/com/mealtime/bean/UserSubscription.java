@@ -60,7 +60,7 @@ public class UserSubscription implements Serializable {
     // DB : version INT 
     private Integer version;
 
-
+    private UserMaster userMaster;
 
     //----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
@@ -184,7 +184,15 @@ public class UserSubscription implements Serializable {
         sb.append("|");
         sb.append(userSubscriptionId);
         return sb.toString(); 
-    } 
+    }
+
+	public UserMaster getUserMaster() {
+		return userMaster;
+	}
+
+	public void setUserMaster(UserMaster userMaster) {
+		this.userMaster = userMaster;
+	} 
 
 
 }

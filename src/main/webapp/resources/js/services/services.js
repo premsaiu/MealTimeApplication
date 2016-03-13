@@ -267,5 +267,24 @@ service('AdminService', ['$http', '$q', function($http, $q){
         });
         return request;
     };
+    
+    this.getPendingSubscribedUsers = function() {
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'getPendingSubscribedUsers.spring',
+    		dataType: "application/json"
+    	});
+    	return request; 	
+	};
+	
+	this.submitPayment = function (paymentForm) {
+        var request = $http({
+            method:"post",
+            url:  baseURL+'payUser.spring',
+            data : paymentForm,
+            dataType: "application/json"
+        });
+        return request;
+    };
 	
 }]);

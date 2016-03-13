@@ -1,6 +1,7 @@
 package com.mealtime.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,11 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mealtime.bean.UserMaster;
+import com.mealtime.bean.UserSubscription;
+import com.mealtime.form.PaymentForm;
 import com.mealtime.form.UserForm;
 import com.mealtime.service.AdminService;
+import com.mealtime.service.UserSubscriptionService;
 import com.mealtime.util.MealTimeUtil;
 import com.mealtime.util.WSResponseStatus;
 
@@ -31,6 +35,9 @@ private static final Logger logger = Logger.getLogger(BaseController.class);
 	
 	@Autowired
 	MealTimeUtil mealTimeUtil;
+	
+	@Autowired
+	UserSubscriptionService userSubscriptionService;
 
 	@RequestMapping(value = "/checkUserRole", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody UserMaster checkUser(@RequestParam("mobileNo")String mobileNumber){
@@ -108,4 +115,35 @@ private static final Logger logger = Logger.getLogger(BaseController.class);
 		return wsResponseStatus;
 	}
 	
+	@RequestMapping("/admin/getPendingSubscribedUsers")
+	public @ResponseBody WSResponseStatus getPendingSubscribedUsers(){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		List<UserSubscription> userSubscriptions = userSubscriptionService.getPendingSubscribedUsers();
+		wsResponseStatus.setData(userSubscriptions);
+		MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping("/admin/payUser")
+	public @ResponseBody WSResponseStatus payUser(@RequestBody PaymentForm paymentForm){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		int count = userSubscriptionService.payUser(paymentForm);
+		if(count > 0){
+			userSubscriptionService.addWallet(paymentForm);
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+			// Email Notification
+			String subject = "MealTime:: Payment Confirmation";
+			String msgBody = "<i>Hi!</i><br><br>";
+			msgBody += "<b>Welcome to MealTime!</b><br>";
+			msgBody += "Your Payment amount of Rs.4650.00 has been recieved by Admin<br>";
+			msgBody += "Your updated wallet balance is Rs.1000.00<br><br>";
+			msgBody += "Regards, <br>Meal Time Team";
+			mealTimeUtil.sendEmail(paymentForm.getEmail(), "premcse41@gmail.com", subject, msgBody);
+			String message = "Your payment amount of Rs.4650.00 has been recieved. Your updated wallet balance is Rs.1000.00";
+			//mealTimeUtil.sendSMS(paymentForm.getMobileNumber(), message);
+		}else{
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Error while Updating User Subscription Table");
+		}
+		return wsResponseStatus;
+	}
 }

@@ -86,6 +86,8 @@
     <script src="resources/js/controllers/payment.js"></script>
     <script src="resources/js/controllers/pm-meal.js"></script>
     <script src="resources/js/controllers/profile.js"></script>
+    <script src="resources/js/controllers/admin-payment.js"></script>
+    <script src="resources/js/controllers/payment-form.js"></script>
 <!--     <script src="resources/js/controllers/controller.js"></script> -->
     
   </body>

@@ -4,6 +4,8 @@
  */
 package com.mealtime.dao;
 
+import java.util.List;
+
 import com.mealtime.bean.UserSubscription;
 
 /**
@@ -86,5 +88,7 @@ public interface UserSubscriptionDAO {
 	public long count() ;
 	
 	public UserSubscription findByUserId(String userId);
+	
+	public List<UserSubscription> getPendingSubscribedUsers();
 
 }

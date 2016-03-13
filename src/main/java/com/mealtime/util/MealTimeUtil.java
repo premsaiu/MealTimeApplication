@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -113,5 +116,14 @@ public class MealTimeUtil {
        logger.info("Uploaded successfully");
 	}
 
-
+	public static Date convertStrDate(String strDate){
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm aaa");
+		Date date = null;
+		try {
+			date = sdf.parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
 }

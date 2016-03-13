@@ -12,6 +12,8 @@ angular.module('miniMealApp', ['miniMealApp.services',
                                'miniMealApp.contactusCtrl',
                                'miniMealApp.adminprofileCtrl',
                                'miniMealApp.changepwdCtrl',
+                               'miniMealApp.adminpaymentCtrl',
+                               'miniMealApp.paymentformCtrl',
                                'ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
     
@@ -89,11 +91,13 @@ angular.module('miniMealApp', ['miniMealApp.services',
         })
         .state('adminpayment', {
             url: '/admpayment',
-            templateUrl: 'views/admin/payment_admin.html'
+            templateUrl: 'views/admin/payment_admin.html',
+            controller: 'AdminPaymentCtrl'
         })
-        .state('enteramount', {
-            url: '/enteramount',
-            templateUrl: 'views/admin/enteramount_admin.html'
+        .state('paymentForm', {
+            url: '/paymentForm',
+            templateUrl: 'views/admin/payment_form.html',
+            controller: 'PaymentFormCtrl'
         })
         
 })

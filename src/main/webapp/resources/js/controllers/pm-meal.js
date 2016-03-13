@@ -259,8 +259,8 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 			if(angular.isDefined($scope.finalData) && $scope.finalData.length !== 0){
 				angular.forEach($scope.suppleItems, function(value,key){
 					if(value.itemName == $scope.favoriteSuppl){
-						if(confirm("Would you really want to replace default breakfast with supplementary Item?")){
-											if($rootScope.isUserSubscribed && $rootScope.isActive){
+						if(confirm("Would you really want to replace default dinner with supplementary Item?")){
+											if($rootScope.isUserSubscribed && $rootScope.isActive && $rootScope.subscribeUserDetails.isActive.toLowerCase() == "success"){
 												UserService.walletCheck($rootScope.user.userId).then(function(response){
 													if(response.data.data != "" && response.data.data != null){
 														$scope.totalAmt = $scope.totalAmt - value.cost;
@@ -271,6 +271,7 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 												});
 											}else{
 												$state.go("payment");
+												alert("Your Subscription is still pending with Admin");
 											}
 						}else{
 							UserService.walletCheck($rootScope.user.userId).then(function(response){
@@ -291,8 +292,8 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 			
 				angular.forEach($scope.complItems, function(value,key){
 					if(value.selected){
-						if(confirm("Your want to add complemenatary Items with default breakfast?")){
-												if($rootScope.isUserSubscribed && $rootScope.isActive){
+						if(confirm("Your want to add complemenatary Items with default Dinner?")){
+												if($rootScope.isUserSubscribed && $rootScope.isActive && $rootScope.subscribeUserDetails.status.toLowerCase() == "success"){
 													UserService.walletCheck($rootScope.user.userId).then(function(response){
 														if(response.data.data != "" && response.data.data != null){
 															$scope.totalAmt = $scope.totalAmt - value.cost;
@@ -303,6 +304,7 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 													});
 												}else{
 													$state.go("payment");
+													alert("Your Subscription is still pending with Admin")
 												}
 						}else{
 							//$scope.totalAmt = 1000;

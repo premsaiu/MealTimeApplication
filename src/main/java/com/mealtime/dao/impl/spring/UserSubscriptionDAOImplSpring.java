@@ -6,6 +6,7 @@ package com.mealtime.dao.impl.spring;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -26,6 +27,10 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 
 	private final static String SQL_SELECT = 
 		"select user_id, subscription_id, start_date, end_date, created_by, created_date, updated_by, updated_date, status, is_active, version, user_subscription_id from user_subscription where user_subscription_id = ?";
+	
+	private final static String SQL_SELECT_ALL_PENDING = 
+			"select user_id, subscription_id, start_date, end_date, created_by, created_date, updated_by, updated_date, status, is_active, version, user_subscription_id from user_subscription where status='pending'";
+		
 	
 	private final static String SQL_SELECT_BY_USER_ID = 
 			"select user_id, subscription_id, start_date, end_date, created_by, created_date, updated_by, updated_date, status, is_active, version, user_subscription_id from user_subscription where user_id = ?";
@@ -287,5 +292,9 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 			System.out.println("Empty Result in UserSubscriptionDAO :: findByUserId()");
 			return null;
 		}
+	}
+	
+	public List<UserSubscription> getPendingSubscribedUsers() {
+		return getJdbcTemplate().query(SQL_SELECT_ALL_PENDING, getRowMapper());
 	}
 }
