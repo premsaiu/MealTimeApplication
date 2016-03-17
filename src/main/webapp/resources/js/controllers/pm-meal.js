@@ -16,7 +16,7 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 						console.log("Response :: "+response.data.data);
 						$rootScope.subscribeUserDetails = response.data.data;
 						$rootScope.isUserSubscribed = true;
-						if($rootScope.subscribeUserDetails.isActive.toLowerCase() == "yes"){
+						if($rootScope.subscribeUserDetails.isActive){
 							$rootScope.isActive = true;
 							UserService.getDinnerItem($rootScope.user.userId,0).then(function(response) {
 								if(response.status == 200 && response.data.data != null){
