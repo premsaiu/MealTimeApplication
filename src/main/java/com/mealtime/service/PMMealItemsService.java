@@ -95,14 +95,15 @@ public class PMMealItemsService {
 									amUpdatedItems1.setStatus("Active");
 									amUpdatedItems1.setIsActive("YES");
 									int i =	amUpdatedItemsDAO.update(amUpdatedItems1);*/
-									pmUpdatedItemsDAO.deleteUserRecord(pmItems2.getItemId(),userId);
+									//pmUpdatedItemsDAO.deleteUserRecord(pmItems2.getItemId(),userId);
 									PmUpdatedItems pmUpdatedItems1 = new PmUpdatedItems();
 									pmUpdatedItems1.setItemId(pmItems2.getItemId());
 									pmUpdatedItems1.setUserId(userId);
 									pmUpdatedItems1.setModifiedItemDate(new Date());
 									pmUpdatedItems1.setStatus("Active");
 									pmUpdatedItems1.setIsActive("YES");
-									pmUpdatedItemsDAO.insert(pmUpdatedItems1);
+									//pmUpdatedItemsDAO.insert(pmUpdatedItems1);
+									pmUpdatedItemsDAO.update(pmUpdatedItems1);
 									
 									if(Integer.parseInt(hourFormat.format(date.getTime())) <= 7){
 										pmItems2.setStatus("Today's Dinner Special");
@@ -185,14 +186,15 @@ public class PMMealItemsService {
 												List<PmItems> pmItems = pmItemsDAO.getPMItemList(dateFormat.format(date));
 												//for (PmItems pmItems2 : pmItems) {
 													if(dateFormat.format(pmItems.get(0).getItemDate()).equals(dateFormat.format(date))){
-														pmUpdatedSubItemsDAO.deleteUserRecord(pmUpdatedSubItems.getSubItemId(),pmMfinalSubItems.getUserId());
+														//pmUpdatedSubItemsDAO.deleteUserRecord(pmUpdatedSubItems.getSubItemId(),pmMfinalSubItems.getUserId());
 														PmUpdatedSubItems pmUpdatedSubItems3 = new PmUpdatedSubItems();
 														pmUpdatedSubItems3.setSubItemId(pmSubItems1.getItemId());
 														pmUpdatedSubItems3.setUserId(pmMfinalSubItems.getUserId());
 														pmUpdatedSubItems3.setModifiedItemDate(new Date());
 														pmUpdatedSubItems3.setStatus("Active");
 														pmUpdatedSubItems3.setIsActive("YES");
-														pmUpdatedSubItemsDAO.insert(pmUpdatedSubItems3);
+														//pmUpdatedSubItemsDAO.insert(pmUpdatedSubItems3);
+														pmUpdatedSubItemsDAO.update(pmUpdatedSubItems3);
 														pmSubItems1.setSelected(true);
 														pmSubItemsList.add(pmSubItems1);
 													}else{
@@ -262,17 +264,18 @@ public class PMMealItemsService {
 		}
 	}
 	
-	public void cancelItem(List<Integer> itemId,String userId){
+	public void cancelItem(List<PmItems> itemId,String userId){
 		//if(i == 0){
-		for (Integer ids : itemId) {
-			int i = pmUpdatedItemsDAO.deleteUserRecord(ids,userId);
+		for (PmItems obj : itemId) {
+			//pmUpdatedItemsDAO.deleteUserRecord(obj.getItemId(),userId);
 			PmUpdatedItems pmUpdatedItems = new PmUpdatedItems();
-			pmUpdatedItems.setItemId(ids);
+			pmUpdatedItems.setItemId(obj.getItemId());
 			pmUpdatedItems.setUserId(userId);
 			pmUpdatedItems.setModifiedItemDate(new Date());
 			pmUpdatedItems.setStatus("cancelled");
 			pmUpdatedItems.setIsActive("YES");
-			pmUpdatedItemsDAO.insert(pmUpdatedItems);
+			//pmUpdatedItemsDAO.insert(pmUpdatedItems);
+			pmUpdatedItemsDAO.update(pmUpdatedItems);
 		}
 		//}
 	}
@@ -288,26 +291,49 @@ public class PMMealItemsService {
 	
 	public void payment(String userId,Double paidAmount){
 		//UserWallet userWallet = userWalletDAO.findByUserId(userId);
-		int i = userWalletDAO.deleteUserRecord(userId);
+		//userWalletDAO.deleteUserRecord(userId);
 		UserWallet userWallet2 = new UserWallet();
 		userWallet2.setUserId(userId);
 		userWallet2.setCash(paidAmount.intValue());
 		userWallet2.setStatus("success");
 		userWallet2.setIsActive("YES");
 		userWallet2.setVersion(1);
-		userWalletDAO.insert(userWallet2);
-		//userWalletDAO.update(userWallet);
+		//userWalletDAO.insert(userWallet2);
+		userWalletDAO.update(userWallet2);
 	}
 	
 	public void deleteSubItemAddon(Integer subItemId, String userId){
-		pmUpdatedSubItemsDAO.deleteUserRecord(subItemId,userId);
+		//pmUpdatedSubItemsDAO.deleteUserRecord(subItemId,userId);
 		PmUpdatedSubItems pmUpdatedSubItems3 = new PmUpdatedSubItems();
 		pmUpdatedSubItems3.setSubItemId(subItemId);
 		pmUpdatedSubItems3.setUserId(userId);
 		pmUpdatedSubItems3.setModifiedItemDate(new Date());
 		pmUpdatedSubItems3.setStatus("Cancelled");
 		pmUpdatedSubItems3.setIsActive("YES");
-		pmUpdatedSubItemsDAO.insert(pmUpdatedSubItems3);
+		//pmUpdatedSubItemsDAO.insert(pmUpdatedSubItems3);
+		pmUpdatedSubItemsDAO.update(pmUpdatedSubItems3);
 	}
 
+	public void updateDinnerObj(Integer itemId){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<PmItems> pmItems = pmItemsDAO.getPMItemList(dateFormat.format(new Date()));
+		for (PmItems pmItems2 : pmItems) {
+			PmItems pmItems3 = new PmItems();
+			pmItems3.setItemId(pmItems2.getItemId());
+			pmItems3.setItemName(pmItems2.getItemName());
+			pmItems3.setItemDesc(pmItems2.getItemDesc());
+			pmItems3.setItemImage(pmItems2.getItemImage());
+			pmItems3.setItemPrice(pmItems2.getItemPrice());
+			pmItems3.setItemDate(pmItems2.getItemDate());
+			pmItems2.setCreatedDate(pmItems2.getCreatedDate());
+			pmItems3.setUpdatedDate(new Date());
+			pmItems3.setVersion(pmItems2.getVersion());
+			if(pmItems2.getItemId() == itemId){
+				pmItems3.setIsActive("YES");
+			}else{
+				pmItems3.setIsActive("NO");
+			}
+			pmItemsDAO.update(pmItems3);
+		}
+	}
 }

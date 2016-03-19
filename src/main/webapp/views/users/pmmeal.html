@@ -11,7 +11,7 @@
 							<img data-ng-hide="cancelled" data-ng-src="{{dinnerObj.itemImage}}" alt="{{dinnerObj.itemName + 'Image'}}" class="img-thumbnail" width="180" height="115">
 							<div class="radio custom-thumbs-title" style="text-align: center">
 							   <label class="radio">
-							      <input type="radio" name="select_breakmeal" id="select_breakmeal1" data-ng-model="$parent.favoriteDinner" value="{{dinnerObj.itemName}}" data-ng-click="updateSelectionDinner($event);">{{dinnerObj.itemName}}
+							      <input type="radio" name="select_breakmeal" id="select_breakmeal1" data-ng-model="$parent.favoriteDinner" value="{{dinnerObj.itemName}}" data-ng-click="updateSelectionDinner($event,dinnerObj);">{{dinnerObj.itemName}}
 							   </label>
 							</div>
 						    <div class="clearfix" style="text-align: center">

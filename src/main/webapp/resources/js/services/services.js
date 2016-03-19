@@ -101,7 +101,6 @@ angular.module('miniMealApp.services',[])
         return request;
     };
     
-    
     this.addUser = function (obj, file) {
     	var fd = new FormData();
     	fd.append("file", file);
@@ -161,6 +160,14 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
+    this.updateDinnerItem = function(itemId){
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'updateDinnerItem.spring?itemId='+itemId,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    };
     this.payment = function(userId,paidAmount){
     	var request = $http({
     		method:"get",
@@ -179,10 +186,11 @@ angular.module('miniMealApp.services',[])
     	return request; 
     }
     
-    this.cancelDinnerItems = function(itemId,userId) {
+    this.cancelDinnerItems = function(itemObj,userId) {
     	var request = $http({
-    		method:"get",
-    		url:baseURL+'cancelDinnerItem.spring?itemIds='+itemId[0].itemId+'&itemIds='+itemId[1].itemId+'&itemIds='+itemId[1].itemId+'&userId='+userId,
+    		method:"post",
+    		data:itemObj,
+    		url:baseURL+'cancelDinnerItem.spring?userId='+userId,
     		dataType: "application/json"
     	});
     	return request; 

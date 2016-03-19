@@ -72,6 +72,21 @@ public class PMMealController {
 		return wsResponseStatus;
 	}
 	
+	@RequestMapping(value = "/updateDinnerItem", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody WSResponseStatus updateDinnerItem(@RequestParam(value="itemId")Integer itemId){
+		WSResponseStatus wsResponseStatus = null;
+		try{
+			pmMealItemsService.updateDinnerObj(itemId);
+			wsResponseStatus=new WSResponseStatus();
+			wsResponseStatus.setData("success");
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}catch(Exception e){
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Something went wrong in updateDinnerItem Method of Controller");
+			logger.error("Exception in updateDinnerItem---"+e.getMessage());
+		}
+		return wsResponseStatus;
+	}
+	
 	
 	@RequestMapping(value = "/deleteDinnerSubItemAddon", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody WSResponseStatus deleteDinnerSubItemAddon(@RequestParam(value="itemId")Integer itemId, @RequestParam(value="userId")String userId){
@@ -88,11 +103,11 @@ public class PMMealController {
 		return wsResponseStatus;
 	}
 	
-	@RequestMapping(value = "/cancelDinnerItem", method = RequestMethod.GET, produces="application/json")
-	public @ResponseBody WSResponseStatus cancelDinnerItem(@RequestParam(value="itemIds")List<Integer> itemIds,@RequestParam(value="userId")String userId){
+	@RequestMapping(value = "/cancelDinnerItem", method = RequestMethod.POST, produces="application/json")
+	public @ResponseBody WSResponseStatus cancelDinnerItem(@RequestBody List<PmItems> itemObj,@RequestParam(value="userId")String userId){
 		WSResponseStatus wsResponseStatus = null;
 		try{
-			pmMealItemsService.cancelItem(itemIds,userId);
+			pmMealItemsService.cancelItem(itemObj,userId);
 			wsResponseStatus=new WSResponseStatus();
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}catch(Exception e){
