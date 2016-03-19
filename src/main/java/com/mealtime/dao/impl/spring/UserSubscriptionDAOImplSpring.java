@@ -26,20 +26,20 @@ import com.mealtime.dao.impl.spring.commons.GenericDAO;
 public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> implements UserSubscriptionDAO {
 
 	private final static String SQL_SELECT = 
-		"select user_id, subscription_id, start_date, end_date, created_by, created_date, updated_by, updated_date, status, is_active, version, user_subscription_id from user_subscription where user_subscription_id = ?";
+		"select user_id, subscription_id, start_date, end_date, created_by, updated_by, status, is_active, version, user_subscription_id from user_subscription where user_subscription_id = ?";
 	
 	private final static String SQL_SELECT_ALL_PENDING = 
-			"select user_id, subscription_id, start_date, end_date, created_by, created_date, updated_by, updated_date, status, is_active, version, user_subscription_id from user_subscription where status='pending'";
+			"select user_id, subscription_id, start_date, end_date, created_by, updated_by, status, is_active, version, user_subscription_id from user_subscription where status='pending'";
 		
 	
 	private final static String SQL_SELECT_BY_USER_ID = 
-			"select user_id, subscription_id, start_date, end_date, created_by, created_date, updated_by, updated_date, status, is_active, version, user_subscription_id from user_subscription where user_id = ?";
+			"select user_id, subscription_id, start_date, end_date, created_by, updated_by, status, is_active, version, user_subscription_id from user_subscription where user_id = ?";
 
 	private final static String SQL_INSERT = 
-		"insert into user_subscription ( user_id, subscription_id, start_date, end_date, created_by, created_date, updated_by, updated_date, status, is_active, version, user_subscription_id ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		"insert into user_subscription ( user_id, subscription_id, start_date, end_date, created_by, updated_by, status, is_active, version, user_subscription_id ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private final static String SQL_UPDATE = 
-		"update user_subscription set user_id = ?, subscription_id = ?, start_date = ?, end_date = ?, created_by = ?, created_date = ?, updated_by = ?, updated_date = ?, status = ?, is_active = ?, version = ? where user_subscription_id = ?";
+		"update user_subscription set user_id = ?, subscription_id = ?, start_date = ?, end_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ? where user_subscription_id = ?";
 
 	private final static String SQL_DELETE = 
 		"delete from user_subscription where user_subscription_id = ?";
@@ -182,9 +182,7 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 			userSubscription.getStartDate() , // "start_date" : java.util.Date
 			userSubscription.getEndDate() , // "end_date" : java.util.Date
 			userSubscription.getCreatedBy() , // "created_by" : java.lang.String
-			userSubscription.getCreatedDate() , // "created_date" : java.util.Date
 			userSubscription.getUpdatedBy() , // "updated_by" : java.lang.String
-			userSubscription.getUpdatedDate() , // "updated_date" : java.util.Date
 			userSubscription.getStatus() , // "status" : java.lang.String
 			userSubscription.getIsActive() , // "is_active" : java.lang.String
 			userSubscription.getVersion() , // "version" : java.lang.Integer
@@ -201,9 +199,7 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 			userSubscription.getStartDate(), // "start_date" : java.util.Date
 			userSubscription.getEndDate(), // "end_date" : java.util.Date
 			userSubscription.getCreatedBy(), // "created_by" : java.lang.String
-			userSubscription.getCreatedDate(), // "created_date" : java.util.Date
 			userSubscription.getUpdatedBy(), // "updated_by" : java.lang.String
-			userSubscription.getUpdatedDate(), // "updated_date" : java.util.Date
 			userSubscription.getStatus(), // "status" : java.lang.String
 			userSubscription.getIsActive(), // "is_active" : java.lang.String
 			userSubscription.getVersion(), // "version" : java.lang.Integer
@@ -248,9 +244,7 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 		userSubscription.setStartDate(rs.getDate("start_date")); // java.util.Date
 		userSubscription.setEndDate(rs.getDate("end_date")); // java.util.Date
 		userSubscription.setCreatedBy(rs.getString("created_by")); // java.lang.String
-		userSubscription.setCreatedDate(rs.getDate("created_date")); // java.util.Date
 		userSubscription.setUpdatedBy(rs.getString("updated_by")); // java.lang.String
-		userSubscription.setUpdatedDate(rs.getDate("updated_date")); // java.util.Date
 		userSubscription.setStatus(rs.getString("status")); // java.lang.String
 		userSubscription.setIsActive(rs.getString("is_active")); // java.lang.String
 		userSubscription.setVersion(rs.getInt("version")); // java.lang.Integer

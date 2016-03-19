@@ -22,6 +22,12 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 								if(response.status == 200 && response.data.data != null){
 									$scope.dinnerObjList = response.data.data;
 									
+									$scope.favoriteDinner = "";
+									
+									angular.forEach($scope.dinnerObjList, function(value,key){
+										if(value.isActive.toLowerCase() == "yes") $scope.favoriteDinner = value.itemName;
+									});
+									
 									var brkfstObj1 = {
 											status: "Today's Dinner Special",
 											imgSrc: "resources/images/ammeal/meal_01.jpg",
@@ -93,6 +99,10 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 				}
 		);
 	}
+	
+	$scope.updateSelectionDinner = function(event){
+		debugger;
+	};
 	
 	$scope.paymentbtn = false;
 	$scope.addbrkbtn = false;
