@@ -67,7 +67,7 @@
 	    </div>
 	    
 	    <!-- Payment Success  Modal -->
-			    <div class="modal fade" id="paymentSuccessModal" >
+	    <div class="modal fade" id="paymentSuccessModal" data-backdrop="static" data-keyboard="false">
 				  <div class="modal-dialog max-w400">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -82,14 +82,12 @@
 				        </form>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-success" ui-sref="adminpayment" data-ng-click="closeModal('paymentSuccessModal')">Ok</button>
+				        <button type="submit" class="btn btn-success"  data-ng-click="closePaymentModal()">Ok</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
-	    
-	    
-   
+	
     <script type="text/javascript">
     	//open a given url in a new tab by clicking a button
 	    $("#openlink-1").click(function () {
@@ -101,5 +99,5 @@
           $('#datetimepicker3').datetimepicker();
           $('#datetimepicker4').datetimepicker();
       });
-    </script>​
+    </script>
     

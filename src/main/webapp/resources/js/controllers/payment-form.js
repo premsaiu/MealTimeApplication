@@ -27,4 +27,9 @@ controller('PaymentFormCtrl', function ($scope,$state,$rootScope,UserService,Adm
 		
 	}
 	
+	$scope.closePaymentModal = function(){
+		$('#paymentSuccessModal').modal('hide');
+		$state.go('adminpayment');
+	}
+	
 });
