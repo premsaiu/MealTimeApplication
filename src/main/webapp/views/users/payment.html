@@ -24,6 +24,10 @@
 				<div class="mb20">
 					<label>Start Date: {{subscribeUserDetails.startDate}}</label><br/>
 					<label>End Date: {{subscribeUserDetails.endDate}}</label><br/>
+					<label>Wallet Amount: {{cash}}</label><br/>
+				</div>
+				<div ng-show="isCashEnough">
+					Your wallet amount is less than Rs.1000. Please add the amount to the wallet.
 				</div>
 				<br/>
 		    </div>

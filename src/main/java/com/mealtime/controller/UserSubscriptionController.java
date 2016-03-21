@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mealtime.bean.UserMaster;
-import com.mealtime.bean.UserSubscription;
+import com.mealtime.form.PaymentContainer;
 import com.mealtime.service.UserSubscriptionService;
 import com.mealtime.util.MealTimeUtil;
 import com.mealtime.util.WSResponseStatus;
@@ -48,9 +48,9 @@ public class UserSubscriptionController {
 	@RequestMapping(value="/subscribecheck", method = RequestMethod.GET)
 	public @ResponseBody WSResponseStatus checkSubscribtion(@RequestParam("userId")String userId){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
-		UserSubscription userSubscription = userSubscriptionService.checkSubscription(userId);
+		PaymentContainer paymentContainer = userSubscriptionService.checkSubscription(userId);
 		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-		wsResponseStatus.setData(userSubscription);
+		wsResponseStatus.setData(paymentContainer);
 		return wsResponseStatus;
 	}
 	

@@ -1,7 +1,5 @@
 package com.mealtime.service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +13,7 @@ import com.mealtime.bean.UserWallet;
 import com.mealtime.dao.UserMasterDAO;
 import com.mealtime.dao.UserSubscriptionDAO;
 import com.mealtime.dao.UserWalletDAO;
+import com.mealtime.form.PaymentContainer;
 import com.mealtime.form.PaymentForm;
 import com.mealtime.util.MealTimeUtil;
 
@@ -56,10 +55,14 @@ public class UserSubscriptionService {
 		return count;
 	}
 	
-	public UserSubscription checkSubscription(String userId){
+	public PaymentContainer checkSubscription(String userId){
 		UserSubscription userSubscription = new UserSubscription();
+		PaymentContainer paymentContainer = new PaymentContainer();
 		userSubscription = userSubscriptionDAO.findByUserId(userId);
-		return userSubscription;
+		UserWallet userWallet = userWalletDAO.findByUserId(userId);
+		paymentContainer.setUserSubscription(userSubscription);
+		paymentContainer.setUserWallet(userWallet);
+		return paymentContainer;
 	}
 	
 	public List<UserSubscription> getPendingSubscribedUsers(){
