@@ -63,15 +63,19 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 					UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
 	                	$rootScope.loggedUser = true;
-	                	if(response.data == "" || response.data == null){
+	                	/*if(response.data == "" || response.data == null){
 	                		$rootScope.userName = "Visitor";
-	                	}else{
+	                	}else{*/
 	                		$rootScope.user = response.data;
 	                		console.log($rootScope.user);
-	                		$rootScope.status=true;
-	                		$rootScope.regUser = true;
-	                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
-	                	}
+	                		if($rootScope.user.roleId == 3){
+	                			$rootScope.userName = "Visitor";
+	                		}else{
+		                		$rootScope.status=true;
+		                		$rootScope.regUser = true;
+		                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+	                		}
+	                	//}
 	               },
 	                function(errResponse){
 	                    console.error('Error while checking user');

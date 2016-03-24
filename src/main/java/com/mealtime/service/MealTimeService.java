@@ -41,7 +41,31 @@ public class MealTimeService {
 	
 	public UserMaster checkUser(String mobileNumber){
 		logger.info("checkUser() :: mobileNumber: "+mobileNumber);
+		UserMaster userMaster = userMasterDAO.findByMobileNumber(mobileNumber);
+		if(userMaster == null){
+			userMaster =  new UserMaster();
+			userMaster.setMobileNumber(mobileNumber);
+			userMaster.setRoleId(3);
+			userMaster.setCreatedDate(new Date());
+			userMaster.setIsActive("NO");
+			userMaster.setStatus("Visitor");
+			userMasterDAO.insert(userMaster);
+			userMaster = userMasterDAO.findByMobileNumber(mobileNumber);
+			return userMaster;
+		}else{
+			return userMaster;
+		}
+		//return userMasterDAO.findByMobileNumber(mobileNumber);
+	}
+	
+	public UserMaster checkMobileNumber(String mobileNumber){
+		logger.info("checkMobileNumber() :: mobileNumber: "+mobileNumber);
 		return userMasterDAO.findByMobileNumber(mobileNumber);
+	}
+	
+	public UserMaster getUser(String userId){
+		logger.info("getUser() :: userId: "+userId);
+		return userMasterDAO.find(userId);
 	}
 	
 	public void saveOTP(Integer otp, String mobileNo, String email){
@@ -118,6 +142,9 @@ public class MealTimeService {
 	
 	public void saveProfile(UserMaster userMaster){
 		userMaster.setRoleId(2);
+		userMaster.setUpdatedDate(new Date());
+		userMaster.setIsActive("YES");
+		userMaster.setStatus("User");
 		userMasterDAO.insert(userMaster);
 	}
 	
