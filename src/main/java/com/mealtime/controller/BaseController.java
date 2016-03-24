@@ -77,10 +77,11 @@ public class BaseController {
 	}
 	
 	@RequestMapping("/checkMobileOrEmail")
-	public @ResponseBody WSResponseStatus checkMobileOrEmail(@RequestParam("mobileNumber") String mobileNumber, @RequestParam("email") String email){
+	public @ResponseBody WSResponseStatus checkMobileOrEmail(@RequestParam("mobileNumber") String mobileNumber, @RequestParam("email") String email, @RequestParam("userId") String userId){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
-		UserMaster userExists = mealTimeService.checkUser(mobileNumber);
-		if(userExists == null){
+		UserMaster userExists = mealTimeService.checkMobileNumber(mobileNumber);
+		//if(userExists != null && !userExists.getUserId().equalsIgnoreCase(userId)){
+		if(userExists == null || (userExists != null && userExists.getUserId().equalsIgnoreCase(userId))){
 			boolean isEmailExists = mealTimeService.emailExists(email);
 			if(!isEmailExists){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
@@ -98,12 +99,12 @@ public class BaseController {
 		logger.info("saveProfile() :: objStr: "+objStr+" ::file: "+file);
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = new UserMaster();
-		String lastUserId = mealTimeService.getLastUserId();
+		/*String lastUserId = mealTimeService.getLastUserId();
 		System.out.println("Last User Id: "+lastUserId);
 		int id = Integer.parseInt(lastUserId.substring(lastUserId.length()-3));
 		System.out.println("id:"+id);
 		String userId= "MT" + String.format("%03d", id+1);
-		System.out.println("User Id: "+userId);
+		System.out.println("User Id: "+userId);*/
 		try {
 			userMaster = new ObjectMapper().readValue(objStr, UserMaster.class);
 		} catch (JsonParseException e) {
@@ -114,13 +115,13 @@ public class BaseController {
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, e.getMessage());
 		}
 		if (file != null && !file.isEmpty()) {
-			UserMaster userExists = mealTimeService.checkUser(userMaster.getMobileNumber());
-			if(userExists == null){
+			UserMaster userExists = mealTimeService.checkMobileNumber(userMaster.getMobileNumber());
+			if(userExists == null || (userExists != null && userExists.getUserId().equalsIgnoreCase(userMaster.getUserId()))){
 				boolean isEmailExists = mealTimeService.emailExists(userMaster.getEmail());
 				if(!isEmailExists){
-					MealTimeUtil.uploadProfilePic(file, userMaster, userId, wsResponseStatus);
+					MealTimeUtil.uploadProfilePic(file, userMaster, userMaster.getUserId(), wsResponseStatus);
 					mealTimeService.saveProfile(userMaster);
-					UserMaster user = mealTimeService.checkUser(userMaster.getMobileNumber());
+					UserMaster user = mealTimeService.getUser(userMaster.getUserId());
 					mealTimeService.subscribeUser(user);
 					MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 					wsResponseStatus.setData(user);

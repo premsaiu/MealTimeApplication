@@ -8,7 +8,7 @@ controller('ProfileCtrl', function ($scope,$state,$rootScope,$http,UserService) 
 	$scope.isEditForm=false;
 	$scope.wrongOTPMsg="";
 	
-	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
+	if(angular.isDefined($rootScope.user) && $rootScope.user.roleId == 3){
 		//location.href = "#/addprofile";
 		$state.go("addprofile");
 	}else{

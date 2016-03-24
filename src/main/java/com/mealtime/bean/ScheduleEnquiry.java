@@ -5,7 +5,7 @@
 package com.mealtime.bean;
 
 import java.io.Serializable;
-
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -31,7 +31,7 @@ public class ScheduleEnquiry implements Serializable {
     private String userId;
 
     // DB : schedule_date_time DATETIME 
-    private Date scheduleDateTime;
+    private Timestamp scheduleDateTime;
 
     // DB : mobile_number VARCHAR 
     private String mobileNumber;
@@ -87,10 +87,10 @@ public class ScheduleEnquiry implements Serializable {
         return this.userId;
     }
 
-    public void setScheduleDateTime( Date scheduleDateTime ) {
+    public void setScheduleDateTime( Timestamp scheduleDateTime ) {
         this.scheduleDateTime = scheduleDateTime;
     }
-    public Date getScheduleDateTime() {
+    public Timestamp getScheduleDateTime() {
         return this.scheduleDateTime;
     }
 

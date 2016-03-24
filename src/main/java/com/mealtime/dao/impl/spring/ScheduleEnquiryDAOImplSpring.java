@@ -256,7 +256,7 @@ public class ScheduleEnquiryDAOImplSpring extends GenericDAO<ScheduleEnquiry> im
 		scheduleEnquiry.setEnquiryId(rs.getInt("enquiry_id")); // java.lang.Integer
 		if ( rs.wasNull() ) { scheduleEnquiry.setEnquiryId(null); }; // not primitive number => keep null value if any
 		scheduleEnquiry.setUserId(rs.getString("user_id")); // java.lang.String
-		scheduleEnquiry.setScheduleDateTime(rs.getDate("schedule_date_time")); // java.util.Date
+		scheduleEnquiry.setScheduleDateTime(rs.getTimestamp("schedule_date_time")); // java.util.Date
 		scheduleEnquiry.setMobileNumber(rs.getString("mobile_number")); // java.lang.String
 		scheduleEnquiry.setName(rs.getString("name")); // java.lang.String
 		scheduleEnquiry.setAddress(rs.getString("address")); // java.lang.String

@@ -6,7 +6,7 @@ controller('AddProfileCtrl', function ($scope,$state,$rootScope,UserService) {
 	$scope.addProfileErrorMsg = "";
 	$scope.addProfile = function(){
 		$scope.addProfileErrorMsg = "";
-		UserService.checkMobileOrEmail($scope.mobileNumber, $scope.email).then(
+		UserService.checkMobileOrEmail($scope.mobileNumber, $scope.email, $rootScope.user.userId).then(
 				function(response){
 					if(response.data.statusCode == 200){
 						var subject = "MealTime - Create Profile - One Time Password(OTP)";
@@ -40,6 +40,7 @@ controller('AddProfileCtrl', function ($scope,$state,$rootScope,UserService) {
 		$scope.addProfileErrorMsg = "";
 		$scope.otp = "";
 		var jsonObj = {};
+		jsonObj.userId = $rootScope.user.userId;
 		jsonObj.firstName = $scope.firstName;
 		jsonObj.lastName = $scope.lastName;
 		jsonObj.email = $scope.email;

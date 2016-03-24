@@ -74,10 +74,10 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
     
-    this.checkMobileOrEmail = function (mobileNo, email) {
+    this.checkMobileOrEmail = function (mobileNo, email, userId) {
         var request = $http({
             method:"get",
-            url:  baseURL+'checkMobileOrEmail.spring?mobileNumber='+mobileNo+'&email='+email,
+            url:  baseURL+'checkMobileOrEmail.spring?mobileNumber='+mobileNo+'&email='+email+'&userId='+userId,
             dataType: "application/json"
         });
         return request;
