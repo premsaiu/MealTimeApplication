@@ -14,6 +14,9 @@ angular.module('miniMealApp', ['miniMealApp.services',
                                'miniMealApp.changepwdCtrl',
                                'miniMealApp.adminpaymentCtrl',
                                'miniMealApp.paymentformCtrl',
+                               'miniMealApp.ourStoryCtrl',
+                               'miniMealApp.sampleMealCtrl',
+                               'miniMealApp.scheduleEnquiryCtrl',
                                'ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
     
@@ -99,9 +102,40 @@ angular.module('miniMealApp', ['miniMealApp.services',
             templateUrl: 'views/admin/payment_form.html',
             controller: 'PaymentFormCtrl'
         })
-        
+        .state('ourstory', {
+            url: '/ourstory',
+            templateUrl: 'views/users/our_story.html',
+            controller: 'OurStoryCtrl'
+        })
+        .state('loginsample', {
+            url: '/loginsample',
+            templateUrl: '',
+            controller: ''
+        })
+        .state('scheduleenquiry', {
+            url: '/scheduleenquiry',
+            templateUrl: 'views/users/schedule_enquiry.html',
+            controller: 'ScheduleEnquiryCtrl'
+        })
+        .state('samplemeal', {
+            url: '/samplemeal',
+            templateUrl: 'views/users/sample_meal.html',
+            controller: 'SampleMealCtrl'
+        })
+        .state('subscribenow', {
+            url: '/subscribenow',
+            templateUrl: 'views/users/subscribe_now.html',
+            controller: ''
+        })
 })
 .run( function($rootScope, $location) {
+	/*var routesPermission = ['/home'];
+	
+	$rootScope.$on('$routeChangeStart', function(){
+		if(routesPermission.indexOf($location.path()) != -1 && ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false)){
+			$location.path('/')
+		}
+	});*/
     // register listener to watch route changes
 	$rootScope.$on('$stateChangeStart', 
 			function(event, toState, toParams, fromState, fromParams){

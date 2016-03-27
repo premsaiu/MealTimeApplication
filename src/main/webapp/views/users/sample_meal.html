@@ -1,0 +1,64 @@
+	    
+	    <div data-ng-show="newmenu">
+	    <div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">
+		    	<div class="row">
+			    	<div class="col-lg-8">
+						<h4>Sample Meal</h4><hr>
+						<p>Breakfast with juice and dinner with dessert will be delivered for one day for a minimum cost of Rs. 185.00/-</p>
+						<p>100% cashback will be credited into your wallet once you subscribe. Let us know your convinient date for the sample breakfast & Dinner</p>
+						<form class="mt20">
+						  <div class="form-group col-lg-8">
+							<label for="name">Name</label>
+							<input type="text" class="form-control" id="name">
+						  </div>
+						  <div class="form-group col-lg-8">
+							<label for="phone">Phone Number</label>
+							<input type="text" class="form-control" id="phone">
+						  </div>
+						  <div class="form-group col-lg-8">
+							<label for="phone">Date</label>
+							<div class="input-append date datepicker no-padding" data-date-format="dd-mm-yyyy">
+								<input class="input-medium" size="16" type="text"><span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;"></span>
+							</div>
+						  </div>
+						  <div class="form-group col-lg-8">
+							<label for="phone">Area</label>
+							<select id="area" style="height: 30px;display: block;border-radius: 3px;">
+								<option value="select">Area</option>
+								<option value="madhapur">Madhapur</option>
+								<option value="gachibowli">Gachibowli</option>
+							</select>
+						  </div>
+						  <div class="form-group pull-right">
+							  <button type="submit" class="btn btn-success ml10">Confirm & Pay</button>
+							  <button type="submit" class="btn btn-success">Later</button>
+						  </div>
+						</form>
+					</div>
+					<div class="col-lg-4">
+					</div>
+				</div>				
+		    </div>
+	    </div>
+ 
+    <!-- <script type="text/javascript">
+    	//open a given url in a new tab by clicking a button
+	    $("#openlink-1").click(function () {
+			window.location = "index_admin.html"  //open on same tab
+	  });
+    </script> -->​
+    <script>
+		$(document).ready(function() {
+			var d = new Date();
+			var curr_day = d.getDate();
+			var curr_month = d.getMonth() + 1;
+			var curr_year = d.getFullYear();
+			var today = curr_day + "-" + curr_month + "-" + curr_year;
+			$("div.datepicker input").attr('value', today);
+			
+			$('.datepicker').datepicker({
+				autoclose: true,
+				startDate: new Date()
+			});
+		});
+	</script>

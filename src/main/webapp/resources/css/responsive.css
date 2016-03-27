@@ -26,6 +26,12 @@
 	    margin: 10px auto;
 	}
 	
+	.titile-01-admin {
+		margin-top: 20px;
+		margin-bottom: 20px;
+		font-size: 2.2em;
+	}
+	
 	.list-1 li {
 		margin: 0 0 10px 0 !important;
 		display: block !important;
@@ -65,8 +71,21 @@
 	.list-4 {
 		margin: 0;
 	}
+	.list-6 {
+		margin: 0;
+		padding: 0;
+	}
+	.list-6 li {
+		margin: 0 5px 10px !important;
+		display: inline !important;
+	}
+	.list-6 li:last-child {
+		margin: 0 0 0 5px !important;
+	}
+	
 	.titile-01 {
 		margin-top: 10px;
+		margin-bottom: 0px;
 		font-size: 2em;
 	}
 	.carousel-indicators li {
@@ -89,6 +108,15 @@
 	    width: 100%;
 	    margin-bottom: 5px;
 	}
+	
+	.dd-custom-s1 {
+		position: relative;
+		top: 2px;
+		left: 0;
+	}
+	
+	.btn_custom_margin { margin-right: 0px; }
+	.item-width { width: 100%; }
 
 		
 }
@@ -101,6 +129,11 @@
 	.titile-01 {
 		margin-top: 25px;
 		font-size: 2em;
+	}
+	.titile-01-admin {
+		margin-top: 20px;
+		margin-bottom: 8px;
+		font-size: 2.2em;
 	}
 	
 	.list-1 li {
@@ -146,6 +179,17 @@
 	.list-4 {
 		margin: 30px 0 0 0;
 	}
+	.list-6 {
+		margin: 0;
+		padding: 0;
+	}
+	.list-6 li {
+		margin: 0 10px 10px !important;
+		display: inline-block !important;
+	}
+	.list-6 li:last-child {
+		margin: 0 0 0 0 !important;
+	}
 	
 	.carousel-indicators {
 	    bottom: -47px;
@@ -168,10 +212,23 @@
 	    width: 335px;
 	}
 	
+	.dd-custom-s1 {
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+	.btn_custom_margin { margin-right: 10px; }
+	.item-width { width: 50% !important; }
+	
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1024px) and (orientation : landscape) { 
 
+	.titile-01-admin {
+		margin-top: 50px;
+		margin-bottom: 35px;
+		font-size: 3.1em;
+	}
 	.list-2 li {
 	    display: block;
 	    margin: 0;
@@ -190,6 +247,11 @@
 	.list-2 li:nth-last-child(2) {
 		border-bottom: none;
 	}
+	.list-6 {
+		margin: 0;
+		padding: 0;
+	}
+	
 	.carousel-indicators {
 	    bottom: -50px;
 	    margin-left: -51%;
@@ -201,6 +263,11 @@
 	    width: 325px;
 	}
 	
+	.dd-custom-s1 {
+	    position: relative;
+	    top: 0;
+	    left: 0;
+	}
 }
 
 @media (max-width: 991px) {
@@ -259,9 +326,23 @@
 	.list-4 {
 		margin: 50px 0 0 0;
 	}
+	.list-6 {
+		margin: 0;
+		padding: 0;
+	}
+	.list-6 li {
+		margin: 0 20px 0 0;
+		display: inline;
+	}
+	
 	.titile-01 {
 		margin-top: 35px;
 		font-size: 2.571em;
+	}
+	.titile-01-admin {
+		margin-top: 50px;
+		margin-bottom: 25px;
+		font-size: 3.1em;
 	}
 	.carousel-indicators li {
 	    display: inline-block;
@@ -286,6 +367,15 @@
 	    margin: 0 20px 15px 0;
 	    width: 345px;
 	}
+	
+	.dd-custom-s1 {
+		position: relative;
+		top: 0;
+		left: 0;
+	}
+	
+	.btn_custom_margin { margin-right: 10px; }
+	.item-width { width: 50% !important; }
    	
 }
 

@@ -24,6 +24,7 @@
     <div class="container custom-container mt20 mb20">
 	   <div ng-include="'views/users/header.html'"></div>
 	   <div ng-include="'views/users/left-menu.html'"></div>
+	   <div ng-include="'views/users/left-menu-new.html'"></div>
 	    
 	   <div ui-view></div>
 	    	<!-- Home Modal -->
@@ -55,6 +56,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="submit" class="btn btn-success" data-ng-click="checkUser()">Submit</button>
+				        <button type="submit" class="btn btn-success" data-ng-click="notNow()">Later</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
@@ -72,6 +74,7 @@
     
     <script src="resources/js/lib/angular.js"></script>
     <script src="resources/js/lib/angular-ui-router.js"></script>
+    <script src="resources/js/lib/ngStorage.min.js"></script>
     <script src="resources/js/routes.js"></script>
     <script src="resources/js/services/services.js"></script>
     <script src="resources/js/directives/directives.js"></script>
@@ -88,6 +91,9 @@
     <script src="resources/js/controllers/profile.js"></script>
     <script src="resources/js/controllers/admin-payment.js"></script>
     <script src="resources/js/controllers/payment-form.js"></script>
+    <script src="resources/js/controllers/our-story.js"></script>
+    <script src="resources/js/controllers/sample-meal.js"></script>
+    <script src="resources/js/controllers/schedule-enquiry.js"></script>
 <!--     <script src="resources/js/controllers/controller.js"></script> -->
     
   </body>
