@@ -109,8 +109,8 @@ angular.module('miniMealApp', ['miniMealApp.services',
         })
         .state('loginsample', {
             url: '/loginsample',
-            templateUrl: '',
-            controller: ''
+            templateUrl: 'views/users/our_story.html',
+            controller: 'OurStoryCtrl'
         })
         .state('scheduleenquiry', {
             url: '/scheduleenquiry',
@@ -125,7 +125,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
         .state('subscribenow', {
             url: '/subscribenow',
             templateUrl: 'views/users/subscribe_now.html',
-            controller: ''
+            controller: 'SampleMealCtrl'
         })
 })
 .run( function($rootScope, $location) {
@@ -139,10 +139,10 @@ angular.module('miniMealApp', ['miniMealApp.services',
     // register listener to watch route changes
 	$rootScope.$on('$stateChangeStart', 
 			function(event, toState, toParams, fromState, fromParams){
-				if (($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) &&  toState.url != "/home") {
+				/*if (($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) &&  toState.url != "/home") {
 					console.log("User does not logged in.. Redirecting to home.. ");
 			    	$location.path("/");
-			    }
+			    }*/
 			});
  });
 //});

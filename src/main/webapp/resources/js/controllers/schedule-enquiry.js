@@ -1,13 +1,14 @@
-angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage']).
+'use strict';
 
-controller('ScheduleEnquiryCtrl',  function ($scope,$rootScope,$state,UserService,$localStorage) {
+angular.module('miniMealApp.scheduleEnquiryCtrl', [])
+.controller('ScheduleEnquiryCtrl',  function ($scope,$rootScope,$state,UserService,$localStorage) {
 	
 	$rootScope.notNow = function(){
-		$('#myModal').modal('hide');
+	/*	$('#myModal').modal('hide');
 		$(".adminsection").hide();
 		$rootScope.newmenu = true;
 		$rootScope.status=false;
-		$state.go('ourstory');
+		$state.go('ourstory');*/
 	}
 	
 });

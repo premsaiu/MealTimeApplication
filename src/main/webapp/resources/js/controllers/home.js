@@ -11,11 +11,19 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 
 	$rootScope.status=true;
 	$rootScope.regUser = false;
-	$scope.modalShow = function(){
+	$rootScope.modalShow = function(){
 		$('#myModal').modal('show');
 	}
 	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
 		$scope.modalShow();
+	}
+	$rootScope.notNow = function(){
+	
+		$('#myModal').modal('hide');
+		$(".adminsection").hide();
+		$rootScope.newmenu = true;
+		$rootScope.status=false;
+		$state.go('ourstory');
 	}
 	$rootScope.adminchk=function(){
 		UserService.adminchk($scope.mobileNumber).then(
