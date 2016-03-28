@@ -28,7 +28,7 @@ public class SampleMealDAOImplSpring extends GenericDAO<SampleMeal> implements S
 		"select sample_meal_id, user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from sample_meal where sample_meal_id = ?";
 	
 	private final static String SQL_SELECT_BY_USERID = 
-			"select sample_meal_id, user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from sample_meal where sample_meal_id = ?";
+			"select sample_meal_id, user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from sample_meal where user_id = ?";
 
 	// NB : This entity has an auto-incremented primary key : "sample_meal_id"
 	private final static String AUTO_INCREMENTED_COLUMN = "sample_meal_id";

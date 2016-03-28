@@ -26,5 +26,14 @@ public class ScheduleEnquiryService {
 			return false;
 		}
 	}
+	
+	public boolean checkScheduleEnquiry(String userId){
+		ScheduleEnquiry scheduleEnquiry = scheduleEnquiryDAO.findByUserId(userId);
+		if(scheduleEnquiry == null){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }

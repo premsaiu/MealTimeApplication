@@ -85,5 +85,7 @@ public interface ScheduleEnquiryDAO {
 	 * @return
 	 */
 	public long count() ;
+	
+	public ScheduleEnquiry findByUserId( String userId ) ;
 
 }

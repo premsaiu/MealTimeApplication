@@ -4,16 +4,17 @@ controller('SampleMealCtrl',  function ($scope,$rootScope,$state,UserService,$lo
 	
 	$scope.requestSampleMeal = function(){
 		var area = $('#area').val();
-		var _date = $filter('date')(new Date($scope.date), 'yyyy-MM-dd');
+		var _date = $filter('date')(new Date($scope.sampleMeal.date), 'yyyy-MM-dd');
 		var sampleMealObj = {};
-		sampleMealObj.mobileNumber = $scope.mobile;
+		sampleMealObj.mobileNumber = $scope.sampleMeal.mobileNumber;
 		sampleMealObj.sampleMealDate = _date;
-		sampleMealObj.name = $scope.name;
+		sampleMealObj.name = $scope.sampleMeal.name;
 		sampleMealObj.address = area;
-		UserService.requestSampleMeal(sampleMealObj).then( 
+		console.log(sampleMealObj);
+		/*UserService.requestSampleMeal(sampleMealObj).then( 
 			function(response){
 				sdebugger;
-		});
+		});*/
 	}
 	
 });

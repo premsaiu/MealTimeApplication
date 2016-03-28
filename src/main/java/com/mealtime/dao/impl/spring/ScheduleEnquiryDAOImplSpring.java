@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import com.mealtime.bean.ScheduleEnquiry;
 import com.mealtime.dao.ScheduleEnquiryDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +26,9 @@ public class ScheduleEnquiryDAOImplSpring extends GenericDAO<ScheduleEnquiry> im
 
 	private final static String SQL_SELECT = 
 		"select enquiry_id, user_id, schedule_date_time, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from schedule_enquiry where enquiry_id = ?";
+	
+	private final static String SQL_SELECT_BY_USERID = 
+			"select enquiry_id, user_id, schedule_date_time, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from schedule_enquiry where user_id = ?";
 
 	// NB : This entity has an auto-incremented primary key : "enquiry_id"
 	private final static String AUTO_INCREMENTED_COLUMN = "enquiry_id";
@@ -293,6 +298,15 @@ public class ScheduleEnquiryDAOImplSpring extends GenericDAO<ScheduleEnquiry> im
 		public ScheduleEnquiry mapRow(ResultSet rs, int rowNum) throws SQLException {
 			populateBean(rs, this.bean);
 			return this.bean;
+		}
+	}
+
+	public ScheduleEnquiry findByUserId(String userId) {
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECT_BY_USERID, new Object[]{userId}, getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Empty Result Access Exception occured in findByUserId method::"+e.getMessage());
+			return null;
 		}
 	}
 }
