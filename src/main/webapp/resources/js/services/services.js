@@ -274,6 +274,25 @@ angular.module('miniMealApp.services',[])
         return request;
     };
 
+    this.subscribe = function (sched) {
+    	debugger;
+		var subscribedata={
+				"userId":"MT015",
+				"mobileNumber":sched.number,
+				"scheduleDateTime":"2016-03-28T19:43:37+0530",
+				"name":sched.name,
+				"address":sched.area
+					}
+
+    	var request = $http({
+    		method:"post",
+    		url:baseURL+'scheduleEnquiry.spring',
+    		dataType: "application/json",
+    		data : subscribedata
+    	});
+    	return request;
+  };
+
 }]).
 service('AdminService', ['$http', '$q', function($http, $q){
 	
