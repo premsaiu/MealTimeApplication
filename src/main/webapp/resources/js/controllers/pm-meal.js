@@ -101,7 +101,7 @@ controller('PmMealCtrl', function ($rootScope, $scope, $http, $state, UserServic
 	}
 	
 	$scope.updateSelectionDinner = function(event,obj){
-		UserService.updateDinnerItem(obj.itemId,function(response){
+		UserService.updateDinnerItem(obj.itemId).then(function(response){
 			if(response.data == "success"){
 				$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">x</button><strong>Updated Dinner Item Successfully!!!...</strong></div>');
 					$('#scesavemsg').delay(5000).fadeOut('slow');	
