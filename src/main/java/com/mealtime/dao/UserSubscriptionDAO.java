@@ -54,7 +54,7 @@ public interface UserSubscriptionDAO {
 	 * @param userSubscriptionId
 	 * @return
 	 */
-	public int delete( Integer userSubscriptionId ) ;
+	public int delete( String userId ) ;
 
     //----------------------------------------------------------------------
 	/**

@@ -2,7 +2,7 @@
 
 angular.module('miniMealApp.services',[])
 .service('UserService', ['$http', '$q', function($http, $q){
-	var baseURL = "http://localhost:8181/MealTimeApplication/";
+	var baseURL = "http://localhost:8080/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
         var request = $http({
             method:"get",
@@ -195,7 +195,6 @@ angular.module('miniMealApp.services',[])
     	});
     	return request; 
     }
-    //ids[]=id1&ids[]=id2&ids[]=id3&ids[]=id4&ids[]=id5
     this.getSubListItems1 = function(){
     	var request = $http({
     		method:"get",
@@ -237,6 +236,15 @@ angular.module('miniMealApp.services',[])
     	return request; 
     };
 
+    this.subscribeNow = function(firstname,lastname,mobile,date,area){
+    	var request = $http({
+    		method:"get",
+    		url:baseURL+'subscribeNow.spring?firstname='+firstname+'&lastname='+lastname+'&mobile='+mobile+'&date='+date+'&area='+area,
+    		dataType: "application/json"
+    	});
+    	return request; 
+    };
+    
     this.walletCheck = function(userId) {
     	var request = $http({
     		method:"get",

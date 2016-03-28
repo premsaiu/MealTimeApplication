@@ -1,5 +1,7 @@
 package com.mealtime.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +53,16 @@ public class UserSubscriptionController {
 		PaymentContainer paymentContainer = userSubscriptionService.checkSubscription(userId);
 		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		wsResponseStatus.setData(paymentContainer);
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping(value="/subscribeNow", method = RequestMethod.GET)
+	public @ResponseBody WSResponseStatus subscribeNow(@RequestParam("firstname")String firstname, @RequestParam("lastname")String lastname, @RequestParam("mobile")String mobile, 
+			@RequestParam("date")String date, @RequestParam("area")String area){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		UserMaster userMaster = userSubscriptionService.subscribeNow(firstname,lastname,mobile,date,area);
+		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		wsResponseStatus.setData(userMaster);
 		return wsResponseStatus;
 	}
 	

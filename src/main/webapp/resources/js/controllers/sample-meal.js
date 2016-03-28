@@ -1,13 +1,19 @@
 angular.module('miniMealApp.sampleMealCtrl', ['ngStorage']).
 
-controller('SampleMealCtrl',  function ($scope,$rootScope,$state,UserService,$localStorage) {
+controller('SampleMealCtrl',  function ($scope,$rootScope,$state,UserService,$localStorage,$filter) {
 	
-	$rootScope.notNow = function(){
-		$('#myModal').modal('hide');
-		$(".adminsection").hide();
-		$rootScope.newmenu = true;
-		$rootScope.status=false;
-		$state.go('ourstory');
+	$scope.subconfmtn = function(){
+		$('#area').val();
+		var _date = $filter('date')(new Date($scope.date), 'yyyy-MM-dd');
+		if($('#area').val() == 'select'){
+			alert("Please Select the Area");
+		}else{
+			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,$('#area').val(), 
+					function(response){
+						debugger;
+						$state.go('profile');
+			});
+		}
 	}
 	
 });

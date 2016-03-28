@@ -42,7 +42,7 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 		"update user_subscription set user_id = ?, subscription_id = ?, start_date = ?, end_date = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ? where user_subscription_id = ?";
 
 	private final static String SQL_DELETE = 
-		"delete from user_subscription where user_subscription_id = ?";
+		"delete from user_subscription where user_id = ?";
 
 	private final static String SQL_COUNT_ALL = 
 		"select count(*) from user_subscription";
@@ -99,8 +99,8 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 	 * DAO interface implementation
 	 */
 	
-	public int delete( Integer userSubscriptionId ) {
-		Object[] primaryKey = new Object[] { userSubscriptionId };
+	public int delete( String userId ) {
+		Object[] primaryKey = new Object[] { userId };
 		return super.doDelete(primaryKey);		
 	}
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -105,5 +106,192 @@ public class UserSubscriptionService {
 		userWallet.setCreatedBy(paymentForm.getAdminUserId());
 		userWalletDAO.insert(userWallet);
 	}
-
+	
+	public UserMaster subscribeNow(String firstName,String lastName,String mobile,String date, String area){
+		if(mobile.matches("\\d{10}")){
+			UserMaster userMaster = userMasterDAO.findByMobileNumber(mobile);
+			if(userMaster == null){
+				
+				userMaster =  new UserMaster();
+				userMaster.setMobileNumber(mobile);
+				userMaster.setRoleId(2);
+				userMaster.setFirstName(firstName);
+				userMaster.setLastName(lastName);
+				userMaster.setCreatedDate(new Date());
+				//userMaster.setIsActive("NO");
+				//userMaster.setStatus("Visitor");
+				userMasterDAO.insert(userMaster);
+				
+				userMaster = userMasterDAO.findByMobileNumber(mobile);
+				
+				if(userMaster != null){
+					UserSubscription userSubscription = null;
+					
+					userSubscription = userSubscriptionDAO.findByUserId(userMaster.getUserId());
+					
+					if(userSubscription != null){
+						userSubscription.setUserId(userMaster.getUserId());
+						userSubscription.setSubscriptionId(1);
+						userSubscription.setStartDate(new Date());
+						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+						userSubscription.setCreatedBy(userMaster.getUserId());
+						userSubscription.setStatus("Success");
+						userSubscription.setIsActive("YES");
+						userSubscriptionDAO.update(userSubscription);
+						
+						UserWallet userWallet = null;
+						
+						userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
+						
+						if(userWallet != null){
+							userWallet.setUserId(userMaster.getUserId());
+							userWallet.setCash(1000);
+							userWallet.setStatus("Success");
+							userWallet.setIsActive("YES");
+							userWalletDAO.update(userWallet);
+						}else{
+							
+							userWalletDAO.deleteUserRecord(userMaster.getUserId());
+							
+							userWallet = new UserWallet();
+							
+							userWallet.setUserId(userMaster.getUserId());
+							userWallet.setCash(1000);
+							userWallet.setStatus("Success");
+							userWallet.setIsActive("YES");
+							userWalletDAO.insert(userWallet);
+						}
+						
+					}else{
+						
+						userSubscriptionDAO.delete(userMaster.getUserId());
+						
+						userSubscription = new UserSubscription();
+						
+						userSubscription.setUserId(userMaster.getUserId());
+						userSubscription.setSubscriptionId(1);
+						userSubscription.setStartDate(new Date());
+						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+						userSubscription.setCreatedBy(userMaster.getUserId());
+						userSubscription.setStatus("Success");
+						userSubscription.setIsActive("YES");
+						userSubscriptionDAO.insert(userSubscription);
+						
+						UserWallet userWallet = null;
+						
+						userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
+						
+						if(userWallet != null){
+							userWallet.setUserId(userMaster.getUserId());
+							userWallet.setCash(1000);
+							userWallet.setStatus("Success");
+							userWallet.setIsActive("YES");
+							userWalletDAO.update(userWallet);
+						}else{
+							userWalletDAO.deleteUserRecord(userMaster.getUserId());
+							
+							userWallet = new UserWallet();
+							
+							userWallet.setUserId(userMaster.getUserId());
+							userWallet.setCash(1000);
+							userWallet.setStatus("Success");
+							userWallet.setIsActive("YES");
+							userWalletDAO.insert(userWallet);
+						}
+					}
+				}
+			return userMaster;
+		}else{
+			userMaster =  new UserMaster();
+			userMaster.setMobileNumber(mobile);
+			userMaster.setFirstName(firstName);
+			userMaster.setLastName(lastName);
+			userMaster.setRoleId(2);
+			userMaster.setCreatedDate(new Date());
+			userMasterDAO.update(userMaster);
+			
+			userMaster = userMasterDAO.findByMobileNumber(mobile);
+			
+			if(userMaster != null){
+				UserSubscription userSubscription = null;
+				
+				userSubscription = userSubscriptionDAO.findByUserId(userMaster.getUserId());
+				
+				if(userSubscription != null){
+					userSubscription.setUserId(userMaster.getUserId());
+					userSubscription.setSubscriptionId(1);
+					userSubscription.setStartDate(new Date());
+					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+					userSubscription.setCreatedBy(userMaster.getUserId());
+					userSubscription.setStatus("Success");
+					userSubscription.setIsActive("YES");
+					userSubscriptionDAO.update(userSubscription);
+					
+					UserWallet userWallet = null;
+					
+					userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
+					
+					if(userWallet != null){
+						userWallet.setUserId(userMaster.getUserId());
+						userWallet.setCash(1000);
+						userWallet.setStatus("Success");
+						userWallet.setIsActive("YES");
+						userWalletDAO.update(userWallet);
+					}else{
+						
+						userWalletDAO.deleteUserRecord(userMaster.getUserId());
+						
+						userWallet = new UserWallet();
+						
+						userWallet.setUserId(userMaster.getUserId());
+						userWallet.setCash(1000);
+						userWallet.setStatus("Success");
+						userWallet.setIsActive("YES");
+						userWalletDAO.insert(userWallet);
+					}
+					
+				}else{
+					userSubscriptionDAO.delete(userMaster.getUserId());
+					
+					userSubscription = new UserSubscription();
+					
+					userSubscription.setUserId(userMaster.getUserId());
+					userSubscription.setSubscriptionId(1);
+					userSubscription.setStartDate(new Date());
+					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+					userSubscription.setCreatedBy(userMaster.getUserId());
+					userSubscription.setStatus("Success");
+					userSubscription.setIsActive("YES");
+					userSubscriptionDAO.insert(userSubscription);
+					
+					UserWallet userWallet = null;
+					
+					userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
+					
+					if(userWallet != null){
+						userWallet.setUserId(userMaster.getUserId());
+						userWallet.setCash(1000);
+						userWallet.setStatus("Success");
+						userWallet.setIsActive("YES");
+						userWalletDAO.update(userWallet);
+					}else{
+						userWalletDAO.deleteUserRecord(userMaster.getUserId());
+						
+						userWallet = new UserWallet();
+						
+						userWallet.setUserId(userMaster.getUserId());
+						userWallet.setCash(1000);
+						userWallet.setStatus("Success");
+						userWallet.setIsActive("YES");
+						userWalletDAO.insert(userWallet);
+					}
+				}
+				
+			}
+			return userMaster;
+		}
+	  }else{
+		  return null;
+	  }
+	}
 }
