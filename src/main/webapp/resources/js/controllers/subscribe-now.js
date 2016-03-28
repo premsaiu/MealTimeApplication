@@ -10,8 +10,16 @@ controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$
 		}else{
 			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,$('#area').val()).then( 
 					function(response){
-						debugger;
-						$state.go('profile');
+						if(response.data.data != ""){
+							$rootScope.user = response.data.data;
+							$rootScope.newmenu = false;
+							$rootScope.status=true;
+							$(".adminsection").hide();
+							$state.go('profile');
+							$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">x</button><strong>Subscription Done Successfully!!!...</strong></div>');
+							$('#scesavemsg').delay(5000).fadeOut('slow');	
+							
+						}
 			});
 		}
 	}
