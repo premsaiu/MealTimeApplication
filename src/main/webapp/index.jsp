@@ -68,17 +68,16 @@
 	
 	</div>
 	<script src="resources/js/lib/jquery.min.1.11.3.js"></script>
-   <script type="text/javascript" src="resources/js/lib//moment-with-locales.js"></script>
     <script src="resources/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/lib//moment.js"></script>
+   
 	<script type="text/javascript" src="resources/js/lib//bootstrap-datetimepicker.js"></script>
     
     <script src="resources/js/lib/angular.js"></script>
     <script src="resources/js/lib/angular-ui-router.js"></script>
     <script src="resources/js/lib/ngStorage.min.js"></script>
     <script src="resources/js/routes.js"></script>
-    <script src="resources/js/services/services.js"></script>
-    <script src="resources/js/directives/directives.js"></script>
-   <!--  <script src="resources/js/controller.js"></script> -->
+    <!--  <script src="resources/js/controller.js"></script> -->
     <script src="resources/js/controllers/about-us.js"></script>
     <script src="resources/js/controllers/add-profile.js"></script>
     <script src="resources/js/controllers/admin-profile.js"></script>
@@ -95,6 +94,8 @@
     <script src="resources/js/controllers/sample-meal.js"></script>
     <script src="resources/js/controllers/schedule-enquiry.js"></script>
 <!--     <script src="resources/js/controllers/controller.js"></script> -->
-    
+    <script src="resources/js/services/services.js"></script>
+    <script src="resources/js/directives/directives.js"></script>
+   
   </body>
 </html>
