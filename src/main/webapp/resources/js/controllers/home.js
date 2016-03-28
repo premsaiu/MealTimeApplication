@@ -70,6 +70,27 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 				}else{
 					UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
+	                	if(response.data != ""){
+	                		debugger;
+	                		UserService.checkSubscription(response.data.userId).then(function(response1) {
+	                			debugger;
+								if(response1.data.data.userSubscription == null || (response1.data.data.userSubscription.status.toLowerCase() != "success" 
+									&& response1.data.data.userSubscription.confirmation == false)){
+									$(".adminsection").hide();
+									$rootScope.newmenu = true;
+									$rootScope.status=false;
+									$rootScope.profileShow = true;
+									$state.go('ourstory');
+								}else if(response1.data.data.userSubscription == null){
+									$(".adminsection").hide();
+									$rootScope.newmenu = true;
+									$rootScope.status=false;
+									$rootScope.profileShow = true;
+									$state.go('ourstory');
+								}
+							});
+	                	}
+	                	
 	                	$rootScope.loggedUser = true;
 	                	/*if(response.data == "" || response.data == null){
 	                		$rootScope.userName = "Visitor";

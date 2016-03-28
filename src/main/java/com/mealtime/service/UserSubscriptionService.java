@@ -59,6 +59,11 @@ public class UserSubscriptionService {
 		UserSubscription userSubscription = new UserSubscription();
 		PaymentContainer paymentContainer = new PaymentContainer();
 		userSubscription = userSubscriptionDAO.findByUserId(userId);
+		Date date = new Date();
+		if(userSubscription != null && userSubscription.getEndDate() != null && userSubscription.getEndDate().after(date)){
+			userSubscription.setConfirmation(true);
+		}
+		
 		UserWallet userWallet = userWalletDAO.findByUserId(userId);
 		paymentContainer.setUserSubscription(userSubscription);
 		paymentContainer.setUserWallet(userWallet);

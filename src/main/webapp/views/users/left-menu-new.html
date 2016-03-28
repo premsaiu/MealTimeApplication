@@ -19,7 +19,8 @@
 			    
 			    <ul class="new-list-2">
 			    	<li><a ui-sref="ourstory" class="new-first-child">Our Story</a></li>
-			    	<li><a  class="new-second-child" ng-click="modalShow()" >Login</a></li>
+			    	<li><a  class="new-second-child" ng-click="modalShow()" ng-hide="profileShow">Login</a></li>
+			    	<li><a class="new-second-child" ui-sref="profile" ng-show="profileShow" >Profile</a></li>
 			    	<li><a ui-sref="scheduleenquiry">Schedule Enquiry</a></li>
 			    	<li><a ui-sref="samplemeal">Sample Meal</a></li>
 			    	<li><a ui-sref="subscribenow" class="active">Subscribe Now</a></li>

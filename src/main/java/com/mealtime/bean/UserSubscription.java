@@ -61,8 +61,18 @@ public class UserSubscription implements Serializable {
     private Integer version;
 
     private UserMaster userMaster;
+    
+    private boolean confirmation;
 
-    //----------------------------------------------------------------------
+    public boolean isConfirmation() {
+		return confirmation;
+	}
+
+	public void setConfirmation(boolean confirmation) {
+		this.confirmation = confirmation;
+	}
+
+	//----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
     //----------------------------------------------------------------------
     public void setUserSubscriptionId( Integer userSubscriptionId ) {
