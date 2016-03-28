@@ -85,5 +85,7 @@ public interface SampleMealDAO {
 	 * @return
 	 */
 	public long count() ;
+	
+	public SampleMeal findByUserId( String userId ) ;
 
 }

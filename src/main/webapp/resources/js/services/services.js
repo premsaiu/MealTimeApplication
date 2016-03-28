@@ -263,6 +263,16 @@ angular.module('miniMealApp.services',[])
         });
         return request;
     };
+    
+    this.requestSampleMeal = function (sampleMealObj) {
+        var request = $http({
+            method:"post",
+            url:  baseURL+'sampleMeal.spring',
+            data : sampleMealObj,
+            dataType: "application/json"
+        });
+        return request;
+    };
 
 }]).
 service('AdminService', ['$http', '$q', function($http, $q){

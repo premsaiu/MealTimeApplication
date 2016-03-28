@@ -26,5 +26,14 @@ public class SampleMealService {
 			return false;
 		}
 	}
+	
+	public boolean checkSampleMeal(String userId){
+		SampleMeal sampleMeal = sampleMealDAO.findByUserId(userId);
+		if(sampleMeal == null){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 }

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import com.mealtime.bean.SampleMeal;
 import com.mealtime.dao.SampleMealDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +26,9 @@ public class SampleMealDAOImplSpring extends GenericDAO<SampleMeal> implements S
 
 	private final static String SQL_SELECT = 
 		"select sample_meal_id, user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from sample_meal where sample_meal_id = ?";
+	
+	private final static String SQL_SELECT_BY_USERID = 
+			"select sample_meal_id, user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from sample_meal where sample_meal_id = ?";
 
 	// NB : This entity has an auto-incremented primary key : "sample_meal_id"
 	private final static String AUTO_INCREMENTED_COLUMN = "sample_meal_id";
@@ -293,6 +298,15 @@ public class SampleMealDAOImplSpring extends GenericDAO<SampleMeal> implements S
 		public SampleMeal mapRow(ResultSet rs, int rowNum) throws SQLException {
 			populateBean(rs, this.bean);
 			return this.bean;
+		}
+	}
+
+	public SampleMeal findByUserId(String userId) {
+		try{
+			return getJdbcTemplate().queryForObject(SQL_SELECT_BY_USERID, new Object[]{userId}, getRowMapper());
+		}catch(EmptyResultDataAccessException e){
+			System.out.println("Empty Result Access Exception occured in findByUserId method::"+e.getMessage());
+			return null;
 		}
 	}
 }

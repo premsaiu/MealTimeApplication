@@ -17,6 +17,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
                                'miniMealApp.ourStoryCtrl',
                                'miniMealApp.sampleMealCtrl',
                                'miniMealApp.scheduleEnquiryCtrl',
+                               'miniMealApp.subscribeNowCtrl',
                                'ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
     
@@ -125,7 +126,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
         .state('subscribenow', {
             url: '/subscribenow',
             templateUrl: 'views/users/subscribe_now.html',
-            controller: 'SampleMealCtrl'
+            controller: 'SubscribeNowCtrl'
         })
 })
 .run( function($rootScope, $location) {
