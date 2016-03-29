@@ -4,6 +4,30 @@ controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$
 	
 	$scope.subscribeNowErrorMsg = "";
 	
+	$scope.requestSubscribeNow = function(){
+		var subject = "MealTime - Subscribe Now - One Time Password(OTP)";
+		$rootScope.sendOTP($scope.mobile, null, subject);
+		$scope.subscribeNow.otp = "";
+	}
+	
+	$scope.verifyOTP = function(){
+		UserService.verifyOTP($scope.mobile, $scope.subscribeNow.otp).then(
+				function(response) {
+					if(response.data.statusCode == 200){
+						$('#otpModal').modal('hide');
+						$scope.subconfmtn();
+					}else{
+						$scope.wrongOTPMsg="Invalid OTP. Please enter Correct OTP";
+						console.log("Bad Request");
+					}
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+				}
+		);
+	}
+	
+	
 	$scope.subconfmtn = function(){
 		$scope.successMsg = false;
 		$scope.subscribeNowErrorMsg = "";
