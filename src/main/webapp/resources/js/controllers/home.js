@@ -132,4 +132,26 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 				}
 		);
 	}
+	
+	$rootScope.checkUserByMobile = function(mobileNumber){
+		UserService.checkUser(mobileNumber).then(
+            function(response) {
+            	if(response.data != ""){
+            		$rootScope.loggedUser = true;
+            		$rootScope.user = response.data;
+            		console.log($rootScope.user);
+            		if($rootScope.user.roleId == 3){
+            			$rootScope.userName = "Visitor";
+            		}else{
+            			$rootScope.status=true;
+            			$rootScope.regUser = true;
+            			$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+            		}
+            	}
+           },
+            function(errResponse){
+                console.error('Error while checking user');
+            }
+       );
+	}
 })

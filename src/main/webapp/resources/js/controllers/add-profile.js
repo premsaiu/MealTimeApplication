@@ -2,7 +2,7 @@
 
 angular.module('miniMealApp.addprofileCtrl', []).
 controller('AddProfileCtrl', function ($scope,$state,$rootScope,UserService) {
-	
+	$scope.addUser = angular.copy($rootScope.user);
 	$scope.addProfileErrorMsg = "";
 	$scope.addProfile = function(){
 		$scope.addProfileErrorMsg = "";
@@ -41,13 +41,13 @@ controller('AddProfileCtrl', function ($scope,$state,$rootScope,UserService) {
 		$scope.otp = "";
 		var jsonObj = {};
 		jsonObj.userId = $rootScope.user.userId;
-		jsonObj.firstName = $scope.firstName;
-		jsonObj.lastName = $scope.lastName;
-		jsonObj.email = $scope.email;
-		jsonObj.mobileNumber = $scope.mobileNumber;
-		jsonObj.address = $scope.address;
-		jsonObj.foodStyleS1 = $scope.foodType;
-		jsonObj.foodStyleS2 = $scope.foodStyle;
+		jsonObj.firstName = $scope.addUser.firstName;
+		jsonObj.lastName = $scope.addUser.lastName;
+		jsonObj.email = $scope.addUser.email;
+		jsonObj.mobileNumber = $scope.addUser.mobileNumber;
+		jsonObj.address = $scope.addUser.address;
+		jsonObj.foodStyleS1 = $scope.addUser.foodType;
+		jsonObj.foodStyleS2 = $scope.addUser.foodStyle;
 		console.log($scope.profilePic);
 		var file = $('#profilePic')[0].files[0];
 		console.log(file);

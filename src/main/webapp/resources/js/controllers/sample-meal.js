@@ -46,14 +46,16 @@ controller('SampleMealCtrl',  function ($scope, $rootScope, $state, UserService,
 		console.log(sampleMealObj);
 		UserService.requestSampleMeal(sampleMealObj).then( 
 				function(response){
-					debugger;
 					if(response.data.statusCode == 200){
 						$scope.sampleMealMsg = true;
 					}else if(response.data.statusCode == 500){
 						$scope.sampleMealErrorMsg = response.data.errorMsg;
 					}
+					if(!angular.isDefined($rootScope.user)){
+						  $rootScope.checkUserByMobile($scope.sampleMeal.mobileNumber);
+					}
 					$timeout(function() {
-					      $state.go('profile');
+						  $state.go('profile');
 					 }, 10000);
 		});
 	}

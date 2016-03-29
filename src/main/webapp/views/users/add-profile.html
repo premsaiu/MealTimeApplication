@@ -15,34 +15,34 @@
 		    	</div>
 		    	<form ng-submit="addProfile()" class="form-inline" >
 				  <div class="form-group">
-				    <input id="firstname" type="text" ng-model="firstName" class="form-control" placeholder="First Name">
+				    <input id="firstname" type="text" ng-model="addUser.firstName" class="form-control" placeholder="First Name">
 				  </div>
 				  <div class="form-group">
-				    <input id="lastname" type="text" ng-model="lastName" class="form-control" placeholder="Last Name">
+				    <input id="lastname" type="text" ng-model="addUser.lastName" class="form-control" placeholder="Last Name">
 				  </div>
 				  <div>
 				  <div class="form-group">
-				    <input id="mobilenumber" type="number" ng-model="mobileNumber" class="form-control" placeholder="Mobile Number">
+				    <input id="mobilenumber" ng-model="addUser.mobileNumber" class="form-control" placeholder="Mobile Number">
 				  </div>
 				  <div class="form-group">
-				    <input id="email" type="text" ng-model="email" class="form-control" placeholder="E-Mail">
+				    <input id="email" type="text" ng-model="addUser.email" class="form-control" placeholder="E-Mail">
 				  </div>
 				  <div class="form-group">
-				    <select id="foodtype" ng-model="foodType" class="form-control">
+				    <select id="foodtype" ng-model="addUser.foodType" class="form-control">
 				    	<option>Select Food Type</option>
 				    	<option>Veg</option>
 				    	<option>Non-Veg</option>
 				    </select>
 				  </div>
 				  <div class="form-group">
-				    <select id="foodstyle" ng-model="foodStyle" class="form-control">
+				    <select id="foodstyle" ng-model="addUser.foodStyle" class="form-control">
 				    	<option>Select Food Style</option>
 				    	<option>South</option>
 				    	<option>North</option>
 				    </select>
 				  </div>
 				  <div class="form-group">
-				    <textarea id="address" ng-model="address" class="form-control" rows="3"placeholder="Address"></textarea>
+				    <textarea id="address" ng-model="addUser.address" class="form-control" rows="3"placeholder="Address"></textarea>
 				  </div>
 				  <div>
 				  	<button id="addprofilesubmit" type="submit" class="btn btn-success mb20">Submit</button>
