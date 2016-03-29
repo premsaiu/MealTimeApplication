@@ -1,3 +1,4 @@
+
 angular.module('miniMealApp.subscribeNowCtrl', ['ngStorage']).
 
 controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$localStorage,$filter,$timeout) {
@@ -7,11 +8,11 @@ controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$
 	$scope.requestSubscribeNow = function(){
 		var subject = "MealTime - Subscribe Now - One Time Password(OTP)";
 		$rootScope.sendOTP($scope.mobile, null, subject);
-		$scope.subscribeNow.otp = "";
+		$scope.otp = "";
 	}
 	
 	$scope.verifyOTP = function(){
-		UserService.verifyOTP($scope.mobile, $scope.subscribeNow.otp).then(
+		UserService.verifyOTP($scope.mobile, $scope.otp).then(
 				function(response) {
 					if(response.data.statusCode == 200){
 						$('#otpModal').modal('hide');
