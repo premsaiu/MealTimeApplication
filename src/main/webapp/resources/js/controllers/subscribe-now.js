@@ -13,8 +13,8 @@ controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$
 						if(response.data.data != ""){
 							debugger;
 							$rootScope.user = response.data.data;
-							$rootScope.newmenu = false;
-							$rootScope.status=true;
+							$rootScope.newmenu = true;
+							$rootScope.status=false;
 							$(".adminsection").hide();
 							$state.go('profile');
 							$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">x</button><strong>Subscription Done Successfully!!!...</strong></div>');
