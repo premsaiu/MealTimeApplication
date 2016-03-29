@@ -11,6 +11,7 @@ controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$
 			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,$('#area').val()).then( 
 					function(response){
 						if(response.data.data != ""){
+							debugger;
 							$rootScope.user = response.data.data;
 							$rootScope.newmenu = false;
 							$rootScope.status=true;
