@@ -4,6 +4,12 @@
 	    
 	    <div class="form-horizontal" role="form">
 	    				<h4>Schedule A Visit</h4><hr>
+	    				<div ng-show="schedEnqMsg" class="alert alert-success" >
+  								<strong>Success!</strong>Schedule Enquiry has been received.
+						</div>
+						<div ng-show="schedEnqErrorMsg != ''" class="alert alert-danger" >
+  								{{schedEnqErrorMsg}}
+							</div>
 						<p>MealTime's Executive shall visit at your place to explain you about our meal boxes & Our Services</p>
 						<p>Just let us know your convenient time.</p>
 					
@@ -52,6 +58,31 @@
 	    
 				</div>				
 		    </div>
+		    
+		    <!-- OTP Modal -->
+			    <div class="modal fade" id="otpModal" data-backdrop="static" data-keyboard="false">
+				  <div class="modal-dialog max-w400">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+				        <h4 class="modal-title">One Time Password</h4>
+				      </div>
+				      <div class="modal-body">
+				       <span style="color:red;">{{wrongOTPMsg}}</span>
+				        <form>
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label">Please Enter OTP</label>
+				            <input type="number" class="form-control" id="otp" ng-model="sched.otp">
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Submit</button>
+				        <button type="submit" class="btn btn-success" data-ng-click="closeModal('otpModal')">Cancel</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 	    
  
 <!--     <script type="text/javascript">

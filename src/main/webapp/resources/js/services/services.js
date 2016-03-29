@@ -278,7 +278,7 @@ angular.module('miniMealApp.services',[])
     	var as=sched.date.split('/');
     	var date=as[2]+"-"+as[1]+"-"+as[0]+"T"+sched.time+"+0530";
 		var subscribedata={
-				"userId":"MT015",
+				//"userId":"MT015",
 				"mobileNumber":sched.number,
 				"scheduleDateTime":date,
 				"name":sched.name,
