@@ -2,7 +2,7 @@
 
 angular.module('miniMealApp.services',[])
 .service('UserService', ['$http', '$q', function($http, $q){
-	var baseURL = "http://localhost:8181/MealTimeApplication/";
+	var baseURL = "http://localhost:8080/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
         var request = $http({
             method:"get",
@@ -275,11 +275,12 @@ angular.module('miniMealApp.services',[])
     };
 
     this.subscribe = function (sched) {
-    	debugger;
+    	var as=sched.date.split('/');
+    	var date=as[2]+"-"+as[1]+"-"+as[0]+"T"+sched.time+"+0530";
 		var subscribedata={
 				"userId":"MT015",
 				"mobileNumber":sched.number,
-				"scheduleDateTime":"2016-03-28T19:43:37+0530",
+				"scheduleDateTime":date,
 				"name":sched.name,
 				"address":sched.area
 					}
