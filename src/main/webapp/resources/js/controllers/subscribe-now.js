@@ -1,24 +1,35 @@
 angular.module('miniMealApp.subscribeNowCtrl', ['ngStorage']).
 
-controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$localStorage,$filter) {
+controller('SubscribeNowCtrl',  function ($scope,$rootScope,$state,UserService,$localStorage,$filter,$timeout) {
+	
+	$scope.subscribeNowErrorMsg = "";
 	
 	$scope.subconfmtn = function(){
-		$('#area').val();
+		$scope.successMsg = false;
 		$scope.subscribeNowErrorMsg = "";
-		var _date = $filter('date')(new Date($scope.date), 'yyyy-MM-dd');
+		var area = $('#area').val();
+		
+		var _date = $filter('date')(new Date($('#subscribeDate').val()), 'yyyy-MM-dd');
 		if($('#area').val() == 'select'){
 			alert("Please Select the Area");
 		}else{
-			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,$('#area').val()).then( 
+			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,area).then( 
 					function(response){
-						if(response.data.data != "" && data.statusCode == 200){
+						if(response.data.data != "" && response.data.statusCode == 200){
 							$rootScope.user = response.data.data;
+							$rootScope.user.firstName = $scope.firstName;
+							$rootScope.user.lastName = $scope.lastName;	
+							$rootScope.user.mobileNumber = $scope.mobile;
+							$rootScope.user.address = area;
+							window.scrollTo(0,0);
+							$scope.successMsg = true;
 							$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">x</button><strong>Subscription Done Successfully!!!...</strong></div>');
 							$('#scesavemsg').delay(5000).fadeOut('slow');	
 							$timeout(function() {
 							      $state.go('profile');
-							 }, 7000);						
+							 }, 5000);						
 							}else if(response.data.statusCode == 500){
+								window.scrollTo(0,0);
 								$scope.subscribeNowErrorMsg = "Something Went Wrong please check all your input fields!!!!";
 							}
 			});
