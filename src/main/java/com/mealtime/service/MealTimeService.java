@@ -141,10 +141,10 @@ public class MealTimeService {
 	}
 	
 	public void saveProfile(UserMaster userMaster){
-		userMaster.setRoleId(2);
+		//userMaster.setRoleId(2);
 		userMaster.setUpdatedDate(new Date());
 		userMaster.setIsActive("YES");
-		userMaster.setStatus("User");
+		//userMaster.setStatus("User");
 		userMasterDAO.update(userMaster);
 	}
 	
