@@ -118,6 +118,7 @@ public class UserSubscriptionService {
 				userMaster.setFirstName(firstName);
 				userMaster.setLastName(lastName);
 				userMaster.setCreatedDate(new Date());
+				userMaster.setAddress(area);
 				//userMaster.setIsActive("NO");
 				//userMaster.setStatus("Visitor");
 				userMasterDAO.insert(userMaster);
@@ -203,11 +204,13 @@ public class UserSubscriptionService {
 			return userMaster;
 		}else{
 			userMaster =  new UserMaster();
+			
 			userMaster.setMobileNumber(mobile);
 			userMaster.setFirstName(firstName);
 			userMaster.setLastName(lastName);
 			userMaster.setRoleId(2);
 			userMaster.setCreatedDate(new Date());
+			userMaster.setAddress(area);
 			userMasterDAO.update(userMaster);
 			
 			userMaster = userMasterDAO.findByMobileNumber(mobile);
