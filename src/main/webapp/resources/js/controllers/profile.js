@@ -8,10 +8,13 @@ controller('ProfileCtrl', function ($scope,$state,$rootScope,$http,UserService) 
 	$scope.isEditForm=false;
 	$scope.wrongOTPMsg="";
 	
-	if(!angular.isDefined($rootScope.user) || (angular.isDefined($rootScope.user) && $rootScope.user.roleId == 3)){
+	if(!angular.isDefined($rootScope.user)){
 		//location.href = "#/addprofile";
 		$state.go("addprofile");
 	}else{
+		if(angular.isDefined($rootScope.user) && $rootScope.user.roleId == 3){
+			$scope.isEditForm=true;
+		}
 		//var mobileNumber = $scope.editUser.mobileNumber;
 		var userId = $rootScope.user.userId;
 		$rootScope.userProfilePic = "images/"+userId+".jpg";
