@@ -43,7 +43,9 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	$rootScope.checkUser = function(){
 		$rootScope.loginError = "";
 		console.log("Mobile Number::"+$scope.mobileNumber);
-		$rootScope.mobileNumber = $scope.mobileNumber;
+		
+		if(angular.isDefined($scope.mobileNumber)){
+			$rootScope.mobileNumber = $scope.mobileNumber;
 		
 		if($scope.password){
 			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
@@ -70,9 +72,7 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 					UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
 	                	if(response.data != ""){
-	                		debugger;
 	                		UserService.checkSubscription(response.data.userId).then(function(response1) {
-	                			debugger;
 								if(response1.data.data.userSubscription == null || (response1.data.data.userSubscription.status.toLowerCase() != "success" 
 									&& response1.data.data.userSubscription.confirmation == false)){
 									$(".adminsection").hide();
@@ -111,6 +111,14 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	       );
 			$('#myModal').modal('hide');
 		}
+	  }
+	  else{
+		  $('#myModal').modal('hide');
+			$(".adminsection").hide();
+			$rootScope.newmenu = true;
+			$rootScope.status=false;
+			$state.go('home');
+	  }
 	}
 	
 	$rootScope.closeModal =function(modalId){
