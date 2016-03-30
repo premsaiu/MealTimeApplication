@@ -8,6 +8,12 @@ body {
 	background-repeat: repeat;
 	background-size: cover;
 }
+.size {
+    width: 150px;
+    height: 140px;
+}
+
+
 
 .bg-pattern {
 	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAAXNSR0IArs4c6QAAABBJREFUCB1jYEAF/5G5RHIAgcID/VJkzCcAAAAASUVORK5CYII=");
@@ -160,6 +166,11 @@ body {
 	background: #86D43F;
 	border-radius: 3px;
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.13);
+}
+.profileactive{
+    background-color: #86D43F;
+    color: white;
+
 }
 .new-list-2 li a:hover {	
 	background: #30B354;
