@@ -18,12 +18,11 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 		$scope.modalShow();
 	}
 	$rootScope.notNow = function(){
-	
 		$('#myModal').modal('hide');
 		$(".adminsection").hide();
 		$rootScope.newmenu = true;
 		$rootScope.status=false;
-		$state.go('ourstory');
+		$state.go('home');
 	}
 	$rootScope.adminchk=function(){
 		UserService.adminchk($scope.mobileNumber).then(
