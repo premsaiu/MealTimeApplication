@@ -35,7 +35,9 @@ controller('ProfileCtrl', function ($scope,$state,$rootScope,$http,UserService) 
 					function(response) {
 						if(response.data.statusCode == 200){
 							$('#otpModal').modal('hide');
+							
 							$scope.updateProfile();
+							
 						}else{
 							$scope.wrongOTPMsg="Invalid OTP. Please enter Correct OTP";
 							console.log("Bad Request");
@@ -54,6 +56,7 @@ controller('ProfileCtrl', function ($scope,$state,$rootScope,$http,UserService) 
 		
 		$scope.updateProfile = function(){
 			$scope.otp = "";
+			
 			var user = $scope.editUser;
 			var file = $('#profilePic')[0].files[0];
 			console.log(file);
@@ -72,6 +75,9 @@ controller('ProfileCtrl', function ($scope,$state,$rootScope,$http,UserService) 
 						 		$rootScope.userProfilePic = "images/"+userId+".jpg";
 						 		$scope.isEditForm=false;
 		                		//location.href = "#/profile";
+						 		debugger;
+						 		$('body').removeClass('modal-open');
+								$('.modal-backdrop').remove();
 		                		$state.go("profile");
 		                	}else{
 		                		console.log("Bad Request");

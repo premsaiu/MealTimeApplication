@@ -1,4 +1,12 @@
-		    	<div data-ng-show="newmenu">
+   <style>
+   input.ng-invalid..ng-dirty{
+    border: 1px solid red;
+   }
+   span{
+   color:red;	
+   }
+   </style>
+<div data-ng-show="newmenu">
 		    	<div class="row">
 			    	<div class="col-lg-8">
 						<h4>Subscription Form</h4><hr>
@@ -9,38 +17,67 @@
 					    	<div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">
 						<p>Breakfast with juice and dinner with dessert will be delivered for one motnh for a minimum cost of Rs. 3650/- plus Rs. 1000/- towars your wallet from which you can buy / add / customize items</p>
 						<p>Recommendation: You may know more about our service by scheduling a visit or even try our sample meal</p>
-						<form class="mt20">
+						<form class="mt20" name="form" novalidate>
 						  <div class="form-group col-lg-8">
 							<label for="name">First Name</label>
-							<input type="text" class="form-control" id="name" data-ng-model="firstName" required>
+							<input type="text" class="form-control" id="name" data-ng-model="firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
+						 		<span ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
+				  				<span ng-show="form.name.$dirty  && form.name.$error.required">First name is required.</span>
+								<span ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
+								<span ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
 						  </div>
+						       
 						  <div class="form-group col-lg-8">
 							<label for="name">Last Name</label>
-							<input type="text" class="form-control" id="name" data-ng-model="lastName" required>
+							<input type="text" class="form-control" id="name" data-ng-model="lastName" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="lastname" ng-minlength="3" required ng-maxlength="20">
+							<span ng-show="form.lastname.$dirty   &&    form.lastname.$error.pattern" style="color:red">Enter only String.</span>
+				  				<span ng-show="form.lastname.$dirty  && form.lastname.$error.required">Lastname is required.</span>
+								<span ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
+								<span ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
 						  </div>
+						  	 
 						  <div class="form-group col-lg-8">
 							<label for="phone">Phone Number</label>
-							<input type="text" class="form-control" id="phone" data-ng-model="mobile" required>
+							<input type="text" class="form-control" id="phone" data-ng-model="mobile" ng-pattern="/^[0-9]{0,10}$/" required name="mobileno">
+						   <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
+				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should contain digits.</span>
 						  </div>
+						  
 						  <div class="form-group col-lg-8">
 							<label for="phone">Date</label>
 							<!-- <div class="input-append date datepicker no-padding" data-date-format="dd-mm-yyyy">
 								<input class="input-medium" size="16" type="date" data-ng-model="date" required><span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;"></span>
 							</div> -->
 						  
-						  <div class="input-append date  no-padding"  id="sampledate">
-								<input class="input-medium" data-ng-model="date" id="subscribeDate" size="16" type="text"><span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;"></span>
+						    <div class="input-append date  no-padding"  id="sampledate">
+								<input name="date" required class="input-medium" data-ng-model="date" id="subscribeDate" size="16" type="text">
+								<span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;" ></span>
 							</div>
-						  
+						   		<span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 						  </div>
+      			
+      			 		
 						  <div class="form-group col-lg-8">
 							<label for="phone">Area</label>
-							<select id="area" style="height: 30px;display: block;border-radius: 3px;">
-								<option value="select">Area</option>
+							<select id="area" name="area" required class="form-control" style="height: 30px;display: block;border-radius: 3px;"  >
+								<option value="">Select Area</option>
 								<option value="madhapur">Madhapur</option>
 								<option value="gachibowli">Gachibowli</option>
 							</select>
+								  <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
 						  </div>
+					
+<!-- 						  <div class="form-group">
+						    <label class="control-label col-sm-2">Area</label>
+						     <div class="col-sm-4">
+							<select id="area"  class="form-control" ng-model="sched.area" style="height: 30px;display: block;border-radius: 3px;" required name="area">
+								<option value="">Select Area</option>
+								<option value="madhapur">Madhapur</option>
+								<option value="gachibowli">Gachibowli</option>
+							</select>	
+							</div>	
+						</div>
+						<span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span> -->
 						  <div class="form-group pull-right">
 							  <button type="submit" class="btn btn-success ml10" data-ng-click="requestSubscribeNow();">Confirm & Pay</button>
 							  <button type="submit" class="btn btn-success">Later</button>
