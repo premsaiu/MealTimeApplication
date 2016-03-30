@@ -136,11 +136,11 @@ public class UserSubscriptionService {
 						userSubscription.setStartDate(new Date());
 						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 						userSubscription.setCreatedBy(userMaster.getUserId());
-						userSubscription.setStatus("Success");
+						userSubscription.setStatus("pending");
 						userSubscription.setIsActive("YES");
 						userSubscriptionDAO.update(userSubscription);
 						
-						UserWallet userWallet = null;
+						/*UserWallet userWallet = null;
 						
 						userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
 						
@@ -161,7 +161,7 @@ public class UserSubscriptionService {
 							userWallet.setStatus("Success");
 							userWallet.setIsActive("YES");
 							userWalletDAO.insert(userWallet);
-						}
+						}*/
 						
 					}else{
 						
@@ -174,11 +174,11 @@ public class UserSubscriptionService {
 						userSubscription.setStartDate(new Date());
 						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 						userSubscription.setCreatedBy(userMaster.getUserId());
-						userSubscription.setStatus("Success");
+						userSubscription.setStatus("pending");
 						userSubscription.setIsActive("YES");
 						userSubscriptionDAO.insert(userSubscription);
 						
-						UserWallet userWallet = null;
+						/*UserWallet userWallet = null;
 						
 						userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
 						
@@ -198,7 +198,7 @@ public class UserSubscriptionService {
 							userWallet.setStatus("Success");
 							userWallet.setIsActive("YES");
 							userWalletDAO.insert(userWallet);
-						}
+						}*/
 					}
 				}
 			return userMaster;
@@ -226,11 +226,11 @@ public class UserSubscriptionService {
 					userSubscription.setStartDate(new Date());
 					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 					userSubscription.setCreatedBy(userMaster.getUserId());
-					userSubscription.setStatus("Success");
+					userSubscription.setStatus("pending");
 					userSubscription.setIsActive("YES");
 					userSubscriptionDAO.update(userSubscription);
 					
-					UserWallet userWallet = null;
+					/*UserWallet userWallet = null;
 					
 					userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
 					
@@ -251,7 +251,7 @@ public class UserSubscriptionService {
 						userWallet.setStatus("Success");
 						userWallet.setIsActive("YES");
 						userWalletDAO.insert(userWallet);
-					}
+					}*/
 					
 				}else{
 					userSubscriptionDAO.delete(userMaster.getUserId());
@@ -263,11 +263,11 @@ public class UserSubscriptionService {
 					userSubscription.setStartDate(new Date());
 					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 					userSubscription.setCreatedBy(userMaster.getUserId());
-					userSubscription.setStatus("Success");
+					userSubscription.setStatus("pending");
 					userSubscription.setIsActive("YES");
 					userSubscriptionDAO.insert(userSubscription);
 					
-					UserWallet userWallet = null;
+					/*UserWallet userWallet = null;
 					
 					userWallet = userWalletDAO.findByUserId(userMaster.getUserId());
 					
@@ -287,7 +287,7 @@ public class UserSubscriptionService {
 						userWallet.setStatus("Success");
 						userWallet.setIsActive("YES");
 						userWalletDAO.insert(userWallet);
-					}
+					}*/
 				}
 				
 			}
