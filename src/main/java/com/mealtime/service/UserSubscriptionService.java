@@ -136,7 +136,7 @@ public class UserSubscriptionService {
 						userSubscription.setStartDate(new Date());
 						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 						userSubscription.setCreatedBy(userMaster.getUserId());
-						userSubscription.setStatus("pending");
+						userSubscription.setStatus("Pending");
 						userSubscription.setIsActive("YES");
 						userSubscriptionDAO.update(userSubscription);
 						
@@ -174,7 +174,7 @@ public class UserSubscriptionService {
 						userSubscription.setStartDate(new Date());
 						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 						userSubscription.setCreatedBy(userMaster.getUserId());
-						userSubscription.setStatus("pending");
+						userSubscription.setStatus("Pending");
 						userSubscription.setIsActive("YES");
 						userSubscriptionDAO.insert(userSubscription);
 						
@@ -226,7 +226,7 @@ public class UserSubscriptionService {
 					userSubscription.setStartDate(new Date());
 					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 					userSubscription.setCreatedBy(userMaster.getUserId());
-					userSubscription.setStatus("pending");
+					userSubscription.setStatus("Pending");
 					userSubscription.setIsActive("YES");
 					userSubscriptionDAO.update(userSubscription);
 					
@@ -263,7 +263,7 @@ public class UserSubscriptionService {
 					userSubscription.setStartDate(new Date());
 					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
 					userSubscription.setCreatedBy(userMaster.getUserId());
-					userSubscription.setStatus("pending");
+					userSubscription.setStatus("Pending");
 					userSubscription.setIsActive("YES");
 					userSubscriptionDAO.insert(userSubscription);
 					
