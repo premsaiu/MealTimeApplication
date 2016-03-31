@@ -7,12 +7,13 @@
    }
    </style>
 <div data-ng-show="newmenu">
-	    <div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">
-	    
-	    
-	    <div class="form-horizontal" role="form" >
-	    				<h4>Schedule A Visit</h4><hr>
-	    				<div ng-show="schedEnqMsg" class="alert alert-success" >
+		    	<div class="row">
+			    	<div class="col-lg-8">
+					
+					    	<h4>Schedule A Visit</h4><hr>
+	    				
+							<div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">
+							<div ng-show="schedEnqMsg" class="alert alert-success" >
   								<strong>Success!</strong>Schedule Enquiry has been received.
 						</div>
 						<div ng-show="schedEnqErrorMsg != ''" class="alert alert-danger" >
@@ -21,46 +22,66 @@
 						<p>MealTime's Executive shall visit at your place to explain you about our meal boxes & Our Services</p>
 						<p>Just let us know your convenient time.</p>
 						<form class="mt20" name="form" novalidate>
-						  <div class="form-group">
-						    <label class="control-label col-sm-2" for="name">Name:</label>
-						    <div class="col-sm-6">
+						  <div class="form-group col-lg-8">
+							<label for="name">Name</label>
+						  
 						     <input type="text" class="form-control" id="name" ng-model="sched.name" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
-						 	</div>
+						 	
 						 	 <span ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
-				  				<span ng-show="form.name.$dirty  && form.name.$error.required">First name is required.</span>
+				  				<span ng-show="form.name.$dirty  && form.name.$error.required">Name is required.</span>
 								<span ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
 								<span ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
-						  </div>
-						  	   
-						  <div class="form-group">
-						    <label class="control-label col-sm-2" for="phone">Phone Number:</label>
-						    <div class="col-sm-6"> 
-						      <input type="number" class="form-control" name="mobileno" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required id="phone" ng-model="sched.number">
-						      </div>
-						      <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
-						        	<span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
-				   		  	<span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
-						  </div>
 						  
-						  <div class="form-group"> 
-						    <label class="control-label col-sm-2" for="phone">Date:</label>
-						    <div class="col-sm-4"> 
-						      <input  type="text" class="form-control" id="datetimePicker" name="date" data-ng-model="sched.date" required>    
- 							  <span class="add-on"><i class="icon-th"></i></span>      						
-						 </div>
-						  <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 						  </div>
-						     
-						   <div class="form-group"> 
-						    <label class="control-label col-sm-2" for="phone">Time:</label>
-						    <div class="col-sm-4"> 
-						      <input  type="text" class="form-control" id="timePicker" ng-model="sched.time" name="time" required>    
- 							<span class="add-on"><i class="icon-th"></i></span>      							
-					      </div>
-					      <span ng-show="form.time.$dirty  && form.time.$error.required">Time is required.</span>
+						       
+						
+						  	 
+						  <div class="form-group col-lg-8">
+							<label for="phone">Phone Number</label>
+							<div>
+							<span class="glyphicon glyphicon-phone" style="border: 1px solid #A9A9A9;padding: 5px;color:black !important;top:2px !important;" ></span>
+							<input type="text" class="input-medium" id="phone" style="margin-left: -5px;" data-ng-pattern=" /^[789]\d{9}$/"  id="phone" ng-model="sched.number" ng-maxlength="10" required name="mobileno">
+						   </div>
+						   <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
+						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
+				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 						  </div>
-						    
-						  <div class="form-group">
+						  <div class="form-group col-lg-8">
+							<label for="phone">Date</label>
+							<!-- <div class="input-append date datepicker no-padding" data-date-format="dd-mm-yyyy">
+								<input class="input-medium" size="16" type="date" data-ng-model="date" required><span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;"></span>
+							</div> -->
+						  
+						    <div class="input-append date no-padding"  id="sampledate">
+								<span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9; padding:5px; color:black !important; top:2px !important;" ></span>
+								<input name="date" required class="input-medium" id="datetimePicker" name="date" data-ng-model="sched.date"  size="16" type="text" style="margin-left: -5px;">
+							</div>
+						   		<span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
+						  </div>
+      			         <div class="form-group col-lg-8">
+							<label for="phone">Time</label>
+							<!-- <div class="input-append date datepicker no-padding" data-date-format="dd-mm-yyyy">
+								<input class="input-medium" size="16" type="date" data-ng-model="date" required><span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;"></span>
+							</div> -->
+						  
+						    <div class="input-append date no-padding"  id="sampledate">
+								<span class="add-on glyphicon glyphicon-time" style="border: 1px solid #A9A9A9; padding:5px; color:black !important; top:2px !important;" ></span>
+								<input name="date" required class="input-medium" id="timePicker" ng-model="sched.time" name="time"  size="16" type="text" style="margin-left: -5px;">
+							</div>
+						   		<span ng-show="form.time.$dirty  && form.time.$error.required">Time is required.</span>
+						  </div>
+      			 		
+						  <div class="form-group col-lg-8">
+							<label for="phone">Area</label>
+							<select ng-model="sched.area" name="area" required class="form-control" style="height: 30px;display: block;border-radius: 3px;"  >
+								<option value="">Select Area</option>
+								<option value="madhapur">Madhapur</option>
+								<option value="gachibowli">Gachibowli</option>
+							</select>
+								  <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
+						  </div>
+					
+<!-- 						  <div class="form-group">
 						    <label class="control-label col-sm-2">Area</label>
 						     <div class="col-sm-4">
 							<select id="area"  class="form-control" ng-model="sched.area" style="height: 30px;display: block;border-radius: 3px;" required name="area">
@@ -69,19 +90,20 @@
 								<option value="gachibowli">Gachibowli</option>
 							</select>	
 							</div>	
-							<span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
 						</div>
-						
-						<div class="form-group pull-right" style="clear:both;">
+						<span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span> -->
+						  <div class="form-group pull-right" style="clear:both;">
 							  <button type="button" ng-disabled="form.$invalid" class="btn btn-success ml10" data-ng-click="submitsched();">Confirm</button>
 							  <button type="button" class="btn btn-success" data-ng-click="notNow();">Later</button>
 						  </div>
-						  </form>
-</div>
-	    
-	    
+						</form>
+						</div>
+					</div>
+					<div class="col-lg-4">
+					</div>
 				</div>				
-		    </div>
+</div>
+</div>
 		    
 		    <!-- OTP Modal -->
 			    <div class="modal fade" id="otpModal" data-backdrop="static" data-keyboard="false">
@@ -115,11 +137,14 @@
 			window.location = "index_admin.html"  //open on same tab
 	  });
     </script>​
- -->    <script>
+ -->   
+  <script>
 		$(document).ready(function() {
-			 $('#datetimePicker').datetimepicker({	
-					autoclose: 1,
-					pickTime: false	});
+			
+			$('#datetimePicker').datetimepicker({
+				autoclose: true,
+				pickTime:false
+			});
 			 $('#timePicker').datetimepicker({	
 				 use24hours: true,
 				 pickDate: false,
