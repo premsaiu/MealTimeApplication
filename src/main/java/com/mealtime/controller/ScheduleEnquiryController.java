@@ -3,6 +3,7 @@ package com.mealtime.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,6 +49,25 @@ public class ScheduleEnquiryController {
 			}
 		}else{
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Schedule Enquiry Service already used");
+		}
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping("/checkSchedule")
+	public @ResponseBody WSResponseStatus checkScheduleEnquiry(@RequestParam("mobileNumber") String mobileNumber){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		UserMaster userMaster = mealTimeService.checkMobileNumber(mobileNumber);
+		if(userMaster == null){
+			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+		}else if(userMaster != null && userMaster.getRoleId() == 3){
+			boolean isCheckSchedule = scheduleEnquiryService.checkScheduleEnquiry(userMaster.getUserId());
+			if(isCheckSchedule){
+				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+			}else{
+				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Schedule Enquiry Service already used");
+			}
+		}else{
+			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Subscribed User are not allowed for schedule enquiry service");
 		}
 		return wsResponseStatus;
 	}

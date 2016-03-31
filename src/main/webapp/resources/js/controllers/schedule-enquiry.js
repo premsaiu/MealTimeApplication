@@ -14,11 +14,18 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', [])
 	}
 	
 	$scope.submitsched=function(){
+		$scope.schedEnqErrorMsg = "";
 		var subject = "MealTime - Sample Meal - One Time Password(OTP)";
 		mobileNo = $scope.sched.number;
-		$rootScope.sendOTP(mobileNo, null, subject);
-		console.log(mobileNo);
-		$scope.sched.otp = "";
+		UserService.checkSchedule(mobileNo).then(function(response){
+			if(response.data.statusCode == 200){
+				$rootScope.sendOTP(mobileNo, null, subject);
+				console.log(mobileNo);
+				$scope.sched.otp = "";
+			}else if(response.data.statusCode == 500){
+				$scope.schedEnqErrorMsg = response.data.errorMsg;
+			}
+		});
 	}
 	
 	
