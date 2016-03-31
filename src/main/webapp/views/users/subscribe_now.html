@@ -38,21 +38,23 @@
 						  	 
 						  <div class="form-group col-lg-8">
 							<label for="phone">Phone Number</label>
-							<input type="text" class="form-control" id="phone" data-ng-model="mobile" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
+							<div>
+							<span class="glyphicon glyphicon-phone" style="border: 1px solid #A9A9A9;padding: 5px;color:black !important;top:2px !important;" ></span>
+							<input type="text" class="input-medium" id="phone" style="margin-left: -5px;" data-ng-model="mobile" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
+						   </div>
 						   <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
 						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
 				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 						  </div>
-						  
 						  <div class="form-group col-lg-8">
 							<label for="phone">Date</label>
 							<!-- <div class="input-append date datepicker no-padding" data-date-format="dd-mm-yyyy">
 								<input class="input-medium" size="16" type="date" data-ng-model="date" required><span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;"></span>
 							</div> -->
 						  
-						    <div class="input-append date  no-padding"  id="sampledate">
-								<input name="date" required class="input-medium" data-ng-model="date" id="subscribeDate" size="16" type="text">
-								<span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9;padding: 5px;" ></span>
+						    <div class="input-append date no-padding"  id="sampledate">
+								<span class="add-on glyphicon glyphicon-calendar" style="border: 1px solid #A9A9A9; padding:5px; color:black !important; top:2px !important;" ></span>
+								<input name="date" required class="input-medium" data-ng-model="date" id="subscribeDate" size="16" type="text" style="margin-left: -5px;">
 							</div>
 						   		<span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 						  </div>
@@ -134,7 +136,6 @@
 			$('#sampledate').datetimepicker({
 				autoclose: true,
 				pickTime:false
-				 //format: "dd/mm/yyyy"
 			});
 		});
 	</script>
