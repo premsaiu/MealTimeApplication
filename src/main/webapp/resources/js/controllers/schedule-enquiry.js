@@ -15,7 +15,7 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', [])
 	
 	$scope.submitsched=function(){
 		$scope.schedEnqErrorMsg = "";
-		var subject = "MealTime - Sample Meal - One Time Password(OTP)";
+		var subject = "MealTime - Schedule Enquiry - One Time Password(OTP)";
 		mobileNo = $scope.sched.number;
 		UserService.checkSchedule(mobileNo).then(function(response){
 			if(response.data.statusCode == 200){

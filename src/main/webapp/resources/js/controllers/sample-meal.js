@@ -5,14 +5,16 @@ controller('SampleMealCtrl',  function ($scope, $rootScope, $state, UserService,
 	$scope.sampleMealErrorMsg = "";
 	
 	$scope.requestSampleMeal = function(){
-		var subject = "MealTime - Sample Meal - One Time Password(OTP)";
-		$rootScope.sendOTP($scope.sampleMeal.mobileNumber, null, subject);
-		$scope.sampleMeal.otp = "";
-		
-		/*UserService.requestSampleMeal(sampleMealObj).then( 
-			function(response){
-				debugger;
-		});*/
+		$scope.sampleMealErrorMsg = "";
+		UserService.checkSampleMeal($scope.sampleMeal.mobileNumber).then(function(response){
+			if(response.data.statusCode == 200){
+				var subject = "MealTime - Sample Meal - One Time Password(OTP)";
+				$rootScope.sendOTP($scope.sampleMeal.mobileNumber, null, subject);
+				$scope.sampleMeal.otp = "";
+			}else if(response.data.statusCode == 500){
+				$scope.sampleMealErrorMsg = response.data.errorMsg;
+			}
+		});
 	}
 	
 	$scope.verifyOTP = function(){

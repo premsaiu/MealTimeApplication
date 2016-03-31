@@ -302,6 +302,15 @@ angular.module('miniMealApp.services',[])
   	});
   	return request; 	
 	};
+	
+	this.checkSampleMeal = function(mobileNumber) {
+	  	var request = $http({
+	  		method:"get",
+	  		url:baseURL+'checkSampleMeal.spring?mobileNumber='+mobileNumber,
+	  		dataType: "application/json"
+	  	});
+	  	return request; 	
+	};
 
 }]).
 service('AdminService', ['$http', '$q', function($http, $q){
