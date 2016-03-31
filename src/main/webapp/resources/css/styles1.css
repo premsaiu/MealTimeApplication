@@ -366,6 +366,8 @@ body {
     padding-right: 15px !important;
 }
 
-
-
+.nav-tabs > li.active > a {
+	color: white !important;
+	background-color: green !important;
+}
 
