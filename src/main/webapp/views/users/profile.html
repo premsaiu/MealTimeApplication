@@ -1,4 +1,11 @@
-
+   <style>
+   input.ng-invalid..ng-dirty{
+    border: 1px solid red;
+   }
+   span{
+   color:red;	
+   }
+   </style>
 	    
 	    <div class="col-md-9 col-xs-12 bg-color-s1 pb20 pt10">
 	    <div id="succussSaveDiv" class="message_popup"></div>
@@ -57,7 +64,7 @@
 		    	</div>
 		    	
 		    	<div class="col-md-8 col-xs-8">
-		    	<form ng-submit="editProfile()" class="form-inline" >
+		    	<form ng-submit="editProfile()" class="form-inline" novalidate >
 		    	
 		    	
 		    	 <ul class="nav nav-tabs" role="tablist">
@@ -69,20 +76,30 @@
 						  <div class="tab-content">
 						    <div role="tabpanel" class="tab-pane active" id="breakfast">
 						 <div class="form-group">
-				    <input id="firstname" type="text" ng-model="editUser.firstName" class="form-control" placeholder="First Name">
-				  </div>
+				    <input id="firstname" type="text" ng-model="editUser.firstName" name="firstname" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3"  ng-maxlength="20" class="form-control" placeholder="First Name">
+				  	 <span ng-show="form.firstname.$dirty && form.firstname.$error.pattern" style="color:red">Enter only string.</span>
+				  	 		<span ng-show="form.firstname.$dirty  && form.firstname.$error.minlength">Minimum Length should be of 3 characters</span>
+								<span ng-show="form.firstname.$dirty  && form.firstname.$error.maxlength">MaxLength should be of 20 characters</span>
+				  	</div>
 				  <div class="form-group">
-				    <input id="lastname" type="text" ng-model="editUser.lastName" class="form-control" placeholder="Last Name">
+				    <input id="lastname" type="text" name="lastname" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3"  ng-maxlength="20" ng-model="editUser.lastName" class="form-control" placeholder="Last Name">
+				      <span ng-show=" form.lastname.$dirty && form.lastname.$error.pattern" style="color:red">Enter only string.</span>
+				      <span ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
+					  <span ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
 				  </div>
 				  
 				  <div class="form-group">
-				    <input id="mobilenumber" type="text" ng-model="editUser.mobileNumber" class="form-control" placeholder="Mobile Number">
+				    <input id="mobilenumber" type="text" ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10" class="form-control" placeholder="Mobile Number">
+				       <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should Start with 7 or 8 or 9.</span>
+				       	  	<span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
 				  </div>
 				  <div class="form-group">
 				    <input id="email" type="text" ng-model="editUser.email" class="form-control" placeholder="E-Mail">
+				   <span ng-show="form.email.$dirty  && form.email.$error.$invalid">Invalid Email</span>
 				  </div>	
 				  <div class="form-group">
-				    <textarea id="address" ng-model="editUser.address" class="form-control" rows="3"placeholder="Address"></textarea>
+				    <textarea id="address" ng-model="editUser.address" class="form-control" rows="3"placeholder="Address" name="address" autocomplete="off" ng-maxlength="250"></textarea>
+				    		  <span ng-show="form.address.$dirty && form.address.$error.maxlength">Maximum Length is 250 characters</span>
 				  </div>
 						    </div> <!-- end tab content -->
 						    
@@ -104,7 +121,7 @@
 		    	
 		   </div>
 				  <div>
-				  	<button id="editprofilesubmit" type="submit" class="btn btn-success mb20" >Submit</button>
+				  	<button id="editprofilesubmit" type="submit" class="btn btn-success mb20" ng-disabled="form.$invalid" >Submit</button>
 				  	<!-- <button id="editprofilesubmit" type="submit" class="btn btn-success mb20" >Submit</button> -->
 				  	<a class="btn btn-success mb20" ng-click="isEditForm=false;" ui-sref="profile" id="editorBtn" role="button">Cancel</a>
 				  </div>

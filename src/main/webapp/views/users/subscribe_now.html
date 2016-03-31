@@ -38,9 +38,10 @@
 						  	 
 						  <div class="form-group col-lg-8">
 							<label for="phone">Phone Number</label>
-							<input type="text" class="form-control" id="phone" data-ng-model="mobile" ng-pattern="/^[0-9]{0,10}$/" required name="mobileno">
+							<input type="text" class="form-control" id="phone" data-ng-model="mobile" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
 						   <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
-				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should contain digits.</span>
+						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
+				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 						  </div>
 						  
 						  <div class="form-group col-lg-8">
@@ -79,8 +80,8 @@
 						</div>
 						<span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span> -->
 						  <div class="form-group pull-right">
-							  <button type="submit" class="btn btn-success ml10" data-ng-click="requestSubscribeNow();">Confirm & Pay</button>
-							  <button type="submit" class="btn btn-success">Later</button>
+							  <button type="submit" ng-disabled="form.$invalid" class="btn btn-success ml10" data-ng-click="requestSubscribeNow();">Confirm & Pay</button>
+							  <button type="submit"  class="btn btn-success">Later</button>
 						  </div>
 						</form>
 					</div>

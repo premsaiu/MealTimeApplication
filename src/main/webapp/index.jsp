@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en" ng-app="miniMealApp">
   <head>
@@ -42,8 +44,8 @@
 				            <label for="recipient-name" class="control-label">Registered Mobile No:</label>
 				            <input type="number" class="form-control" id="mobileNo" name="mobileNo" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()">
 				      		  </div>
-				      		   <span data-ng-show="myForm.mobileNo.$error.pattern">Not a valid number!</span>
-    							<span data-ng-show="myForm.mobileNo.$error.minlength">Enter 10 digit number </span>
+				      		   <span data-ng-show="myForm.mobileNo.$error.pattern" style="color:red">Not a valid number!</span>
+    							<span data-ng-show="myForm.mobileNo.$error.minlength" style="color:red">Enter 10 digit number </span>
 				          
 				          <div class="form-group" data-ng-show="adminuser">
 				            <label for="recipient-name" class="control-label">Password:</label>
