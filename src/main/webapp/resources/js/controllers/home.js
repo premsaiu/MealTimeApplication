@@ -8,7 +8,12 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
     	$('.menuSelect').removeClass('active');
          $(this).addClass("active");
     });
-
+    
+    $('.page1menu').click(function(){
+    	$('.page1menu').removeClass('active');
+         $(this).addClass("active");
+    });
+    
 	$rootScope.status=true;
 	$rootScope.regUser = false;
 	$rootScope.modalShow = function(){

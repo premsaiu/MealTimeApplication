@@ -7,6 +7,7 @@ controller('ProfileCtrl', function ($scope,$state,$rootScope,$http,UserService) 
 	//console.log(user);
 	$scope.isEditForm=false;
 	$scope.wrongOTPMsg="";
+	$rootScope.profileShow = true;
 	
 	if(!angular.isDefined($rootScope.user)){
 		//location.href = "#/addprofile";

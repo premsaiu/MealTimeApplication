@@ -371,3 +371,8 @@ body {
 	background-color: green !important;
 }
 
+.new-list-2 > li > a.active {
+	background: #30B354 !important;
+	color: white !important;
+}
+
