@@ -22,7 +22,7 @@
 						<p>MealTime's Executive shall visit at your place to explain you about our meal boxes & Our Services</p>
 						<p>Just let us know your convenient time.</p>
 						<form class="mt20" name="form" novalidate>
-						  <div class="form-group col-lg-8">
+						  <div class="form-group col-lg-8" style="width: 40%;">
 							<label for="name">Name</label>
 						  
 						     <input type="text" class="form-control" id="name" ng-model="sched.name" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
@@ -73,11 +73,15 @@
       			 		
 						  <div class="form-group col-lg-8">
 							<label for="phone">Area</label>
-							<select ng-model="sched.area" name="area" required class="form-control" style="height: 30px;display: block;border-radius: 3px;"  >
+							<div class="input-append date no-padding"  id="samplearea" style="width: 30%;">
+							<span class="add-on glyphicon glyphicon-map-marker" style="border: 1px solid #A9A9A9; padding:5px; color:black !important; top:2px !important;" ></span>	
+							
+							<select ng-model="sched.area" name="area" required class="form-control" style="height: 28px;display: block;border-radius: 3px;margin: -25px 0px 10px 25px;"  >
 								<option value="">Select Area</option>
 								<option value="madhapur">Madhapur</option>
 								<option value="gachibowli">Gachibowli</option>
 							</select>
+							</div>
 								  <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
 						  </div>
 					
