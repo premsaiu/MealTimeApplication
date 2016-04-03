@@ -48,16 +48,25 @@
 		    	
 		    <div  class="col-md-4 col-xs-4">
 		    	<div class="clearfix">
-		    	
-		    	<img src="{{userProfilePic}}" alt="..." class="img-circle size" alt="example">
-		    	<div class="form-group pull-left">
-				    <label for="exampleInputFile">Upload Profile Picture</label>
-				    <input type="file" id="profilePic" file-model ng-model="profilePic">
-				    
-				 </div>
+		    	<div class="profile-pic center-block">
+		    	<img id="profilephoto" src="{{userProfilePic}}" alt="...">
+		    	 <div class="profile-btn-bg">
+				  
+					<label for="profilePic" class="profile-pic-btn"><u>Upload Picture</u></label>
+				    <input type="file" id="profilePic" class="hidden profile-pic-btn" file-model ng-model="profilePic">
+			    </div>
+			    </div>
+			    <h2 class="new-title-s1">Mohan Das</h2>
+			    <h4 class="new-title-s2">Subscribed</h4>
+			    <h4 class="new-title-s3">MT6789MAD2NVS1</h4>
 			    	<br><br>
+			    	
+			    	
+	
 		    	</div>
 		    	</div>
+		    	
+		   
 		    	
 		    	<div class="col-md-8 col-xs-8" style="width: 48% !important;">
 		    	<form ng-submit="editProfile()" class="form-inline" novalidate >
@@ -178,5 +187,19 @@
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 	       
-    
+    <script type="text/javascript">
+  //this code is not required
+    $('#profilePic').change(function(){
+      if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            selectedImage = e.target.result;
+            $('#profilephoto').attr('src', selectedImage);
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+		
+		
+	</script>
 	 

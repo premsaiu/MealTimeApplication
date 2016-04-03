@@ -524,6 +524,8 @@ body {
 	line-height: 31px;
 	font-size: small;
 }
+
+
 .profile-pic-btn:hover {
 	color: #3CB85E;
 }
@@ -540,4 +542,39 @@ body {
 	float: left;
 	width: 50px;
 	margin-right: 10px;
+}
+.filedisplay {
+  display: none;
+}
+
+/* this code is not required */
+.filelabel {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  line-height: 16px;
+  padding: .2em .4em;
+  margin: .2em;
+}
+.new-input-s1 {
+	width: 276px;
+	color: #333;
+	border-radius: 0 !important;
+	background: #EEE !important;
+}
+.new-label-s1 {
+    color: #555 !important;
+    font-weight: normal !important;
+}
+.new-title-s1 {
+    text-align: center;
+}
+.new-title-s2 {
+	font-weight: bold;
+    color: #45BDC0;
+    text-align: center;
+}
+.new-title-s3 {
+	margin-top: 30px;
+    text-align: center;
 }
