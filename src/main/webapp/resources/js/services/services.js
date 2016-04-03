@@ -294,19 +294,19 @@ angular.module('miniMealApp.services',[])
     	return request;
   };
   
-  this.checkSchedule = function(mobileNumber) {
+  this.checkSchedule = function(mobileNumber, scheduleDate) {
   	var request = $http({
   		method:"get",
-  		url:baseURL+'checkSchedule.spring?mobileNumber='+mobileNumber,
+  		url:baseURL+'checkSchedule.spring?mobileNumber='+mobileNumber+'&scheduleEnqDate='+scheduleDate,
   		dataType: "application/json"
   	});
   	return request; 	
 	};
 	
-	this.checkSampleMeal = function(mobileNumber) {
+	this.checkSampleMeal = function(mobileNumber, sampleMealDate) {
 	  	var request = $http({
 	  		method:"get",
-	  		url:baseURL+'checkSampleMeal.spring?mobileNumber='+mobileNumber,
+	  		url:baseURL+'checkSampleMeal.spring?mobileNumber='+mobileNumber+'&sampleMealDate='+sampleMealDate,
 	  		dataType: "application/json"
 	  	});
 	  	return request; 	

@@ -35,5 +35,9 @@ public class SampleMealService {
 			return false;
 		}
 	}
+	
+	public SampleMeal getSampleMeal(String userId){
+		return sampleMealDAO.findByUserId(userId);
+	}
 
 }

@@ -1,5 +1,11 @@
 package com.mealtime.controller;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mealtime.bean.SampleMeal;
 import com.mealtime.bean.ScheduleEnquiry;
 import com.mealtime.bean.UserMaster;
 import com.mealtime.service.MealTimeService;
+import com.mealtime.service.SampleMealService;
 import com.mealtime.service.ScheduleEnquiryService;
 import com.mealtime.util.MealTimeUtil;
 import com.mealtime.util.WSResponseStatus;
@@ -25,6 +33,9 @@ public class ScheduleEnquiryController {
 	
 	@Autowired
 	MealTimeService mealTimeService;
+	
+	@Autowired
+	SampleMealService sampleMealService;
 	
 	@RequestMapping("/scheduleEnquiry")
 	public @ResponseBody WSResponseStatus scheduleEnquiry(@RequestBody ScheduleEnquiry scheduleEnquiry){
@@ -54,7 +65,7 @@ public class ScheduleEnquiryController {
 	}
 	
 	@RequestMapping("/checkSchedule")
-	public @ResponseBody WSResponseStatus checkScheduleEnquiry(@RequestParam("mobileNumber") String mobileNumber){
+	public @ResponseBody WSResponseStatus checkScheduleEnquiry(@RequestParam("mobileNumber") String mobileNumber, @RequestParam("scheduleEnqDate") String scheduleEnqDate){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = mealTimeService.checkMobileNumber(mobileNumber);
 		if(userMaster == null){
@@ -62,7 +73,25 @@ public class ScheduleEnquiryController {
 		}else if(userMaster != null && userMaster.getRoleId() == 3){
 			boolean isCheckSchedule = scheduleEnquiryService.checkScheduleEnquiry(userMaster.getUserId());
 			if(isCheckSchedule){
-				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+				SampleMeal sampleMeal = sampleMealService.getSampleMeal(userMaster.getUserId());
+				if(sampleMeal == null){
+					MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+				}else {
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					Date schedDate = null;
+					try {
+						schedDate = sdf.parse(scheduleEnqDate);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					Date sampleMealDate = sampleMeal.getSampleMealDate();
+					System.out.println("Sample Date :: "+sampleMealDate+" Schedule Date :: "+schedDate);
+					if(!DateUtils.isSameDay(sampleMealDate, schedDate)){
+						MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
+					}else{
+						MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Sample Meal and Schedule Enquiry Services should not be taken on the same day");
+					}
+				}
 			}else{
 				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Schedule Enquiry Service already used");
 			}

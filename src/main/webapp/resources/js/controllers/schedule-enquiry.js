@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('miniMealApp.scheduleEnquiryCtrl', [])
-.controller('ScheduleEnquiryCtrl',function ($scope, $rootScope, $state, UserService, $localStorage, $timeout) {
+.controller('ScheduleEnquiryCtrl',function ($scope, $rootScope, $state, UserService, $localStorage, $timeout, $filter) {
 	
 	$scope.schedEnqErrorMsg = "";
 	var mobileNo = "";
@@ -15,9 +15,10 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', [])
 	
 	$scope.submitsched=function(){
 		$scope.schedEnqErrorMsg = "";
+		var scheduleDate = $filter('date')(new Date($('#datetimePicker').val()), 'yyyy-MM-dd');
 		var subject = "MealTime - Schedule Enquiry - One Time Password(OTP)";
 		mobileNo = $scope.sched.number;
-		UserService.checkSchedule(mobileNo).then(function(response){
+		UserService.checkSchedule(mobileNo, scheduleDate).then(function(response){
 			if(response.data.statusCode == 200){
 				$rootScope.sendOTP(mobileNo, null, subject);
 				console.log(mobileNo);

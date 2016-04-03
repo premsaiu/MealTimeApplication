@@ -6,7 +6,8 @@ controller('SampleMealCtrl',  function ($scope, $rootScope, $state, UserService,
 	
 	$scope.requestSampleMeal = function(){
 		$scope.sampleMealErrorMsg = "";
-		UserService.checkSampleMeal($scope.sampleMeal.mobileNumber).then(function(response){
+		var sampleMealDate = $filter('date')(new Date($('#sampleMealDate').val()), 'yyyy-MM-dd');
+		UserService.checkSampleMeal($scope.sampleMeal.mobileNumber, sampleMealDate).then(function(response){
 			if(response.data.statusCode == 200){
 				var subject = "MealTime - Sample Meal - One Time Password(OTP)";
 				$rootScope.sendOTP($scope.sampleMeal.mobileNumber, null, subject);

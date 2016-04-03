@@ -35,5 +35,9 @@ public class ScheduleEnquiryService {
 			return false;
 		}
 	}
+	
+	public ScheduleEnquiry getScheduleEnquiry(String userId){
+		return scheduleEnquiryDAO.findByUserId(userId);
+	}
 
 }
