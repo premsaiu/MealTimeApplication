@@ -1,67 +1,27 @@
- <div class="row header-bg">
-		    <div class="col-md-3 col-sm-3">
-			    <img class="logo1" src="resources/images/logo.PNG">
-		    </div>
-		    <div class="col-md-9 col-sm-9">
-			    <h1 class="titile-01-admin">Meal Time Online Food Ordering Service</h1>
-			    <div class="btn-group pull-right dd-custom-s1" data-ng-show="status">
-					    	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="caret"></span>
-						    </button>
-							<ul class="dropdown-menu">
-								<li><a ui-sref="changepassword">Change Password</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#" id="openlink-1">Sign Out</a></li>
-							</ul>
-				    	</div>
-			    <ul class="list-6 pull-right" data-ng-show="status">
-			    	<li>Welcome</li>
-			    	<li>|</li>
-			    	<li>{{userName}}</li>
-			    	<li></li>
-			    </ul>
-			    
-		    </div>
-	    </div>
 
-<!--  <div class="row header-bg">
-		    <div class="col-md-3 col-sm-3">
-			    <div class="logo">Meal Time</div>
-		    </div>
-		    <div class="col-md-9 col-sm-9">
-			    <ul class="list-1">
-			    	<li><a href="#"><img src="resources/images/email.png">&nbsp; onlineorders@mealtime.com</a></li>
-			    	<li><img src="resources/images/tele.png">&nbsp; +91 40-41234567</li>
-			    	<li><img src="resources/images/iphone.png">&nbsp; +91 9123456789</li>
-			    	<li><img src="resources/images/phonetime.png">&nbsp; Daily - 6AM to 12PM</li>
-			    </ul>
-			    <div class="clearfix"></div>
-			    <h1 class="titile-01">Meal Time Online Food Ordering Service</h1>
-			    <li ng-show='status'>
-				    <div class="btn-group pull-right dd-custom-s1 open">
-			    	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						<span class="caret"></span>
-				    </button>
-					<ul class="dropdown-menu ">
-						<li><a ui-sref="profile">Profile</a></li>
-						</ul>
-		    		</div>
-			    	</li>
-			    	<div class="col-md-9 col-sm-9" ng-hide='status'>
-			    <div class="btn-group pull-right dd-custom-s1">
-					    	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<span class="caret"></span>
-						    </button>
-							<ul class="dropdown-menu ">
-								<li><a ui-sref="changepassword">Change Password</a></li>
-								<li role="separator" class="divider"></li>
-								<li><a href="#" id="openlink-1">Sign Out</a></li>
-							</ul>
-				    	</div>
-			   
-			    
-		    </div>
-	    
-			    <span style="float: right;">Welcome {{userName}}</span>
-		    </div>
-	    </div> -->
+<div class="row header-bg">
+	<div class="col-md-3 col-sm-3">
+		<div class="logo">Meal Time</div>
+	</div>
+	<div class="col-md-9 col-sm-9">
+		<h1 class="titile-01-admin">Meal Time Online Food Ordering
+			Service</h1>
+		<div class="btn-group pull-right dd-custom-s1">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu ">
+				<li><a href="change_password.html">Change Password</a></li>
+				<li role="separator" class="divider"></li>
+				<li><a href="#" id="openlink-1">Sign Out</a></li>
+			</ul>
+		</div>
+		<ul class="list-6 pull-right">
+			<li>Welcome</li>
+			<li>|</li>
+			<li>{{userName}}</li>
+			<li></li>
+		</ul>
+
+	</div>
+</div>

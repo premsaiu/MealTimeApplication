@@ -9,10 +9,11 @@
     <link href="resources/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <link href="resources/css/styles.css" rel="stylesheet">
     <link href="resources/css/responsive.css" rel="stylesheet">
-    <link href="resources/css/styles1.css" rel="stylesheet">
-    <link href="resources/css/responsive1.css" rel="stylesheet">
+   <!--  <link href="resources/css/styles1.css" rel="stylesheet">
+    <link href="resources/css/responsive1.css" rel="stylesheet"> -->
      <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
+    <link href="//fonts.googleapis.com/css?family=Cuprum" type="text/css" rel="stylesheet">
    
     
    <!--  <link rel="icon" type="image/png" href="resources/images/favicon-16x16.png" sizes="16x16"/>
@@ -31,21 +32,31 @@
 	   <div ui-view></div>
 	    	<!-- Home Modal -->
 			    <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false">
-				  <div class="modal-dialog max-w400">
-				    <div class="modal-content">
-				      <div class="modal-header">
+				  <div class="modal-dialog max-w480">
+				    <div class="modal-content alpha-bg">
+				      <div class="modal-header alpha-bg">
 				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-				        <h4 class="modal-title">Log Account</h4>
+				        <div class="logo-2 center-block">Meal Time</div>
 				      </div>
 				      <div class="modal-body">
 				      <span style="color:red;">{{loginError}}</span>
 				        <form name="myForm">
 				          <div class="form-group">
-				            <label for="recipient-name" class="control-label">Registered Mobile No:</label>
-				            <input type="number" class="form-control" id="mobileNo" name="mobileNo" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()">
+				            <label for="recipient-name" class="control-label center-block new-title-s4">Just let us know your 10 digit mobile number</label>
+				            <input type="number" class="form-control center-block" id="mobileNo" placeholder="+91" style="width: 50%;" name="mobileNo" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()">
+				      		  
+				      		  <div class="mt10">
+				      		  	<div class="center-block" style="max-width: 128px;">
+							        <button type="submit" class="btn btn-success" data-ng-click="checkUser()">Enter</button>
+							        <button type="submit" class="btn btn-success" data-ng-click="notNow()">Later</button>
+							        </div>
+				      		  	</div>
 				      		  </div>
-				      		   <span data-ng-show="myForm.mobileNo.$error.pattern" style="color:red">Not a valid number!</span>
+				      		  <div class="text-align-center">
+				      		  	<span data-ng-show="myForm.mobileNo.$error.pattern" style="color:red">Not a valid number!</span>
     							<span data-ng-show="myForm.mobileNo.$error.minlength" style="color:red">Enter 10 digit number </span>
+				      		  </div>
+				      		   
 				          
 				          <div class="form-group" data-ng-show="adminuser">
 				            <label for="recipient-name" class="control-label">Password:</label>
@@ -55,10 +66,6 @@
    
 				        </form>
 	
-				      </div>
-				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-success" data-ng-click="checkUser()">Submit</button>
-				        <button type="submit" class="btn btn-success" data-ng-click="notNow()">Later</button>
 				      </div>
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
