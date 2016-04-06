@@ -2,12 +2,12 @@
 <div class="row header-bg">
 	<div class="col-md-3 col-sm-3">
 		<!-- <div class="logo">Meal Time</div> -->
-		<a href="#" class="logo"> <!-- <img src="resources/images/logo.png" height="100%"> --> Meal Time</a>
+		<a data-ui-sref="home" class="logo"> <!-- <img src="resources/images/logo.png" height="100%"> --> Meal Time</a>
 	</div>
 	<div class="col-md-9 col-sm-9">
 		<h1 class="titile-01-admin">Meal Time Online Food Ordering
 			Service</h1>
-		<div class="btn-group pull-right dd-custom-s1">
+		<div class="btn-group pull-right dd-custom-s1" data-ng-show="status">
 			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<span class="caret"></span>
 			</button>
@@ -16,13 +16,13 @@
 				<li role="separator" class="divider"></li>
 				<li><a href="#" id="openlink-1">Sign Out</a></li>
 			</ul>
-		</div>
+		
 		<ul class="list-6 pull-right">
 			<li>Welcome</li>
 			<li>|</li>
 			<li>{{userName}}</li>
 			<li></li>
 		</ul>
-
+</div>
 	</div>
 </div>
