@@ -118,7 +118,15 @@
 	.btn_custom_margin { margin-right: 0px; }
 	.item-width { width: 100%; }
 
-		
+	.new-first-child, .new-first-child:hover {
+		margin-bottom: 5px !important;
+	    height: 120px;
+	    background-size: 43% !important;
+        background-position: center center !important;
+	}
+	.new-list-2 {
+		margin: 0 0 0 0;
+	}
 }
 
 /* Small devices - Tablets */
@@ -220,6 +228,16 @@
 	.btn_custom_margin { margin-right: 10px; }
 	.item-width { width: 50% !important; }
 	
+	.new-first-child, .new-first-child:hover {
+		margin-bottom: 5px !important;
+		height: 120px;
+	    background-size: 43% !important;
+        background-position: center center !important;
+	}
+	.new-list-2 {
+		margin: 0 0 0 0;
+	}
+	
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1024px) and (orientation : landscape) { 
@@ -267,6 +285,14 @@
 	    position: relative;
 	    top: 0;
 	    left: 0;
+	}
+	
+	.new-first-child, .new-first-child:hover {
+		height: 80px;
+	    background-size: 95% !important;
+	}
+	.new-list-2 {
+		margin: 50px 0 0 0;
 	}
 }
 
@@ -376,6 +402,15 @@
 	
 	.btn_custom_margin { margin-right: 10px; }
 	.item-width { width: 50% !important; }
+	
+	.new-first-child, .new-first-child:hover {
+		margin-bottom: 5px !important;
+		height: 80px;
+	    background-size: 95% !important;
+	}
+	.new-list-2 {
+		margin: 50px 0 0 0;
+	}
    	
 }
 

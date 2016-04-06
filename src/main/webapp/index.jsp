@@ -31,12 +31,13 @@
 	    
 	   <div ui-view></div>
 	    	<!-- Home Modal -->
-			    <div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false">
+			    <div class="modal fade bg-transition-s1" id="myModal" data-backdrop="static" data-keyboard="false">
 				  <div class="modal-dialog max-w480">
 				    <div class="modal-content alpha-bg">
 				      <div class="modal-header alpha-bg">
 				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-				        <div class="logo-2 center-block">Meal Time</div>
+				        <!-- <div class="logo-2 center-block">Meal Time</div> -->
+				        <a href="#" class="logo-2 center-block">Meal Time</a>
 				      </div>
 				      <div class="modal-body">
 				      <span style="color:red;">{{loginError}}</span>

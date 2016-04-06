@@ -33,94 +33,34 @@ just let us know your convenient time.</p>
 							  
 							  <div class="form-group">
 							    <label for="exampleInputname" class="new-label-s1">Date</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    DD <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a href="#">01</a></li>
-								    <li><a href="#">02</a></li>
-								    <li><a href="#">03</a></li>
-								  </ul>
+								<div class="btn-group pull-left custom-iconbg-s1">
+								  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 								</div>
-								
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    MM <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a href="#">01</a></li>
-								    <li><a href="#">02</a></li>
-								    <li><a href="#">03</a></li>
-								  </ul>
-								</div>
-								
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    YYYY <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a href="#">2000</a></li>
-								    <li><a href="#">2001</a></li>
-								    <li><a href="#">2002</a></li>
-								  </ul>
-								</div>
+							    <input type="text" name="date" required="" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="datetimePicker" data-ng-model="sched.date">
 							    <div class="clearfix"></div>
 							  </div>
 							  
 							  <div class="form-group">
 							    <label for="exampleInputname" class="new-label-s1">Time</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    00 <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a href="#">05</a></li>
-								    <li><a href="#">10</a></li>
-								    <li><a href="#">015</a></li>
-								  </ul>
+								<div class="btn-group pull-left custom-iconbg-s1">
+								  <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
 								</div>
-								
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    00 <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a href="#">01</a></li>
-								    <li><a href="#">02</a></li>
-								    <li><a href="#">03</a></li>
-								  </ul>
-								</div>
-								
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    AM <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a href="#">AM</a></li>
-								    <li><a href="#">PM</a></li>
-								  </ul>
-								</div>
+							    <input type="text" name="date" required="" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="timePicker" ng-model="sched.time">
 							    <div class="clearfix"></div>
 							  </div>
-							  
+							
 							  <div class="form-group">
 							    <label for="exampleInputname" class="new-label-s1">Area</label> <div class="clearfix"></div>
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
 								</div>
-								    <div class="btn-group pull-left">
-									  <button type="button" class="btn btn-default dropdown-toggle-s3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									    Madhapur <span class="caret"></span>
-									  </button>
-									  <ul class="dropdown-menu">
-									    <li><a href="#">Ameerpet</a></li>
-									    <li><a href="#">Madhuranagar</a></li>
-									    <li><a href="#">Banjara Hills</a></li>
-									  </ul>
-									</div>
-								    <div class="clearfix"></div>
-								  </div>
+							    <select class="new-select-s1">
+							    	<option>Madhapur</option>
+							    	<option>Ameerpet</option>
+							    	<option>Banjara Hills</option>
+							    </select>
+							    <div class="clearfix"></div>
+							  </div>
 							  
 							  <button type="submit" class="btn btn-success mt20 mr10">Conform</button>
 							  <button type="submit" class="btn btn-success mt20">Later</button>
