@@ -1,13 +1,17 @@
  <div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">    	
 						<h4 class="titile-02">Subscription From</h4>
+						<div id="succussSaveDiv" data-ng-show="successMsg" class="alert alert-success"></div>
+					    	<div data-ng-show="subscribeNowErrorMsg != ''" class="alert alert-danger" >
+			  								{{subscribeNowErrorMsg}}
+										</div>
 						<p>Breakfast with juice and dinner with dessert will be delivered for one month for a minimum cost of Rs.3650/- plus Rs.1000/- towards your wallet from which you can buy/add/customise 						items.
 							<br><br>
 							Recommendation: You may know more about our service by scheduling visit or even try our sample meal</p>
 						<br>
 						<div class="col-lg-6">
-							<form>
+							<form name="form" novalidate>
 							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Name</label> <div class="clearfix"></div>
+							    <label for="exampleInputname" class="new-label-s1">First Name</label> <div class="clearfix"></div>
 								<div class="btn-group pull-left">
 								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								    Ms. <span class="caret"></span>
@@ -18,7 +22,30 @@
 								    <li><a href="#">Mrs.</a></li>
 								  </ul>
 								</div>
-							    <input type="email" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="Mohan Das">
+							    <input type="text" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="Mohan Das" data-ng-model="firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
+						 		<span ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
+				  				<span ng-show="form.name.$dirty  && form.name.$error.required">First name is required.</span>
+								<span ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
+								<span ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
+							    <div class="clearfix"></div>
+							  </div>
+							    <div class="form-group">
+							    <label for="exampleInputname" class="new-label-s1">Last Name</label> <div class="clearfix"></div>
+								<div class="btn-group pull-left">
+								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    Ms. <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu">
+								    <li><a href="#">Ms.</a></li>
+								    <li><a href="#">Mr.</a></li>
+								    <li><a href="#">Mrs.</a></li>
+								  </ul>
+								</div>
+							    <input type="text" class="form-control pull-left new-input-s1"  placeholder="Das" data-ng-model="lastName" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="lastname" ng-minlength="3" required ng-maxlength="20">
+							<span ng-show="form.lastname.$dirty   &&    form.lastname.$error.pattern" style="color:red">Enter only String.</span>
+				  				<span ng-show="form.lastname.$dirty  && form.lastname.$error.required">Lastname is required.</span>
+								<span ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
+								<span ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
 							    <div class="clearfix"></div>
 							  </div>
 							  
@@ -27,37 +54,46 @@
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
 								</div>
-							    <input type="email" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="+91 9030399160">
+							    <input type="number" class="form-control pull-left new-input-s1" placeholder="+91 9030399160" data-ng-model="mobile" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
+						   
+						   <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
+						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
+				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 							    <div class="clearfix"></div>
 							  </div>
 							  
-							  <div class="form-group">
+							  <div class="form-group" id="sampledate">
 							    <label for="exampleInputname" class="new-label-s1">Date</label> <div class="clearfix"></div>
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 								</div>
-							    <input type="text" name="date" required="" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="datetimePicker" data-ng-model="sched.date">
+							    <input type="text" name="date" required="" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" name="date" required data-ng-model="date" id="subscribeDate" size="16">
 							    <div class="clearfix"></div>
+							    <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 							  </div>
 							  
-							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Time</label> <div class="clearfix"></div>
+							 
+							    <div class="form-group">
+							    <label for="exampleInputname" class="new-label-s1">Area</label> <div class="clearfix"></div>
 								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+								  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
 								</div>
-							    <input type="text" name="date" required="" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" id="timePicker" ng-model="sched.time">
+							    <select class="new-select-s1" id="area" name="area" required>
+							    	<option value="Madhapur">Madhapur</option>
+							    	<option value="Ameerpet">Ameerpet</option>
+							    	<option value="Banjara Hills">Banjara Hills</option>
+							    </select>
 							    <div class="clearfix"></div>
+							    <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
 							  </div>
 							  
-							  <button type="submit" class="btn btn-success mt20 mr10" data-ng-click="requestSubscribeNow();">Conform & Pay</button>
+							  <button type="submit" class="btn btn-success mt20 mr10" ng-disabled="form.$invalid" data-ng-click="requestSubscribeNow();">Conform & Pay</button>
 							  <button type="submit" class="btn btn-success mt20">Later</button>
-							  </div>
+							  
 							</form>
+							</div>
 						</div>
  
- 
-   
-
  <!-- OTP Modal -->
 			    <div class="modal fade" id="otpModal" data-backdrop="static" data-keyboard="false">
 				  <div class="modal-dialog max-w400">
@@ -76,7 +112,7 @@
 				        </form>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Enter</button>
+				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Submit</button>
 				        <button type="submit" class="btn btn-success" data-ng-click="closeModal('otpModal')">Cancel</button>
 				      </div>
 				    </div><!-- /.modal-content -->
@@ -103,3 +139,4 @@
 			});
 		});
 	</script>
+   
