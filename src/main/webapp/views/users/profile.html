@@ -2,9 +2,9 @@
    input.ng-invalid..ng-dirty{
     border: 1px solid red;
    }
-   span{
+  /*  span{
    color:red;	
-   }
+   } */
    </style>
 	    
 	    <div class="col-md-9 col-xs-12 bg-color-s1 pb20 pt10">
@@ -48,17 +48,18 @@
 		    	
 		    <div  class="col-md-4 col-xs-4">
 		    	<div class="clearfix">
-		    	<div class="profile-pic center-block">
+		    	<div class="profile-pic center-block" style="margin: 10px -40px;">
 		    	<img id="profilephoto" src="{{userProfilePic}}" alt="...">
 		    	 <div class="profile-btn-bg">
 				  
 					<label for="profilePic" class="profile-pic-btn"><u>Upload Picture</u></label>
 				    <input type="file" id="profilePic" class="hidden profile-pic-btn" file-model ng-model="profilePic">
 			    </div>
-			    </div>
 			    <h2 class="new-title-s1">Mohan Das</h2>
 			    <h4 class="new-title-s2">Subscribed</h4>
 			    <h4 class="new-title-s3">MT6789MAD2NVS1</h4>
+			    </div>
+			    
 			    	<br><br>
 			    	
 			    	
@@ -69,7 +70,7 @@
 		   
 		    	
 		    	<div class="col-md-8 col-xs-8" style="width: 48% !important;">
-		    	<form ng-submit="editProfile()" class="form-inline" novalidate >
+		    	<form name="form" ng-submit="editProfile()" class="form-inline" novalidate style="margin: 0px -50px;">
 		    	
 		    	
 		    	 <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 5px !important;">
@@ -82,32 +83,133 @@
 						  <!-- Tab panes -->
 						  <div class="tab-content">
 						    <div role="tabpanel" class="tab-pane active" id="breakfast">
-						 <div class="form-group">
-				    <input id="firstname" type="text" ng-model="editUser.firstName" name="firstname" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3"  ng-maxlength="20" class="form-control" placeholder="First Name">
-				  	 <span ng-show="form.firstname.$dirty && form.firstname.$error.pattern" style="color:red">Enter only string.</span>
-				  	 		<span ng-show="form.firstname.$dirty  && form.firstname.$error.minlength">Minimum Length should be of 3 characters</span>
-								<span ng-show="form.firstname.$dirty  && form.firstname.$error.maxlength">MaxLength should be of 20 characters</span>
-				  	</div>
-				  <div class="form-group">
-				    <input id="lastname" type="text" name="lastname" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3"  ng-maxlength="20" ng-model="editUser.lastName" class="form-control" placeholder="Last Name">
-				      <span ng-show=" form.lastname.$dirty && form.lastname.$error.pattern" style="color:red">Enter only string.</span>
-				      <span ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
-					  <span ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
-				  </div>
-				  
-				  <div class="form-group">
-				    <input id="mobilenumber" type="text" ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10" class="form-control" placeholder="Mobile Number">
-				       <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should Start with 7 or 8 or 9.</span>
+						
+							  <div class="form-group">
+									<label for="exampleInputname" class="new-label-s1">
+										First Name</label>
+									<div class="clearfix"></div>
+									<div class="btn-group pull-left">
+										<button type="button"
+											class="btn btn-default dropdown-toggle-s1"
+											data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false">
+											Ms. <span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li><a href="#">Ms.</a></li>
+											<li><a href="#">Mr.</a></li>
+											<li><a href="#">Mrs.</a></li>
+										</ul>
+									</div>
+									<input type="text" id="firstname"
+										class="form-control pull-left new-input-s1"
+										ng-model="editUser.firstName" name="firstname"
+										autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/"
+										ng-minlength="3" ng-maxlength="20">
+									<div class="clearfix"></div>
+									<span ng-show="form.firstname.$dirty && form.firstname.$error.pattern"
+										style="color: red">Enter only string.</span> <span
+										ng-show="form.firstname.$dirty  && form.firstname.$error.minlength">Minimum
+										Length should be of 3 characters</span> <span
+										ng-show="form.firstname.$dirty  && form.firstname.$error.maxlength">MaxLength
+										should be of 20 characters</span>
+								</div>
+							  	  
+							  <div class="form-group">
+							    <label for="exampleInputname" class="new-label-s1">Last Name</label> <div class="clearfix"></div>
+								<div class="btn-group pull-left">
+								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								    Ms. <span class="caret"></span>
+								  </button>
+								  <ul class="dropdown-menu">
+								    <li><a href="#">Ms.</a></li>
+								    <li><a href="#">Mr.</a></li>
+								    <li><a href="#">Mrs.</a></li>
+								  </ul>
+								</div>
+							    <input id="lastname" type="text" name="lastname" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3"  ng-maxlength="20" ng-model="editUser.lastName" class="form-control pull-left new-input-s1">
+							    <div class="clearfix"></div>
+							    <span ng-show=" form.lastname.$dirty && form.lastname.$error.pattern" style="color:red">Enter only string.</span>
+				     		    <span ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
+					           <span ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
+							  </div>
+							  
+							  <div class="form-group">
+							    <label for="exampleInputname" class="new-label-s1">Email</label> <div class="clearfix"></div>
+								<div class="btn-group pull-left custom-iconbg-s1">
+								  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+								</div>
+							    <input type="email" class="form-control pull-left new-input-s1" id="email"  ng-model="editUser.email" placeholder="mohandas@corprel.com">
+							    <div class="clearfix"></div>
+							  </div>
+							 
+							  <div class="form-group">
+							    <label for="exampleInputname" class="new-label-s1">Phone Number</label> <div class="clearfix"></div>
+								<div class="btn-group pull-left custom-iconbg-s1">
+								  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+								</div>
+							    <input type="number" class="form-control pull-left new-input-s1" id="mobilenumber" type="text" ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  placeholder="Mobile Number">
+							    <div class="clearfix"></div>
+							    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should Start with 7 or 8 or 9.</span>
 				       	  	<span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
-				  </div>
-				  <div class="form-group">
-				    <input id="email" type="text" ng-model="editUser.email" class="form-control" placeholder="E-Mail">
-				   <span ng-show="form.email.$dirty  && form.email.$error.$invalid">Invalid Email</span>
-				  </div>	
-				  <div class="form-group">
-				    <textarea id="address" ng-model="editUser.address" class="form-control" rows="3"placeholder="Address" name="address" autocomplete="off" ng-maxlength="250"></textarea>
-				    		  <span ng-show="form.address.$dirty && form.address.$error.maxlength">Maximum Length is 250 characters</span>
-				  </div>
+							  </div>
+							  <div class="form-group">
+							    <label for="exampleInputname" class="new-label-s1">Address</label> <div class="clearfix"></div>
+								
+							     <textarea id="address" ng-model="editUser.address" class="form-control" rows="3"placeholder="Address" name="address" autocomplete="off" ng-maxlength="250"></textarea>
+				    		  <span ng-show="form.address.$dirty && form.address.$error.maxlength">Maximum Length is 250 characters</span></div>
+							   
+							 <!--   <div class="form-group">
+							    <label for="exampleInputname" class="new-label-s1">Area</label> <div class="clearfix"></div>
+								<div class="btn-group pull-left custom-iconbg-s1">
+								  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+								</div>
+							    <select class="new-select-s1">
+							    	<option>Madhapur</option>
+							    	<option>Ameerpet</option>
+							    	<option>Banjara Hills</option>
+							    </select>
+							    <div class="clearfix"></div>
+							  </div>
+							   
+							  <div class="form-group">
+								<div class="btn-group pull-left">
+								  <input type="text" class="form-control pull-left new-input-s1 w336" style="min-width: 320px;" id="exampleInputname" placeholder="line 02">
+								</div>
+								
+							    <div class="clearfix"></div>
+							  </div>
+							  
+							  <div class="form-group">
+								<div class="btn-group pull-left custom-iconbg-s1">
+								  <span class="glyphicon new-city-icon" aria-hidden="true"></span>
+								</div>
+							    <select class="new-select-s1">
+							    	<option>City</option>
+							    	<option>Madhapur</option>
+							    	<option>Ameerpet</option>
+							    	<option>Banjara Hills</option>
+							    </select>
+							    <div class="clearfix"></div>
+							  </div>
+							  
+							  <div class="form-group">
+								<div class="btn-group pull-left custom-iconbg-s1">
+								  <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+								</div>
+							    <select class="new-select-s1">
+							    	<option>State &amp; Country</option>
+							    	<option>Andhrapradesh, India</option>
+							    	<option>Ny, United States</option>
+							    	<option>WD, Canada</option>
+							    </select>
+							    <div class="clearfix"></div>
+							  </div> -->
+
+							
+						
+						
+						
 						    </div> <!-- end tab content -->
 						    
 						    <div role="tabpanel" class="tab-pane" id="supplimentary">
@@ -141,6 +243,7 @@
 	    </div>
 	    </div>
 	    <!-- OTP Modal -->
+			    <!-- OTP Modal -->
 			    <div class="modal fade" id="otpModal" data-backdrop="static" data-keyboard="false">
 				  <div class="modal-dialog max-w400">
 				    <div class="modal-content">
