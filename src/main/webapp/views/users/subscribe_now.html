@@ -9,7 +9,7 @@
 							Recommendation: You may know more about our service by scheduling visit or even try our sample meal</p>
 						<br>
 						<div class="col-lg-6">
-							<form name="form" novalidate>
+							<form role="form" name="form" novalidate>
 							  <div class="form-group">
 							    <label for="exampleInputname" class="new-label-s1">First Name</label> <div class="clearfix"></div>
 								<div class="btn-group pull-left">
@@ -17,9 +17,9 @@
 								    Ms. <span class="caret"></span>
 								  </button>
 								  <ul class="dropdown-menu">
-								    <li><a href="#">Ms.</a></li>
-								    <li><a href="#">Mr.</a></li>
-								    <li><a href="#">Mrs.</a></li>
+								    <li><a>Ms.</a></li>
+								    <li><a>Mr.</a></li>
+								    <li><a>Mrs.</a></li>
 								  </ul>
 								</div>
 							    <input type="text" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="Mohan Das" data-ng-model="firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
@@ -36,12 +36,12 @@
 								    Ms. <span class="caret"></span>
 								  </button>
 								  <ul class="dropdown-menu">
-								    <li><a href="#">Ms.</a></li>
-								    <li><a href="#">Mr.</a></li>
-								    <li><a href="#">Mrs.</a></li>
+								    <li><a >Ms.</a></li>
+								    <li><a >Mr.</a></li>
+								    <li><a >Mrs.</a></li>
 								  </ul>
 								</div>
-							    <input type="text" class="form-control pull-left new-input-s1"  placeholder="Das" data-ng-model="lastName" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="lastname" ng-minlength="3" required ng-maxlength="20">
+							    <input type="text" class="form-control pull-left new-input-s1"  placeholder="Das" data-ng-model="lastName" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="lastname" ng-minlength="3" ng-maxlength="20" required="">
 							<span ng-show="form.lastname.$dirty   &&    form.lastname.$error.pattern" style="color:red">Enter only String.</span>
 				  				<span ng-show="form.lastname.$dirty  && form.lastname.$error.required">Lastname is required.</span>
 								<span ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
@@ -54,7 +54,7 @@
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
 								</div>
-							    <input type="number" class="form-control pull-left new-input-s1" placeholder="+91 9030399160" data-ng-model="mobile" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
+							    <input type="number" class="form-control pull-left new-input-s1" placeholder="+91 9030399160" data-ng-model="mobile" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" name="mobileno" required="">
 						   
 						   <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
 						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
@@ -67,9 +67,9 @@
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 								</div>
-							    <input type="text" name="date" required="" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" name="date" required data-ng-model="date" id="subscribeDate" size="16">
+							    <input type="text" name="date" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" data-ng-model="date" id="subscribeDate" size="16">
 							    <div class="clearfix"></div>
-							    <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
+							    <!-- <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span> -->
 							  </div>
 							  
 							 
@@ -78,7 +78,7 @@
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
 								</div>
-							    <select class="new-select-s1" id="area" name="area" required>
+							    <select class="new-select-s1" id="area" name="area" required="">
 							    	<option value="Madhapur">Madhapur</option>
 							    	<option value="Ameerpet">Ameerpet</option>
 							    	<option value="Banjara Hills">Banjara Hills</option>
@@ -87,7 +87,7 @@
 							    <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
 							  </div>
 							  
-							  <button type="submit" class="btn btn-success mt20 mr10" ng-disabled="form.$invalid" data-ng-click="requestSubscribeNow();">Conform & Pay</button>
+							  <button type="submit" class="btn btn-success mt20 mr10" data-ng-disabled="form.$invalid">Conform & Pay</button>
 							  <button type="submit" class="btn btn-success mt20">Later</button>
 							  
 							</form>

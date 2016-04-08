@@ -21,9 +21,9 @@
 								    Ms. <span class="caret"></span>
 								  </button>
 								  <ul class="dropdown-menu">
-								    <li><a href="#">Ms.</a></li>
-								    <li><a href="#">Mr.</a></li>
-								    <li><a href="#">Mrs.</a></li>
+								    <li><a >Ms.</a></li>
+								    <li><a >Mr.</a></li>
+								    <li><a >Mrs.</a></li>
 								  </ul>
 								</div>
 							    <input type="text" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="Mohan Das" ng-model="sampleMeal.name"   ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
@@ -51,9 +51,10 @@
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 								</div>
-							    <input type="text" name="date" required="" class="form-control pull-left new-input-s1 input-medium"  name="date" required class="input-medium" ng-model="sampleMeal.date" id="sampleMealDate">
+							    <input type="text" name="date" class="form-control pull-left new-input-s1 input-medium" class="input-medium" ng-model="sampleMeal.date" id="sampleMealDate">
 							    <div class="clearfix"></div>
-							    <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
+							    <!-- <span ng-show="sampleMeal.date == ''">Date is required.</span> -->
+							     <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 							  </div>
 							  
 							  <div class="form-group">
@@ -71,7 +72,7 @@
 							  </div>
 							  
 							  <button type="submit" class="btn btn-success mt20 mr10" ng-disabled="form.$invalid"  ng-click="requestSampleMeal()">Conform & Pay</button>
-							  <button type="submit" class="btn btn-success mt20">Later</button>
+							  <button type="submit" class="btn btn-success mt20">Later</button>{{sampleMeal.date}}
 							 
 							</form>
 							 </div>
@@ -117,7 +118,7 @@
 			var curr_month = d.getMonth() + 1;
 			var curr_year = d.getFullYear();
 			var today = curr_day + "-" + curr_month + "-" + curr_year;
-			$("div.datepicker input").attr('value', today);
+			$("div.datepicker input").attr('text',today);
 			
 			$('#samplemeal').datetimepicker({
 				autoclose: true,
