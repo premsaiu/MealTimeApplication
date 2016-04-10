@@ -1,7 +1,19 @@
 'use strict';
 
-angular.module('miniMealApp.addprofileCtrl', []).
-controller('AddProfileCtrl', function ($scope,$state,$rootScope,UserService) {
+angular.module('miniMealApp.addprofileCtrl', ['ngStorage']).
+controller('AddProfileCtrl', function ($scope, $rootScope, $state, UserService, $localStorage) {
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
+	
 	$scope.addUser = angular.copy($rootScope.user);
 	$scope.addProfileErrorMsg = "";
 	$scope.addProfile = function(){

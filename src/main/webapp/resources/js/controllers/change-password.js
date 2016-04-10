@@ -1,7 +1,18 @@
 'use strict';
 
-angular.module('miniMealApp.changepwdCtrl', []).
-controller('ChangePwdCtrl', function ($scope, $rootScope,UserService) {
+angular.module('miniMealApp.changepwdCtrl', ['ngStorage']).
+controller('ChangePwdCtrl', function ($scope, $rootScope, $state, $localStorage, UserService) {
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
 	
 	var obj={};
 	$scope.chgpwd = function(){

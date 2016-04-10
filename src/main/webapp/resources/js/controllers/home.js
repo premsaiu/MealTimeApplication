@@ -1,8 +1,7 @@
 'use strict';
 
-angular.module('miniMealApp.homeCtrl', []).
-
-controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
+angular.module('miniMealApp.homeCtrl', ['ngStorage']).
+controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, UserService, CommonCode) {
 	
     $('.menuSelect').click(function(){
     	$('.menuSelect').removeClass('active');
@@ -14,9 +13,12 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
          $(this).addClass("active");
     });
     
-	$rootScope.status=true;
-	$rootScope.regUser = false;
-	$rootScope.modalShow = function(){
+    /*$localStorage.status = true;
+    $localStorage.regUser = false;
+    $rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;*/
+    
+    $rootScope.modalShow = function(){
 		$('#myModal').modal('show');
 	}
 	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
@@ -25,19 +27,25 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 	$rootScope.notNow = function(){
 		$('#myModal').modal('hide');
 		$(".adminsection").hide();
-		$rootScope.newmenu = true;
-		$rootScope.status=false;
-		$state.go('home');
+		$localStorage.newmenu = true;
+		$localStorage.status = true;
+		$localStorage.userName = "Visitor";
+		//$rootScope.status = $localStorage.status;
+		//$rootScope.newmenu = $localStorage.newmenu;
+		$state.go('ourstory');
 	}
 	$rootScope.adminchk=function(){
 		UserService.adminchk($scope.mobileNumber).then(
 	            function(response) {
-	            	$rootScope.loggedUser = true;
+	            	//$rootScope.loggedUser = true;
+	            	$localStorage.loggedUser = true;
 	            	if(response.data == "" || response.data == null){
-	            		$rootScope.adminuser = "";
+	            		//$rootScope.adminuser = "";
+	            		$localStorage.adminuser = "";
 	            	}else{
-	            		$rootScope.adminuser = response.data;
-	            		console.log($rootScope.adminuser);
+	            		//$rootScope.adminuser = response.data;
+	            		$localStorage.adminuser = response.data;
+	            		console.log($localStorage.adminuser);
 	            	}
 	           },
 	            function(errResponse){
@@ -50,21 +58,24 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		
 		if(angular.isDefined($scope.mobileNumber)){
+			//$rootScope.mobileNumber = $scope.mobileNumber;
 			$rootScope.mobileNumber = $scope.mobileNumber;
-		
 		if($scope.password){
-			UserService.checkAdmin($scope.mobileNumber,$scope.password).then(
+			UserService.checkAdmin($scope.mobileNumber, $scope.password).then(
 	            function(response) {
-	            	$rootScope.loggedUser = true;
+	            	$localStorage.loggedUser = true;
 	            	if(response.data.data == "" || response.data.data == null){
 	            		console.log("Visitor");
 	            		$rootScope.loginError = "Invalid Credentials. Please try again later";
 	            	}else{
-	            		$rootScope.user = response.data.data;
-	            		console.log($rootScope.user);
-	            		$rootScope.status=false;
+	            		$localStorage.user = response.data.data;
+	            		console.log($localStorage.user);
+	            		/*$rootScope.status=false;
 	            		$rootScope.regUser = true;
-	            		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+	            		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;*/
+	            		$localStorage.status = false;
+	            		$localStorage.regUser = true;
+	            		$localStorage.userName = $localStorage.user.firstName+" "+$localStorage.user.lastName;
 	            		$('#myModal').modal('hide');
 	            		$state.go('adminhome')
 	            		}
@@ -81,32 +92,44 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 								if(response1.data.data.userSubscription == null || (response1.data.data.userSubscription.status.toLowerCase() != "success" 
 									&& response1.data.data.userSubscription.confirmation == false)){
 									$(".adminsection").hide();
-									$rootScope.newmenu = true;
+									/*$rootScope.newmenu = true;
 									$rootScope.status=false;
-									$rootScope.profileShow = true;
+									$rootScope.profileShow = true;*/
+									$localStorage.newmenu = true;
+									$localStorage.status = true;
+									$localStorage.profileShow = true;
 									$state.go('ourstory');
 								}else if(response1.data.data.userSubscription == null){
 									$(".adminsection").hide();
-									$rootScope.newmenu = true;
+									/*$rootScope.newmenu = true;
 									$rootScope.status=false;
-									$rootScope.profileShow = true;
+									$rootScope.profileShow = true;*/
+									$localStorage.newmenu = true;
+									$localStorage.status = true;
+									$localStorage.profileShow = true;
 									$state.go('ourstory');
 								}
 							});
 	                	}
 	                	
-	                	$rootScope.loggedUser = true;
+	                	//$rootScope.loggedUser = true;
+	                	$localStorage.loggedUser = true;
 	                	/*if(response.data == "" || response.data == null){
 	                		$rootScope.userName = "Visitor";
 	                	}else{*/
-	                		$rootScope.user = response.data;
-	                		console.log($rootScope.user);
-	                		if($rootScope.user.roleId == 3){
-	                			$rootScope.userName = "Visitor";
+	                		$localStorage.user = response.data;
+	                		//$rootScope.user = $localStorage.user;
+	                		console.log($localStorage.user);
+	                		if($localStorage.user.roleId == 3){
+	                			//$rootScope.userName = "Visitor";
+	                			$localStorage.userName = "Visitor";
 	                		}else{
-		                		$rootScope.status=true;
+		                		/*$rootScope.status=true;
 		                		$rootScope.regUser = true;
-		                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+		                		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;*/
+	                			$localStorage.status = true;
+	                			$localStorage.regUser = true;
+	                			$localStorage.userName = $localStorage.user.firstName+" "+$localStorage.user.lastName;
 	                		}
 	                	//}
 	               },
@@ -118,10 +141,12 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 		}
 	  }
 	  else{
-		  $('#myModal').modal('hide');
+		  	$('#myModal').modal('hide');
 			$(".adminsection").hide();
-			$rootScope.newmenu = true;
-			$rootScope.status=false;
+			/*$rootScope.newmenu = true;
+			$rootScope.status=false;*/
+			$localStorage.newmenu = true;
+			$localStorage.status = true;
 			$state.go('home');
 	  }
 	}
@@ -149,15 +174,21 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
 		UserService.checkUser(mobileNumber).then(
             function(response) {
             	if(response.data != ""){
-            		$rootScope.loggedUser = true;
-            		$rootScope.user = response.data;
-            		console.log($rootScope.user);
-            		if($rootScope.user.roleId == 3){
-            			$rootScope.userName = "Visitor";
+            		/*$rootScope.loggedUser = true;
+            		$rootScope.user = response.data;*/
+            		$localStorage.loggedUser = true;
+            		$localStorage.user = response.data;
+            		console.log($localStorage.user);
+            		if($localStorage.user.roleId == 3){
+            			//$rootScope.userName = "Visitor";
+            			$localStorage.userName = "Visitor";
             		}else{
-            			$rootScope.status=true;
+            			/*$rootScope.status=true;
             			$rootScope.regUser = true;
-            			$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
+            			$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;*/
+            			$localStorage.status = true;
+            			$localStorage.regUser = true;
+            			$localStorage.userName = $localStorage.user.firstName+" "+$localStorage.user.lastName;
             		}
             	}
            },
@@ -166,4 +197,24 @@ controller('HomeCtrl',  function ($scope,$rootScope,$state,UserService) {
             }
        );
 	}
+	$rootScope.logout = function(){
+		$localStorage.$reset();
+		window.location.assign("")
+	}
+	
+	/*function logout(){
+		CommonCode.logout();
+	}*/
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
+	
 })

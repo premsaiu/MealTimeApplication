@@ -1,8 +1,19 @@
 'use strict';
 
-angular.module('miniMealApp.ammealCtrl', []).
+angular.module('miniMealApp.ammealCtrl', ['ngStorage']).
   
-controller('AmMealCtrl', function ($rootScope,$scope,$http,$state,UserService) {
+controller('AmMealCtrl', function ($scope, $rootScope, $state, $localStorage, UserService) {
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
 	
 	if ($rootScope.loggedUser == undefined || $rootScope.loggedUser == false || $rootScope.userName == "Visitor") {
 		if(!angular.isDefined($rootScope.user)) $state.go("profile");

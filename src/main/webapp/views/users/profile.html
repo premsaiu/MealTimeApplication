@@ -148,7 +148,7 @@
 								<div class="btn-group pull-left custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
 								</div>
-							    <input type="number" class="form-control pull-left new-input-s1" id="mobilenumber" type="text" ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  placeholder="Mobile Number">
+							    <input class="form-control pull-left new-input-s1" id="mobilenumber" type="text" ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  placeholder="Mobile Number">
 							    <div class="clearfix"></div>
 							    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should Start with 7 or 8 or 9.</span>
 				       	  	<span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>

@@ -1,6 +1,17 @@
 angular.module('miniMealApp.sampleMealCtrl', ['ngStorage']).
 
-controller('SampleMealCtrl',  function ($scope, $rootScope, $state, UserService, $localStorage, $filter, $timeout) {
+controller('SampleMealCtrl',  function ($scope, $rootScope, $state, $localStorage, $filter, $timeout, UserService) {
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
 	
 	$scope.sampleMealErrorMsg = "";
 	

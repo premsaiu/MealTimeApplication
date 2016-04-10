@@ -27,7 +27,7 @@
     <div class="container custom-container mt20 mb20">
 	   <div ng-include="'views/users/header.html'"></div>
 	   <div ng-include="'views/users/left-menu.html'"></div>
-	   <div ng-include="'views/users/left-menu-new.html'"></div>
+	   <!-- <div ng-include="'views/users/left-menu-new.html'"></div> -->
 	    
 	   <div ui-view></div>
 	    	<!-- Home Modal -->

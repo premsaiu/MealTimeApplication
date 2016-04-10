@@ -1,5 +1,22 @@
-
-<div class="col-md-3 col-xs-12" ng-show='newmenu'>
+<div class="col-md-3 col-xs-12" ng-show="status">		 
+  <ul class="list-2" ng-hide="newmenu">
+			    	<li><img src="resources/images/line.png" class="hidden-sm img-responsive center-block">
+				    	<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
+				    	<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png"><img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
+			    	</li>
+			    	<li><a ui-sref="home" class="active menuSelect">Home</a></li>
+			    	<li><a ui-sref="aboutus" class="menuSelect">About Us</a></li>
+			    	<!-- <li><a ui-sref="profile">Profile</a></li> -->
+			    	<li><a ui-sref="breakfast" class="menuSelect">AM Meal</a></li>
+			    	<li><a ui-sref="dinner" class="menuSelect">PM Meal</a></li>
+			    	<li><a ui-sref="payment" class="menuSelect">Payment</a></li>
+			    	<li><a ui-sref="contactus" class="menuSelect">Contact US</a></li>
+			    	<li><img src="resources/images/line.png" class="hidden-sm img-responsive center-block">
+			    		<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png"><img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
+			    		<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
+			    	</li>
+			    </ul>
+	<div  ng-show="newmenu">
 	<ul class="new-list-2">
 		<li><a data-ui-sref="ourstory" class="new-first-child page1menu">OurStory</a></li>
 		<li><a data-ng-click="modalShow()" class="new-second-child page1menu" ng-hide="profileShow">Login</a></li>
@@ -20,28 +37,10 @@
 	</div>
 
 </div>
-<div class="col-md-3 col-xs-12" ng-show='status'>		 
-  <ul class="list-2">
-			    	<li><img src="resources/images/line.png" class="hidden-sm img-responsive center-block">
-				    	<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
-				    	<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png"><img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
-			    	</li>
-			    	<li><a ui-sref="home" class="active menuSelect">Home</a></li>
-			    	<li><a ui-sref="aboutus" class="menuSelect">About Us</a></li>
-			    	<!-- <li><a ui-sref="profile">Profile</a></li> -->
-			    	<li><a ui-sref="breakfast" class="menuSelect">AM Meal</a></li>
-			    	<li><a ui-sref="dinner" class="menuSelect">PM Meal</a></li>
-			    	<li><a ui-sref="payment" class="menuSelect">Payment</a></li>
-			    	<li><a ui-sref="contactus" class="menuSelect">Contact US</a></li>
-			    	<li><img src="resources/images/line.png" class="hidden-sm img-responsive center-block">
-			    		<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png"><img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
-			    		<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
-			    	</li>
-			    </ul>
 </div>
 		    
 		    
-<div class="col-md-3 col-xs-12 adminsection" ng-hide='status'>
+<div class="col-md-3 col-xs-12 adminsection" ng-hide="status">
 			    <ul class="list-2">
 			    	<li><img src="resources/images/line.png" class="hidden-sm img-responsive center-block">
 				    	<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">

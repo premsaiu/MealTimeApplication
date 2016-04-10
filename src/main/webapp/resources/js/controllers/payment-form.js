@@ -1,7 +1,18 @@
 'use strict';
 
-angular.module('miniMealApp.paymentformCtrl', []).
-controller('PaymentFormCtrl', function ($scope,$state,$rootScope,UserService,AdminService) {
+angular.module('miniMealApp.paymentformCtrl', ['ngStorage']).
+controller('PaymentFormCtrl', function ($scope, $rootScope, $state, $localStorage, UserService, AdminService) {
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
 	
 	$scope.submitPay = function(){
 		var paymentForm = {};

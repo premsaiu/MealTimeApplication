@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('miniMealApp.services',[])
+angular.module('miniMealApp.services', ['ngStorage'])
 .service('UserService', ['$http', '$q', function($http, $q){
 	var baseURL = "http://localhost:8080/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
@@ -351,4 +351,13 @@ service('AdminService', ['$http', '$q', function($http, $q){
         return request;
     };
 	
-}]);
+}])
+.factory('CommonCode', function ($window, $localStorage) {
+        var root = {};
+        root.logout = function(){
+            $window.alert("In Common Code Logout()");
+            $localStorage.$reset();
+    		window.location.assign("");
+        };
+        return root;
+});

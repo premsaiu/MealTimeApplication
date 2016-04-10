@@ -1,7 +1,19 @@
 'use strict';
 
-angular.module('miniMealApp.adminprofileCtrl', []).
-controller('AdminProfileCtrl', function ($scope,$state,$rootScope,UserService,AdminService) {
+angular.module('miniMealApp.adminprofileCtrl', ['ngStorage']).
+controller('AdminProfileCtrl', function ($scope, $rootScope, $state, $localStorage, UserService, AdminService) {
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
+	
 	$scope.isSelectedUser = false;
 	$scope.isEditForm=false;
 	$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];

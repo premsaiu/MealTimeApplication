@@ -1,7 +1,18 @@
 'use strict';
 
-angular.module('miniMealApp.paymentCtrl', []).
-controller('PaymentCtrl', function ($scope, $state, $rootScope, UserService) {
+angular.module('miniMealApp.paymentCtrl', ['ngStorage']).
+controller('PaymentCtrl', function ($scope, $rootScope, $state, $localStorage, UserService) {
+	
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
 	
 	if(angular.isDefined($rootScope.user) && $rootScope.user.roleId == 3){
 		//location.href = "#/addprofile";

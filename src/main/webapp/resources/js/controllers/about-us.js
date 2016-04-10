@@ -1,9 +1,17 @@
 'use strict';
 
-angular.module('miniMealApp.aboutusCtrl', []).
-
-	controller('AboutUsCtrl', function ($scope,$http) {
+angular.module('miniMealApp.aboutusCtrl', ['ngStorage']).
+controller('AboutUsCtrl', function ($scope, $rootScope, $localStorage) {
 	
-	alert("In About Us Controller");
+	$rootScope.loggedUser = $localStorage.loggedUser;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.newmenu = $localStorage.newmenu;
+	$rootScope.status = $localStorage.status;
+	$rootScope.adminuser = $localStorage.adminuser;
+	$rootScope.mobileNumber = $localStorage.mobileNumber;
+	$rootScope.user = $localStorage.user;
+	$rootScope.regUser = $localStorage.regUser;
+	$rootScope.userName = $localStorage.userName;
+	$rootScope.profileShow = $localStorage.profileShow;
 	
   });

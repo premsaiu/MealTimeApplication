@@ -138,14 +138,13 @@ angular.module('miniMealApp', ['miniMealApp.services',
 		}
 	});*/
     // register listener to watch route changes
-	$rootScope.$on('$stateChangeStart', 
-			function(event, toState, toParams, fromState, fromParams){
-				/*if (toState.url != "/home") {
-					//if (($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) &&  toState.url != "/home") {
-					console.log("User does not logged in.. Redirecting to home.. ");
-			    	$location.path("/");
-			    }*/
-			});
+	/*$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+			//if (toState.url != "/home") {
+			if (($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) &&  toState.url != "/home") {
+				console.log("User does not logged in.. Redirecting to home.. ");
+		    	$location.path("/");
+		    }	
+	});*/
  });
 //});
 //fucntion checks whether user logged in before routing
