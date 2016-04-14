@@ -3,8 +3,8 @@
 
 angular.module('miniMealApp.subscribeNowCtrl', ['ngStorage']).
 
-controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStorage, $timeout, $filter, UserService) {
-	
+controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStorage, $timeout, $filter, UserService, commonCode) {
+	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
 	$rootScope.newmenu = $localStorage.newmenu;

@@ -2,8 +2,8 @@
 
 angular.module('miniMealApp.contactusCtrl', ['ngStorage']).
 
-controller('ContactCtrl', function ($scope, $rootScope, $state, $localStorage, UserService) {
-	
+controller('ContactCtrl', function ($scope, $rootScope, $state, $localStorage, UserService, commonCode) {
+	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
 	$rootScope.newmenu = $localStorage.newmenu;

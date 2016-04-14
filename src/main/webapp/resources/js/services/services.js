@@ -2,7 +2,7 @@
 
 angular.module('miniMealApp.services', ['ngStorage'])
 .service('UserService', ['$http', '$q', function($http, $q){
-	var baseURL = "http://localhost:8080/MealTimeApplication/";
+	var baseURL = "http://localhost:8181/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
         var request = $http({
             method:"get",
@@ -352,10 +352,9 @@ service('AdminService', ['$http', '$q', function($http, $q){
     };
 	
 }])
-.factory('CommonCode', function ($window, $localStorage) {
+.factory('commonCode', function ($window, $localStorage) {
         var root = {};
         root.logout = function(){
-            $window.alert("In Common Code Logout()");
             $localStorage.$reset();
     		window.location.assign("");
         };

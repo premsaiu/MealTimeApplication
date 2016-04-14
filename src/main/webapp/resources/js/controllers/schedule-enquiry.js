@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
-.controller('ScheduleEnquiryCtrl',function ($scope, $rootScope, $state, $localStorage, $timeout, $filter, UserService) {
-	
+.controller('ScheduleEnquiryCtrl',function ($scope, $rootScope, $state, $localStorage, $timeout, $filter, UserService, commonCode) {
+	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
 	$rootScope.newmenu = $localStorage.newmenu;

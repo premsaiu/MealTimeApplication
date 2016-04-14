@@ -27,7 +27,6 @@
     <div class="container custom-container mt20 mb20">
 	   <div ng-include="'views/users/header.html'"></div>
 	   <div ng-include="'views/users/left-menu.html'"></div>
-	   <!-- <div ng-include="'views/users/left-menu-new.html'"></div> -->
 	    
 	   <div ui-view></div>
 	    	<!-- Home Modal -->
@@ -45,10 +44,14 @@
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label center-block new-title-s4">Just let us know your 10 digit mobile number</label>
 				            <input type="number" class="form-control center-block" id="mobileNo" placeholder="+91" style="width: 50%;" name="mobileNo" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()">
+					          <div class="form-group" data-ng-show="adminuser">
+					            <label for="recipient-name" class="control-label">Password:</label>
+					            <input type="password" class="form-control" id="password" ng-model="password">
+					          </div>
 				      		  
 				      		  <div class="mt10">
 				      		  	<div class="center-block" style="max-width: 128px;">
-							        <button type="submit" class="btn btn-success" data-ng-click="checkUser()">Enter</button>
+							        <button type="submit" class="btn btn-success" ng-disabled="myForm.$invalid" data-ng-click="checkUser()">Enter</button>
 							        <button type="submit" class="btn btn-success" data-ng-click="notNow()">Later</button>
 							        </div>
 				      		  	</div>
@@ -59,10 +62,6 @@
 				      		  </div>
 				      		   
 				          
-				          <div class="form-group" data-ng-show="adminuser">
-				            <label for="recipient-name" class="control-label">Password:</label>
-				            <input type="password" class="form-control" id="password" ng-model="password">
-				          </div>
 				          
    
 				        </form>

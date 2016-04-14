@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('miniMealApp.paymentCtrl', ['ngStorage']).
-controller('PaymentCtrl', function ($scope, $rootScope, $state, $localStorage, UserService) {
-	
+controller('PaymentCtrl', function ($scope, $rootScope, $state, $localStorage, UserService, commonCode) {
+	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
 	$rootScope.newmenu = $localStorage.newmenu;

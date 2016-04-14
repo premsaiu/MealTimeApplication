@@ -2,8 +2,8 @@
 
 angular.module('miniMealApp.pmmealCtrl', ['ngStorage']).
 
-controller('PmMealCtrl', function ($scope, $rootScope, $state, $localStorage, UserService) {
-	
+controller('PmMealCtrl', function ($scope, $rootScope, $state, $localStorage, UserService, commonCode) {
+	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
 	$rootScope.newmenu = $localStorage.newmenu;

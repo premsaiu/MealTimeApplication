@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('miniMealApp.changepwdCtrl', ['ngStorage']).
-controller('ChangePwdCtrl', function ($scope, $rootScope, $state, $localStorage, UserService) {
-	
+controller('ChangePwdCtrl', function ($scope, $rootScope, $state, $localStorage, UserService, commonCode) {
+	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
 	$rootScope.newmenu = $localStorage.newmenu;

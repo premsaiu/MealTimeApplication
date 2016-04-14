@@ -12,10 +12,10 @@
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu ">
-				<li><a href="change_password.html" data-ng-hide="status">Change Password</a></li>
+				<li><a ui-sref="profile" data-ng-show="status && !newmenu">Profile</a></li>
+				<li><a ui-sref="changepassword" data-ng-hide="status">Change Password</a></li>
 				<li role="separator" class="divider" data-ng-hide="status"></li>
-				<li><a data-ng-click="logout();" id="openlink-1">Log Out</a></li>
-				<!-- <li><a onclick="logout();" id="openlink-1">Log Out</a></li> -->
+				<li><a data-ng-click="commonCode.logout()">Log Out</a></li>
 			</ul>
 		
 		<ul class="list-6 pull-right">
