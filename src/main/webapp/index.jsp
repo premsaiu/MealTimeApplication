@@ -3,7 +3,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="miniMealApp">
   <head>
-   
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.css" rel="stylesheet">
     <link href="resources/css/bootstrap-datetimepicker.css" rel="stylesheet">
@@ -11,10 +10,11 @@
     <link href="resources/css/responsive.css" rel="stylesheet">
    <!--  <link href="resources/css/styles1.css" rel="stylesheet">
     <link href="resources/css/responsive1.css" rel="stylesheet"> -->
-     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+ <!--     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
-    <link href="//fonts.googleapis.com/css?family=Cuprum" type="text/css" rel="stylesheet">
-   
+    <link href="//fonts.googleapis.com/css?family=Cuprum" type="text/css" rel="stylesheet"> -->
+       <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pinyon+Script' rel='stylesheet' type='text/css'>
     
    <!--  <link rel="icon" type="image/png" href="resources/images/favicon-16x16.png" sizes="16x16"/>
  -->
@@ -30,12 +30,12 @@
 	    
 	   <div ui-view></div>
 	    	<!-- Home Modal -->
-			    <div class="modal fade bg-transition-s1" id="myModal" data-backdrop="static" data-keyboard="false">
+			     <!-- <div class="modal fade bg-transition-s1" id="myModal" data-backdrop="static" data-keyboard="false">
 				  <div class="modal-dialog max-w480">
 				    <div class="modal-content alpha-bg">
 				      <div class="modal-header alpha-bg">
-				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-				        <!-- <div class="logo-2 center-block">Meal Time</div> -->
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <div class="logo-2 center-block">Meal Time</div>
 				        <a href="#" class="logo-2 center-block">Meal Time</a>
 				      </div>
 				      <div class="modal-body">
@@ -67,6 +67,43 @@
 				        </form>
 	
 				      </div>
+				    </div>
+				  </div>
+				</div> --><!-- modal --> 
+				 <div class="modal fade custom-modal-bg" id="myModal" tabindex="-1" role="dialog">
+				  <div class="modal-dialog max-w400">
+				    <div class="modal-content custom-modal-content">
+				      <div class="modal-header border-none">
+				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+				        <img alt="Meal Time" src="resources/images/logo.png" width="120" height="100%" class="center-block">
+				      </div>
+				      <div class="modal-body">
+				        <span style="color:red;">{{loginError}}</span>
+				        <form name="myForm">
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label center-block log-title-s1">Let us know your mobile number</label>
+				            <input type="number" class="form-control center-block w300 mt20" name="mobileNo" id="mobileNo" placeholder="+91" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()" autofocus>
+				           <div class="form-group" data-ng-show="adminuser">
+					            <label for="recipient-name" class="control-label">Password:</label>
+					            <input type="password" class="form-control" id="password" ng-model="password">
+					          </div>
+				          </div>
+				          <div class="text-align-center">
+				      		  	<span data-ng-show="myForm.mobileNo.$error.pattern" style="color:red">Not a valid number!</span>
+    							<span data-ng-show="myForm.mobileNo.$error.minlength" style="color:red">Enter 10 digit number </span>
+				      		  </div>
+				      		   <div class="modal-footer border-none p0">
+					     <div class="center-block w215">
+						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1" ng-disabled="myForm.$invalid" data data-ng-click="checkUser()">ENTER</button>
+						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1" data-ng-click="notNow()" data-dismiss="modal" aria-label="Close">LATER</button>
+						 </div>
+				        <div class="clearfix mt20">
+					  </div>
+					   
+				      </div>
+				        </form>
+				      </div>
+				     
 				    </div><!-- /.modal-content -->
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->

@@ -1,12 +1,12 @@
-<div class="col-md-3 col-xs-12" ng-show="status">		 
-  <ul class="list-2" ng-hide="newmenu">
+<div ng-show="status">		 
+  <!-- <ul class="list-2" ng-hide="newmenu">
 			    	<li><img src="resources/images/line.png" class="hidden-sm img-responsive center-block">
 				    	<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
 				    	<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png"><img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
 			    	</li>
 			    	<li><a ui-sref="home" class="active menuSelect">Home</a></li>
 			    	<li><a ui-sref="aboutus" class="menuSelect">About Us</a></li>
-			    	<!-- <li><a ui-sref="profile">Profile</a></li> -->
+			    	<li><a ui-sref="profile">Profile</a></li>
 			    	<li><a ui-sref="breakfast" class="menuSelect">AM Meal</a></li>
 			    	<li><a ui-sref="dinner" class="menuSelect">PM Meal</a></li>
 			    	<li><a ui-sref="payment" class="menuSelect">Payment</a></li>
@@ -15,31 +15,78 @@
 			    		<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png"><img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
 			    		<img class="hidden-xs hidden-md hidden-lg" src="resources/images/line.png">
 			    	</li>
-			    </ul>
-	<div  ng-show="newmenu">
-	<ul class="new-list-2">
+			    </ul> -->
+			    <ul class="nav-list row" ng-hide="newmenu">
+			  <li><a ui-sref="profile">Profile <span class="glyphicon glyphicon-arrow-right font-smaller border-none" aria-hidden="true"></span></a></li>
+			  <li>
+			  	<a ui-sref="breakfast">
+				  	<span>Breakfast Menu</span>
+					<span>Know about our meal box</span>
+			  	</a>
+			  </li>
+			  <li  class="active">
+			  	<a ui-sref="dinner">
+				  	<span>Dinner Menu</span>
+					<span>Experience our meal box</span>
+			  	</a>
+			  </li>
+			  <li>
+			  	<a ui-sref="payment">
+				  	<span>Subscription details</span>
+					<span>Get our meal box daily</span>
+			  	</a>
+			  </li>
+			</ul>
+	<div class="col-sm-12 col-md-3 col-lg-3 row" data-ng-show="newmenu">
+	
+	<!-- <ul class="new-list-2">
 		<li><a data-ui-sref="ourstory" class="new-first-child page1menu">OurStory</a></li>
 		<li><a data-ng-click="modalShow()" class="new-second-child page1menu" ng-hide="profileShow">Login</a></li>
 		<li><a data-ui-sref="profile"  class="new-second-child page1menu" ng-show="profileShow">Profile</a></li>
-		<!-- <li><a data-ui-sref="profile" data-ng-hide="profileShow" class="page1menu">Profile</a></li> -->
+		<li><a data-ui-sref="profile" data-ng-hide="profileShow" class="page1menu">Profile</a></li>
 		<li><a data-ui-sref="scheduleenquiry" class="page1menu">Schedule Enquiry</a></li>
 		<li><a data-ui-sref="samplemeal" class="page1menu">Sample Meal</a></li>
 		<li><a data-ui-sref="subscribenow" class="page1menu">Subscribe Now</a></li>
-	</ul>
+	</ul> -->
+	<ul class="nav-list">
+			  <li><a data-ng-click="modalShow()" ng-hide="profileShow" >LOG IN <span class="glyphicon glyphicon-arrow-right font-smaller border-none" aria-hidden="true"></span></a></li>
+			  <li><a data-ui-sref="profile" ng-show="profileShow">Profile <span class="glyphicon glyphicon-arrow-right font-smaller border-none" aria-hidden="true"></span></a></li>
+			  <li>
+			  <li>
+			  	<a data-ui-sref="scheduleenquiry">
+				  	<span>Schedule Enquiry</span>
+					<span>Know about our meal box</span>
+			  	</a>
+			  </li>
+			  <li>
+			  	<a data-ui-sref="samplemeal">
+				  	<span>Sample Meal</span>
+					<span>Experience our meal box</span>
+			  	</a>
+			  </li>
+			  <li>
+			  	<a data-ui-sref="subscribenow">
+				  	<span>Subscribe Now</span>
+					<span>Get our meal box daily</span>
+			  	</a>
+			  </li>
+			</ul>
 
 	<div class="col-md-12 visible-lg">
-		<ul class="new-list-4" style="margin: 20px 0 0 37px;">
-			<li><a href="#" class="fb"></a></li>
-			<li><a href="#" class="tw"></a></li>
-			<li><a href="#" class="gplus"></a></li>
-			<li><a href="#" class="utube"></a></li>
-		</ul>
+			<ul class="new-list-4 clearfix">
+				<li><a href="#" class="fb"></a></li>
+				<li><a href="#" class="tw"></a></li>
+				<li><a href="#" class="gplus"></a></li>
+				<li><a href="#" class="utube"></a></li>
+				<li><a href="#" class="pinterest"></a></li>
+				<li><a href="#" class="blogger"></a></li>
+			</ul>
 	</div>
 
 </div>
 </div>
 		    
-		    
+		    <!-- ADMIN Section -->
 <div class="col-md-3 col-xs-12 adminsection" ng-hide="status">
 			    <ul class="list-2">
 			    	<li><img src="resources/images/line.png" class="hidden-sm img-responsive center-block">

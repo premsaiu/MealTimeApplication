@@ -1,4 +1,4 @@
- <div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">    	
+<!--  <div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">    	
 						<h4 class="titile-02">Subscription From</h4>
 						<div id="succussSaveDiv" data-ng-show="successMsg" class="alert alert-success"></div>
 					    	<div data-ng-show="subscribeNowErrorMsg != ''" class="alert alert-danger" >
@@ -69,7 +69,7 @@
 								</div>
 							    <input type="text" name="date" class="form-control pull-left new-input-s1 input-medium ng-dirty ng-valid-parse ng-valid ng-valid-required ng-touched" data-ng-model="date" id="subscribeDate" size="16">
 							    <div class="clearfix"></div>
-							    <!-- <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span> -->
+							    <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 							  </div>
 							  
 							 
@@ -94,12 +94,12 @@
 							</div>
 						</div>
  
- <!-- OTP Modal -->
+ OTP Modal
 			    <div class="modal fade" id="otpModal" data-backdrop="static" data-keyboard="false">
 				  <div class="modal-dialog max-w400">
 				    <div class="modal-content">
 				      <div class="modal-header">
-				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				        <h4 class="modal-title">One Time Password</h4>
 				      </div>
 				      <div class="modal-body">
@@ -115,15 +115,15 @@
 				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Submit</button>
 				        <button type="submit" class="btn btn-success" data-ng-click="closeModal('otpModal')">Cancel</button>
 				      </div>
-				    </div><!-- /.modal-content -->
-				  </div><!-- /.modal-dialog -->
-				</div><!-- /.modal -->
-    <!-- <script type="text/javascript">
+				    </div>/.modal-content
+				  </div>/.modal-dialog
+				</div>/.modal
+    <script type="text/javascript">
     	//open a given url in a new tab by clicking a button
 	    $("#openlink-1").click(function () {
 			window.location = "index_admin.html"  //open on same tab
 	  });
-    </script> -->
+    </script>
    <script>
 		$(document).ready(function() {
 			var d = new Date();
@@ -140,3 +140,57 @@
 		});
 	</script>
    
+ -->
+ 
+ <div class="col-sm-12 col-md-9 col-lg-9">
+				<div class="content_container-s1 slider-align">
+					<h3 class="font-green text-uppercase">SUBSCRIPTION FORM</h3>
+					<p>
+						Breakfast with juice and dinner with dessert will be delivered for one month for a minimum cost of Rs.3660/-plus Rs.1000/- towards your wallet from which you can buy/add/customise items.
+						<br><br>
+Recommendation: You may know more about our service by scheduling a visit or even try our sample meal.
+					</p>
+					
+					<form class="form-inline mt20">
+					  <div class="form-group">
+					    <input type="text" class="form-control mb10 input-s1" id="exampleInputEmail3" placeholder="First Name">
+					  </div>
+					  <div class="form-group">
+					    <input type="text" class="form-control mb10 input-s1" id="exampleInputEmail3" placeholder="Last Name">
+					  </div>
+					  <div class="form-group">
+					    <input type="text" class="form-control mb10 input-s1" id="exampleInputPassword3" placeholder="Mobile No.">
+					  </div>
+					  <div class="form-group">
+					    <select class="form-control input-s1 mb10">
+						  <option>Date</option>
+						  <option>16-Apr-2016</option>
+						  <option>17-Apr-2016</option>
+						  <option>18-Apr-2016</option>
+						</select>
+					  </div>
+					  <div class="form-group">
+						<select class="form-control input-s1 mb10">
+						  <option>Time</option>
+						  <option>12:00 AM</option>
+						  <option>12:30 AM</option>
+						  <option>01:00 AM</option>
+						</select>
+					  </div>
+					  <div class="form-group">
+					    <select class="form-control input-s1 mb10">
+						  <option>Area</option>
+						  <option>Madhapur</option>
+						  <option>Banjara Hills</option>
+						  <option>Hitech-city</option>
+						</select>
+					  </div>
+					  <div>
+						 <button type="submit" class="btn custom-btn-s2 pull-right mr50">LATER</button>
+					  	 <button type="submit" class="btn custom-btn-s2 pull-right">CONFIRM & PAY</button>
+					  </div>
+					</form>
+					
+				</div>
+			</div>
+		</div>
