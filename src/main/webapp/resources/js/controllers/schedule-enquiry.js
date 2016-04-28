@@ -14,49 +14,6 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
 	
-	//data formatted code
-	 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-	 				  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-	 				];
-	 				var days = ["Sun","Mon","Tue","Wed","thr","Fri","Sat"]
-
-	 				var d = new Date();
-	 				function addDays(dateObj, numDays) {
-	 				   dateObj.setDate(dateObj.getDate() + numDays);
-	 				   return dateObj;
-	 				}
-
-
-	 				var tomorrow = addDays(new Date(), 1);
-	 				var nextWeek = addDays(new Date(), 5);
-
-	 				var now = new Date();
-	 				var daysOfYear = [];
-	 				for(var d = tomorrow; d <= nextWeek; d.setDate(d.getDate() + 1)) {
-
-	 				if(d.getDay()!=0){
-	 				    daysOfYear.push(new Date(d));
-	 				    }
-	 				}
-	 				if(daysOfYear.length<5){
-	 				var extradate=new Date(daysOfYear[3]);
-	 				daysOfYear.push(new Date(extradate.setDate(extradate.getDate() + 1)));
-	 				}
-	 				var newdates=[];
-	 				for(var i=0;i<daysOfYear.length;i++){
-	 				var asd=daysOfYear[i].getDate()+"-"+monthNames[daysOfYear[i].getMonth()]+"-"
-	 				+daysOfYear[i].getFullYear();
-	 				newdates.push(asd);
-	 				}
-	 				$('.address_field').val(newdates)
-	 				
-	$scope.customdates=newdates;
-	
-	
-	
-	
-	
-	
 	$scope.schedEnqErrorMsg = "";
 	var mobileNo = "";
 	$scope.notNow = function(){
