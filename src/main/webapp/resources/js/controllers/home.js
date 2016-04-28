@@ -152,20 +152,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 		$('#'+modalId).modal('hide');
 	}
 	
-	$rootScope.sendOTP =function(mobileNumber, email, subject){
-		UserService.sendOTP(mobileNumber, email, subject).then(
-				function(response) {
-					if(response.status == 200){
-						$('#otpModal').modal('show');
-					}else{
-						console.log("Bad Request");
-					}
-				},
-				function(errResponse){
-					console.error('Something went wrong!!');
-				}
-		);
-	}
+	
 	
 	$rootScope.checkUserByMobile = function(mobileNumber){
 		UserService.checkUser(mobileNumber).then(
@@ -205,7 +192,6 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	$rootScope.regUser = $localStorage.regUser;
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
-	
 	console.log("new menu-->"+$rootScope.newmenu);
 	console.log("status-->"+$rootScope.status);
 	

@@ -105,7 +105,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
         })
         .state('ourstory', {
             url: '/ourstory',
-            templateUrl: 'views/users/our_story.html',
+            templateUrl: 'views/users/ourstory.html',
             controller: 'OurStoryCtrl'
         })
         .state('loginsample', {
@@ -129,7 +129,24 @@ angular.module('miniMealApp', ['miniMealApp.services',
             controller: 'SubscribeNowCtrl'
         })
 })
-.run( function($rootScope, $location) {
+.run( function($rootScope, $location,UserService) {
+	
+	$rootScope.sendOTP =function(mobileNumber, email, subject){
+		UserService.sendOTP(mobileNumber, email, subject).then(
+				function(response) {
+					if(response.status == 200){
+						$('#otpModal').modal('show');
+					}else{
+						console.log("Bad Request");
+					}
+				},
+				function(errResponse){
+					console.error('Something went wrong!!');
+				}
+		);
+	}
+	
+	
 	/*var routesPermission = ['/home'];
 	
 	$rootScope.$on('$routeChangeStart', function(){

@@ -82,7 +82,7 @@
 				        <form name="myForm">
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label center-block log-title-s1">Let us know your mobile number</label>
-				            <input type="number" class="form-control center-block w300 mt20" name="mobileNo" id="mobileNo" placeholder="+91" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()" autofocus>
+				            <input type="number" class="form-control center-block w300 mt20" name="mobileNo" id="mobileNo" placeholder="+91" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()" ng-keypress="$event.keyCode == 13 && checkUser()" autofocus="focusInput">
 				           <div class="form-group" data-ng-show="adminuser">
 					            <label for="recipient-name" class="control-label">Password:</label>
 					            <input type="password" class="form-control" id="password" ng-model="password">
@@ -94,7 +94,7 @@
 				      		  </div>
 				      		   <div class="modal-footer border-none p0">
 					     <div class="center-block w215">
-						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1" ng-disabled="myForm.$invalid" data data-ng-click="checkUser()">ENTER</button>
+						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1" ng-disabled="myForm.$invalid"  data-ng-click="checkUser()">ENTER</button>
 						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1" data-ng-click="notNow()" data-dismiss="modal" aria-label="Close">LATER</button>
 						 </div>
 				        <div class="clearfix mt20">
@@ -143,6 +143,13 @@
 <!--     <script src="resources/js/controllers/controller.js"></script> -->
     <script src="resources/js/services/services.js"></script>
     <script src="resources/js/directives/directives.js"></script>
-   
+  
+<script type="text/javascript">
+$( document ).ready(function() {
+	$('.modal').on('shown.bs.modal', function() {
+		  $(this).find('[autofocus]').focus();
+		});
+	
+});</script>
   </body>
 </html>
