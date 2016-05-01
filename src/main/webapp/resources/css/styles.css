@@ -41,7 +41,8 @@ body {
 
 .text-uppercase { text-transform: uppercase; }
 
-.font-green { color: #80C35A; }
+.font-green { color: #40A51A; }
+.font-black { color: #333; }
 .font-gray { color: #777 !important; }
 .font-dred { color: #D7001F !important; }
 
@@ -63,6 +64,10 @@ body {
 }
 
 .title-s2 { color: #F1F1F1; }
+.headaline{
+bottom: 80px;
+float:right;
+}
 
 .nav > li > a:hover, .nav > li > a:focus {
     text-decoration: underline;
@@ -86,9 +91,9 @@ body {
 	padding: 6px 0;
     text-decoration: none;
     text-align: center;
-    padding: w;
     width: 150px;
-    color: #81C345;
+    color: #40A51A;
+    cursor: pointer;
     font-weight: 500;
     font-size: larger;
     background: rgba(204,204,204,0);
@@ -111,7 +116,7 @@ body {
 	text-decoration: none;
 }
 .nav-list li a span:first-child {
-	color: #81C347;
+	color: #40A51A;
     padding: 2px 0 2px 15px;
     font-size: x-large;
     border-left: 5px solid rgba(113,113,115,0);
@@ -263,7 +268,7 @@ body {
     text-decoration: none;
     text-align: center;
     margin-top: 15px;
-    color: #80C35A;
+    color: #40A51A;
     font-weight: 500;
     font-size: 16px;
     background: rgba(128,195,90,0);
@@ -284,23 +289,23 @@ body {
 }
 
 .input-s1 {
-    height: 45px;
-	border: 3px solid #CCC;
+    height: 32px;
+	border: 1px solid #CCC;
 	background: #F7F7F7 !important;
 }
 .input-s1:focus {
-	border: 3px solid #B7B7B7;
+	border: 2px solid #B7B7B7;
 	background: #FBFDFA !important;
 	outline: none !important;
 	box-shadow: none;
 }
 .input-s2, .input-s3, .input-s4 {
-    height: 45px;
-	border: 3px solid #CCC;
+    height: 32px;
+	border: 1px solid #CCC;
 	background: #F7F7F7 !important;
 }
 .input-s2:focus, .input-s3:focus, .input-s4:focus {
-	border: 3px solid #B7B7B7;
+	border: 2px solid #B7B7B7;
 	background: #FBFDFA !important;
 	outline: none !important;
 	box-shadow: none;

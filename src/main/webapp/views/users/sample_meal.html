@@ -1,111 +1,4 @@
-<!-- <div class="col-md-9 col-xs-12 bg-color-s1 pt10 pb10">    	
-						<h4 class="titile-02">Sample Meal</h4>
-						<div ng-show="sampleMealMsg" class="alert alert-success" >
-  								<strong>Success!</strong>Sample Meal order has been received.
-						</div>
-						<div ng-show="sampleMealErrorMsg != ''" class="alert alert-danger" >
-  								{{sampleMealErrorMsg}}
-							</div>
-						<p>Breakfast with juice and dinner with dessert will be delivered for one day for a minium cost of RS.185.00/-
-							<br><br>
-							100% cash back will be credited into your wallet once you subscribe.
-							<br><br>
-							Let us know your convenient date for the sample Breakfast & Dinner.</p>
-						<br>
-						<div class="col-lg-6">
-							<form name="form" novalidate>
-							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Name</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    Ms. <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a >Ms.</a></li>
-								    <li><a >Mr.</a></li>
-								    <li><a >Mrs.</a></li>
-								  </ul>
-								</div>
-							    <input type="text" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="Mohan Das" ng-model="sampleMeal.name"   ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
-							    <div class="clearfix"></div>
-							    <span ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
-				  				<span ng-show="form.name.$dirty  && form.name.$error.required">First name is required.</span>
-								<span ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
-								<span ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
-							  </div>
-							  
-							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Phone Number</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-								</div>
-							    <input type="number" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="+91 9030399160" ng-model="sampleMeal.mobileNumber"  data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
-							    <div class="clearfix"></div>
-							     <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
-						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
-				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
-							  </div>
-							  
-							  <div class="form-group" id="samplemeal">
-							    <label for="exampleInputname" class="new-label-s1">Date</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-								</div>
-							    <input type="text" name="date" class="form-control pull-left new-input-s1 input-medium" class="input-medium" ng-model="sampleMeal.date" id="sampleMealDate">
-							    <div class="clearfix"></div>
-							    <span ng-show="sampleMeal.date == ''">Date is required.</span>
-							     <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
-							  </div>
-							  
-							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Area</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-								</div>
-							    <select class="new-select-s1" name="area" id="area" required>
-							    	<option value="">Select Area</option>
-								<option value="madhapur">Madhapur</option>
-								<option value="gachibowli">Gachibowli</option>
-							    </select>
-							    <div class="clearfix"></div>
-							     <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
-							  </div>
-							  
-							  <button type="submit" class="btn btn-success mt20 mr10" ng-disabled="form.$invalid"  ng-click="requestSampleMeal()">Conform & Pay</button>
-							  <button type="submit" class="btn btn-success mt20">Later</button>{{sampleMeal.date}}
-							 
-							</form>
-							 </div>
-						</div>
-						
-							    OTP Modal
-			    
-	
-	    
- 
-    <script type="text/javascript">
-    	//open a given url in a new tab by clicking a button
-	    $("#openlink-1").click(function () {
-			window.location = "index_admin.html"  //open on same tab
-	  });
-    </script>
-    <script>
-		$(document).ready(function() {
-			var d = new Date();
-			var curr_day = d.getDate();
-			var curr_month = d.getMonth() + 1;
-			var curr_year = d.getFullYear();
-			var today = curr_day + "-" + curr_month + "-" + curr_year;
-			$("div.datepicker input").attr('text',today);
-			
-			$('#samplemeal').datetimepicker({
-				autoclose: true,
-				pickTime:false
-				 //format: "dd/mm/yyyy"
-			});
-		});
-	</script> -->
-	<div class="col-sm-12 col-md-9 col-lg-9">
+	<div class="col-sm-12 col-md-9 col-lg-9 headaline">
 				<div class="content_container-s1 slider-align">
 					<h3 class="font-black text-uppercase">Sample Meal</h3>
 					<div ng-show="sampleMealMsg" class="alert alert-success" >
@@ -132,7 +25,11 @@
 					  </div>
 					  
 					  <div class="row form-group">
+<<<<<<< HEAD
 					    <input type="text" class="form-control mb10 input-sm input-s1" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber" ng-readonly="loggedUser" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
+=======
+					    <input type="text" class="form-control mb10 input-sm input-s1" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber"  data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
+>>>>>>> refs/remotes/origin/master
 							    <div class="clearfix"></div>
 							     <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
 						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
