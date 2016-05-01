@@ -108,7 +108,7 @@
 				  </div><!-- /.modal-dialog -->
 				</div><!-- /.modal -->
 			
-	   <div ng-include="'views/users/footer.html'"></div>
+	   <!-- <div ng-include="'views/users/footer.html'"></div> -->
 	    
     </div>
 	
