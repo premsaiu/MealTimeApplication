@@ -39,7 +39,7 @@ public class MealTimeService {
 	
 	private static final Logger logger = Logger.getLogger(MealTimeService.class);
 	
-	public UserMaster checkUser(String mobileNumber){
+	public UserMaster checkUser(String mobileNumber, String name){
 		logger.info("checkUser() :: mobileNumber: "+mobileNumber);
 		UserMaster userMaster = userMasterDAO.findByMobileNumber(mobileNumber);
 		if(userMaster == null){

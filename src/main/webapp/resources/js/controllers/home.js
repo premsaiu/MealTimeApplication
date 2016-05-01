@@ -26,6 +26,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	}
 	$rootScope.notNow = function(){
 		$('#myModal').modal('hide');
+		$localStorage.$reset();
 		$(".adminsection").hide();
 		$localStorage.newmenu = true;
 		$localStorage.status = true;
@@ -59,6 +60,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		
 		if(angular.isDefined($scope.mobileNumber)){
+			$localStorage.mobileNumber = $scope.mobileNumber;
 			$rootScope.mobileNumber = $scope.mobileNumber;
 		if($scope.password){
 			UserService.checkAdmin($scope.mobileNumber, $scope.password).then(

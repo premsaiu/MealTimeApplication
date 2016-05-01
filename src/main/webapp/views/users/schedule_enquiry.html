@@ -113,7 +113,7 @@ just let us know your convenient time.</p>
 	
 	<div class="col-sm-12 col-md-9 col-lg-9">
 				<div class="content_container-s1 slider-align">
-					<h3 class="font-green text-uppercase">SCHEDULED VISIT</h3>
+					<h3 class="font-black text-uppercase">SCHEDULED VISIT</h3>
 					<div data-ng-show="schedEnqMsg" class="alert alert-success" >
   								<strong>Success!</strong>Schedule Enquiry has been received.
 						</div>
@@ -121,44 +121,65 @@ just let us know your convenient time.</p>
   								{{schedEnqErrorMsg}}
 							</div>
 					<p>
-						MealTime’s Executive shall visit you at your place to explain you about our meal boxes & Our Services
-Just let us know your convenient time.
+						MealTime’s Executive shall visit you at your place to explain you about our meal boxes & Our Services.
 					</p>
-					
-					<form class="form-inline mt20" class="col-lg-6">
-					  <div class="form-group">
-					    <input type="text" class="form-control mb20 input-s1" ng-model="sched.name" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
-							    <div class="clearfix"></div>
+					<p>Just let us know your convenient time.</p>
+					<form name="form" class="mt20" class="col-lg-6" style="margin: 15px">
+					  <div class="form-group row">
+					    <input type="text" class="form-control mb20 input-s1" ng-model="sched.name" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20" placeholder="Name">
 							    <span ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
 				  				<span ng-show="form.name.$dirty  && form.name.$error.required">Name is required.</span>
 								<span ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
 								<span ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
-							
 					  </div>
 					  
-					  <div class="form-group">
-					    <input type="text" class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-pattern=" /^[789]\d{9}$/"  id="phone" ng-model="sched.number" ng-maxlength="10" required name="mobileno">
+					  <div class="form-group row">
+					    <input type="text" class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-pattern=" /^[789]\d{9}$/"  id="phone" ng-model="sched.number" ng-readonly="loggedUser" ng-maxlength="10" placeholder="+91" required name="mobileno">
 						 <div class="clearfix"></div>
 						 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
 						 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
 				   		 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 					  </div>
-					  <div class="form-group">
-					    <select class="form-control input-s1 mb10" data-ng-model="sched.date" id="datetimePicker">
+					  <div class="row form-group" style="margin-left: -30px;">
+					  
+					  <div class="col-md-3">
+					    <select class="form-control mb10" data-ng-model="sched.date" name="date" id="datetimePicker" style="width: 110px;" required="required">
+						  <option value="" disabled selected style="display: none;">Date</option>
 						  <option ng-repeat="date in customdates" value="{{date}}"> {{date}}</option>
-						  
 						</select>
+						 <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
+						</div>
+						<div class="col-md-3">
+						<select class="form-control mb10" name="time" data-ng-model="sched.time" style="width: 110px;margin-left: -31px;" required="required">
+						  <option value="" disabled selected style="display: none;">Time</option>
+						  <option value="14:00:00">2:00-3:00 PM</option>
+						  <option value="15:00:00">3:00-4:00 PM</option>
+						  <option value="16:00:00">4:00-5:00 PM</option>
+						  <option value="17:00:00">5:00-6:00 PM</option>
+						  <option value="18:00:00">6:00-7:00 PM</option>
+						  <option value="19:00:00">7:00-8:00 PM</option>
+						  <option value="20:00:00">8:00-9:00 PM</option>
+						  <option value="21:00:00">9:00-10:00 PM</option>
+						</select>
+						 <span ng-show="form.time.$dirty  && form.time.$error.required">Time is required.</span>
+						</div>
 					  </div>
-					  <div class="form-group" data-ng-model="sched.time">
+					 <!--  <div class="form-group row" data-ng-model="sched.time">
 						<select class="form-control input-s1 mb10" data-ng-model="sched.time">
 						  <option>Time</option>
-						  <option value="12:00:00">12:00 AM</option>
-						  <option value="12:30:00">12:30 AM</option>
-						  <option value="1:00:00">01:00 AM</option>
+						  <option value="14:00:00">2:00-3:00 PM</option>
+						  <option value="15:00:00">3:00-4:00 PM</option>
+						  <option value="16:00:00">4:00-5:00 PM</option>
+						  <option value="17:00:00">5:00-6:00 PM</option>
+						  <option value="18:00:00">6:00-7:00 PM</option>
+						  <option value="19:00:00">7:00-8:00 PM</option>
+						  <option value="20:00:00">8:00-9:00 PM</option>
+						  <option value="21:00:00">9:00-10:00 PM</option>
 						</select>
-					  </div>
-					  <div class="form-group">
+					  </div> -->
+					  <div class="form-group row">
 					    <select class="form-control input-s1 mb10" ng-model="sched.area" name="area" required>
+							    	<option value="" disabled selected style="display: none;">Area</option>
 							    	<option value="Madhapur">Madhapur</option>
 							    	<option value="Ameerpet">Ameerpet</option>
 							    	<option value="Banjara Hills">Banjara Hills</option>
@@ -167,7 +188,7 @@ Just let us know your convenient time.
 							    <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
 							  
 					  </div>
-					  <div>
+					  <div class="form-group row">
 						 <button type="button" class="btn custom-btn-s2 pull-right mr50" data-ng-click="notNow();">LATER</button>
 					  	 <button type="button" class="btn custom-btn-s2 pull-right" ng-disabled="form.$invalid" data-ng-click="submitsched();">CONFIRM</button>
 					  </div>

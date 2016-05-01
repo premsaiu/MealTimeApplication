@@ -17,6 +17,11 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 	$rootScope.profileShow = $localStorage.profileShow;
 	
 	$scope.subscribeNowErrorMsg = "";
+	if($rootScope.loggedUser){
+		$scope.mobile = $rootScope.user.mobileNumber;
+		$scope.firstName = $rootScope.user.firstName;
+		$scope.lastName = $rootScope.user.lastName;
+	}
 	
 	$scope.requestSubscribeNow = function(){
 		var subject = "MealTime - Subscribe Now - One Time Password(OTP)";

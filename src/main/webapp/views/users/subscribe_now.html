@@ -102,52 +102,52 @@
  
  <div class="col-sm-12 col-md-9 col-lg-9">
 				<div class="content_container-s1 slider-align">
-					<h3 class="font-green text-uppercase">SUBSCRIPTION FORM</h3>
+					<h3 class="font-black text-uppercase">SUBSCRIPTION FORM</h3>
 					<div id="succussSaveDiv" data-ng-show="successMsg" class="alert alert-success"></div>
 					    	<div data-ng-show="subscribeNowErrorMsg != ''" class="alert alert-danger" >
 			  								{{subscribeNowErrorMsg}}
 										</div>
 					<p>
 						Breakfast with juice and dinner with dessert will be delivered for one month for a minimum cost of Rs.3660/-plus Rs.1000/- towards your wallet from which you can buy/add/customise items.
-						<br><br>
+						<br>
 Recommendation: You may know more about our service by scheduling a visit or even try our sample meal.
 					</p>
 					
-					<form class="form-inline mt20" name="form" novalidate>
-					  <div class="form-group">
-					    <input type="text" class="form-control mb10 input-s1"  data-ng-model="firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" placeholder="firstName" ng-minlength="3" required ng-maxlength="20">
+					<form class="mt20" name="form" novalidate style="margin: 15px">
+					  <div class="form-group row">
+					    <input type="text" class="form-control mb10 input-s1"  data-ng-model="firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" placeholder="Name" ng-minlength="3" required ng-maxlength="20">
 						 		<span data-ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
 				  				<span data-ng-show="form.name.$dirty  && form.name.$error.required">First name is required.</span>
 								<span data-ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
 								<span data-ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
 					  </div>
-					  <div class="form-group">
+					 <!--  <div class="form-group row">
 					    <input type="text" class="form-control mb10 input-s1" id="exampleInputEmail3" data-ng-model="lastName" ng-pattern="/^[a-zA-Z ]{1,25}$/" placeholder="lastname" name="lastname" ng-minlength="3" ng-maxlength="20" required="">
 							<span data-ng-show="form.lastname.$dirty   &&    form.lastname.$error.pattern" style="color:red">Enter only String.</span>
 				  				<span data-ng-show="form.lastname.$dirty  && form.lastname.$error.required">Lastname is required.</span>
 								<span data-ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
 								<span data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
-					  </div>
-					  <div class="form-group">
-					    <input type="number" class="form-control mb10 input-s1" id="exampleInputPassword3"data-ng-model="mobile" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
+					  </div> -->
+					  <div class="form-group row">
+					    <input class="form-control mb10 input-s1" id="exampleInputPassword3"data-ng-model="mobile" ng-readonly="loggedUser" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
 						   
 						   <span data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
 						    <span data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
 				   		  <span data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 							
 					  </div>
-					  <div class="form-group" id="sampledate">
-							    <input type="text" name="date" class="form-control input-s1 mb10" data-ng-model="date" id="subscribeDate" size="16">
-							    <div class="btn-group pull-left custom-iconbg-s1">
+					  <div class="form-group row" id="sampledate">
+							    <input type="text" name="date" class="form-control input-s1 mb10" data-ng-model="date" id="" size="16" placeholder="Date">
+							   <!--  <div class="btn-group custom-iconbg-s1">
 								  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-								</div>
+								</div> -->
 							    <div class="clearfix"></div>
 							    <span data-ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
-							  
 					  </div>
 					 
-					  <div class="form-group">
+					  <div class="form-group row">
 					    <select class="form-control input-s1 mb10"id="area" name="area" required="">
+							    	<option value="" disabled selected style="display: none;">Area</option>
 							    	<option value="Madhapur">Madhapur</option>
 							    	<option value="Ameerpet">Ameerpet</option>
 							    	<option value="Banjara Hills">Banjara Hills</option>
@@ -193,18 +193,37 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 			window.location = "index_admin.html"  //open on same tab
 	  });
     </script>
-   <script>
-		$(document).ready(function() {
+   <!-- <script>
+   $(function () {
 			var d = new Date();
 			var curr_day = d.getDate();
 			var curr_month = d.getMonth() + 1;
 			var curr_year = d.getFullYear();
-			var today = curr_day + "-" + curr_month + "-" + curr_year;
+			var today = (curr_day+1) + "-" + curr_month + "-" + curr_year;
 			$("div.datepicker input").attr('value', today);
+			$('#datetimepicker11').datetimepicker({
+				autoclose: true,
+				pickTime:false,
+				 startDate: -Infinity,
+				daysOfWeekDisabled: [0]
+            });
 			
 			$('#sampledate').datetimepicker({
 				autoclose: true,
-				pickTime:false
+				pickTime:false,
+				startDate: "+1d",
+				 daysOfWeekDisabled: [0]
 			});
 		});
-	</script>
+	</script> -->
+	<script type="text/javascript">
+$(function () {
+    $('#sampledate').datetimepicker({
+        autoclose: true,
+		pickTime:false,
+		minDate: 1,
+		maxDate: "+1M",
+		 daysOfWeekDisabled: [0]
+    });
+});
+</script>

@@ -1,5 +1,8 @@
 package com.mealtime.service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -107,9 +110,31 @@ public class UserSubscriptionService {
 		userWalletDAO.insert(userWallet);
 	}
 	
-	public UserMaster subscribeNow(String firstName,String lastName,String mobile,String date, String area){
+	public UserMaster subscribeNow(String firstName,String lastName,String mobile,String dateStr, String area){
 		if(mobile.matches("\\d{10}")){
 			UserMaster userMaster = userMasterDAO.findByMobileNumber(mobile);
+			//Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = null;
+			try {
+				date = sdf.parse(dateStr);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			DateFormat currentDate = DateFormat.getDateInstance();
+			Date startDate = null;
+			Date endDate = null;
+			try {
+				//startDate = currentDate.parse(currentDate.format(date.getTime() + 1 * 1000 * 60 * 60 * 24));
+				startDate = date;
+				endDate = currentDate.parse(currentDate.format(date.getTime() + 29L * 1000 * 60 * 60 * 24));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Start Date: "+startDate);
+			System.out.println("End Date: "+endDate);
+			//userSubscription.setStartDate(startDate);
+			//userSubscription.setEndDate(endDate);
 			if(userMaster == null){
 				
 				userMaster =  new UserMaster();
@@ -133,8 +158,10 @@ public class UserSubscriptionService {
 					if(userSubscription != null){
 						userSubscription.setUserId(userMaster.getUserId());
 						userSubscription.setSubscriptionId(1);
-						userSubscription.setStartDate(new Date());
-						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+						//userSubscription.setStartDate(new Date());
+						//userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+						userSubscription.setStartDate(startDate);
+						userSubscription.setEndDate(endDate);
 						userSubscription.setCreatedBy(userMaster.getUserId());
 						userSubscription.setStatus("Pending");
 						userSubscription.setIsActive("YES");
@@ -171,8 +198,10 @@ public class UserSubscriptionService {
 						
 						userSubscription.setUserId(userMaster.getUserId());
 						userSubscription.setSubscriptionId(1);
-						userSubscription.setStartDate(new Date());
-						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+						/*userSubscription.setStartDate(new Date());
+						userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));*/
+						userSubscription.setStartDate(startDate);
+						userSubscription.setEndDate(endDate);
 						userSubscription.setCreatedBy(userMaster.getUserId());
 						userSubscription.setStatus("Pending");
 						userSubscription.setIsActive("YES");
@@ -223,8 +252,10 @@ public class UserSubscriptionService {
 				if(userSubscription != null){
 					userSubscription.setUserId(userMaster.getUserId());
 					userSubscription.setSubscriptionId(1);
-					userSubscription.setStartDate(new Date());
-					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+					/*userSubscription.setStartDate(new Date());
+					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));*/
+					userSubscription.setStartDate(startDate);
+					userSubscription.setEndDate(endDate);
 					userSubscription.setCreatedBy(userMaster.getUserId());
 					userSubscription.setStatus("Pending");
 					userSubscription.setIsActive("YES");
@@ -260,8 +291,10 @@ public class UserSubscriptionService {
 					
 					userSubscription.setUserId(userMaster.getUserId());
 					userSubscription.setSubscriptionId(1);
-					userSubscription.setStartDate(new Date());
-					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));
+					/*userSubscription.setStartDate(new Date());
+					userSubscription.setEndDate(DateUtils.addMonths(new Date(), 1));*/
+					userSubscription.setStartDate(startDate);
+					userSubscription.setEndDate(endDate);
 					userSubscription.setCreatedBy(userMaster.getUserId());
 					userSubscription.setStatus("Pending");
 					userSubscription.setIsActive("YES");

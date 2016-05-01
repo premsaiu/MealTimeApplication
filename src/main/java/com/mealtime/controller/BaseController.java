@@ -34,7 +34,7 @@ public class BaseController {
 	public @ResponseBody UserMaster checkUser(@RequestParam("mobileNo")String mobileNumber){
 		logger.info("checkUser():: mobileNo: "+mobileNumber);
 		UserMaster user =  new UserMaster();
-		user = mealTimeService.checkUser(mobileNumber);
+		user = mealTimeService.checkUser(mobileNumber, "");
 		return user;
 	}
 	

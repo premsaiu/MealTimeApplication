@@ -2,7 +2,7 @@
 
 angular.module('miniMealApp.services', ['ngStorage'])
 .service('UserService', ['$http', '$q', function($http, $q){
-	var baseURL = "http://localhost:8181/MealTimeApplication/";
+	var baseURL = "http://localhost:8080/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
         var request = $http({
             method:"get",
@@ -275,8 +275,9 @@ angular.module('miniMealApp.services', ['ngStorage'])
     };
 
     this.subscribe = function (sched) {
-    	var as=sched.date.split('/');
-    	var date=as[2]+"-"+as[1]+"-"+as[0]+"T"+sched.time+"+0530";
+    	//var as=sched.date.split('/');//"undefined-undefined-2016-05-02T12:00:00+0530"
+    	//var date=as[2]+"-"+as[1]+"-"+as[0]+"T"+sched.time+"+0530";
+    	var date=sched.date+"T"+sched.time+"+0530";
 		var subscribedata={
 				//"userId":"MT015",
 				"mobileNumber":sched.number,
@@ -303,10 +304,10 @@ angular.module('miniMealApp.services', ['ngStorage'])
   	return request; 	
 	};
 	
-	this.checkSampleMeal = function(mobileNumber, sampleMealDate) {
+	this.checkSampleMeal = function(mobileNumber, sampleMealDate, name) {
 	  	var request = $http({
 	  		method:"get",
-	  		url:baseURL+'checkSampleMeal.spring?mobileNumber='+mobileNumber+'&sampleMealDate='+sampleMealDate,
+	  		url:baseURL+'checkSampleMeal.spring?mobileNumber='+mobileNumber+'&sampleMealDate='+sampleMealDate+'&name='+name,
 	  		dataType: "application/json"
 	  	});
 	  	return request; 	

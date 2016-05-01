@@ -39,7 +39,8 @@ public class SampleMealController {
 	@RequestMapping("/sampleMeal")
 	public @ResponseBody WSResponseStatus requestSampleMeal(@RequestBody SampleMeal sampleMeal){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
-		UserMaster user = mealTimeService.checkUser(sampleMeal.getMobileNumber());
+		UserMaster user = mealTimeService.checkUser(sampleMeal.getMobileNumber(), sampleMeal.getName());
+		wsResponseStatus.setData(user);
 		sampleMeal.setUserId(user.getUserId());
 		boolean isCheckSampleMeal = sampleMealService.checkSampleMeal(sampleMeal.getUserId());
 		if(isCheckSampleMeal){
@@ -64,9 +65,9 @@ public class SampleMealController {
 	}
 	
 	@RequestMapping("/checkSampleMeal")
-	public @ResponseBody WSResponseStatus checkSampleMeal(@RequestParam("mobileNumber")String mobileNumber, @RequestParam("sampleMealDate") String sampleMealDate){
+	public @ResponseBody WSResponseStatus checkSampleMeal(@RequestParam("mobileNumber")String mobileNumber, @RequestParam("sampleMealDate") String sampleMealDate, @RequestParam("name") String name){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
-		UserMaster user = mealTimeService.checkUser(mobileNumber);
+		UserMaster user = mealTimeService.checkUser(mobileNumber, name);
 		if(user == null){
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}else{

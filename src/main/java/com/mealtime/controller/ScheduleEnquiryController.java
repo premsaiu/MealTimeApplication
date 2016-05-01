@@ -40,7 +40,8 @@ public class ScheduleEnquiryController {
 	@RequestMapping("/scheduleEnquiry")
 	public @ResponseBody WSResponseStatus scheduleEnquiry(@RequestBody ScheduleEnquiry scheduleEnquiry){
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
-		UserMaster user = mealTimeService.checkUser(scheduleEnquiry.getMobileNumber());
+		UserMaster user = mealTimeService.checkUser(scheduleEnquiry.getMobileNumber(), scheduleEnquiry.getName());
+		wsResponseStatus.setData(user);
 		scheduleEnquiry.setUserId(user.getUserId());
 		boolean isCheckSchedule = scheduleEnquiryService.checkScheduleEnquiry(scheduleEnquiry.getUserId());
 		if(isCheckSchedule){

@@ -14,6 +14,11 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
 	
+	if($rootScope.loggedUser){
+		$scope.sched = {};
+		$scope.sched.number = $rootScope.user.mobileNumber;
+		$scope.sched.name = $rootScope.user.firstName;
+	}
 	$scope.schedEnqErrorMsg = "";
 	var mobileNo = "";
 	$scope.notNow = function(){
@@ -26,7 +31,8 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 	
 	$scope.submitsched=function(){
 		$scope.schedEnqErrorMsg = "";
-		var scheduleDate = $filter('date')(new Date($('#datetimePicker').val()), 'yyyy-MM-dd');
+		console.log($scope.sched.date);
+		var scheduleDate = $filter('date')(new Date($scope.sched.date), 'yyyy-MM-dd');
 		var subject = "MealTime - Schedule Enquiry - One Time Password(OTP)";
 		mobileNo = $scope.sched.number;
 		UserService.checkSchedule(mobileNo, scheduleDate).then(function(response){
@@ -70,9 +76,10 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 					}else if(response.data.statusCode == 500){
 						$scope.schedEnqErrorMsg = response.data.errorMsg;
 					}
-					if(!angular.isDefined($rootScope.user)){
+					/*if(!angular.isDefined($rootScope.user)){
 						  $rootScope.checkUserByMobile(mobileNo);
-					}
+					}*/
+					$rootScope.user = response.data.data;
 					$timeout(function() {
 						  $state.go('profile');
 					 }, 10000);
