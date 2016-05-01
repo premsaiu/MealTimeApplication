@@ -118,7 +118,7 @@
 	<script type="text/javascript" src="resources/js/lib//moment.js"></script>
    
 	<script type="text/javascript" src="resources/js/lib//bootstrap-datetimepicker.js"></script>
-    
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
     <script src="resources/js/lib/angular.js"></script>
     <script src="resources/js/lib/angular-ui-router.js"></script>
     <script src="resources/js/lib/ngStorage.min.js"></script>

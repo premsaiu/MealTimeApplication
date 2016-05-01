@@ -41,7 +41,7 @@ body {
 
 .text-uppercase { text-transform: uppercase; }
 
-.font-green { color: #80C35A; }
+.font-green { color: #40A51A; }
 .font-gray { color: #777 !important; }
 .font-dred { color: #D7001F !important; }
 
@@ -86,9 +86,9 @@ body {
 	padding: 6px 0;
     text-decoration: none;
     text-align: center;
-    padding: w;
     width: 150px;
-    color: #81C345;
+    color: #40A51A;
+    cursor: pointer;
     font-weight: 500;
     font-size: larger;
     background: rgba(204,204,204,0);
@@ -111,7 +111,7 @@ body {
 	text-decoration: none;
 }
 .nav-list li a span:first-child {
-	color: #81C347;
+	color: #40A51A;
     padding: 2px 0 2px 15px;
     font-size: x-large;
     border-left: 5px solid rgba(113,113,115,0);
@@ -263,7 +263,7 @@ body {
     text-decoration: none;
     text-align: center;
     margin-top: 15px;
-    color: #80C35A;
+    color: #40A51A;
     font-weight: 500;
     font-size: 16px;
     background: rgba(128,195,90,0);

@@ -131,7 +131,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
 })
 .run( function($rootScope, $location,UserService) {
 	
-	//data formatted code
+	//date formatted code
 	 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	 				  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
 	 				];
