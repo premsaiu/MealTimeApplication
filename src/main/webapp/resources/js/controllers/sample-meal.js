@@ -14,14 +14,11 @@ controller('SampleMealCtrl',  function ($scope, $rootScope, $state, $localStorag
 	$rootScope.profileShow = $localStorage.profileShow;
 	
 	$scope.sampleMealErrorMsg = "";
-<<<<<<< HEAD
 	if($rootScope.loggedUser){
 		$scope.sampleMeal = {};
 		$scope.sampleMeal.mobileNumber = $rootScope.user.mobileNumber;
 		$scope.sampleMeal.name = $rootScope.user.firstName;
 	}
-=======
->>>>>>> refs/remotes/origin/master
 	//data formatted code
 	 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
 	 				  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
