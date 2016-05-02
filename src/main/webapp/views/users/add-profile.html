@@ -1,121 +1,78 @@
-<div class="col-md-9 col-xs-12 bg-color-s1">
-		    <h4 class="titile-02">Add Profile</h4>
+<div class="col-sm-12 col-md-9 col-lg-9">
+		    <h3 class="font-black text-uppercase">Add Profile</h3>
+		    <hr class="header_s1">
+			<div class="clearfix"></div>
 				<div class="clearfix mt20">
 						  <!-- Nav tabs -->
 						  <ul class="nav nav-tabs" role="tablist">
 						    <li role="presentation" class="active"><a href="#basicInformation" aria-controls="basicInformation" role="tab" data-toggle="tab">Basic Information</a></li>
 						    <li role="presentation"><a href="#foodStyle" aria-controls="foodStyle" role="tab" data-toggle="tab">Food Style</a></li>
 						  </ul>
-						
+						  
 						  <!-- Tab panes -->
 						  <div class="tab-content tab-contentainer-s1">
 						    <div role="tabpanel" class="tab-pane active" id="basicInformation">
 							    
-							    <div class="col-lg-4">
+							    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 								    
-									<div class="profile-pic center-block">
+									<!-- <div class="profile-pic center-block">
+									    <img src="images/propic.jpg">
+									    <div class="profile-btn-bg">
+										    <a href="#" class="profile-pic-btn">Upload Profile</a>
+									    </div>
+								    </div> -->
+								    <div class="profile-pic center-block">
 									    <img src="resources/images/propic.jpg">
 									    <div class="profile-btn-bg">
 											<input type="file" id="upload" onchange="showMyImage(this)" accept="image/*" ng-model="profilePic" style="visibility: hidden; width: 1px; height: 1px"/> 
 										    <a href="#" onclick="document.getElementById('upload').click(); return false" class="profile-pic-btn">Upload Profile</a>
 									    </div>
 								    </div>
-								    <h2 class="new-title-s1">Mohan Das</h2>
+								    <h2 class="new-title-s1">Ramakrishna Rentala</h2>
 								    <h4 class="new-title-s2">Subscribed</h4>
 								    <h4 class="new-title-s3">MT6789MAD2NVS1</h4>
 
 							    </div>
 							    
-							    <div class="col-lg-8 new-brL">
+							    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 new-brL">
 								    
-								<form>
-							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Name</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    Ms. <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a>Ms.</a></li>
-								    <li><a>Mr.</a></li>
-								    <li><a>Mrs.</a></li>
-								  </ul>
-								</div>
-							    <input type="email" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="Mohan Das">
-							    <div class="clearfix"></div>
-							  </div>
-							  
-							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Email</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-								</div>
-							    <input type="email" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="mohandas@corprel.com">
-							    <div class="clearfix"></div>
-							  </div>
-							 
-							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Phone Number</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-								</div>
-							    <input class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="+91 9030399160">
-							    <div class="clearfix"></div>
-							  </div>
-							   
-							   <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Area</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-								</div>
-							    <select class="new-select-s1">
-							    	<option>Madhapur</option>
-							    	<option>Ameerpet</option>
-							    	<option>Banjara Hills</option>
-							    </select>
-							    <div class="clearfix"></div>
-							  </div>
-							   
-							  <div class="form-group">
-								<div class="btn-group pull-left">
-								  <input type="text" class="form-control pull-left new-input-s1 w336" style="min-width: 320px;" id="exampleInputname" placeholder="line 02">
-								</div>
-								
-							    <div class="clearfix"></div>
-							  </div>
-							  
-							  <div class="form-group">
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon new-city-icon" aria-hidden="true"></span>
-								</div>
-							    <select class="new-select-s1">
-							    	<option>City</option>
-							    	<option>Madhapur</option>
-							    	<option>Ameerpet</option>
-							    	<option>Banjara Hills</option>
-							    </select>
-							    <div class="clearfix"></div>
-							  </div>
-							  
-							  <div class="form-group">
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-								</div>
-							    <select class="new-select-s1">
-							    	<option>State &amp; Country</option>
-							    	<option>Andhrapradesh, India</option>
-							    	<option>Ny, United States</option>
-							    	<option>WD, Canada</option>
-							    </select>
-							    <div class="clearfix"></div>
-							  </div>
-
-							  <button type="submit" class="btn btn-success mt20 mr10">Edit</button> 							  
-							  <button type="submit" class="btn btn-success mt20 mr10">Save</button>
-							  <button type="submit" class="btn btn-success mt20">Cancel</button>
-							  
-							  <!-- </div> -->
-							</form>
+								<form class="form-inline mt20 input-mar-s1">
+								  <div class="form-group">
+								    <input type="text" class="form-control mb10 input-s4" id="exampleInputEmail3" placeholder="First Name">
+								  </div>
+								  <div class="form-group">
+								    <input type="text" class="form-control mb10 input-s4" id="exampleInputEmail3" placeholder="Last Name">
+								  </div>
+								  <div class="form-group">
+								    <input type="text" class="form-control mb10 input-s4" id="exampleInputEmail3" placeholder="Email">
+								  </div>
+								  <div class="form-group">
+								    <input type="text" class="form-control mb10 input-s4" id="exampleInputPassword3" placeholder="Mobile No.">
+								  </div>
+								  <div class="form-group">
+								    <input type="text" class="form-control mb10 input-s4" id="exampleInputPassword3" placeholder="Address">
+								  </div>
+								  <div class="form-group">
+								    <select class="form-control input-s4 mb10">
+									  <option>Area</option>
+									  <option>Madhapur</option>
+									  <option>Banjara Hills</option>
+									  <option>Hitech-city</option>
+									</select>
+								  </div>
+								  <div class="form-group">
+									<select class="form-control input-s4 mb10">
+									  <option>City</option>
+									  <option>Hyderabad</option>
+									  <option>Mumbai</option>
+									  <option>Banglore</option>
+									</select>
+								  </div>
+								  <div>
+									 <button type="submit" class="btn custom-btn-s2 pull-right">LATER</button>
+								  	 <button type="submit" class="btn custom-btn-s2 pull-right">SAVE</button>
+								  </div>
+								</form>
 
 							    </div>
 								
@@ -125,12 +82,80 @@
 						    
 						    
 						    <div role="tabpanel" class="tab-pane" id="foodStyle">
-						    	tab 2 - Food Style
+							    
+							    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+								    
+									<!-- <div class="profile-pic center-block">
+									    <img src="images/propic.jpg">
+									    <div class="profile-btn-bg">
+										    <a href="#" class="profile-pic-btn">Upload Profile</a>
+									    </div>
+								    </div> -->
+								    <div class="profile-pic center-block">
+									    <img src="resources/images/propic.jpg">
+									    <div class="profile-btn-bg">
+											<input type="file" id="upload" onchange="showMyImage(this)" accept="image/*" ng-model="profilePic" style="visibility: hidden; width: 1px; height: 1px"/> 
+										    <a href="#" onclick="document.getElementById('upload').click(); return false" class="profile-pic-btn">Upload Profile</a>
+									    </div>
+								    </div>
+								    <h2 class="new-title-s1">Ramakrishna Rentala</h2>
+								    <h4 class="new-title-s2">Subscribed</h4>
+								    <h4 class="new-title-s3">MT6789MAD2NVS1</h4>
+
+							    </div>
+							    
+							    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 new-brL">
+								    
+									<form class="form-inline mt20 input-mar-s1">
+									  <div class="form-group">
+									    <select class="form-control input-s4 mb10">
+										  <option>Food Style</option>
+										  <option>Food Style 01</option>
+										  <option>Food Style 02</option>
+										  <option>Food Style 03</option>
+										</select>
+									  </div>
+									  <div class="form-group">
+										<select class="form-control input-s4 mb10">
+										  <option>Food Type</option>
+										  <option>Food Type 01</option>
+										  <option>Food Type 02</option>
+										  <option>Food Type 03</option>
+										</select>
+									  </div>
+									  <div class="form-group">
+										<select class="form-control input-s4 mb10">
+										  <option>Dinner Choice</option>
+										  <option>Dinner Choice 01</option>
+										  <option>Dinner Choice 02</option>
+										  <option>Dinner Choice 03</option>
+										</select>
+									  </div>
+									  <div class="form-group">
+										<select class="form-control input-s4 mb10">
+										  <option>Packing Choice</option>
+										  <option>Packing Choice 01</option>
+										  <option>Packing Choice 02</option>
+										  <option>Packing Choice 03</option>
+										</select>
+									  </div>
+									  
+									  <div>
+										 <button type="submit" class="btn custom-btn-s2 pull-right">LATER</button>
+									  	 <button type="submit" class="btn custom-btn-s2 pull-right">SAVE</button>
+									  </div>
+									</form>
+
+							    </div>
 								
-						    </div>
+								
+						    </div> <!-- end tab content -->
+						    
+						  
 							<div class="clearfix"></div>
 						  </div>
-						
+						  
+						  
 						</div>
 				
 		    </div>

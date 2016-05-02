@@ -638,4 +638,8 @@ legend {
     outline: none;
 }
 
-
+.header_s1 {
+	border-bottom: 2px solid #9C9C9C;
+    width: 12%;
+    margin: 0 0 20px 0;
+}

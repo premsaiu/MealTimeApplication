@@ -2,6 +2,8 @@
 	<div class="col-sm-12 col-md-9 col-lg-9 headaline">
 				<div class="content_container-s1 slider-align">
 					<h3 class="font-black text-uppercase">SCHEDULED VISIT</h3>
+					<hr class="header_s1">
+					<div class="clearfix"></div>
 					<div data-ng-show="schedEnqMsg" class="alert alert-success" >
   								<strong>Success!</strong>Schedule Enquiry has been received.
 						</div>
@@ -30,17 +32,17 @@
 						 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
 				   		 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 					  </div>
-					  <div class="row form-group" style="margin-left: -30px;">
+					  <div class="row form-group">
 					  
-					  <div class="col-md-3">
-					    <select class="form-control mb10" data-ng-model="sched.date" name="date" id="datetimePicker" style="width: 110px;" required="required">
+					  <div class="pull-left">
+					    <select class="form-control mb10" data-ng-model="sched.date" name="date" id="datetimePicker" style="width: 110px;margin-right: 20px;" required="required">
 						  <option value="" disabled selected style="display: none;">Date</option>
 						  <option ng-repeat="date in customdates" value="{{date}}"> {{date}}</option>
 						</select>
 						 <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 						</div>
-						<div class="col-md-3">
-						<select class="form-control mb10" name="time" data-ng-model="sched.time" style="width: 110px;margin-left: -31px;" required="required">
+						<div class="pull-left">
+						<select class="form-control mb10" name="time" data-ng-model="sched.time" style="width: 110px;" required="required">
 						  <option value="" disabled selected style="display: none;">Time</option>
 						  <option value="14:00:00">2:00-3:00 PM</option>
 						  <option value="15:00:00">3:00-4:00 PM</option>
@@ -53,6 +55,7 @@
 						</select>
 						 <span ng-show="form.time.$dirty  && form.time.$error.required">Time is required.</span>
 						</div>
+						<div class="clearfix"></div>
 					  </div>
 					 <!--  <div class="form-group row" data-ng-model="sched.time">
 						<select class="form-control input-s1 mb10" data-ng-model="sched.time">
