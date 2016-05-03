@@ -5,7 +5,6 @@
 package com.mealtime.bean;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 /**
@@ -76,6 +75,12 @@ public class UserMaster implements Serializable {
     private String foodStyleS2;
 
     private String password;
+    
+    // DB : dinner_choice VARCHAR 
+    private String dinnerChoice;
+
+    // DB : packing_choice VARCHAR 
+    private String packingChoice;
 
     //----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
@@ -258,7 +263,22 @@ public class UserMaster implements Serializable {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
-	} 
+	}
 
+	public String getDinnerChoice() {
+		return dinnerChoice;
+	}
+
+	public void setDinnerChoice(String dinnerChoice) {
+		this.dinnerChoice = dinnerChoice;
+	}
+
+	public String getPackingChoice() {
+		return packingChoice;
+	}
+
+	public void setPackingChoice(String packingChoice) {
+		this.packingChoice = packingChoice;
+	} 
 
 }

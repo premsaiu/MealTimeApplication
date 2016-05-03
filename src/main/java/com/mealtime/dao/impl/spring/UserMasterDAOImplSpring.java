@@ -25,19 +25,19 @@ import com.mealtime.dao.impl.spring.commons.GenericDAO;
 public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements UserMasterDAO {
 
 	private final static String SQL_SELECT = 
-		"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where user_id = ?";
+		"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice from user_master where user_id = ?";
 	
 	private final static String SQL_SELECT_BY_MOBILENUMBER = 
-			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where mobile_number = ?";
+			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice from user_master where mobile_number = ?";
 	
 	private final static String SQL_SELECT_BY_EMAIL = 
-			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password from user_master where email = ?";
+			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice from user_master where email = ?";
 
 	private final static String SQL_INSERT = 
-		"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			"insert into user_master ( user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private final static String SQL_UPDATE = 
-		"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ?, password = ? where user_id = ?";
+			"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ?, password = ?, dinner_choice = ?, packing_choice = ? where user_id = ?";
 
 	private final static String SQL_DELETE = 
 		"delete from user_master where user_id = ?";
@@ -176,51 +176,55 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 	
 	protected Object[] getValuesForInsert(UserMaster userMaster)  {
 		return new Object[] {
-			//--- Returns PRIMARY KEY and DATA ( for SQL "SET x=?, y=?, ..." )
-			//userMaster.getUserId() , // "user_id" : java.lang.String
-			userMaster.getFirstName() , // "first_name" : java.lang.String
-			userMaster.getLastName() , // "last_name" : java.lang.String
-			userMaster.getEmail() , // "email" : java.lang.String
-			userMaster.getMobileNumber() , // "mobile_number" : java.lang.String
-			userMaster.getAddress() , // "address" : java.lang.String
-			userMaster.getCreatedDate() , // "created_date" : java.util.Date
-			userMaster.getUpdatedDate() , // "updated_date" : java.util.Date
-			userMaster.getCreatedBy() , // "created_by" : java.lang.String
-			userMaster.getUpdatedBy() , // "updated_by" : java.lang.String
-			userMaster.getStatus() , // "status" : java.lang.String
-			userMaster.getIsActive() , // "is_active" : java.lang.String
-			userMaster.getVersion() , // "version" : java.lang.Integer
-			userMaster.getRoleId() , // "role_id" : java.lang.Integer
-			userMaster.getFilePath() , // "file_path" : java.lang.String
-			userMaster.getFoodStyleS1() , // "food_style_s1" : java.lang.String
-			userMaster.getFoodStyleS2() , // "food_style_s2" : java.lang.String
-			userMaster.getPassword()
+				//--- Returns PRIMARY KEY and DATA ( for SQL "SET x=?, y=?, ..." )
+				userMaster.getUserId() , // "user_id" : java.lang.String
+				userMaster.getFirstName() , // "first_name" : java.lang.String
+				userMaster.getLastName() , // "last_name" : java.lang.String
+				userMaster.getEmail() , // "email" : java.lang.String
+				userMaster.getMobileNumber() , // "mobile_number" : java.lang.String
+				userMaster.getAddress() , // "address" : java.lang.String
+				userMaster.getCreatedDate() , // "created_date" : java.util.Date
+				userMaster.getUpdatedDate() , // "updated_date" : java.util.Date
+				userMaster.getCreatedBy() , // "created_by" : java.lang.String
+				userMaster.getUpdatedBy() , // "updated_by" : java.lang.String
+				userMaster.getStatus() , // "status" : java.lang.String
+				userMaster.getIsActive() , // "is_active" : java.lang.String
+				userMaster.getVersion() , // "version" : java.lang.Integer
+				userMaster.getRoleId() , // "role_id" : java.lang.Integer
+				userMaster.getFilePath() , // "file_path" : java.lang.String
+				userMaster.getFoodStyleS1() , // "food_style_s1" : java.lang.String
+				userMaster.getFoodStyleS2() , // "food_style_s2" : java.lang.String
+				userMaster.getPassword() , // "password" : java.lang.String
+				userMaster.getDinnerChoice() , // "dinner_choice" : java.lang.String
+				userMaster.getPackingChoice()  // "packing_choice" : java.lang.String
 		};
 	}
     //----------------------------------------------------------------------
 	
 	protected Object[] getValuesForUpdate(UserMaster userMaster) {
 		return new Object[] {		
-			//--- Returns DATA first ( for SQL "SET x=?, y=?, ..." )
-			userMaster.getFirstName(), // "first_name" : java.lang.String
-			userMaster.getLastName(), // "last_name" : java.lang.String
-			userMaster.getEmail(), // "email" : java.lang.String
-			userMaster.getMobileNumber(), // "mobile_number" : java.lang.String
-			userMaster.getAddress(), // "address" : java.lang.String
-			userMaster.getCreatedDate(), // "created_date" : java.util.Date
-			userMaster.getUpdatedDate(), // "updated_date" : java.util.Date
-			userMaster.getCreatedBy(), // "created_by" : java.lang.String
-			userMaster.getUpdatedBy(), // "updated_by" : java.lang.String
-			userMaster.getStatus(), // "status" : java.lang.String
-			userMaster.getIsActive(), // "is_active" : java.lang.String
-			userMaster.getVersion(), // "version" : java.lang.Integer
-			userMaster.getRoleId(), // "role_id" : java.lang.Integer
-			userMaster.getFilePath(), // "file_path" : java.lang.String
-			userMaster.getFoodStyleS1(), // "food_style_s1" : java.lang.String
-			userMaster.getFoodStyleS2(), // "food_style_s2" : java.lang.String
-			userMaster.getPassword(),
-			//--- Returns PRIMARY KEY at the end ( for SQL "WHERE key=?, ..." )
-			userMaster.getUserId()  // "user_id" : java.lang.String
+				//--- Returns DATA first ( for SQL "SET x=?, y=?, ..." )
+				userMaster.getFirstName(), // "first_name" : java.lang.String
+				userMaster.getLastName(), // "last_name" : java.lang.String
+				userMaster.getEmail(), // "email" : java.lang.String
+				userMaster.getMobileNumber(), // "mobile_number" : java.lang.String
+				userMaster.getAddress(), // "address" : java.lang.String
+				userMaster.getCreatedDate(), // "created_date" : java.util.Date
+				userMaster.getUpdatedDate(), // "updated_date" : java.util.Date
+				userMaster.getCreatedBy(), // "created_by" : java.lang.String
+				userMaster.getUpdatedBy(), // "updated_by" : java.lang.String
+				userMaster.getStatus(), // "status" : java.lang.String
+				userMaster.getIsActive(), // "is_active" : java.lang.String
+				userMaster.getVersion(), // "version" : java.lang.Integer
+				userMaster.getRoleId(), // "role_id" : java.lang.Integer
+				userMaster.getFilePath(), // "file_path" : java.lang.String
+				userMaster.getFoodStyleS1(), // "food_style_s1" : java.lang.String
+				userMaster.getFoodStyleS2(), // "food_style_s2" : java.lang.String
+				userMaster.getPassword(), // "password" : java.lang.String
+				userMaster.getDinnerChoice(), // "dinner_choice" : java.lang.String
+				userMaster.getPackingChoice(), // "packing_choice" : java.lang.String
+				//--- Returns PRIMARY KEY at the end ( for SQL "WHERE key=?, ..." )
+				userMaster.getUserId()  // "user_id" : java.lang.String
 		};
 	}
 	//----------------------------------------------------------------------
@@ -254,26 +258,28 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 	private void populateBean(ResultSet rs, UserMaster userMaster) throws SQLException {
 
 		//--- Set data from ResultSet to Bean attributes
-		userMaster.setUserId(rs.getString("user_id")); // java.lang.String
-		userMaster.setFirstName(rs.getString("first_name")); // java.lang.String
-		userMaster.setLastName(rs.getString("last_name")); // java.lang.String
-		userMaster.setEmail(rs.getString("email")); // java.lang.String
-		userMaster.setMobileNumber(rs.getString("mobile_number")); // java.lang.String
-		userMaster.setAddress(rs.getString("address")); // java.lang.String
-		userMaster.setCreatedDate(rs.getDate("created_date")); // java.util.Date
-		userMaster.setUpdatedDate(rs.getDate("updated_date")); // java.util.Date
-		userMaster.setCreatedBy(rs.getString("created_by")); // java.lang.String
-		userMaster.setUpdatedBy(rs.getString("updated_by")); // java.lang.String
-		userMaster.setStatus(rs.getString("status")); // java.lang.String
-		userMaster.setIsActive(rs.getString("is_active")); // java.lang.String
-		userMaster.setVersion(rs.getInt("version")); // java.lang.Integer
-		if ( rs.wasNull() ) { userMaster.setVersion(null); }; // not primitive number => keep null value if any
-		userMaster.setRoleId(rs.getInt("role_id")); // java.lang.Integer
-		if ( rs.wasNull() ) { userMaster.setRoleId(null); }; // not primitive number => keep null value if any
-		userMaster.setFilePath(rs.getString("file_path")); // java.lang.String
-		userMaster.setFoodStyleS1(rs.getString("food_style_s1")); // java.lang.String
-		userMaster.setFoodStyleS2(rs.getString("food_style_s2")); // java.lang.String
-		userMaster.setPassword(rs.getString("password"));
+				userMaster.setUserId(rs.getString("user_id")); // java.lang.String
+				userMaster.setFirstName(rs.getString("first_name")); // java.lang.String
+				userMaster.setLastName(rs.getString("last_name")); // java.lang.String
+				userMaster.setEmail(rs.getString("email")); // java.lang.String
+				userMaster.setMobileNumber(rs.getString("mobile_number")); // java.lang.String
+				userMaster.setAddress(rs.getString("address")); // java.lang.String
+				userMaster.setCreatedDate(rs.getDate("created_date")); // java.util.Date
+				userMaster.setUpdatedDate(rs.getDate("updated_date")); // java.util.Date
+				userMaster.setCreatedBy(rs.getString("created_by")); // java.lang.String
+				userMaster.setUpdatedBy(rs.getString("updated_by")); // java.lang.String
+				userMaster.setStatus(rs.getString("status")); // java.lang.String
+				userMaster.setIsActive(rs.getString("is_active")); // java.lang.String
+				userMaster.setVersion(rs.getInt("version")); // java.lang.Integer
+				if ( rs.wasNull() ) { userMaster.setVersion(null); }; // not primitive number => keep null value if any
+				userMaster.setRoleId(rs.getInt("role_id")); // java.lang.Integer
+				if ( rs.wasNull() ) { userMaster.setRoleId(null); }; // not primitive number => keep null value if any
+				userMaster.setFilePath(rs.getString("file_path")); // java.lang.String
+				userMaster.setFoodStyleS1(rs.getString("food_style_s1")); // java.lang.String
+				userMaster.setFoodStyleS2(rs.getString("food_style_s2")); // java.lang.String
+				userMaster.setPassword(rs.getString("password")); // java.lang.String
+				userMaster.setDinnerChoice(rs.getString("dinner_choice")); // java.lang.String
+				userMaster.setPackingChoice(rs.getString("packing_choice")); // java.lang.String
 	}
 
     //----------------------------------------------------------------------
