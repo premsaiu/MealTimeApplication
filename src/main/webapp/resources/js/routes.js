@@ -18,6 +18,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
                                'miniMealApp.sampleMealCtrl',
                                'miniMealApp.scheduleEnquiryCtrl',
                                'miniMealApp.subscribeNowCtrl',
+                               'miniMealApp.leaveCtrl',
                                'ui.router'])
 .config(function($stateProvider, $urlRouterProvider) {
     
@@ -107,6 +108,11 @@ angular.module('miniMealApp', ['miniMealApp.services',
             url: '/ourstory',
             templateUrl: 'views/users/ourstory.html',
             controller: 'OurStoryCtrl'
+        })
+        .state('leavemessage', {
+            url: '/leavemessage',
+            templateUrl: 'views/users/leavemessage.html',
+            controller: 'leaveCtrl'
         })
         .state('loginsample', {
             url: '/loginsample',

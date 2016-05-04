@@ -294,7 +294,15 @@ angular.module('miniMealApp.services', ['ngStorage'])
     	});
     	return request;
   };
-  
+  this.submitleavemessage = function(leavedata) {
+      var request = $http({
+          method:"post",
+          url:  baseURL+'saveFeedBack.spring',
+          data : leavedata,
+          dataType: "application/json"
+      });
+      return request;
+  };
   this.checkSchedule = function(mobileNumber, scheduleDate) {
   	var request = $http({
   		method:"get",
@@ -342,7 +350,7 @@ service('AdminService', ['$http', '$q', function($http, $q){
     	return request; 	
 	};
 	
-	this.submitPayment = function (paymentForm) {
+	this.submitPayment = function(paymentForm) {
         var request = $http({
             method:"post",
             url:  baseURL+'payUser.spring',
@@ -351,6 +359,8 @@ service('AdminService', ['$http', '$q', function($http, $q){
         });
         return request;
     };
+   
+    
 	
 }])
 .factory('commonCode', function ($window, $localStorage) {
