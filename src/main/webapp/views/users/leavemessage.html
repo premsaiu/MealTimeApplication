@@ -28,7 +28,7 @@ Just let us know your convenient time.
 					    <input type="email" class="form-control mb10 input-s1" id="exampleInputEmail3" ng-model="leaveMessage.email" name="email" placeholder="Email" required>
 					  <div class="clearfix"></div> 
 							     <span ng-show="form.email.$dirty  && form.email.$error.required">Email is required.</span>
-					  <span ng-show="form.email.$invalid && form.email.$error.required">Email is not valid.</span>
+					  <span ng-show="form.email.$error.email">Email is not valid.</span>
 					  </div>
 					  <div class="form-group">
 					    <input type="text" class="form-control mb10 input-s1"  ng-model="leaveMessage.mobileNumber" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno" placeholder="Mobile No.">

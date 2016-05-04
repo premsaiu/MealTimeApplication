@@ -109,6 +109,11 @@ angular.module('miniMealApp', ['miniMealApp.services',
             templateUrl: 'views/users/ourstory.html',
             controller: 'OurStoryCtrl'
         })
+        .state('crispybites', {
+            url: '/crispybites',
+            templateUrl: 'views/users/crispybites.html',
+            controller: 'OurStoryCtrl'
+        })
         .state('leavemessage', {
             url: '/leavemessage',
             templateUrl: 'views/users/leavemessage.html',
