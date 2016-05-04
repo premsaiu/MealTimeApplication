@@ -10,9 +10,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mealtime.bean.Feedback;
 import com.mealtime.bean.OtpTable;
 import com.mealtime.bean.UserMaster;
 import com.mealtime.bean.UserSubscription;
+import com.mealtime.dao.FeedbackDAO;
 import com.mealtime.dao.OtpTableDAO;
 import com.mealtime.dao.UserMasterDAO;
 import com.mealtime.dao.UserSubscriptionDAO;
@@ -36,6 +38,9 @@ public class MealTimeService {
 	
 	@Autowired
 	UserSubscriptionDAO userSubscriptionDAO;
+	
+	@Autowired
+	FeedbackDAO feedbackDAO;
 	
 	private static final Logger logger = Logger.getLogger(MealTimeService.class);
 	
@@ -183,8 +188,15 @@ public class MealTimeService {
 		user.setFoodStyleS1(userMaster.getFoodStyleS1());
 		user.setFoodStyleS2(userMaster.getFoodStyleS2());
 		user.setAddress(userMaster.getAddress());
+		user.setDinnerChoice(userMaster.getDinnerChoice());
+		user.setPackingChoice(userMaster.getPackingChoice());
 		count  = userMasterDAO.update(user);
 		return count;
+	}
+	
+	public void saveFeedBack(Feedback feedback){
+		feedback.setCreatedDate(new Date());
+		feedbackDAO.insert(feedback);
 	}
 	
 }

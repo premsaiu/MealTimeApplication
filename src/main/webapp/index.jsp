@@ -140,6 +140,7 @@
     <script src="resources/js/controllers/sample-meal.js"></script>
     <script src="resources/js/controllers/schedule-enquiry.js"></script>
     <script src="resources/js/controllers/subscribe-now.js"></script>
+    <script src="resources/js/controllers/leavemessage.js"></script>
 <!--     <script src="resources/js/controllers/controller.js"></script> -->
     <script src="resources/js/services/services.js"></script>
     <script src="resources/js/directives/directives.js"></script>

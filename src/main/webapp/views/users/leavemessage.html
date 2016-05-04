@@ -1,0 +1,56 @@
+<div class="col-sm-12 col-md-9 col-lg-9 headaline">
+				<div class="content_container-s1 slider-align">
+					<h3 class="font-black text-uppercase">Leave a Message</h3>
+					<hr class="header_s1">
+					<div class="clearfix"></div>
+					<div ng-show="leavemessageMsg" class="alert alert-success" >
+  								<strong>Success!</strong>Thanks for the feedback.
+						</div>
+						<div ng-show="leavemessageErrorMsg" class="alert alert-danger" >
+  								{{leavemessageErrorMsg}}
+							</div>
+					<p>
+						MealTime’s Executive shall visit you at your place to explain you about our meal boxes & Our Services
+Just let us know your convenient time.
+					</p>
+					
+					<form class="mt20" name="form" novalidate>
+					  <div class="form-group">
+					    <input type="text" class="form-control mb10 input-s1" id="exampleInputEmail3" ng-model="leaveMessage.name"   ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20" placeholder="Name">
+					   <div class="clearfix"></div>
+							    <span ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
+				  				<span ng-show="form.name.$dirty  && form.name.$error.required">Name is required.</span>
+								<span ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
+								<span ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
+							   
+					  </div>
+					  <div class="form-group">
+					    <input type="email" class="form-control mb10 input-s1" id="exampleInputEmail3" ng-model="leaveMessage.email" name="email" placeholder="Email" required>
+					  <div class="clearfix"></div> 
+							     <span ng-show="form.email.$dirty  && form.email.$error.required">Email is required.</span>
+					  <span ng-show="form.email.$error.email">Email is not valid.</span>
+					  </div>
+					  <div class="form-group">
+					    <input type="text" class="form-control mb10 input-s1"  ng-model="leaveMessage.mobileNumber" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno" placeholder="Mobile No.">
+					  <div class="clearfix"></div>
+							     <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
+						    <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
+				   		  <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
+					
+					  </div>
+					  <div class="form-group">
+					    <textarea class="form-control mb10 input-s1" rows="3" ng-model="leaveMessage.comment" placeholder="Message" name="comment" ng-minlength="3" required ng-maxlength="50"></textarea>
+					  <div class="clearfix"></div>
+							     <span ng-show="form.comment.$dirty  && form.comment.$error.required">MobileNo is required.</span>
+						    <span ng-show="form.comment.$dirty  && form.comment.$error.maxlength">MaxLength should be of 50 characters.</span>
+				   		  <span ng-show="form.comment.$dirty  && form.comment.$error.minlength">Minimum Length should be of 3 characters</span>
+				
+					  </div>
+					  
+					  <div>
+						 <button type="submit" class="btn custom-btn-s2 pull-right mr50" ng-disabled="form.$invalid"  ng-click="leavemsg()" >SEND</button>
+					  </div>
+					</form>
+					
+				</div>
+			</div>

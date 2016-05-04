@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mealtime.bean.Feedback;
 import com.mealtime.bean.UserMaster;
 import com.mealtime.service.MealTimeService;
 import com.mealtime.util.MealTimeUtil;
@@ -162,6 +164,14 @@ public class BaseController {
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 			wsResponseStatus.setData(userMaster);
 		}
+		return wsResponseStatus;
+	}
+	
+	@RequestMapping(value="/saveFeedBack", method=RequestMethod.POST)
+	public @ResponseBody WSResponseStatus saveFeedBack(@RequestBody Feedback feedback){
+		WSResponseStatus wsResponseStatus = new WSResponseStatus();
+		mealTimeService.saveFeedBack(feedback);
+		MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		return wsResponseStatus;
 	}
 	

@@ -124,6 +124,21 @@ float:right;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
+.profilemenu{
+	padding: 6px 0;
+    text-decoration: none;
+    text-align: center;
+    width: 150px;
+    color: #40A51A;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: larger;
+    background: rgba(204,204,204,0);
+    border: 3px solid #ccc;
+    border-radius: 8px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
 .nav-list li:first-child a:hover  {
 	color: #FFF !important;
 	background: rgba(129,195,71,1);

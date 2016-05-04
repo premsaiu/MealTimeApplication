@@ -87,12 +87,13 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	        	    $scope.loginError = "Invalid Credentials. Please try again later";
 	                console.error('Error while checking user');
 	            });
-				}else{
+				}
+		else{
 					UserService.checkUser($scope.mobileNumber).then(
 	                function(response) {
 	                	if(response.data != ""){
 	                		UserService.checkSubscription(response.data.userId).then(function(response1) {
-								if(response1.data.data.userSubscription == null || (response1.data.data.userSubscription.status.toLowerCase() != "success" 
+								if(response1.data.data.userSubscription != null || (response1.data.data.userSubscription.status.toLowerCase() != "success" 
 									&& response1.data.data.userSubscription.confirmation == false)){
 									$(".adminsection").hide();
 									$rootScope.newmenu = true;
@@ -114,7 +115,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 								}
 							});
 	                	}
-	                	
+	                	debugger;
 	                	$rootScope.loggedUser = true;
 	                	$localStorage.loggedUser = true;
 	                	$localStorage.user = response.data;
@@ -195,6 +196,6 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
 	console.log("new menu-->"+$rootScope.newmenu);
-	console.log("status-->"+$rootScope.status);
+	console.log("status-->"+$rootScope.profileShow);
 	
 })
