@@ -34,7 +34,7 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice from user_master where email = ?";
 
 	private final static String SQL_INSERT = 
-			"insert into user_master ( user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private final static String SQL_UPDATE = 
 			"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ?, password = ?, dinner_choice = ?, packing_choice = ? where user_id = ?";
@@ -177,7 +177,7 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 	protected Object[] getValuesForInsert(UserMaster userMaster)  {
 		return new Object[] {
 				//--- Returns PRIMARY KEY and DATA ( for SQL "SET x=?, y=?, ..." )
-				userMaster.getUserId() , // "user_id" : java.lang.String
+				//userMaster.getUserId() , // "user_id" : java.lang.String
 				userMaster.getFirstName() , // "first_name" : java.lang.String
 				userMaster.getLastName() , // "last_name" : java.lang.String
 				userMaster.getEmail() , // "email" : java.lang.String
