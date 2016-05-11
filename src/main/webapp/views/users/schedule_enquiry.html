@@ -17,10 +17,10 @@
 					<form name="form" class="mt20" class="col-lg-6" style="margin: 15px">
 					  <div class="form-group row">
 					    <input type="text" class="form-control mb20 input-s1" ng-model="sched.name" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20" placeholder="Name">
-							    <span ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
-				  				<span ng-show="form.name.$dirty  && form.name.$error.required">Name is required.</span>
-								<span ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
-								<span ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
+							    <span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
+				  				<span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.required">Name is required.</span>
+								<span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
+								<span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
 					  </div>
 
 					  
@@ -28,9 +28,9 @@
 					    <input type="text" class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-pattern=" /^[789]\d{9}$/"  id="phone" ng-model="sched.number" ng-readonly="loggedUser" ng-maxlength="10" placeholder="+91" required name="mobileno">
 
 						 <div class="clearfix"></div>
-						 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
-						 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
-				   		 <span ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
+						 <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
+						 <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
+				   		 <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 					  </div>
 					  <div class="row form-group">
 					  
@@ -53,7 +53,7 @@
 						  <option value="20:00:00">8:00-9:00 PM</option>
 						  <option value="21:00:00">9:00-10:00 PM</option>
 						</select>
-						 <span ng-show="form.time.$dirty  && form.time.$error.required">Time is required.</span>
+						 <span id="validationMessage" ng-show="form.time.$dirty  && form.time.$error.required">Time is required.</span>
 						</div>
 						<div class="clearfix"></div>
 					  </div>
@@ -78,7 +78,7 @@
 							    	<option value="Banjara Hills">Banjara Hills</option>
 							    </select>
 							    <div class="clearfix"></div>
-							    <span ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
+							    <span id="validationMessage" ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
 							  
 					  </div>
 					  <div class="form-group row">
@@ -98,7 +98,7 @@
 				        <h4 class="modal-title">One Time Password</h4>
 				      </div>
 				      <div class="modal-body">
-				       <span style="color:red;">{{wrongOTPMsg}}</span>
+				       <span id="validationMessage">{{wrongOTPMsg}}</span>
 				        <form>
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label">Please Enter OTP</label>

@@ -22,7 +22,7 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 	$rootScope.profileShow = true;
 	if(!angular.isDefined($rootScope.user)){
 		//location.href = "#/addprofile";
-		$state.go("addprofile");
+		$state.go("profile");
 	}else{
 		if(angular.isDefined($rootScope.user) && $rootScope.user.roleId == 3){
 			$scope.isEditForm=true;
@@ -31,10 +31,14 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 		var userId = $rootScope.user.userId;
 		$rootScope.userProfilePic = "images/"+userId+".jpg";
 		
-		$rootScope.foodType = [{'label':'Veg','value':'veg'},{'label':'Non-Veg','value':'non-veg'}];
-		$rootScope.foodStyle = [{'label':'North','value':'north'},{'label':'South','value':'south'}];
+		$rootScope.foodType = [{'label':'North Indian','value':'North Indian'},{'label':'South Indian','value':'South Indian'}];
+		$rootScope.foodStyle = [{'label':'Vegetarian','value':'vegetarian'},{'label':'Eggetarian','value':'Eggetarian'}];
+		$rootScope.dinner = [{'label':'Rice','value':'rice'},{'label':'Roti','value':'roti'},{'label':'Rice & Roti','value':'Rice-Roti'}];
+		$rootScope.packing = [{'label':'I love polythene','value':'I love polythene'},{'label':'Iam against polythene','value':' Iam against polythene'}];
 		
 		
+		
+		debugger;
 		$scope.editProfile = function(){
 			console.log($scope.editUser);
 			var subject = "MealTime - Edit Profile - One Time Password(OTP)";

@@ -16,7 +16,7 @@ controller('PaymentCtrl', function ($scope, $rootScope, $state, $localStorage, U
 	
 	if(angular.isDefined($rootScope.user) && $rootScope.user.roleId == 3){
 		//location.href = "#/addprofile";
-		$state.go("addprofile");
+		$state.go("profile");
 	}else{
 		$rootScope.isUserSubscribed = true;
 		UserService.checkSubscription($rootScope.user.userId).then(

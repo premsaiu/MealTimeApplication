@@ -964,7 +964,7 @@ controller('ContactCtrl', function ($scope, $http) {
 controller('PaymentCtrl', function ($scope, $rootScope, UserService) {
 	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
-		location.href = "#/addprofile";
+		location.href = "#/profile";
 	}else{
 		$rootScope.isUserSubscribed = true;
 		UserService.checkSubscription($rootScope.user.userId).then(
@@ -1017,7 +1017,7 @@ controller('ProfileCtrl', function ($scope,$rootScope,$http,UserService) {
 	$scope.wrongOTPMsg="";
 	
 	if($rootScope.user == undefined || $rootScope.user == "" || $rootScope.user == null){
-		location.href = "#/addprofile";
+		location.href = "#/profile";
 	}else{
 		//var mobileNumber = $scope.editUser.mobileNumber;
 		var userId = $rootScope.user.userId;

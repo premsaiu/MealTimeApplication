@@ -1,136 +1,237 @@
-<div class="col-md-9 col-xs-12 bg-color-s1">
-		    <h4 class="titile-02">Add Profile</h4>
-				<div class="clearfix mt20">
-						  <!-- Nav tabs -->
-						  <ul class="nav nav-tabs" role="tablist">
-						    <li role="presentation" class="active"><a href="#basicInformation" aria-controls="basicInformation" role="tab" data-toggle="tab">Basic Information</a></li>
-						    <li role="presentation"><a href="#foodStyle" aria-controls="foodStyle" role="tab" data-toggle="tab">Food Style</a></li>
-						  </ul>
+   <style>
+   input.ng-invalid..ng-dirty{
+    border: 1px solid red;
+   }
+   .proheadaline {
+    bottom: 120px;
+    float: right;
+}
+  /*  span{
+   color:red;	
+   } */
+   </style>
+	    
+	    <div class="col-sm-12 col-md-9 col-lg-9 proheadaline">
+			 <!--  Edit Profile div Start-->
+			 <div class="col-md-9 col-xs-12 bg-color-s1">
+		    	 <h3 class="font-black text-uppercase">Profile</h3>
+		    <hr class="header_s1">
+			<div class="clearfix"></div>
+		    	
+		    	<div class="row" style="margin-right: -55% !important;">
+							<div class="col-md-12 col-xs-12">
+		    	
+		    <div  class="col-md-4 col-xs-4">
+		    	<div class="clearfix">
+		    	<div class="profile-pic center-block" style="margin: 10px -40px;">
+		    	<img id="profilephoto" src="{{userProfilePic}}" alt="...">
+		    	 <div class="profile-btn-bg">
+				  
+					<label for="profilePic" class="profile-pic-btn"><u>Upload Picture</u></label>
+				    <input type="file" id="profilePic" class="hidden profile-pic-btn" file-model ng-model="profilePic">
+			    </div>
+			    <!-- <h2 class="new-title-s1">Mohan Das</h2>
+			    <h4 class="new-title-s2">Subscribed</h4>
+			    <h4 class="new-title-s3">MT6789MAD2NVS1</h4> -->
+			    </div>
+			    
+			    	<br><br>
+		    	</div>
+		    	</div>
+		    	
+		   
+		    	
+		    	<div class="col-md-8 col-xs-8 new-brL" style="    top: -30px;width: 48% !important;">
+		    	<form name="form" ng-submit="editProfile()" class="form-inline" class="form-inline mt20 input-mar-s1" >
+		    	
+		    	 <ul class="nav nav-tabs" role="tablist" style="float:right">
+						    <li role="presentation" class="active"><a data-target="#basicInformation" aria-controls="basicInformation" role="tab" data-toggle="tab">Basic Information</a></li>
+						    <li role="presentation"><a data-target="#foodStyle" aria-controls="foodStyle" role="tab" data-toggle="tab">Food Style    </a></li>
+				</ul>
 						
 						  <!-- Tab panes -->
-						  <div class="tab-content tab-contentainer-s1">
+						  <div class="tab-content">
 						    <div role="tabpanel" class="tab-pane active" id="basicInformation">
-							    
-							    <div class="col-lg-4">
-								    
-									<div class="profile-pic center-block">
-									    <img src="resources/images/propic.jpg">
-									    <div class="profile-btn-bg">
-											<input type="file" id="upload" onchange="showMyImage(this)" accept="image/*" ng-model="profilePic" style="visibility: hidden; width: 1px; height: 1px"/> 
-										    <a href="#" onclick="document.getElementById('upload').click(); return false" class="profile-pic-btn">Upload Profile</a>
-									    </div>
-								    </div>
-								    <h2 class="new-title-s1">Mohan Das</h2>
-								    <h4 class="new-title-s2">Subscribed</h4>
-								    <h4 class="new-title-s3">MT6789MAD2NVS1</h4>
-
-							    </div>
-							    
-							    <div class="col-lg-8 new-brL">
-								    
-								<form>
+						<div style="margin: 15px 35px;padding-top: 70px;">
+						  <div class="form-group">
+							<input type="text" name="firstname" class="form-control mb10 input-s4" id="exampleInputEmail3" data-ng-model="editUser.firstName" placeholder="First Name" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3" ng-maxlength="20">
+									<div class="clearfix"></div>
+							<span data-ng-show="form.firstname.$dirty && form.firstname.$error.pattern" style="color: red">Enter only string.</span>
+ 							<span data-ng-show="form.firstname.$dirty  && form.firstname.$error.minlength">Minimum Length should be of 3 characters</span>
+							 <span data-ng-show="form.firstname.$dirty  && form.firstname.$error.maxlength">MaxLength should be of 20 characters</span>
+						 </div>
 							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Name</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left">
-								  <button type="button" class="btn btn-default dropdown-toggle-s1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								    Ms. <span class="caret"></span>
-								  </button>
-								  <ul class="dropdown-menu">
-								    <li><a>Ms.</a></li>
-								    <li><a>Mr.</a></li>
-								    <li><a>Mrs.</a></li>
-								  </ul>
-								</div>
-							    <input type="email" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="Mohan Das">
+								    <input type="text" name="lastname" class="form-control mb10 input-s4" id="exampleInputEmail3" placeholder="Last Name" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3"  ng-maxlength="20" data-ng-model="editUser.lastName" class="form-control pull-left new-input-s1">
 							    <div class="clearfix"></div>
-							  </div>
+							    <span data-ng-show="form.lastname.$dirty && form.lastname.$error.pattern" style="color:red">Enter only string.</span>
+				     		    <span data-ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
+					           <span data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
+								  </div>
 							  
 							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Email</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-								</div>
-							    <input type="email" class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="mohandas@corprel.com">
-							    <div class="clearfix"></div>
+								 <input type="text" class="form-control mb10 input-s4" id="exampleInputEmail3" placeholder="Email" data-ng-model="editUser.email">
+								   <div class="clearfix"></div>
 							  </div>
 							 
 							  <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Phone Number</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
-								</div>
-							    <input class="form-control pull-left new-input-s1" id="exampleInputname" placeholder="+91 9030399160">
+								    <input type="text" name="mobileno" class="form-control mb10 input-s4" id="exampleInputPassword3" data-ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  placeholder="Mobile Number">
 							    <div class="clearfix"></div>
-							  </div>
-							   
-							   <div class="form-group">
-							    <label for="exampleInputname" class="new-label-s1">Area</label> <div class="clearfix"></div>
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-								</div>
-							    <select class="new-select-s1">
-							    	<option>Madhapur</option>
-							    	<option>Ameerpet</option>
-							    	<option>Banjara Hills</option>
-							    </select>
-							    <div class="clearfix"></div>
-							  </div>
-							   
+							    <span data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should Start with 7 or 8 or 9.</span>
+				       	  	<span data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
+								  </div>
 							  <div class="form-group">
-								<div class="btn-group pull-left">
-								  <input type="text" class="form-control pull-left new-input-s1 w336" style="min-width: 320px;" id="exampleInputname" placeholder="line 02">
-								</div>
-								
-							    <div class="clearfix"></div>
-							  </div>
-							  
-							  <div class="form-group">
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon new-city-icon" aria-hidden="true"></span>
-								</div>
-							    <select class="new-select-s1">
-							    	<option>City</option>
-							    	<option>Madhapur</option>
-							    	<option>Ameerpet</option>
-							    	<option>Banjara Hills</option>
-							    </select>
-							    <div class="clearfix"></div>
-							  </div>
-							  
-							  <div class="form-group">
-								<div class="btn-group pull-left custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-								</div>
-							    <select class="new-select-s1">
-							    	<option>State &amp; Country</option>
-							    	<option>Andhrapradesh, India</option>
-							    	<option>Ny, United States</option>
-							    	<option>WD, Canada</option>
-							    </select>
-							    <div class="clearfix"></div>
-							  </div>
-
-							  <button type="submit" class="btn btn-success mt20 mr10">Edit</button> 							  
-							  <button type="submit" class="btn btn-success mt20 mr10">Save</button>
-							  <button type="submit" class="btn btn-success mt20">Cancel</button>
-							  
-							  <!-- </div> -->
-							</form>
-
-							    </div>
-								
-								
-						    </div> <!-- end tab content -->
-						    
-						    
-						    
-						    <div role="tabpanel" class="tab-pane" id="foodStyle">
-						    	tab 2 - Food Style
-								
-						    </div>
-							<div class="clearfix"></div>
-						  </div>
+								    <textarea id="address" data-ng-model="editUser.address" class="form-control input-s4" rows="3" placeholder="Address" name="address" autocomplete="off" ng-maxlength="250"></textarea>
+				    		  <span data-ng-show="form.address.$dirty && form.address.$error.maxlength">Maximum Length is 250 characters</span>
+								  <div class="clearfix"></div>
+								  </div>
+								  <div class="row" style="padding: 8px;">	
+						  <div class="form-group">
+								    <select class="form-control input-s5 mb10 mr16" style="margin-left: 7px;">
+									  <option>Area</option>
+									  <option>Madhapur</option>
+									  <option>Banjara Hills</option>
+									  <option>Hitech-city</option>
+									</select>
+								  </div>
+								  <div class="form-group">
+									<select class="form-control input-s5 mb10" style="margin-left: -9px;">
+									  <option>City</option>
+									  <option>Hyderabad</option>
+									  <option>Mumbai</option>
+									  <option>Banglore</option>
+									</select>
+								  </div>
+								  </div>
+						
 						
 						</div>
+						    </div> <!-- end tab content -->
+						    
+						    <div role="tabpanel" class="tab-pane" id="foodStyle">
+						    <div style="margin: 15px 35px;padding-top: 70px;">
+						  <div class="form-group">
+									    <select class="form-control input-s4 mb10"  data-ng-model="editUser.foodStyleS1">
+										  <option value="">Food Style</option>
+										  <option ng-selected="editUser.foodStyleS1 == item.value" ng-repeat="item in foodType" ng-value="item.value">{{item.label}}</option>
+										</select>
+						</div>
+				           <div class="form-group">
+										<select class="form-control input-s4 mb10" data-ng-model="editUser.foodStyleS2">
+										  <option value="">Food Type</option>
+										 <option ng-selected="editUser.foodStyleS2 == item.value" ng-repeat="item in foodStyle" ng-value="item.value">{{item.label}}</option>
+										</select>
+							</div>
+							<div class="form-group">
+										<select class="form-control input-s4 mb10" data-ng-model="editUser.dinnerChoice">
+										  <option value="">Dinner</option>
+										 <option ng-selected="editUser.dinnerChoice == item.value" ng-repeat="item in dinner" ng-value="item.value">{{item.label}}</option>
+										
+										</select>
+							</div>
+							<div class="form-group">
+										<select class="form-control input-s4 mb10" data-ng-model="editUser.packingChoice">
+										  <option value="">Packing Type</option>
+										 <option ng-selected="editUser.packingChoice == item.value" ng-repeat="item in packing" ng-value="item.value">{{item.label}}</option>
+										
+										</select>
+							</div>
+							</div>
+						  </div>
+		    	
+		   </div>
+				  <div class="form-group">
+				  	<button id="editprofilesubmit" type="submit" class="input-sm custom-btn-s2 pull-right mr50" ng-disabled="form.$invalid" >Save</button>
+				  	<!-- <button id="editprofilesubmit" type="submit" class="btn btn-success mb20" >Submit</button> -->
+				  	<a class="btn custom-btn-s2 pull-right mr50" ng-click="isEditForm=false;" ui-sref="profile" id="editorBtn" role="button">Later</a>
+				  </div>
+				</form>
+			 </div>
+			 
+			 <!--  Edit Profile div End -->
+	
+	    </div>
+	    </div>
+	    </div>
+</div>	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    <!-- OTP Modal -->
+			    <!-- OTP Modal -->
+			    <div class="modal fade" id="otpModal" data-backdrop="static" data-keyboard="false">
+				  <div class="modal-dialog max-w400">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+				        <h4 class="modal-title">One Time Password</h4>
+				      </div>
+				      <div class="modal-body">
+				      <span style="color:red;">{{wrongOTPMsg}}</span>
+				        <form>
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label">Please Enter OTP</label>
+				            <input type="number" class="form-control" id="otp" ng-model="otp">
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="submit" class="btn btn-success" data-ng-click="verifyOTP()">Submit</button>
+				        <button type="submit" class="btn btn-success" data-ng-click="cancelEdit('otpModal')">Cancel</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
 				
-		    </div>
+				<!-- Edit Success OTP Modal -->
+			    <div class="modal fade" id="editSuccessModal" >
+				  <div class="modal-dialog max-w400">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">Success</h4>
+				      </div>
+				      <div class="modal-body">
+				        <form>
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label">Your Profile has been Updated Successfully</label>
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="submit" class="btn btn-success" data-ng-click="closeModal('editSuccessModal')">Ok</button>
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+	       
+    <script type="text/javascript">
+  //this code is not required
+    $('#profilePic').change(function(){
+      if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            selectedImage = e.target.result;
+            $('#profilephoto').attr('src', selectedImage);
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
+    });
+		
+		
+	</script>
+	 
