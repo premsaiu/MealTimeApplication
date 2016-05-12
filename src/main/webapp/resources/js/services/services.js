@@ -2,7 +2,7 @@
 
 angular.module('miniMealApp.services', ['ngStorage'])
 .service('UserService', ['$http', '$q', function($http, $q){
-	var baseURL = "http://localhost:8080/MealTimeApplication/";
+	var baseURL = "http://localhost:8181/MealTimeApplication/";
 	this.checkUser = function (mobileNo) {
         var request = $http({
             method:"get",

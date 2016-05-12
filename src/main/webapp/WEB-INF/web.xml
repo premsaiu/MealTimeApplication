@@ -14,16 +14,6 @@
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
-<servlet>
-		<servlet-name>AlertServlet</servlet-name>
-		<servlet-class>com.mealtime.controller.AlertServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>AlertServlet</servlet-name>
-		<url-pattern>/alert</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>

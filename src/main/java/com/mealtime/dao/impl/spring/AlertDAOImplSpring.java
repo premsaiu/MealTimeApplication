@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -22,17 +20,17 @@ public class AlertDAOImplSpring extends GenericDAO<AlertBean> implements AlertDA
 			+ ",mealtime.user_master um where us.user_id=um.user_id";
 	
 	private static final Logger logger = Logger.getLogger(AlertDAOImplSpring.class);
+	
 	public List<AlertBean> checkList() {
+		List<AlertBean> alertBeanList= new ArrayList<AlertBean>();
 		try{
-			System.out.println("Quartz scheduler"+SQL_ALERT);
-			List<AlertBean> alertBeanList= new ArrayList<AlertBean>();
-			alertBeanList=getJdbcTemplate().query(SQL_ALERT, new BeanPropertyRowMapper<AlertBean>(AlertBean.class));
-			System.out.println("Quartz scheduler"+alertBeanList.size());
-			return alertBeanList;
-		// TODO Auto-generated method stub
-	}catch(EmptyResultDataAccessException e){
-		//logger.error("Empty Result Access Exception occured in getItemsList method::"+e.getMessage());
-		return null;
+			logger.info("Quartz scheduler"+SQL_ALERT);
+			alertBeanList=getJdbcTemplate().query(SQL_ALERT, getRowMapper());
+			logger.info("Quartz scheduler"+alertBeanList.size());
+			return alertBeanList;		
+	}catch(Exception e){
+		logger.error("Exception occured in checkList method::"+e.getMessage());
+		return alertBeanList;
 	}		
 	}
 	
@@ -118,7 +116,7 @@ public class AlertDAOImplSpring extends GenericDAO<AlertBean> implements AlertDA
 	}
 	
 	private void populateBean(ResultSet rs, AlertBean alertBean) throws SQLException {
-		System.out.println("in populat ebean");
+		logger.info("in populat ebean");
 		//--- Set data from ResultSet to Bean attributes
 		alertBean.setUser_Id(rs.getString("user_id"));// java.lang.String
 		alertBean.setEmail(rs.getString("email"));// java.lang.String
