@@ -51,19 +51,19 @@
 	<ul class="nav-list">
 			  <li><a data-ng-click="modalShow()" ng-hide="profileShow" >LOG IN <span class="glyphicon glyphicon-arrow-right font-smaller border-none" aria-hidden="true"></span></a></li>
 			  <li><a data-ui-sref="profile" ng-show="profileShow" class="profilemenu" style="margin: 10px auto;">Profile <span class="glyphicon glyphicon-arrow-right font-smaller border-none" aria-hidden="true"></span></a></li>
-			  <li>
+			  <li class="nav-list-sub">
 			  	<a data-ui-sref="scheduleenquiry">
 				  	<span>Schedule Enquiry</span>
 					<span>Know about our meal box</span>
 			  	</a>
 			  </li>
-			  <li>
+			  <li class="nav-list-sub">
 			  	<a data-ui-sref="samplemeal">
 				  	<span>Sample Meal</span>
 					<span>Experience our meal box</span>
 			  	</a>
 			  </li>
-			  <li>
+			  <li class="nav-list-sub">
 			  	<a data-ui-sref="subscribenow">
 				  	<span>Subscribe Now</span>
 					<span>Get our meal box daily</span>
@@ -105,4 +105,10 @@
 			    </ul>
 		    </div>		    
 		    
+		    <script>
+		    $('.nav-list-sub').click(function(){
+		    	$('.nav-list-sub').removeClass('active');
+		         $(this).addClass("active");
+		    });
+		    </script>
 		     

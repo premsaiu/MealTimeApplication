@@ -87,7 +87,7 @@
 								  <div class="row" style="padding: 8px;">	
 						  <div class="form-group">
 								    <select class="form-control input-s5 mb10 mr16" style="margin-left: 7px;">
-									  <option>Area</option>
+									  <option value="" disabled selected style="display: none;">Area</option>
 									  <option>Madhapur</option>
 									  <option>Banjara Hills</option>
 									  <option>Hitech-city</option>
@@ -95,7 +95,7 @@
 								  </div>
 								  <div class="form-group">
 									<select class="form-control input-s5 mb10" style="margin-left: -9px;">
-									  <option>City</option>
+									  <option value="" disabled selected style="display: none;">City</option>
 									  <option>Hyderabad</option>
 									  <option>Mumbai</option>
 									  <option>Banglore</option>
@@ -117,7 +117,7 @@
 						</div>
 				           <div class="form-group">
 										<select class="form-control input-s4 mb10" data-ng-model="editUser.foodStyleS2">
-										  <option value="">Food Type</option>
+										 <option value="">Food Type</option>										 
 										 <option ng-selected="editUser.foodStyleS2 == item.value" ng-repeat="item in foodStyle" ng-value="item.value">{{item.label}}</option>
 										</select>
 							</div>
@@ -132,17 +132,18 @@
 										<select class="form-control input-s4 mb10" data-ng-model="editUser.packingChoice">
 										  <option value="">Packing Type</option>
 										 <option ng-selected="editUser.packingChoice == item.value" ng-repeat="item in packing" ng-value="item.value">{{item.label}}</option>
-										
 										</select>
 							</div>
 							</div>
 						  </div>
 		    	
 		   </div>
+		   <div class="row" style="padding: 8px;">
 				  <div class="form-group">
-				  	<button id="editprofilesubmit" type="submit" class="input-sm custom-btn-s2 pull-right mr50" ng-disabled="form.$invalid" >Save</button>
+				  	<button id="editprofilesubmit" type="submit" class="btn custom-btn-s2 pull-right mr50" ng-disabled="form.$invalid" style="margin: -20px 0px 0px 107px;">Save</button>
 				  	<!-- <button id="editprofilesubmit" type="submit" class="btn btn-success mb20" >Submit</button> -->
-				  	<a class="btn custom-btn-s2 pull-right mr50" ng-click="isEditForm=false;" ui-sref="profile" id="editorBtn" role="button">Later</a>
+				  	<a class="btn custom-btn-s2 pull-right mr50" ng-click="isEditForm=false;" ui-sref="profile" id="editorBtn" role="button" style=" margin: -21px -417px 0px 0px !important;">Later</a>
+				  </div>
 				  </div>
 				</form>
 			 </div>
