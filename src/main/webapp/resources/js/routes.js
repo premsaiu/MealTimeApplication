@@ -106,7 +106,12 @@ angular.module('miniMealApp', ['miniMealApp.services',
         })
         .state('ourstory', {
             url: '/ourstory',
-            templateUrl: 'views/users/ourstory.html',
+            templateUrl: 'views/users/our_story.html',
+            controller: 'OurStoryCtrl'
+        })
+        .state('howitworks', {
+            url: '/howitworks',
+            templateUrl: 'views/users/howitworks.html',
             controller: 'OurStoryCtrl'
         })
         .state('crispybites', {
