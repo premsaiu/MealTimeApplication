@@ -44,6 +44,7 @@ controller('SampleMealCtrl',  function ($scope, $rootScope, $state, $localStorag
 	 				}
 	 				if(daysOfYear.length<5){
 	 				var extradate=new Date(daysOfYear[3]);
+	 				debugger;
 	 				daysOfYear.push(new Date(extradate.setDate(extradate.getDate() + 1)));
 	 				}
 	 				var newdates1=[];

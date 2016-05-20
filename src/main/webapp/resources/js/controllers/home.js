@@ -34,7 +34,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 		$rootScope.status = true;
 		$rootScope.newmenu = true;
 		$rootScope.userName = "Visitor";
-		$state.go('ourstory');
+		/*$state.go('ourstory');*/
 	}
 	$rootScope.adminchk=function(){
 		UserService.adminchk($scope.mobileNumber).then(
@@ -102,7 +102,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 									$localStorage.newmenu = true;
 									$localStorage.status = true;
 									$localStorage.profileShow = true;
-									$state.go('ourstory');
+									/*$state.go('ourstory');*/
 								}else if(response1.data.data.userSubscription == null){
 									$(".adminsection").hide();
 									$rootScope.newmenu = true;
@@ -111,7 +111,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 									$localStorage.newmenu = true;
 									$localStorage.status = true;
 									$localStorage.profileShow = true;
-									$state.go('ourstory');
+									/*$state.go('ourstory');*/
 								}
 							});
 	                	}

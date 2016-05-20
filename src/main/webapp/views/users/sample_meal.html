@@ -27,7 +27,7 @@
 					  </div>
 					  
 					  <div class="row form-group">
-					    <input type="text" class="form-control mb10 input-sm input-s1" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber" ng-readonly="loggedUser" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10" required name="mobileno">
+					    <input type="text" class="form-control mb10 input-sm input-s1" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789][0-9]/" ng-maxlength="10" required name="mobileno">
 
 							    <div class="clearfix"></div>
 							     <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>

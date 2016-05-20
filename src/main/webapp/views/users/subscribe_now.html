@@ -29,21 +29,20 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 								<span data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
 					  </div> -->
 					  <div class="form-group row">
-					    <input class="form-control mb10 input-s1" id="exampleInputPassword3"data-ng-model="mobile" ng-readonly="loggedUser" data-ng-pattern=" /^[789]\d{9}$/" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
+					    <input class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-model="mobile" ng-readonly="loggedUser" data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
 
 						   <span id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
 						    <span id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
 				   		  <span id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
 							
 					  </div>
-					  <div class="form-group row" id="sampledate">
-							    <input type="text" name="date" class="form-control input-s1 mb10" data-ng-model="date" id="" size="16" placeholder="Date">
-							   <!--  <div class="btn-group custom-iconbg-s1">
-								  <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-								</div> -->
-							    <div class="clearfix"></div>
+					<div class="form-group row">
+                    <input class="form-control mb10 input-s1 input-append date form_date" name="date" data-ng-model="date" id="subscribeDate" data-date="" required data-date-format="dd MM yyyy"  placeholder="Date">
+                   
+					<div class="clearfix"></div>
 							    <span id="validationMessage" data-ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
-					  </div>
+            </div>
+					  
 					 
 					  <div class="form-group row">
 					    <select class="form-control input-s1 mb10"id="area" name="area" required="">
@@ -118,7 +117,19 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 	</script> -->
 	<script type="text/javascript">
 $(function () {
-    $('#sampledate').datetimepicker({
+   
+	  
+	$('.form_date').datetimepicker({
+       todayHighlight: false,
+		autoclose: 1,
+		endDate:'+1m +2d',
+		startDate: '+2d',
+		minView: 2,
+		forceParse: 0,
+         daysOfWeekDisabled: [0]
+    });
+	
+	$('#sampledate').datetimepicker({
         autoclose: true,
 		pickTime:false,
 		minDate: 1,

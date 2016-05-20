@@ -51,7 +51,7 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 		$scope.successMsg = false;
 		$scope.subscribeNowErrorMsg = "";
 		var area = $('#area').val();
-		
+		debugger;
 		var _date = $filter('date')(new Date($('#subscribeDate').val()), 'yyyy-MM-dd');
 		if($('#area').val() == 'select'){
 			alert("Please Select the Area");

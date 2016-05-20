@@ -25,7 +25,7 @@
 
 					  
 					  <div class="form-group row">
-					    <input type="text" class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-pattern=" /^[789]\d{9}$/"  id="phone" ng-model="sched.number" ng-readonly="loggedUser" ng-maxlength="10" placeholder="+91" required name="mobileno">
+					    <input type="text" class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-pattern="/^[789][0-9]/"  id="phone" ng-model="sched.number" ng-readonly="loggedUser" ng-maxlength="10" placeholder="+91" required name="mobileno">
 
 						 <div class="clearfix"></div>
 						 <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
