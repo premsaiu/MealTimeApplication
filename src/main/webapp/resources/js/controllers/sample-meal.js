@@ -1,6 +1,6 @@
 angular.module('miniMealApp.sampleMealCtrl', ['ngStorage']).
 
-controller('SampleMealCtrl',  function ($scope, $rootScope, $state, $localStorage, $filter, $timeout, UserService, commonCode) {
+controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $localStorage, $filter, $timeout, UserService, commonCode) {
 	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
@@ -75,6 +75,9 @@ controller('SampleMealCtrl',  function ($scope, $rootScope, $state, $localStorag
 				function(response) {
 					if(response.data.statusCode == 200){
 						$('#otpModal').modal('hide');
+						/*<a href="https://www.instamojo.com/mealtime/mealtime_sample/" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Checkout With Instamojo" data-token="f10e02fe7ff4eb38385af6ca55213f3c"></a>
+*/
+						$state.go("samplepayment");
 						$scope.submitSampleMeal();
 					}else{
 						$scope.wrongOTPMsg="Invalid OTP. Please enter Correct OTP";

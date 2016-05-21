@@ -1,7 +1,7 @@
 
 	<div class="col-sm-12 col-md-9 col-lg-9 headaline">
 				<div class="content_container-s1 slider-align">
-					<h3 class="font-black text-uppercase">SCHEDULED VISIT</h3>
+					<h3 class="font-black text-uppercase inner-page-header">SCHEDULED VISIT</h3>
 					<hr class="header_s1">
 					<div class="clearfix"></div>
 					<div data-ng-show="schedEnqMsg" class="alert alert-success" >
@@ -10,10 +10,10 @@
 						<div data-ng-show="schedEnqErrorMsg != ''" class="alert alert-danger" >
   								{{schedEnqErrorMsg}}
 							</div>
-					<p>
+					<p class="inner-page-description">
 						MealTime’s Executive shall visit you at your place to explain you about our meal boxes & Our Services.
 					</p>
-					<p>Just let us know your convenient time.</p>
+					<p class="inner-page-description">Just let us know your convenient time.</p>
 					<form name="form" class="mt20" class="col-lg-6" style="margin: 15px">
 					  <div class="form-group row">
 					    <input type="text" class="form-control mb20 input-s1" ng-model="sched.name" ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20" placeholder="Name">
@@ -35,14 +35,14 @@
 					  <div class="row form-group">
 					  
 					  <div class="pull-left">
-					    <select class="form-control mb10" data-ng-model="sched.date" name="date" id="datetimePicker" style="width: 110px;margin-right: 20px;" required="required">
+					    <select class="form-control mb10" data-ng-model="sched.date" name="date" id="datetimePicker" style="width: 135px;margin-right: 4px;height:35px;" required="required">
 						  <option value="" disabled selected style="display: none;">Date</option>
 						  <option ng-repeat="date in customdates" value="{{date}}"> {{date}}</option>
 						</select>
 						 <span ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
 						</div>
 						<div class="pull-left">
-						<select class="form-control mb10" name="time" data-ng-model="sched.time" style="width: 110px;" required="required">
+						<select class="form-control mb10" name="time" data-ng-model="sched.time" style="width: 135px;margin-right: 4px;height:35px;" required="required">
 						  <option value="" disabled selected style="display: none;">Time</option>
 						  <option value="14:00:00">2:00-3:00 PM</option>
 						  <option value="15:00:00">3:00-4:00 PM</option>
@@ -73,9 +73,16 @@
 					  <div class="form-group row">
 					    <select class="form-control input-s1 mb10" ng-model="sched.area" name="area" required>
 							    	<option value="" disabled selected style="display: none;">Area</option>
-							    	<option value="Madhapur">Madhapur</option>
-							    	<option value="Ameerpet">Ameerpet</option>
-							    	<option value="Banjara Hills">Banjara Hills</option>
+							    	 <option value="Madhapur_Police_Station">Madhapur Police Station</option>
+									 <option value="Madhapur_100_feet_Road">Madhapur 100 feet Road</option>
+									 <option value="Madhapur_Hitech_City_Road">Madhapur Hitech City Road</option>
+									 <option value=" Madhapur_Kavuri_Hills_Phase_I"> Madhapur Kavuri Hills Phase I</option>
+									 <option value="Madhapur_Kavuri_Hills_Phase_II">Madhapur Kavuri Hills Phase II</option>
+									 <option value="Madhapur_Megha_Hills">Madhapur Megha Hills</option>
+									 <option value="Madhapur_Ayyappa_Society">Madhapur Ayyappa Society</option>
+									 <option value="Madhapur_Hitech_City">Madhapur Hitech City</option>
+									 <option value="Madhapur_Image_Hospital_Road">Madhapur Image Hospital Road</option>
+									 <option value="Madhapur_Image_Garden_Road">Madhapur Image Garden Road</option>
 							    </select>
 							    <div class="clearfix"></div>
 							    <span id="validationMessage" ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>

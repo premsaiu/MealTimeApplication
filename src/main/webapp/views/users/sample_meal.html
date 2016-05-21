@@ -1,6 +1,6 @@
 	<div class="col-sm-12 col-md-9 col-lg-9 headaline">
 				<div class="content_container-s1 slider-align">
-					<h3 class="font-black text-uppercase">Sample Meal</h3>
+					<h3 class="font-black text-uppercase inner-page-header">SAMPLE MEAL</h3>
 					<hr class="header_s1">
 					<div class="clearfix"></div>
 					<div ng-show="sampleMealMsg" class="alert alert-success" >
@@ -9,11 +9,11 @@
 						<div ng-show="sampleMealErrorMsg != ''" class="alert alert-danger" >
   								{{sampleMealErrorMsg}}
 							</div>
-					<p>
-						Breakfast with Juice and Dinner with Dessert will be delivered for one day for a minimum cost of Rs. 185/-.
-						<br><br>
-		Let us know your convenient date for the Sample Meal.
-					</p>
+					<p class="inner-page-description">
+						Breakfast with Juice and Dinner with Dessert will be delivered for one day for a minimum<br> cost of Rs. 185/-.
+						</p>
+						<p class="inner-page-description">Let us know your convenient date for the Sample Meal.</p>
+					
 					
 					<form class="mt20" name="form" novalidate style="margin: 15px">
 					  <div class="row form-group">
@@ -49,9 +49,16 @@
 					  <div class="row form-group">
 					    <select class="form-control input-s1 mb10"  name="area" id="area" required>
 						  <option value="" disabled selected style="display: none;">Area</option>
-						 <option value="madhapur">Madhapur</option>
-						 <option value="gachibowli">Gachibowli</option>
-						 <option value="hitechcity">Hitech-city</option>
+						 <option value="Madhapur_Police_Station">Madhapur Police Station</option>
+						 <option value="Madhapur_100_feet_Road">Madhapur 100 feet Road</option>
+						 <option value="Madhapur_Hitech_City_Road">Madhapur Hitech City Road</option>
+						 <option value=" Madhapur_Kavuri_Hills_Phase_I"> Madhapur Kavuri Hills Phase I</option>
+						 <option value="Madhapur_Kavuri_Hills_Phase_II">Madhapur Kavuri Hills Phase II</option>
+						 <option value="Madhapur_Megha_Hills">Madhapur Megha Hills</option>
+						 <option value="Madhapur_Ayyappa_Society">Madhapur Ayyappa Society</option>
+						 <option value="Madhapur_Hitech_City">Madhapur Hitech City</option>
+						 <option value="Madhapur_Image_Hospital_Road">Madhapur Image Hospital Road</option>
+						 <option value="Madhapur_Image_Garden_Road">Madhapur Image Garden Road</option>
 						</select>
 							    <div class="clearfix"></div>
 							     <span id="validationMessage" ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
@@ -59,6 +66,7 @@
 						  
 					  </div>
 					  <div class="row form-group">
+					  
 						 <button type="submit" class="btn custom-btn-s2 pull-right mr50">LATER</button>
 					  	 <button type="submit" class="btn custom-btn-s2 pull-right" ng-disabled="form.$invalid"  ng-click="requestSampleMeal()" >CONFIRM</button>
 					  </div>

@@ -22,5 +22,35 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state, $localStorage,
 		//$rootScope.status = $localStorage.status;
 		$state.go('ourstory');
 	}
+	var howwrkvalue=['Flavors','Quality Cooking','Packaging','Delivery','Payments'];
+	var count=0;
+	$scope.count=0;
+	$scope.howrkvalue=howwrkvalue[0];
+	$('.media-objectzoom').click(function(){
+    	$('.media-objectzoom').removeClass('howitwork-bites-pic-s2');
+         $(this).addClass("howitwork-bites-pic-s2");
+        $scope.imagevalue(this.id);
+    });
+	
+	
+	$scope.next=function(){
+		if(count<4){
+			count++;
+			$scope.count=count;
+			$scope.howrkvalue=howwrkvalue[count];
+			}
+	}
+	$scope.previous=function(){
+		if(count>0){
+			count--;
+			$scope.howrkvalue=howwrkvalue[count];
+			}
+	}
+	$scope.imagevalue=function(id){
+		
+			 $scope.count=id;
+	         $scope.howrkvalue=howwrkvalue[id];
+		
+	}
 	
 });

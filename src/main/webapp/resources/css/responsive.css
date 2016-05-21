@@ -197,15 +197,15 @@
 	}
 	
 	.carousel-caption { margin: 0 !important; padding: 20px; bottom: 0px; }
-	.content_container-s1 { width: 847.5px; }
+	.content_container-s1 { width: 847.5px;padding-top:36px !important; }
 	.custom-btn-s2 {
-	    width: 150px;
+	    width: 125px;
 	    margin-left: 10px;
 	}
 	.mr50 { margin-right: 50px; }
 	.mr66 { margin-right: 66px; }
 	
-	.input-s1 { width: 250px !important; }
+	.input-s1 { width: 274px !important; }
 	.input-s2 { width: 758px !important; }
 	.input-s3 { width: 250px !important; }
 	.input-s4 { width: 350px !important; }
@@ -229,9 +229,9 @@
 	.custom-inside-s1 span:nth-child(2) { font-size: 1.5em; }
 	.custom-inside-s1 span:nth-child(3) { font-size: 1.5em; }
 	
-	.w300 { width: 300px; }
+	.w300 { width: 250px; }
 	
-	.log-title-s1 { font-size: 2.5em; }
+	.log-title-s1 { font-size: 2.25em; }
 	
 	.quote-pic-s1 { background-position: 21.3% 5%; }
 	.quote-pic-s2 { background-position: 4.1% 5%; }

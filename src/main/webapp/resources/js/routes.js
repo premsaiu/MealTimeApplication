@@ -139,6 +139,10 @@ angular.module('miniMealApp', ['miniMealApp.services',
             templateUrl: 'views/users/sample_meal.html',
             controller: 'SampleMealCtrl'
         })
+        .state('samplepayment', {
+            url: 'https://www.instamojo.com/mealtime/mealtime_sample'
+           
+        })
         .state('subscribenow', {
             url: '/subscribenow',
             templateUrl: 'views/users/subscribe_now.html',
@@ -181,8 +185,6 @@ angular.module('miniMealApp', ['miniMealApp.services',
 	 				+daysOfYear[i].getFullYear();
 	 				newdates.push(asd);
 	 				}
-	 				$('.address_field').val(newdates)
-	 				
 	$rootScope.customdates=newdates;
 	
 	
