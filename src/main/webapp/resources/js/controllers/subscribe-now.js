@@ -16,6 +16,11 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
 	
+	$scope.sbnotNow = function(){
+		$('#myModal').modal('hide');
+			$(".adminsection").hide();
+			$state.go('home');
+		}
 	$scope.subscribeNowErrorMsg = "";
 	if($rootScope.loggedUser){
 		$scope.mobile = $rootScope.user.mobileNumber;
@@ -23,10 +28,13 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 		$scope.lastName = $rootScope.user.lastName;
 	}
 	
-	$scope.requestSubscribeNow = function(){
+	$scope.requestSubscribeNow = function(valid){
+		$scope.suberrorcheck=valid;
+		if(valid){
 		var subject = "MealTime - Subscribe Now - One Time Password(OTP)";
 		$rootScope.sendOTP($scope.mobile, null, subject);
 		$scope.otp = "";
+	}
 	}
 	
 	$scope.verifyOTP = function(){
@@ -51,12 +59,11 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 		$scope.successMsg = false;
 		$scope.subscribeNowErrorMsg = "";
 		var area = $('#area').val();
-		debugger;
 		var _date = $filter('date')(new Date($('#subscribeDate').val()), 'yyyy-MM-dd');
 		if($('#area').val() == 'select'){
 			alert("Please Select the Area");
 		}else{
-			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,area).then( 
+			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,$scope.area).then( 
 					function(response){
 						if(response.data.data != "" && response.data.statusCode == 200){
 							$rootScope.user = response.data.data;

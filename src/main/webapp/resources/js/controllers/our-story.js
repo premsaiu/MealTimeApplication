@@ -20,18 +20,25 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state, $localStorage,
 		$localStorage.userName = "Visitor";
 		//$rootScope.newmenu = $localStorage.newmenu;
 		//$rootScope.status = $localStorage.status;
-		$state.go('ourstory');
+		$state.go('home');
 	}
 	var howwrkvalue=['Flavors','Quality Cooking','Packaging','Delivery','Payments'];
 	var count=0;
-	$scope.count=0;
-	$scope.howrkvalue=howwrkvalue[0];
+
+	var asd=0;
 	$('.media-objectzoom').click(function(){
     	$('.media-objectzoom').removeClass('howitwork-bites-pic-s2');
          $(this).addClass("howitwork-bites-pic-s2");
-        $scope.imagevalue(this.id);
+        asd=this.id;
+        $scope.$apply(function () {
+       	 $scope.count = asd;
+            $scope.howrkvalue=howwrkvalue[asd];
+       });
+
     });
-	
+	        $scope.count = asd;
+	        $scope.howrkvalue=howwrkvalue[asd];
+	       
 	
 	$scope.next=function(){
 		if(count<4){
@@ -46,10 +53,10 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state, $localStorage,
 			$scope.howrkvalue=howwrkvalue[count];
 			}
 	}
-	$scope.imagevalue=function(id){
-		
-			 $scope.count=id;
-	         $scope.howrkvalue=howwrkvalue[id];
+	$scope.getBackgroundColour=function(){
+		alert("hi");
+			 $scope.count=1;
+	         $scope.howrkvalue=howwrkvalue[1];
 		
 	}
 	

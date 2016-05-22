@@ -44,7 +44,6 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $l
 	 				}
 	 				if(daysOfYear.length<5){
 	 				var extradate=new Date(daysOfYear[3]);
-	 				debugger;
 	 				daysOfYear.push(new Date(extradate.setDate(extradate.getDate() + 1)));
 	 				}
 	 				var newdates1=[];
@@ -55,8 +54,16 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $l
 	 				}
 	 				$('.address_field').val(newdates1)
 	$rootScope.sampcustomdates=newdates1;
-	
-	$scope.requestSampleMeal = function(){
+	 				$scope.sanotNow = function(){
+	 					$('#myModal').modal('hide');
+	 						$(".adminsection").hide();
+	 						$rootScope.newmenu = true;
+	 						$rootScope.status=false;
+	 						$state.go('home');
+	 					}
+	$scope.requestSampleMeal = function(vaild){
+		$scope.samerrorcheck=vaild;
+		if(vaild){
 		$scope.sampleMealErrorMsg = "";
 		var sampleMealDate = $filter('date')(new Date($('#sampleMealDate').val()), 'yyyy-MM-dd');
 		UserService.checkSampleMeal($scope.sampleMeal.mobileNumber, sampleMealDate, $scope.sampleMeal.name).then(function(response){
@@ -68,6 +75,7 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $l
 				$scope.sampleMealErrorMsg = response.data.errorMsg;
 			}
 		});
+	}
 	}
 	
 	$scope.verifyOTP = function(){
@@ -100,7 +108,7 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $l
 		sampleMealObj.mobileNumber = $scope.sampleMeal.mobileNumber;
 		sampleMealObj.sampleMealDate = _date;
 		sampleMealObj.name = $scope.sampleMeal.name;
-		sampleMealObj.address = area;
+		sampleMealObj.address =$scope.sampleMeal.area;
 		console.log(sampleMealObj);
 		UserService.requestSampleMeal(sampleMealObj).then( 
 				function(response){

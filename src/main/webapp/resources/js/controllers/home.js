@@ -55,7 +55,9 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	            }
 	   );
 	}
-	$rootScope.checkUser = function(){
+	$rootScope.checkUser = function(valid){
+		$rootScope.userchecklogin=valid;
+		if(valid){
 		$rootScope.loginError = "";
 		console.log("Mobile Number::"+$scope.mobileNumber);
 		
@@ -115,7 +117,6 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 								}
 							});
 	                	}
-	                	debugger;
 	                	$rootScope.loggedUser = true;
 	                	$localStorage.loggedUser = true;
 	                	$localStorage.user = response.data;
@@ -140,6 +141,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 			$('#myModal').modal('hide');
 		}
 	  }
+		
 	  else{
 		  	$('#myModal').modal('hide');
 			$(".adminsection").hide();
@@ -149,7 +151,10 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 			$localStorage.status = true;
 			$state.go('home');
 	  }
+	
 	}
+	}
+
 	
 	$rootScope.closeModal =function(modalId){
 		$('#'+modalId).modal('hide');

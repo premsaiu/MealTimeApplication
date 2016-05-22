@@ -1,6 +1,6 @@
  <div class="col-sm-12 col-md-9 col-lg-9 headaline">
 				<div class="content_container-s1 slider-align">
-					<h3 class="font-black text-uppercase inner-page-heade">SUBSCRIPTION FORM</h3>
+					<h3 class="font-black text-uppercase inner-page-header">SUBSCRIPTION FORM</h3>
 					<hr class="header_s1">
 					<div class="clearfix"></div>
 					<div id="succussSaveDiv" data-ng-show="successMsg" class="alert alert-success"></div>
@@ -16,10 +16,12 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 					<form class="mt20" name="form" novalidate style="margin: 15px">
 					  <div class="form-group row">
 					    <input type="text" class="form-control mb10 input-s1"  data-ng-model="firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" placeholder="Name" ng-minlength="3" required ng-maxlength="20">
-						 		<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.pattern">Enter only String.</span>
-				  				<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.required">First name is required.</span>
-								<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
-								<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
+						 		<div ng-show="suberrorcheck===false">
+						 		<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.pattern">Enter vaild name</span>
+				  				<span id="validationMessage" data-ng-show="form.name.$error.required">Name is required.</span>
+								<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.minlength">Enter vaild name</span>
+								<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.maxlength">Enter vaild name</span>
+					 </div>
 					  </div>
 					 <!--  <div class="form-group row">
 					    <input type="text" class="form-control mb10 input-s1" id="exampleInputEmail3" data-ng-model="lastName" ng-pattern="/^[a-zA-Z ]{1,25}$/" placeholder="lastname" name="lastname" ng-minlength="3" ng-maxlength="20" required="">
@@ -29,23 +31,25 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 								<span data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
 					  </div> -->
 					  <div class="form-group row">
-					    <input class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-model="mobile" ng-readonly="loggedUser" data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
-
-						   <span id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
-						    <span id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
-				   		  <span id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
-							
+					    <input class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-model="mobile" ng-readonly="loggedUser" data-ng-pattern="/^[789]\d{9}$/" ng-minlength="10" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
+							<div ng-show="suberrorcheck===false">
+						   <span id="validationMessage" data-ng-show="form.mobileno.$error.required">MobileNo is required.</span>
+						    <span id="validationMessage" data-ng-show="form.mobileno.$error.minlength || form.mobileno.$error.maxlength">Enter vaild mobile number.</span>
+				   		  <!-- <span id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span> -->
+							</div>
 					  </div>
 					<div class="form-group row">
                     <input class="form-control mb10 input-s1 input-append date form_date" name="date" data-ng-model="date" id="subscribeDate" data-date="" required data-date-format="dd MM yyyy"  placeholder="Date">
                    
 					<div class="clearfix"></div>
-							    <span id="validationMessage" data-ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
+					<div ng-show="suberrorcheck===false">
+							    <span id="validationMessage" data-ng-show="form.date.$error.required">Date is required.</span>
+            </div>
             </div>
 					  
 					 
 					  <div class="form-group row">
-					    <select class="form-control input-s1 mb10"id="area" name="area" required="">
+					    <select class="form-control input-s1 mb10"id="area" name="area" data-ng-model="area" required="required">
 							    	<option value="" disabled selected style="display: none;">Area</option>
 							    	 <option value="Madhapur_Police_Station">Madhapur Police Station</option>
 									 <option value="Madhapur_100_feet_Road">Madhapur 100 feet Road</option>
@@ -59,11 +63,13 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 									 <option value="Madhapur_Image_Garden_Road">Madhapur Image Garden Road</option>
 							    </select>
 							    <div class="clearfix"></div>
-							    <span id="validationMessage" data-ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
+							    <div ng-show="suberrorcheck===false">
+							    <span id="validationMessage" data-ng-show="form.area.$error.required">Area is required.</span>
+					  </div>
 					  </div>
 					  <div>
-						 <button type="submit" class="btn custom-btn-s2 pull-right mr50">LATER</button>
-					  	 <button type="submit" class="btn custom-btn-s2 pull-right" data-ng-disabled="form.$invalid" ng-click="requestSubscribeNow()">CONFIRM & PAY</button>
+						 <button type="submit" class="btn custom-btn-s2 pull-right mr50"  data-ng-click="sbnotNow();">LATER</button>
+					  	 <button type="submit" class="btn custom-btn-s2 pull-right"  ng-click="requestSubscribeNow(form.$valid)">CONFIRM & PAY</button>
 					  </div>
 					</form>
 					
@@ -82,7 +88,7 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 				        <form>
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label">Please Enter OTP</label>
-				            <input type="number" class="form-control" data-ng-model="otp">
+				            <input type="text" class="form-control mb10 input-s1" data-ng-model="otp">
 				          </div>
 				        </form>
 				      </div>

@@ -21,15 +21,16 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 	}
 	$scope.schedEnqErrorMsg = "";
 	var mobileNo = "";
-	$scope.notNow = function(){
-	$('#myModal').modal('hide');
-		$(".adminsection").hide();
-		$rootScope.newmenu = true;
-		$rootScope.status=false;
-		$state.go('ourstory');
-	}
-	
-	$scope.submitsched=function(){
+	$scope.scnotNow = function(){
+		$('#myModal').modal('hide');
+			$(".adminsection").hide();
+			$rootScope.newmenu = true;
+			$rootScope.status=false;
+			$state.go('home');
+		}
+	$scope.submitsched=function(vaild){
+		$scope.errorcheck=vaild;
+		if(vaild){
 		$scope.schedEnqErrorMsg = "";
 		console.log($scope.sched.date);
 		var scheduleDate = $filter('date')(new Date($scope.sched.date), 'yyyy-MM-dd');
@@ -44,6 +45,8 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 				$scope.schedEnqErrorMsg = response.data.errorMsg;
 			}
 		});
+		}
+		else{}
 	}
 	
 	

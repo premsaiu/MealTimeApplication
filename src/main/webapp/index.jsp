@@ -80,22 +80,22 @@
 				      </div>
 				      <div class="modal-body">
 				        <span style="color:red;">{{loginError}}</span>
-				        <form name="myForm">
+				        <form name="form">
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label center-block log-title-s1">Let us know your mobile number</label>
-				            <input type="text" class="form-control center-block w300 mt20" name="mobileNo" id="mobileNo" placeholder="+91" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()" ng-keypress="$event.keyCode == 13 && checkUser()" autofocus="focusInput">
+				            <input type="text" class="form-control center-block w300 mt20" name="mobileno" id="mobileNo" placeholder="+91" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()" ng-keypress="$event.keyCode == 13 && checkUser()" autofocus="focusInput">
 				           <div class="form-group" data-ng-show="adminuser">
 					            <label for="recipient-name" class="control-label">Password:</label>
 					            <input type="password" class="form-control" id="password" ng-model="password">
 					          </div>
 				          </div>
-				          <div class="text-align-center">
-				      		  	<span data-ng-show="myForm.mobileNo.$error.pattern" style="color:red">Not a valid number!</span>
-    							<span data-ng-show="myForm.mobileNo.$error.minlength" style="color:red">Enter 10 digit number </span>
-				      		  </div>
+				          <div class="text-align-center" ng-show="userchecklogin===false">
+				      		  	 <span class="help-block" id="validationMessage" ng-show="form.mobileno.$error.required">MobileNo is required.</span>
+						 <span class="help-block" id="validationMessage" ng-show="form.mobileno.$error.minlength || form.mobileno.$error.maxlength">Enter vaild mobile number.</span>
+				   		  </div>
 				      		   <div class="modal-footer border-none p0">
 					     <div class="center-block w215">
-						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1" ng-disabled="myForm.$invalid"  data-ng-click="checkUser()">ENTER</button>
+						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1"   data-ng-click="checkUser(form.$valid)">ENTER</button>
 						 	<button type="button" class="btn btn-custom-log-s1 log-btns-s1" data-ng-click="notNow()" data-dismiss="modal" aria-label="Close">LATER</button>
 						 </div>
 				        <div class="clearfix mt20">

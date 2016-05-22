@@ -19,35 +19,38 @@
 					  <div class="row form-group">
 					    <input type="text" class="form-control mb10 input-s1" id="exampleInputname" placeholder="Name" ng-model="sampleMeal.name"   ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
 							    <div class="clearfix"></div>
-							    <span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only String.</span>
-				  				<span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.required">First name is required.</span>
-								<span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.minlength">Minimum Length should be of 3 characters</span>
-								<span id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.maxlength">MaxLength should be of 20 characters</span>
-							   
+							    <div ng-show="samerrorcheck===false">
+							    <span class="help-block" id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only valid name..</span>
+				  				<span class="help-block" id="validationMessage" ng-show="form.name.$error.required">Name is required.</span>
+								<span class="help-block" id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.minlength">Enter only valid name.</span>
+								<span class="help-block" id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.maxlength">Enter only valid name.</span>
+							   </div>
 					  </div>
 					  
 					  <div class="row form-group">
-					    <input type="text" class="form-control mb10 input-sm input-s1" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789][0-9]/" ng-maxlength="10" required name="mobileno">
+					    <input type="text" class="form-control mb10 input-sm input-s1" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789][0-9]/" ng-minlength="10" ng-maxlength="10" required name="mobileno">
 
 							    <div class="clearfix"></div>
-							     <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.required">MobileNo is required.</span>
-						    <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
-				   		  <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span>
+							    <div ng-show="samerrorcheck===false">
+							     <span class="help-block" id="validationMessage" ng-show="form.mobileno.$error.required">MobileNo is required.</span>
+						    <span  class="help-block" id="validationMessage" ng-show="form.mobileno.$error.minlength || form.mobileno.$error.maxlength">Enter vaild mobile number.</span>
+				   		  <!-- <span id="validationMessage" ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern">Mobile number should Start with 7 or 8 or 9.</span> -->
+					  </div>
 					  </div>
 					  <div class="row form-group">
-					    <select class="form-control input-s1 mb10" ng-model="sampleMeal.date" id="sampleMealDate" placeholder="Date">
+					    <select class="form-control input-s1 mb10" ng-model="sampleMeal.date" id="sampleMealDate" name="date" placeholder="Date" required>
 						 <option value="" disabled selected style="display: none;">Date</option>
 						  <option ng-repeat="date in sampcustomdates" value="{{date}}"> {{date}}</option>
 						</select>
 						
 							    <div class="clearfix"></div>
-							    <span id="validationMessage" ng-show="sampleMeal.date == ''">Date is required.</span>
-							     <span id="validationMessage" ng-show="form.date.$dirty  && form.date.$error.required">Date is required.</span>
-							  
+							   <div ng-show="samerrorcheck===false">
+						 <span class="help-block" id="validationMessage" ng-show="form.date.$error.required">Date is required.</span>
+						 </div>
 					  </div>
 					 
 					  <div class="row form-group">
-					    <select class="form-control input-s1 mb10"  name="area" id="area" required>
+					    <select class="form-control input-s1 mb10"  ng-model="sampleMeal.area" name="area" id="area" required>
 						  <option value="" disabled selected style="display: none;">Area</option>
 						 <option value="Madhapur_Police_Station">Madhapur Police Station</option>
 						 <option value="Madhapur_100_feet_Road">Madhapur 100 feet Road</option>
@@ -61,14 +64,15 @@
 						 <option value="Madhapur_Image_Garden_Road">Madhapur Image Garden Road</option>
 						</select>
 							    <div class="clearfix"></div>
-							     <span id="validationMessage" ng-show="form.area.$dirty  && form.area.$error.required">Area is required.</span>
-							  
+							    <div ng-show="samerrorcheck===false">
+							    <span class="help-block" id="validationMessage" ng-show="form.area.$error.required">Area is required.</span>
+							  </div>
 						  
 					  </div>
 					  <div class="row form-group">
 					  
-						 <button type="submit" class="btn custom-btn-s2 pull-right mr50">LATER</button>
-					  	 <button type="submit" class="btn custom-btn-s2 pull-right" ng-disabled="form.$invalid"  ng-click="requestSampleMeal()" >CONFIRM</button>
+						 <button type="submit" class="btn custom-btn-s2 pull-right mr50"  data-ng-click="sanotNow();">LATER</button>
+					  	 <button type="submit" class="btn custom-btn-s2 pull-right"  ng-click="requestSampleMeal(form.$valid)" >CONFIRM & PAY</button>
 					  </div>
 					</form>
 					
