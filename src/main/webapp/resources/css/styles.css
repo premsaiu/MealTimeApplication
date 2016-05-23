@@ -459,10 +459,13 @@ float:right;
 	margin: 10px 15px;
 	padding: 7px 0px !important;
 }
-.nav-top > li > a:hover, .nav-top > li.active  {
+.nav-top > li > a:hover  {
 	text-decoration: none;
     border-bottom: 3px solid rgba(191, 190, 190, 0.46);
     padding-bottom: 7px;
+}
+.nav-top li.active a:first-child{
+	border-bottom: 5px solid rgba(113,113,115,1);
 }
 
 .custom-icon-s1 {

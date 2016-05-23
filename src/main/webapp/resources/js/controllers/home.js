@@ -19,6 +19,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	$rootScope.status = $localStorage.status;
     
     $rootScope.modalShow = function(){
+    	$rootScope.mobileNumber="";
 		$('#myModal').modal('show');
 	}
 	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
@@ -97,7 +98,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	                		UserService.checkSubscription(response.data.userId).then(function(response1) {
 								if(response1.data.data.userSubscription != null || (response1.data.data.userSubscription.status.toLowerCase() != "success" 
 									&& response1.data.data.userSubscription.confirmation == false)){
-									$(".adminsection").hide();
+								    $(".adminsection").hide();
 									$rootScope.newmenu = true;
 									$rootScope.status = true;
 									$rootScope.profileShow = true;

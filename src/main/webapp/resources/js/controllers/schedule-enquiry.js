@@ -28,6 +28,9 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 			$rootScope.status=false;
 			$state.go('home');
 		}
+	$rootScope.sccloseModal =function(modalId){
+		$('#'+modalId).modal('hide');
+	}
 	$scope.submitsched=function(vaild){
 		$scope.errorcheck=vaild;
 		if(vaild){

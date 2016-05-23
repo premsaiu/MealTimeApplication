@@ -20,7 +20,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
                                'miniMealApp.subscribeNowCtrl',
                                'miniMealApp.leaveCtrl',
                                'ui.router'])
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$provide,$httpProvider) {
     
     $urlRouterProvider.otherwise('/home');
     
@@ -139,15 +139,16 @@ angular.module('miniMealApp', ['miniMealApp.services',
             templateUrl: 'views/users/sample_meal.html',
             controller: 'SampleMealCtrl'
         })
-        .state('samplepayment', {
-            url: 'https://www.instamojo.com/mealtime/mealtime_sample'
-           
-        })
         .state('subscribenow', {
             url: '/subscribenow',
             templateUrl: 'views/users/subscribe_now.html',
             controller: 'SubscribeNowCtrl'
         })
+        if(!$httpProvider.defaults.headers.get){
+        	$httpProvider.defaults.headers.get={};
+        }
+    $httpProvider.defaults.headers.common['X-Requested-with']='XMLHttpRequest';
+    $httpProvider.defaults.headers.get['If-Modified-Since']='0';
 })
 .run( function($rootScope, $location,UserService) {
 	

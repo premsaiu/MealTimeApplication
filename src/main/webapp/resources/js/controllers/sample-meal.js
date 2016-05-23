@@ -1,6 +1,6 @@
 angular.module('miniMealApp.sampleMealCtrl', ['ngStorage']).
 
-controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $localStorage, $filter, $timeout, UserService, commonCode) {
+controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $state, $localStorage, $filter, $timeout, UserService, commonCode) {
 	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
@@ -69,8 +69,12 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $l
 		UserService.checkSampleMeal($scope.sampleMeal.mobileNumber, sampleMealDate, $scope.sampleMeal.name).then(function(response){
 			if(response.data.statusCode == 200){
 				var subject = "MealTime - Sample Meal - One Time Password(OTP)";
-				$rootScope.sendOTP($scope.sampleMeal.mobileNumber, null, subject);
-				$scope.sampleMeal.otp = "";
+				/*$rootScope.sendOTP($scope.sampleMeal.mobileNumber, null, subject);
+				$scope.sampleMeal.otp = "";*/
+				$window.location.href='https://www.instamojo.com/mealtime/samplemeal/';
+				/*$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';
+				*//*$state.go("samplepayment");*/
+				$scope.submitSampleMeal();
 			}else if(response.data.statusCode == 500){
 				$scope.sampleMealErrorMsg = response.data.errorMsg;
 			}
@@ -85,7 +89,8 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$location, $state, $l
 						$('#otpModal').modal('hide');
 						/*<a href="https://www.instamojo.com/mealtime/mealtime_sample/" rel="im-checkout" data-behaviour="remote" data-style="light" data-text="Checkout With Instamojo" data-token="f10e02fe7ff4eb38385af6ca55213f3c"></a>
 */
-						$state.go("samplepayment");
+						$window.location.href='https://www.instamojo.com/mealtime/samplemeal/';
+						/*$state.go("samplepayment");*/
 						$scope.submitSampleMeal();
 					}else{
 						$scope.wrongOTPMsg="Invalid OTP. Please enter Correct OTP";

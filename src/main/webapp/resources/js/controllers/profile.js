@@ -35,10 +35,6 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 		$rootScope.foodStyle = [{'label':'Vegetarian','value':'vegetarian'},{'label':'Eggetarian','value':'Eggetarian'}];
 		$rootScope.dinner = [{'label':'Rice','value':'rice'},{'label':'Roti','value':'roti'},{'label':'Rice & Roti','value':'Rice-Roti'}];
 		$rootScope.packing = [{'label':'I love polythene','value':'I love polythene'},{'label':'Iam against polythene','value':' Iam against polythene'}];
-		
-		
-		
-		debugger;
 		$scope.editProfile = function(){
 			console.log($scope.editUser);
 			var subject = "MealTime - Edit Profile - One Time Password(OTP)";
@@ -67,7 +63,7 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 		
 		$scope.cancelEdit = function(modalId){
 			$scope.editUser = angular.copy($rootScope.user);
-			$rootScope.closeModal(modalId);
+			$('#'+modalId).modal('hide');
 		}
 		
 		$scope.updateProfile = function(){
@@ -91,7 +87,6 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 						 		$rootScope.userProfilePic = "images/"+userId+".jpg";
 						 		$scope.isEditForm=false;
 		                		//location.href = "#/profile";
-						 		debugger;
 						 		$('body').removeClass('modal-open');
 								$('.modal-backdrop').remove();
 		                		$state.go("profile");

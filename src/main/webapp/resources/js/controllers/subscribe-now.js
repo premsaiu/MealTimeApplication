@@ -3,7 +3,7 @@
 
 angular.module('miniMealApp.subscribeNowCtrl', ['ngStorage']).
 
-controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStorage, $timeout, $filter, UserService, commonCode) {
+controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStorage, $timeout, $filter,$window, UserService, commonCode) {
 	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
@@ -32,8 +32,11 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 		$scope.suberrorcheck=valid;
 		if(valid){
 		var subject = "MealTime - Subscribe Now - One Time Password(OTP)";
-		$rootScope.sendOTP($scope.mobile, null, subject);
-		$scope.otp = "";
+		/*$rootScope.sendOTP($scope.mobile, null, subject);
+		$scope.otp = "";*/
+		$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';
+		$scope.subconfmtn();
+		
 	}
 	}
 	
