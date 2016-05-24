@@ -25,19 +25,19 @@ import com.mealtime.dao.impl.spring.commons.GenericDAO;
 public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements UserMasterDAO {
 
 	private final static String SQL_SELECT = 
-		"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice from user_master where user_id = ?";
+		"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice, AREA, CITY from user_master where user_id = ?";
 	
 	private final static String SQL_SELECT_BY_MOBILENUMBER = 
-			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice from user_master where mobile_number = ?";
+			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice, AREA, CITY from user_master where mobile_number = ?";
 	
 	private final static String SQL_SELECT_BY_EMAIL = 
-			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice from user_master where email = ?";
+			"select user_id, first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice, AREA, CITY from user_master where email = ?";
 
 	private final static String SQL_INSERT = 
-			"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			"insert into user_master ( first_name, last_name, email, mobile_number, address, created_date, updated_date, created_by, updated_by, status, is_active, version, role_id, file_path, food_style_s1, food_style_s2, password, dinner_choice, packing_choice, AREA, CITY ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private final static String SQL_UPDATE = 
-			"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ?, password = ?, dinner_choice = ?, packing_choice = ? where user_id = ?";
+			"update user_master set first_name = ?, last_name = ?, email = ?, mobile_number = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ?, role_id = ?, file_path = ?, food_style_s1 = ?, food_style_s2 = ?, password = ?, dinner_choice = ?, packing_choice = ?, AREA = ?, CITY = ? where user_id = ?";
 
 	private final static String SQL_DELETE = 
 		"delete from user_master where user_id = ?";
@@ -196,7 +196,9 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 				userMaster.getFoodStyleS2() , // "food_style_s2" : java.lang.String
 				userMaster.getPassword() , // "password" : java.lang.String
 				userMaster.getDinnerChoice() , // "dinner_choice" : java.lang.String
-				userMaster.getPackingChoice()  // "packing_choice" : java.lang.String
+				userMaster.getPackingChoice(),  // "packing_choice" : java.lang.String
+				userMaster.getArea(),
+				userMaster.getCity()
 		};
 	}
     //----------------------------------------------------------------------
@@ -222,7 +224,9 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 				userMaster.getFoodStyleS2(), // "food_style_s2" : java.lang.String
 				userMaster.getPassword(), // "password" : java.lang.String
 				userMaster.getDinnerChoice(), // "dinner_choice" : java.lang.String
-				userMaster.getPackingChoice(), // "packing_choice" : java.lang.String
+				userMaster.getPackingChoice(),
+				userMaster.getArea(), // "packing_choice" : java.lang.String
+				userMaster.getCity(),
 				//--- Returns PRIMARY KEY at the end ( for SQL "WHERE key=?, ..." )
 				userMaster.getUserId()  // "user_id" : java.lang.String
 		};
@@ -280,6 +284,8 @@ public class UserMasterDAOImplSpring extends GenericDAO<UserMaster> implements U
 				userMaster.setPassword(rs.getString("password")); // java.lang.String
 				userMaster.setDinnerChoice(rs.getString("dinner_choice")); // java.lang.String
 				userMaster.setPackingChoice(rs.getString("packing_choice")); // java.lang.String
+				userMaster.setArea(rs.getString("AREA"));
+				userMaster.setCity(rs.getString("CITY"));
 	}
 
     //----------------------------------------------------------------------

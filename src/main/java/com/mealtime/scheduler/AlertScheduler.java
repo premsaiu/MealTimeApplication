@@ -10,13 +10,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
 import com.mealtime.bean.AlertBean;
 import com.mealtime.service.AlertService;
 import com.mealtime.util.MealTimeUtil;
 
-@Service
 @EnableScheduling
 public class AlertScheduler {
 	
@@ -31,7 +29,7 @@ public class AlertScheduler {
 	@Autowired
 	AlertService alertService;
 	
-	@Scheduled(cron = "10 * * * * *")
+	@Scheduled(cron = "0 * 7 * * *")
 	public void cronTask(){
 		List<AlertBean> alertBeanList= new ArrayList<AlertBean>();
 		logger.info("Cron Scheduler Initialized");

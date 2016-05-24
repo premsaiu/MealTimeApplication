@@ -35,6 +35,10 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 		$rootScope.foodStyle = [{'label':'Vegetarian','value':'vegetarian'},{'label':'Eggetarian','value':'Eggetarian'}];
 		$rootScope.dinner = [{'label':'Rice','value':'rice'},{'label':'Roti','value':'roti'},{'label':'Rice & Roti','value':'Rice-Roti'}];
 		$rootScope.packing = [{'label':'I love polythene','value':'I love polythene'},{'label':'Iam against polythene','value':' Iam against polythene'}];
+		$rootScope.areaList = [{'value':'Madhapur Police Station'},{'value':'Madhapur 100 feet Road'},{'value':'Madhapur Kavuri Hills Phase I'},
+		                       {'value':'Madhapur Kavuri Hills Phase II'},{'value':'Madhapur Megha Hills'},{'value':'Madhapur Ayyappa Society'},{'value':'Madhapur Hitech City'},
+		                       {'value':'Madhapur Image Hospital Road'},{'value':'Madhapur Image Garden Road'}];
+		$rootScope.cityList = [{'value':'Hyderabad'}];
 		$scope.editProfile = function(){
 			console.log($scope.editUser);
 			var subject = "MealTime - Edit Profile - One Time Password(OTP)";

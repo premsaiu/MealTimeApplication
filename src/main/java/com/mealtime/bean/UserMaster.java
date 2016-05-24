@@ -81,6 +81,10 @@ public class UserMaster implements Serializable {
 
     // DB : packing_choice VARCHAR 
     private String packingChoice;
+    
+    private String area;
+    
+    private String city;
 
     //----------------------------------------------------------------------
     // GETTER & SETTER FOR THE KEY FIELD
@@ -279,6 +283,34 @@ public class UserMaster implements Serializable {
 
 	public void setPackingChoice(String packingChoice) {
 		this.packingChoice = packingChoice;
+	}
+
+	/**
+	 * @return the area
+	 */
+	public String getArea() {
+		return area;
+	}
+
+	/**
+	 * @param area the area to set
+	 */
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	/**
+	 * @return the city
+	 */
+	public String getCity() {
+		return city;
+	}
+
+	/**
+	 * @param city the city to set
+	 */
+	public void setCity(String city) {
+		this.city = city;
 	} 
 
 }
