@@ -45,7 +45,7 @@ public class ScheduleEnquiryController {
 		scheduleEnquiry.setUserId(user.getUserId());
 		boolean isCheckSchedule = scheduleEnquiryService.checkScheduleEnquiry(scheduleEnquiry.getUserId());
 		if(isCheckSchedule){
-			boolean isScheduleEnquiry = scheduleEnquiryService.scheduleEnquiry(scheduleEnquiry);
+			boolean isScheduleEnquiry = scheduleEnquiryService.scheduleEnquiry(scheduleEnquiry,user);
 			if(isScheduleEnquiry){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 				String message = "Hi, Your Schedule Enquiry has been fixed. Our team will visit you shortly.";
