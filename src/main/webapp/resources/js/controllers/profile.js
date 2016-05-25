@@ -15,7 +15,7 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 	$rootScope.profileShow = $localStorage.profileShow;
 	
 	console.log($rootScope.status);
-	$scope.editUser = angular.copy($rootScope.user);
+    $scope.editUser = angular.copy($rootScope.user);
 	//console.log(user);
 	$scope.isEditForm=false;
 	$scope.wrongOTPMsg="";
@@ -39,12 +39,15 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 		                       {'value':'Madhapur Kavuri Hills Phase II'},{'value':'Madhapur Megha Hills'},{'value':'Madhapur Ayyappa Society'},{'value':'Madhapur Hitech City'},
 		                       {'value':'Madhapur Image Hospital Road'},{'value':'Madhapur Image Garden Road'}];
 		$rootScope.cityList = [{'value':'Hyderabad'}];
-		$scope.editProfile = function(){
+		$scope.editProfile = function(valid){
+			$scope.profileerrorcheck=valid;
+			if(valid){
 			console.log($scope.editUser);
 			var subject = "MealTime - Edit Profile - One Time Password(OTP)";
 			$rootScope.sendOTP($scope.editUser.mobileNumber, $scope.editUser.email, subject);
 			$scope.otp = "";
 			$scope.wrongOTPMsg ="";
+		}
 		}
 		$scope.verifyOTP = function(){
 			UserService.verifyOTP($scope.editUser.mobileNumber, $scope.otp).then(
@@ -70,9 +73,8 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 			$('#'+modalId).modal('hide');
 		}
 		
-		$scope.updateProfile = function(){
+			$scope.updateProfile = function(valid){
 			$scope.otp = "";
-			
 			var user = $scope.editUser;
 			var file = $('#profilePic')[0].files[0];
 			console.log(file);
@@ -85,6 +87,7 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 							 	$('#editSuccessModal').modal('show');
 						 		console.log(response.data.data);
 						 		$rootScope.user = response.data.data;
+						 		$scope.editUser = angular.copy($rootScope.user);
 						 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 						 		//var mobileNumber = $rootScope.user.mobileNumber;
 						 		var userId = $rootScope.user.userId;
@@ -102,7 +105,9 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 		                    console.error('Something went wrong!!');
 		                }
 		       );
-		}
+		
+	}
+			
 	}
 	
 });

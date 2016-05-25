@@ -40,7 +40,7 @@
 		   
 		    	
 		    	<div class="col-md-8 col-xs-8 new-brL" style="    top: -30px;width: 48% !important;">
-		    	<form name="form" ng-submit="editProfile()" class="form-inline" class="form-inline mt20 input-mar-s1" >
+		    	<form name="form" ng-submit="editProfile(form.$valid)" class="form-inline" class="form-inline mt20 input-mar-s1" >
 		    	<div class="profile-nav-bar">
 		    	 <ul class="nav nav-tabs" role="tablist" style="float:right">
 						    <li role="presentation" class="active"><a data-target="#basicInformation" aria-controls="basicInformation" role="tab" data-toggle="tab">Basic Information</a></li>
@@ -55,47 +55,64 @@
 						  <div class="form-group">
 							<input type="text" name="firstname" class="form-control mb10 input-s4" id="exampleInputEmail3" data-ng-model="editUser.firstName" placeholder="First Name" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3" ng-maxlength="20">
 									<div class="clearfix"></div>
-							<span data-ng-show="form.firstname.$dirty && form.firstname.$error.pattern" style="color: red">Enter only string.</span>
- 							<span data-ng-show="form.firstname.$dirty  && form.firstname.$error.minlength">Minimum Length should be of 3 characters</span>
-							 <span data-ng-show="form.firstname.$dirty  && form.firstname.$error.maxlength">MaxLength should be of 20 characters</span>
+								 <div ng-show="profileerrorcheck">
+							<span class="help-block" id="validationMessage" data-ng-show="form.firstname.$dirty && form.firstname.$error.pattern" style="color: red">Enter only valid FirstName.</span>
+ 							<span class="help-block" id="validationMessage" data-ng-show="form.firstname.$dirty  && form.firstname.$error.minlength">Enter only valid FirstName</span>
+							 <span class="help-block" id="validationMessage" data-ng-show="form.firstname.$dirty  && form.firstname.$error.maxlength">Enter only valid FirstName</span>
+						 </div>
 						 </div>
 							  <div class="form-group">
 								    <input type="text" name="lastname" class="form-control mb10 input-s4" id="exampleInputEmail3" placeholder="Last Name" autocomplete="off" ng-pattern="/^[a-zA-Z ]{1,25}$/" ng-minlength="3"  ng-maxlength="20" data-ng-model="editUser.lastName" class="form-control pull-left new-input-s1">
 							    <div class="clearfix"></div>
-							    <span data-ng-show="form.lastname.$dirty && form.lastname.$error.pattern" style="color:red">Enter only string.</span>
-				     		    <span data-ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Minimum Length should be of 3 characters</span>
-					           <span data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
+								 <div ng-show="profileerrorcheck">
+							    <span class="help-block" id="validationMessage" data-ng-show="form.lastname.$dirty && form.lastname.$error.pattern">Enter only valid LastName.</span>
+				     		    <span class="help-block" id="validationMessage" data-ng-show="form.lastname.$dirty  && form.lastname.$error.minlength">Enter only valid LastName.</span>
+					           <span class="help-block" id="validationMessage" data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">Enter only valid LastName.</span>
+								  </div>
 								  </div>
 							  
 							  <div class="form-group">
-								 <input type="text" class="form-control mb10 input-s4" id="exampleInputEmail3" placeholder="Email" data-ng-model="editUser.email">
+								 <input type="text" class="form-control mb10 input-s4" name="email" id="exampleInputEmail3" placeholder="Email" data-ng-model="editUser.email">
 								   <div class="clearfix"></div>
+								   <div ng-show="profileerrorcheck">
+							    <span class="help-block" id="validationMessage" data-ng-show="form.email.$dirty || form.email.$invalid">Enter only valid Email.</span>
+				     		    </div>
 							  </div>
 							 
 							  <div class="form-group">
-								    <input type="text" name="mobileno" class="form-control mb10 input-s4" id="exampleInputPassword3" data-ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  placeholder="Mobile Number">
+								    <input type="text" name="mobileno" class="form-control mb10 input-s4" id="exampleInputPassword3" data-ng-model="editUser.mobileNumber" name="mobileno"  data-ng-pattern="/^[789]\d{9}$/" ng-maxlength="10"  ng-minlength="10" placeholder="Mobile Number">
 							    <div class="clearfix"></div>
-							    <span data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Mobile number should Start with 7 or 8 or 9.</span>
-				       	  	<span data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.maxlength">MaxLength should be of 10 digits.</span>
+								  <div ng-show="profileerrorcheck">
+							    <span class="help-block" id="validationMessage" data-ng-show="form.mobileno.$dirty  && form.mobileno.$error.pattern"  style="color:red">Enter valid number.</span>
+				       	  	     <span class="help-block" id="validationMessage"  data-ng-show="form.mobileno.$error.minlength  || form.mobileno.$error.maxlength">Enter valid number.</span>
+								  </div>
 								  </div>
 							  <div class="form-group" style="margin-bottom:12px">
 								    <textarea id="address" data-ng-model="editUser.address" class="form-control input-s4" rows="3" placeholder="Address" name="address" autocomplete="off" ng-maxlength="250"></textarea>
-				    		  <span data-ng-show="form.address.$dirty && form.address.$error.maxlength">Maximum Length is 250 characters</span>
+								     <div ng-show="profileerrorcheck">
+								  			   <span class="help-block" id="validationMessage" data-ng-show="form.address.$dirty && form.address.$error.maxlength">Maximum Length is 250 characters</span>
+								  			   </div>
 								  <div class="clearfix"></div>
 								  </div>
 								  <div class="row" style="padding: 8px;">	
 						  <div class="form-group">
-								    <select class="form-control input-s5 mb10 mr16" data-ng-model="editUser.area" name="area" id="area" required>
+								    <select class="form-control input-s5 mb10 mr16" data-ng-model="editUser.area" required name="area" id="area" required>
 									     <option value="" disabled selected style="display: none;">Area</option>
 									     <option data-ng-selected="{{item.value == editUser.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
 									</select>
+									 <div ng-show="profileerrorcheck===false">
+							    <span class="help-block" id="validationMessage" ng-show="form.area.$error.required">Area is required.</span>
+							  </div>
 								  </div>
 								  <div class="form-group">
-									<select class="form-control input-s5 mb10" data-ng-model="editUser.city" name="city" id="city" required>
+									<select class="form-control input-s5 mb10" data-ng-model="editUser.city" name="city" required id="city" required>
 									  <option value="" disabled selected style="display: none;">City</option>
 									 <option  data-ng-selected="{{item.value == editUser.city}}"  data-ng-repeat="item in cityList" value="{{item.value}}">{{item.value}}</option>
 									  
 									</select>
+									 <div ng-show="profileerrorcheck===false">
+							    <span class="help-block" id="validationMessage" ng-show="form.city.$error.required">City is required.</span>
+							  </div>
 								  </div>
 								  </div>
 						
@@ -106,29 +123,41 @@
 						    <div role="tabpanel" class="tab-pane" id="foodStyle">
 						    <div style="margin: 15px 35px;padding-top: 70px;">
 						  <div class="form-group">
-									    <select class="form-control input-s4 mb10"  data-ng-model="editUser.foodStyleS1">
+									    <select class="form-control input-s4 mb10"  required name="foodStyle" data-ng-model="editUser.foodStyleS1">
 										  <option value="">Food Style</option>
 										  <option ng-selected="editUser.foodStyleS1 == item.value" ng-repeat="item in foodType" ng-value="item.value">{{item.label}}</option>
 										</select>
+										 <div ng-show="profileerrorcheck===false">
+							    		<span class="help-block" id="validationMessage" ng-show="form.foodStyle.$error.required">foodStyle is required.</span>
+							 			 </div>
 						</div>
 				           <div class="form-group">
-										<select class="form-control input-s4 mb10" data-ng-model="editUser.foodStyleS2">
+										<select class="form-control input-s4 mb10" required name="foodtype" data-ng-model="editUser.foodStyleS2">
 										 <option value="">Food Type</option>										 
 										 <option ng-selected="editUser.foodStyleS2 == item.value" ng-repeat="item in foodStyle" ng-value="item.value">{{item.label}}</option>
 										</select>
+										<div ng-show="profileerrorcheck===false">
+							    <span class="help-block" id="validationMessage" ng-show="form.foodtype.$error.required">foodtype is required.</span>
+							  </div>
 							</div>
 							<div class="form-group">
-										<select class="form-control input-s4 mb10" data-ng-model="editUser.dinnerChoice">
+										<select class="form-control input-s4 mb10" required name="Dinnerchoice" data-ng-model="editUser.dinnerChoice">
 										  <option value="">Dinner</option>
 										 <option ng-selected="editUser.dinnerChoice == item.value" ng-repeat="item in dinner" ng-value="item.value">{{item.label}}</option>
 										
 										</select>
+										<div ng-show="profileerrorcheck===false">
+							    <span class="help-block" id="validationMessage" ng-show="form.Dinnerchoice.$error.required">Dinnerchoice is required.</span>
+							  </div>
 							</div>
 							<div class="form-group">
-										<select class="form-control input-s4 mb10" data-ng-model="editUser.packingChoice">
+										<select class="form-control input-s4 mb10" required name="packingtype" data-ng-model="editUser.packingChoice">
 										  <option value="">Packing Type</option>
 										 <option ng-selected="editUser.packingChoice == item.value" ng-repeat="item in packing" ng-value="item.value">{{item.label}}</option>
 										</select>
+										<div ng-show="profileerrorcheck===false">
+							    <span class="help-block" id="validationMessage" ng-show="form.packingtype.$error.required">packingtype is required.</span>
+							  </div>
 							</div>
 							</div>
 						  </div>

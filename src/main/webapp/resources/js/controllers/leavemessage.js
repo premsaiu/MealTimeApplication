@@ -14,7 +14,9 @@ controller('leaveCtrl', function ($scope, $rootScope, $state, UserService, $loca
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
 	
-	$scope.leavemsg=function(){
+	$scope.leavemsg=function(valid){
+		$scope.leaveerrorcheck=valid;
+		if(valid){
 		var leaveinformation= {"name":"Prem","email":"u.premsai@gmail.com","mobileNumber":"9700640022","comments":"Test Comment"}
 		UserService.submitleavemessage(leaveinformation).then(function(response){
 			if(response.data.statusCode == 200){
@@ -24,6 +26,7 @@ controller('leaveCtrl', function ($scope, $rootScope, $state, UserService, $loca
 				$scope.leavemessageErrorMsg = response.data.errorMsg;
 			}
 		});
+		}
 	}
 	
 });

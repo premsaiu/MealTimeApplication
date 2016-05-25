@@ -190,6 +190,8 @@ public class MealTimeService {
 		user.setAddress(userMaster.getAddress());
 		user.setDinnerChoice(userMaster.getDinnerChoice());
 		user.setPackingChoice(userMaster.getPackingChoice());
+		user.setArea(userMaster.getArea());
+		user.setCity(userMaster.getCity());
 		count  = userMasterDAO.update(user);
 		return count;
 	}
