@@ -14,10 +14,15 @@ angular.module('miniMealApp.scheduleEnquiryCtrl', ['ngStorage'])
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
 	
+	$rootScope.areaList = [{'value':'Madhapur Police Station'},{'value':'Madhapur 100 feet Road'},{'value':'Madhapur Kavuri Hills Phase I'},
+	                       {'value':'Madhapur Kavuri Hills Phase II'},{'value':'Madhapur Megha Hills'},{'value':'Madhapur Ayyappa Society'},{'value':'Madhapur Hitech City'},
+	                       {'value':'Madhapur Image Hospital Road'},{'value':'Madhapur Image Garden Road'}];
+	
 	if($rootScope.loggedUser){
 		$scope.sched = {};
 		$scope.sched.number = $rootScope.user.mobileNumber;
 		$scope.sched.name = $rootScope.user.firstName;
+		$scope.sched.area = $rootScope.user.area;
 	}
 	$scope.schedEnqErrorMsg = "";
 	var mobileNo = "";

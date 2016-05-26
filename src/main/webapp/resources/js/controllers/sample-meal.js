@@ -14,10 +14,16 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $s
 	$rootScope.profileShow = $localStorage.profileShow;
 	
 	$scope.sampleMealErrorMsg = "";
+	
+	$rootScope.areaList = [{'value':'Madhapur Police Station'},{'value':'Madhapur 100 feet Road'},{'value':'Madhapur Kavuri Hills Phase I'},
+	                       {'value':'Madhapur Kavuri Hills Phase II'},{'value':'Madhapur Megha Hills'},{'value':'Madhapur Ayyappa Society'},{'value':'Madhapur Hitech City'},
+	                       {'value':'Madhapur Image Hospital Road'},{'value':'Madhapur Image Garden Road'}];
+	
 	if($rootScope.loggedUser){
 		$scope.sampleMeal = {};
 		$scope.sampleMeal.mobileNumber = $rootScope.user.mobileNumber;
 		$scope.sampleMeal.name = $rootScope.user.firstName;
+		$scope.sampleMeal.area = $rootScope.user.area;
 	}
 	//data formatted code
 	 var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",

@@ -21,11 +21,17 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 			$(".adminsection").hide();
 			$state.go('home');
 		}
+	
+	$rootScope.areaList = [{'value':'Madhapur Police Station'},{'value':'Madhapur 100 feet Road'},{'value':'Madhapur Kavuri Hills Phase I'},
+	                       {'value':'Madhapur Kavuri Hills Phase II'},{'value':'Madhapur Megha Hills'},{'value':'Madhapur Ayyappa Society'},{'value':'Madhapur Hitech City'},
+	                       {'value':'Madhapur Image Hospital Road'},{'value':'Madhapur Image Garden Road'}];
+	
 	$scope.subscribeNowErrorMsg = "";
 	if($rootScope.loggedUser){
 		$scope.mobile = $rootScope.user.mobileNumber;
 		$scope.firstName = $rootScope.user.firstName;
 		$scope.lastName = $rootScope.user.lastName;
+		$scope.area = $rootScope.user.area;
 	}
 	
 	$scope.requestSubscribeNow = function(valid){
@@ -73,7 +79,7 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 							$rootScope.user.firstName = $scope.firstName;
 							$rootScope.user.lastName = $scope.lastName;	
 							$rootScope.user.mobileNumber = $scope.mobile;
-							$rootScope.user.address = area;
+							$rootScope.user.address = $scope.area;
 							window.scrollTo(0,0);
 							$scope.successMsg = true;
 							$('#succussSaveDiv').html('<div id="scesavemsg" class="success"><button type="button" class="close" aria-label="Close">x</button><strong>Subscription Done Successfully!!!...</strong></div>');
