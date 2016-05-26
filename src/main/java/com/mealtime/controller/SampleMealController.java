@@ -44,7 +44,7 @@ public class SampleMealController {
 		sampleMeal.setUserId(user.getUserId());
 		boolean isCheckSampleMeal = sampleMealService.checkSampleMeal(sampleMeal.getUserId());
 		if(isCheckSampleMeal){
-			boolean isSuccess = sampleMealService.requestSampleMeal(sampleMeal);
+			boolean isSuccess = sampleMealService.requestSampleMeal(sampleMeal, user);
 			if(isSuccess){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 				//String message = "Hi, Your Sample Meal request has been taken. Our team will deliver you on the requested date";
