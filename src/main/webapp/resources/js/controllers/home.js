@@ -22,7 +22,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
     	$rootScope.mobileNumber="";
 		$('#myModal').modal('show');
 	}
-	if($rootScope.loggedUser == undefined || $rootScope.loggedUser == false ){
+	if(($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) && $rootScope.modalfirstshow == undefined){
 		$scope.modalShow();
 	}
 	$rootScope.notNow = function(){
@@ -35,6 +35,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 		$rootScope.status = true;
 		$rootScope.newmenu = true;
 		$rootScope.userName = "Visitor";
+		$rootScope.modalfirstshow=false;
 		/*$state.go('ourstory');*/
 	}
 	$rootScope.adminchk=function(){
@@ -96,8 +97,8 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	                function(response) {
 	                	if(response.data != ""){
 	                		UserService.checkSubscription(response.data.userId).then(function(response1) {
-								if(response1.data.data.userSubscription != null || (response1.data.data.userSubscription.status.toLowerCase() != "success" 
-									&& response1.data.data.userSubscription.confirmation == false)){
+								if(response1.data.data.userSubscription != null 
+									&& response1.data.data.userSubscription.confirmation == false){
 								    $(".adminsection").hide();
 									$rootScope.newmenu = true;
 									$rootScope.status = true;

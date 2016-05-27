@@ -77,16 +77,18 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $s
 				var subject = "MealTime - Sample Meal - One Time Password(OTP)";
 				/*$rootScope.sendOTP($scope.sampleMeal.mobileNumber, null, subject);
 				$scope.sampleMeal.otp = "";*/
-				$window.location.href='https://www.instamojo.com/mealtime/samplemeal/';
-				/*$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';
-				*//*$state.go("samplepayment");*/
-				$scope.submitSampleMeal();
+				/*$window.location.href='https://www.instamojo.com/mealtime/samplemeal/';*/
+				$localStorage.samplelocal=$scope.sampleMeal;
+				$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';
+				/*$state.go("samplepayment");*/
+				
 			}else if(response.data.statusCode == 500){
 				$scope.sampleMealErrorMsg = response.data.errorMsg;
 			}
 		});
 	}
 	}
+	
 	
 	$scope.verifyOTP = function(){
 		UserService.verifyOTP($scope.sampleMeal.mobileNumber, $scope.sampleMeal.otp).then(
@@ -109,12 +111,16 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $s
 		);
 	}
 	
-	
-	$scope.submitSampleMeal = function(){
+	var paramValue = $location.search().status;
+	if(paramValue==="success"){
+		$scope.sampleMeal=$localStorage.samplelocal;
+		debugger;
+	/*$scope.submitSampleMeal = function(){*/
 		$scope.sampleMealMsg = false;
 		$scope.sampleMealErrorMsg = "";
+		var treww=$scope.sampleMeal.date;
 		var area = $('#area').val();
-		var _date = $filter('date')(new Date($('#sampleMealDate').val()), 'yyyy-MM-dd');
+		var _date = $filter('date')(new Date(treww), 'yyyy-MM-dd');
 		var sampleMealObj = {};
 		sampleMealObj.mobileNumber = $scope.sampleMeal.mobileNumber;
 		sampleMealObj.sampleMealDate = _date;
@@ -136,6 +142,7 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $s
 						  $state.go('profile');
 					 }, 10000);
 		});
-	}
+	/*}*/
+}
 	
 });

@@ -1,5 +1,5 @@
 angular.module('miniMealApp.ourStoryCtrl', ['ngStorage']).
-controller('OurStoryCtrl',  function ($scope, $rootScope, $state, $localStorage, UserService, commonCode) {
+controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $localStorage, UserService, commonCode) {
 	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
@@ -11,6 +11,9 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state, $localStorage,
 	$rootScope.regUser = $localStorage.regUser;
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
+	var suvalue=$stateParams.scrollTo;
+	
+		$('body').animate({scrollTop: suvalue}, 800);
 	
 	$rootScope.notNow = function(){
 		$('#myModal').modal('hide');
