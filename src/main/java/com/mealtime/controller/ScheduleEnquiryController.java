@@ -48,7 +48,7 @@ public class ScheduleEnquiryController {
 			boolean isScheduleEnquiry = scheduleEnquiryService.scheduleEnquiry(scheduleEnquiry,user);
 			if(isScheduleEnquiry){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-				String message = "Hi, Your Schedule Enquiry has been fixed. Our team will visit you shortly.";
+				String message = "One Time Password(OTP) to verify your phone number is <OTP CODE> Use this code to confirm. This OTP will expire in 21:48:37 and is applicable for a single use only. Thanks, Team Meal Time";
 				mealTimeUtil.sendSMS(scheduleEnquiry.getMobileNumber(), message);
 				/*String subject = "MealTime - Schedule Enquriy";
 				String msgBody = "<i>Hi!</i><br><br>";
