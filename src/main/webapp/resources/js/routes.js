@@ -110,12 +110,12 @@ angular.module('miniMealApp', ['miniMealApp.services',
             controller: 'OurStoryCtrl'
         })
         .state('howitworks', {
-            url: '/howitworks',
+            url: '/howitworks/:count',
             templateUrl: 'views/users/howitworks.html',
             controller: 'OurStoryCtrl'
         })
         .state('crispybites', {
-            url: '/crispybites',
+            url: '/crispybites/:scrollTo',
             templateUrl: 'views/users/crispybites.html',
             controller: 'OurStoryCtrl'
         })

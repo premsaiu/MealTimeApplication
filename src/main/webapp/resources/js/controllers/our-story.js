@@ -12,8 +12,11 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $
 	$rootScope.userName = $localStorage.userName;
 	$rootScope.profileShow = $localStorage.profileShow;
 	var suvalue=$stateParams.scrollTo;
-	
+	var homwcountvalue=$stateParams.count;
 		$('body').animate({scrollTop: suvalue}, 800);
+		/*if(suvalue==732){
+			$('.media-objectzoom').addClass("howitwork-bites-pic-s2");
+		}*/
 	
 	$rootScope.notNow = function(){
 		$('#myModal').modal('hide');
@@ -29,6 +32,9 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $
 	var count=0;
 
 	var asd=0;
+	if(homwcountvalue==='001'){
+		count=1;
+	}
 	$('.media-objectzoom').click(function(){
     	$('.media-objectzoom').removeClass('howitwork-bites-pic-s2');
          $(this).addClass("howitwork-bites-pic-s2");
@@ -47,13 +53,14 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $
 		if(count<4){
 			count++;
 			$scope.count=count;
-			$scope.howrkvalue=howwrkvalue[count];
+				$scope.howrkvalue=howwrkvalue[$scope.count];
 			}
 	}
 	$scope.previous=function(){
 		if(count>0){
 			count--;
-			$scope.howrkvalue=howwrkvalue[count];
+			$scope.count=count;
+				$scope.howrkvalue=howwrkvalue[$scope.count];
 			}
 	}
 	$scope.getBackgroundColour=function(){
