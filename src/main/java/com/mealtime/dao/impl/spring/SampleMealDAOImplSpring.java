@@ -49,7 +49,7 @@ public class SampleMealDAOImplSpring extends GenericDAO<SampleMeal> implements S
 	};
 
 	private final static String SQL_INSERT = 
-		"insert into sample_meal ( user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		"insert into sample_meal ( user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version, amount ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 185 )";
 
 	private final static String SQL_UPDATE = 
 		"update sample_meal set user_id = ?, sample_meal_date = ?, mobile_number = ?, name = ?, address = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ? where sample_meal_id = ?";

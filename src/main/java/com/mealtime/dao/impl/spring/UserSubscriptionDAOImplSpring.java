@@ -36,7 +36,7 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 			"select user_id, subscription_id, start_date, end_date, created_date, updated_date, created_by, updated_by, status, is_active, version, user_subscription_id from user_subscription where user_id = ?";
 
 	private final static String SQL_INSERT = 
-		"insert into user_subscription ( user_id, subscription_id, start_date, end_date, created_date, updated_date, created_by, updated_by, status, is_active, version, user_subscription_id ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+		"insert into user_subscription ( user_id, subscription_id, start_date, end_date, created_date, updated_date, created_by, updated_by, status, is_active, version, user_subscription_id, amount ) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 3650 )";
 
 	private final static String SQL_UPDATE = 
 		"update user_subscription set user_id = ?, subscription_id = ?, start_date = ?, end_date = ?, created_date = ?, updated_date = ?, created_by = ?, updated_by = ?, status = ?, is_active = ?, version = ? where user_subscription_id = ?";

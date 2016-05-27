@@ -105,7 +105,7 @@ angular.module('miniMealApp', ['miniMealApp.services',
             controller: 'PaymentFormCtrl'
         })
         .state('ourstory', {
-            url: '/ourstory',
+            url: '/ourstory/:scrollTo',
             templateUrl: 'views/users/our_story.html',
             controller: 'OurStoryCtrl'
         })

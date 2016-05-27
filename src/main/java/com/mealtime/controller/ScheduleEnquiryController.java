@@ -49,7 +49,7 @@ public class ScheduleEnquiryController {
 			if(isScheduleEnquiry){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 				String message = "Hi, Your Schedule Enquiry has been fixed. Our team will visit you shortly.";
-				//mealTimeUtil.sendSMS(scheduleEnquiry.getMobileNumber(), message);
+				mealTimeUtil.sendSMS(scheduleEnquiry.getMobileNumber(), message);
 				/*String subject = "MealTime - Schedule Enquriy";
 				String msgBody = "<i>Hi!</i><br><br>";
 				msgBody += "<b>Welcome to MealTime!</b><br>";
