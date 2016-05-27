@@ -87,6 +87,7 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 							 	$('#editSuccessModal').modal('show');
 						 		console.log(response.data.data);
 						 		$rootScope.user = response.data.data;
+						 		$localStorage.user = $rootScope.user;
 						 		$scope.editUser = angular.copy($rootScope.user);
 						 		$rootScope.userName = $rootScope.user.firstName+" "+$rootScope.user.lastName;
 						 		//var mobileNumber = $rootScope.user.mobileNumber;
