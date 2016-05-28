@@ -27,7 +27,7 @@ public class SendSMS {
 				RestTemplate restTemplate = new RestTemplate();
 				System.out.println("API Key::"+workingKey);
 				System.out.println("Sender ID::"+senderID);
-				message=URLEncoder.encode(message, "UTF-8");
+				/*message=URLEncoder.encode(message, "UTF-8");*/
 				String url = "http://instantalerts.co/api/web/send?apikey="+workingKey+"&sender="+senderID+"&to="+mobileNumber+"&message="+message+"&format=json";
 		       // URL url = new URL("http://instantalerts.co/api/web/send?apikey="+workingKey+"&sender="+senderID+"&to="+mobileNumber+"&message="+message);
 				System.out.println("url look like " + url );

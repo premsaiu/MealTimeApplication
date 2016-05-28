@@ -48,14 +48,14 @@ public class ScheduleEnquiryController {
 			boolean isScheduleEnquiry = scheduleEnquiryService.scheduleEnquiry(scheduleEnquiry,user);
 			if(isScheduleEnquiry){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-				String message = "One Time Password(OTP) to verify your phone number is <OTP CODE> Use this code to confirm. This OTP will expire in 21:48:37 and is applicable for a single use only. Thanks, Team Meal Time";
+				String message = "Thank you for showing interest in Meal Time. Meal Time's executive shall call n visit you at your place. Please cooperate(www.mealtime.co.in)- Team Meal Time.";
 				mealTimeUtil.sendSMS(scheduleEnquiry.getMobileNumber(), message);
-				/*String subject = "MealTime - Schedule Enquriy";
+				String subject = "MealTime - Schedule Enquriy";
 				String msgBody = "<i>Hi!</i><br><br>";
 				msgBody += "<b>Welcome to MealTime!</b><br>";
 				msgBody += "Your Schedule Enquiry has been fixed. Our team will visit you shortly.<br><br>";
 				msgBody += "Regards, <br>Meal Time Team";
-				mealTimeUtil.sendEmail(scheduleEnquiry.getEmail(), "premcse41@gmail.com", subject, msgBody);*/
+				mealTimeUtil.sendEmail(user.getEmail(), "info@mealtime.co.in", subject, msgBody);
 			}else{
 				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to Save in table");
 			}

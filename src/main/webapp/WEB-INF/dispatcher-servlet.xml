@@ -93,19 +93,21 @@ http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
 	<!-- Production implementation of the JavaMailSender interface, supporting 
 		both JavaMail MimeMessages and Spring SimpleMailMessages -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		 <!-- <property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" /> -->
-		<property name="host" value="localhost" />
-		<property name="port" value="25" />
-		<property name="username" value="premcse41@gmail.com" />
-		<property name="password" value="prem ias" />
+		<!-- <property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" /> 
+		 <property name="host" value="localhost" />
+		<property name="port" value="25" /> -->
+		<property name="host" value="MealTime21180" />
+		<property name="port" value="465" /> 
+		<property name="username" value="info@mealtime.co.in" />
+		<property name="password" value="Info@mealtime" />
  
 		<!-- The name of the property, following JavaBean naming conventions -->
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>
 				<prop key="mail.smtp.auth">false</prop>
-				<prop key="mail.smtp.starttls.enable">false</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="mail.debug">true</prop>
 			</props>
 		</property>

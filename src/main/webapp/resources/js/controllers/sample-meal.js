@@ -59,7 +59,7 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $s
 	 				newdates1.push(asd);
 	 				}
 	 				$('.address_field').val(newdates1)
-	$rootScope.sampcustomdates=newdates1;
+	 				$rootScope.sampcustomdates=newdates1;
 	 				$scope.sanotNow = function(){
 	 					$('#myModal').modal('hide');
 	 						$(".adminsection").hide();
@@ -114,7 +114,6 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $s
 	var paramValue = $location.search().status;
 	if(paramValue==="success"){
 		$scope.sampleMeal=$localStorage.samplelocal;
-		debugger;
 	/*$scope.submitSampleMeal = function(){*/
 		$scope.sampleMealMsg = false;
 		$scope.sampleMealErrorMsg = "";

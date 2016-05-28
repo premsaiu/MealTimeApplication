@@ -7,9 +7,10 @@
 				<div>
 					<div class="pull-left ">
 						<div  class="media howitworks-thumb-main pull-left">
-							<div id="0"  class="media-objectzoom howitwork-bites-pic-s1">
+							<div id="0"  class="media-objectzoom howitwork-bites-pic-s1 howitwork-bites-pic-s2">
 								<img class="media-object" src="resources/images/flavours.jpg" alt="...">
 							</div>
+							<div id="titles">Flavours</div>
 						</div>
 						<span class="glyphicon glyphicon-arrow-right howitworks-thumb-s1 pull-right" aria-hidden="true"></span>
 					</div>
@@ -19,6 +20,7 @@
 							<div id="1"  class="media-objectzoom howitwork-bites-pic-s1">
 								<img class="media-object" src="resources/images/cooking.png" alt="...">
 							</div>
+							<div id="titles">Cooking</div>
 						</div>
 						<span class="glyphicon glyphicon-arrow-right howitworks-thumb-s1 pull-right" aria-hidden="true"></span>
 					</div>
@@ -28,6 +30,7 @@
 							<div id="2"  class="media-objectzoom howitwork-bites-pic-s1">
 								<img class="media-object" src="resources/images/packaging.jpg" alt="...">
 							</div>
+							<div id="titles">Packing</div>
 						</div>
 						<span class="glyphicon glyphicon-arrow-right howitworks-thumb-s1 pull-right" aria-hidden="true"></span>
 					</div>
@@ -37,6 +40,7 @@
 							<div id="3"  class="media-objectzoom howitwork-bites-pic-s1">
 								<img class="media-object" src="resources/images/delivery.jpg" alt="...">
 							</div>
+							<div id="titles">Delivery</div>
 						</div>
 						<span class="glyphicon glyphicon-arrow-right howitworks-thumb-s1 pull-right" aria-hidden="true"></span>
 					</div>
@@ -46,6 +50,7 @@
 							<div id="4"  class="media-objectzoom howitwork-bites-pic-s1">
 								<img class="media-object" src="resources/images/payment.jpg" alt="...">
 							</div>
+							<div id="titles">Payments</div>
 						</div>
 					</div>
 					
@@ -55,7 +60,7 @@
 				<h5 class="font-black text-uppercase howitworks-title center-block"> 
 					<span class="glyphicon glyphicon-menu-left howitwork-NP mr20" ng-disable="leastvalue" aria-hidden="true" ng-click="previous()"></span>
 						{{howrkvalue}}
-					<span class="glyphicon glyphicon-menu-right howitwork-NP ml20" ng-disable="highest" aria-hidden="true" ng-click="next()"></span>
+					<span class="glyphicon glyphicon-menu-right howitwork-NP ml20" ng-disable="highest" aria-hidden="true" ng-disable="highest" ng-click="next()"></span>
 				</h5> <br>
 				<div  ng-show="count==0">
 				<p class="text-align-center center-block">

@@ -95,7 +95,8 @@ public class MealTimeService {
 	public Integer smsOTP(int otp, String mobileNo){
 		logger.info("smsOTP() :: mobileNumber: "+mobileNo+" ::otp: "+otp);
 		String message = "";
-		message = "test message "+otp;
+		//message = "test message "+otp;
+		message = "One Time Password(OTP) to verify your phone number is "+otp+" Use this code to confirm. This OTP will expire in 15 minutes and is applicable for a single use only. Thanks, Team Meal Time";
 		//message = "test message."+otp+" is your OTP. Treat this as confidential. Sharing it with anyone gives them full access to your MealTime account.";
 		try {
 			sendSMS.processSMS(mobileNo, message);

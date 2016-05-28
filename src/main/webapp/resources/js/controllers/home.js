@@ -102,6 +102,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 								    $(".adminsection").hide();
 									$rootScope.newmenu = true;
 									$rootScope.status = true;
+									debugger;
 									$rootScope.profileShow = true;
 									$localStorage.newmenu = true;
 									$localStorage.status = true;

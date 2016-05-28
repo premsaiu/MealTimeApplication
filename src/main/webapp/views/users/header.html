@@ -9,7 +9,7 @@
 			        <span class="icon-bar"></span>
 			      </button>
 	
-			      <a class="navbar-brand" href="" ui-sref="home"> <!-- <img alt="Meal Time" src="images/logo.png" width="200" height="100%"> --> </a>
+			      <a class="navbar-brand originalmenu" href="" ui-sref="home"> <!-- <img alt="Meal Time" src="images/logo.png" width="200" height="100%"> --> </a>
 			    </div>
 					<!--<h1 class="title-s3 font-gray pull-right visible-xs">Healthy and Hygiene diet Delivered On Time</h1>
 			     Collect the nav links, forms, and other content for toggling -->
@@ -37,6 +37,11 @@
 		    	$('.nav-list-sub1').removeClass('active');
 		    	$('.nav-list-headnav').removeClass('active');
 		    	$(this).addClass("active");
+		    });
+		    $('.originalmenu').click(function(){
+		    	alert("hi")
+		    	$('.nav-list-headnav').removeClass('active')
+		    	$('.nav-list-sub1').removeClass('active');
 		    });
 		    </script>
 			

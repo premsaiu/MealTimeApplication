@@ -50,8 +50,8 @@ public class BaseController {
 		//save otp in table
 		mealTimeService.saveOTP(otp, mobileNumber, email);
 		//sms otp
-		int flag = 1;
-		//int flag = mealTimeService.smsOTP(otp, mobileNumber);
+		//int flag = 1;
+		int flag = mealTimeService.smsOTP(otp, mobileNumber);
 		if(email != null && !email.equalsIgnoreCase("null")){
 			//email otp
 			mealTimeService.emailOTP(otp, email, subject);

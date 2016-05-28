@@ -967,7 +967,24 @@ legend {
     border-radius: 50%;
     padding: 5px;
     color: #999;
+    cursor:pointer
 }
-
+.howitwork-NP:hover{
+-moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+#titles{
+	margin-top:10px;
+	margin-left:26px;
+}
+img:hover {  
+	border:4px solid #c0c0c0;
+    box-shadow: 0 0 10px #333;
+	-webkit-box-shadow: 0 0 10px #333; 
+	-moz-box-shadow: 0 0 10px #333;
+    -o-box-shadow: 0 0 10px #333;
+     -ms-box-shadow: 0 0 10px #333;
+    }
 
 

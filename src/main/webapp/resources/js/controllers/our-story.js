@@ -52,15 +52,24 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $
 	$scope.next=function(){
 		if(count<4){
 			count++;
+			$('#'+$('.howitwork-bites-pic-s2').attr("id")+'').addClass("howitwork-bites-pic-s2");
+		    $('#'+$('.howitwork-bites-pic-s2').attr("id")+'').removeClass('howitwork-bites-pic-s2');
 			$scope.count=count;
-				$scope.howrkvalue=howwrkvalue[$scope.count];
+			$scope.howrkvalue=howwrkvalue[$scope.count];
+			$('#'+$scope.count+'').removeClass('howitwork-bites-pic-s2');
+			$('#'+$scope.count+'').addClass("howitwork-bites-pic-s2");
 			}
 	}
 	$scope.previous=function(){
 		if(count>0){
 			count--;
+			$('#'+$('.howitwork-bites-pic-s2').attr("id")+'').removeClass('howitwork-bites-pic-s2');
+		    $('#'+$('.howitwork-bites-pic-s2').attr("id")+'').addClass("howitwork-bites-pic-s2");
 			$scope.count=count;
-				$scope.howrkvalue=howwrkvalue[$scope.count];
+			$scope.howrkvalue=howwrkvalue[$scope.count];
+			$('#'+$scope.count+'').removeClass('howitwork-bites-pic-s2');
+			$('#'+$scope.count+'').addClass("howitwork-bites-pic-s2");
+				
 			}
 	}
 	$scope.getBackgroundColour=function(){

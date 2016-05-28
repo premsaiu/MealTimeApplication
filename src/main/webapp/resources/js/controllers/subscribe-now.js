@@ -3,7 +3,7 @@
 
 angular.module('miniMealApp.subscribeNowCtrl', ['ngStorage']).
 
-controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStorage, $timeout, $filter,$window, UserService, commonCode) {
+controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state,$location, $localStorage, $timeout, $filter,$window, UserService, commonCode) {
 	$rootScope.commonCode = commonCode;
 	$rootScope.loggedUser = $localStorage.loggedUser;
 	$rootScope.adminuser = $localStorage.adminuser;
@@ -28,10 +28,8 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 	
 	$scope.subscribeNowErrorMsg = "";
 	if($rootScope.loggedUser){
-		$scope.mobile = $rootScope.user.mobileNumber;
-		$scope.firstName = $rootScope.user.firstName;
-		$scope.lastName = $rootScope.user.lastName;
-		$scope.area = $rootScope.user.area;
+		$scope.subscribe = $rootScope.user;
+		
 	}
 	
 	$scope.requestSubscribeNow = function(valid){
@@ -39,9 +37,11 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 		if(valid){
 		var subject = "MealTime - Subscribe Now - One Time Password(OTP)";
 		/*$rootScope.sendOTP($scope.mobile, null, subject);
-		$scope.otp = "";*/
-		$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';
-		$scope.subconfmtn();
+		$scope.otp = "";
+		$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';*/
+		$localStorage.subcribelocal=$scope.subscribe;
+		$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';
+		
 		
 	}
 	}
@@ -64,15 +64,19 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state, $localStor
 	}
 	
 	
-	$scope.subconfmtn = function(){
+	/*$scope.subconfmtn = function(){*/
+	var paramValue = $location.search().status;
+	if(paramValue==="success"){
+		$scope.subscribe=$localStorage.subcribelocal;
 		$scope.successMsg = false;
 		$scope.subscribeNowErrorMsg = "";
+		var treww=$scope.subscribe.date;
 		var area = $('#area').val();
-		var _date = $filter('date')(new Date($('#subscribeDate').val()), 'yyyy-MM-dd');
+		var _date = $filter('date')(new Date(treww), 'yyyy-MM-dd');
 		if($('#area').val() == 'select'){
 			alert("Please Select the Area");
 		}else{
-			UserService.subscribeNow($scope.firstName,$scope.lastName,$scope.mobile,_date,$scope.area).then( 
+			UserService.subscribeNow($scope.subscribe.firstName,$scope.subscribe.lastName,$scope.subscribe.mobileNumber,_date,$scope.subscribe.area).then( 
 					function(response){
 						if(response.data.data != "" && response.data.statusCode == 200){
 							$rootScope.user = response.data.data;

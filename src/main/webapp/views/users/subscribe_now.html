@@ -7,15 +7,17 @@
 					    	<div data-ng-show="subscribeNowErrorMsg != ''" class="alert alert-danger" >
 			  								{{subscribeNowErrorMsg}}
 										</div>
-					<p>
-						Breakfast with juice and dinner with dessert will be delivered for one month for a minimum cost of Rs.3660/-plus Rs.1000/- towards your wallet from which you can buy/add/customise items.
-						<br>
-Recommendation: You may know more about our service by scheduling a visit or even try our sample meal.
-					</p>
+					<p class="inner-page-description">
+						Breakfast with juice and dinner with dessert will be delivered for one month for a minimum cost of Rs.3650/-plus Rs.1000/- towards your Pocket Points for you to instantly buy/add/customise items.
+					</p>	
+
+					
+
+					<p class="inner-page-description">Recommendation: You may know more about our services by scheduling a visit or even try our sample meal.</p>
 					
 					<form class="mt20" name="form" novalidate style="margin: 15px">
 					  <div class="form-group row">
-					    <input type="text" class="form-control mb10 input-s1"  data-ng-model="firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" placeholder="Name" ng-minlength="3" required ng-maxlength="20">
+					    <input type="text" class="form-control mb10 input-s1"  data-ng-model="subscribe.firstName"  ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" placeholder="Name" ng-minlength="3" required ng-maxlength="20">
 						 		<div ng-show="suberrorcheck===false">
 						 		<span id="validationMessage" data-ng-show="form.name.$dirty  && form.name.$error.pattern">Enter vaild name</span>
 				  				<span id="validationMessage" data-ng-show="form.name.$error.required">Name is required.</span>
@@ -31,7 +33,7 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 								<span data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
 					  </div> -->
 					  <div class="form-group row">
-					    <input class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-model="mobile" ng-readonly="loggedUser" data-ng-pattern="/^[789]\d{9}$/" ng-minlength="10" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
+					    <input class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-model="subscribe.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789]\d{9}$/" ng-minlength="10" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
 							<div ng-show="suberrorcheck===false">
 						   <span id="validationMessage" data-ng-show="form.mobileno.$error.required">MobileNo is required.</span>
 						    <span id="validationMessage" data-ng-show="form.mobileno.$error.minlength || form.mobileno.$error.maxlength">Enter vaild mobile number.</span>
@@ -39,7 +41,7 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 							</div>
 					  </div>
 					<div class="form-group row">
-                    <input class="form-control mb10 input-s1 input-append date form_date" name="date" data-ng-model="date" id="subscribeDate" data-date="" required data-date-format="dd MM yyyy"  placeholder="Date">
+                    <input class="form-control mb10 input-s1 input-append date form_date" name="date" data-ng-model="subscribe.date" id="subscribeDate" data-date="" required data-date-format="dd MM yyyy"  placeholder="Date">
                    
 					<div class="clearfix"></div>
 					<div ng-show="suberrorcheck===false">
@@ -49,7 +51,7 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 					  
 					 
 					  <div class="form-group row">
-					  <select class="form-control input-s1 mb10" data-ng-model="area" required name="area" id="area" required>
+					  <select class="form-control input-s1 mb10" data-ng-model="subscribe.area" required name="area" id="area" required>
 									     <option value="" disabled selected style="display: none;">Area</option>
 									     <option data-ng-selected="{{item.value == sched.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
 									</select>
@@ -60,7 +62,7 @@ Recommendation: You may know more about our service by scheduling a visit or eve
 					  </div>
 					  <div>
 						 <button type="submit" class="btn custom-btn-s2 pull-right mr50"  data-ng-click="sbnotNow();">LATER</button>
-					  	 <button type="submit" class="btn custom-btn-s2 pull-right"  ng-click="requestSubscribeNow(form.$valid)">CONFIRM & PAY</button>
+					  	 <button type="submit" class="btn custom-btn-s2 pull-right"  ng-click="requestSubscribeNow(form.$valid)">CONFIRM</button>
 					  </div>
 					</form>
 					
