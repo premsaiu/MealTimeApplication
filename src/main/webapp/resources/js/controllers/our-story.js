@@ -73,7 +73,6 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $
 			}
 	}
 	$scope.getBackgroundColour=function(){
-		alert("hi");
 			 $scope.count=1;
 	         $scope.howrkvalue=howwrkvalue[1];
 		

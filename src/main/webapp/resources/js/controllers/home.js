@@ -24,6 +24,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	}
 	if(($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) && $rootScope.modalfirstshow == undefined){
 		$scope.modalShow();
+		$localStorage.$reset();
 	}
 	$rootScope.notNow = function(){
 		$('#myModal').modal('hide');

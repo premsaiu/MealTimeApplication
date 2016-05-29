@@ -807,16 +807,20 @@ legend {
     width: 103%;
 }
 }
-.LoginBtn{
+.LeftMenuProfileBtn{
    font-size: 12px;
 }
 @media (min-width: 980px){
-.LoginBtn{
-    margin-left:22px !important;
+.LeftMenuProfileBtn{
+    font-size: 12px;
+    position: relative;
+    top: 20px;
+    left: -3px;
+    margin-bottom: 52px;
 }
 }
 @media (min-width: 768px){
-.LoginBtn{
+.LeftMenuProfileBtn{
     margin-left:-10px;
 }
 }
@@ -824,7 +828,6 @@ legend {
 .header{
      padding-top:22px;
 }
-
 .profileBtnGroup{
     padding:0% 9%;
 }
@@ -969,6 +972,7 @@ legend {
     color: #999;
     cursor:pointer
 }
+
 .howitwork-NP:hover{
 -moz-box-shadow: 0 0 5px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5);

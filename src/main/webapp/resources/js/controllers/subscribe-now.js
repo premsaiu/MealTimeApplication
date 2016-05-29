@@ -40,7 +40,8 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state,$location, 
 		$scope.otp = "";
 		$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';*/
 		$localStorage.subcribelocal=$scope.subscribe;
-		$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';
+		$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';
+		/*$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';*/
 		
 		
 	}
@@ -74,7 +75,7 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state,$location, 
 		var area = $('#area').val();
 		var _date = $filter('date')(new Date(treww), 'yyyy-MM-dd');
 		if($('#area').val() == 'select'){
-			alert("Please Select the Area");
+			/*alert("Please Select the Area");*/
 		}else{
 			UserService.subscribeNow($scope.subscribe.firstName,$scope.subscribe.lastName,$scope.subscribe.mobileNumber,_date,$scope.subscribe.area).then( 
 					function(response){

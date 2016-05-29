@@ -52,7 +52,7 @@
 					  <div class="row form-group">
 					  
 					  <select class="form-control input-s1 mb10" data-ng-model="sampleMeal.area" required name="area" id="area" required>
-									     <option value="" disabled selected style="display: none;">Area</option>
+									     <option value="" data-ng-selected="true">Area</option>
 									     <option data-ng-selected="{{item.value == sched.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
 									</select>
 					  

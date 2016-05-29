@@ -47,7 +47,7 @@ public class SampleMealController {
 			boolean isSuccess = sampleMealService.requestSampleMeal(sampleMeal, user);
 			if(isSuccess){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-				//String message = "Hi, Your Sample Meal request has been taken. Our team will deliver you on the requested date";
+				//String message = "Thank you for trying our Sample Meal option. Breakfast with Juice n Dinner with Dessert will be delivered for one day.(www.mealtime.co.in)- Team Meal Time.";
 				//mealTimeUtil.sendSMS(sampleMeal.getMobileNumber(), message);
 				/*String subject = "MealTime - Sample Meal";
 				String msgBody = "<i>Hi!</i><br><br>";

@@ -37,8 +37,7 @@ public class UserSubscriptionController {
 			msgBody += "Our excecutive will reach you shortly and collect the payment. After payment your subscription will become active<br><br>";
 			msgBody += "Regards, <br>Meal Time Team";
 			mealTimeUtil.sendEmail("premcse41@gmail.com", user.getEmail(), subject, msgBody);
-			/*String message = "";
-			message = "test message "+"Your Subscription request for Meal Time is in process";
+			/*String message = "Welcome to Meal Time family!! Breakfast with Juice n Dinner with Dessert will be delivered for one month.Thanks,(www.mealtime.co.in)- Team Meal Time.;
 			MealTimeUtil.sendSMS(user.getMobileNumber(), message);*/
 			mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 		}else{

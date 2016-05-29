@@ -97,7 +97,7 @@
 								  <div class="row" style="padding: 8px;">	
 						  		<div class="form-group">
 								    <select class="form-control input-s5 mb10 mr16" data-ng-model="editUser.area" required name="area" id="area" required>
-									     <option value="" disabled selected style="display: none;">Area</option>
+									     <option value="" data-ng-selected="true">Area</option>
 									     <option data-ng-selected="{{item.value == editUser.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
 									</select>
 									 <div ng-show="profileerrorcheck===false">
@@ -106,7 +106,7 @@
 								  </div>
 								  <div class="form-group">
 									<select class="form-control input-s5 mb10" data-ng-model="editUser.city" name="city" required id="city" required>
-									  <option value="" disabled selected style="display: none;">City</option>
+									  <option value="" data-ng-selected="true">City</option>
 									 <option  data-ng-selected="{{item.value == editUser.city}}"  data-ng-repeat="item in cityList" value="{{item.value}}">{{item.value}}</option>
 									  
 									</select>
@@ -124,7 +124,7 @@
 						    <div style="margin: 15px 35px;padding-top: 70px;">
 						  <div class="form-group">
 									    <select class="form-control input-s4 mb10"  required name="foodStyle" data-ng-model="editUser.foodStyleS1">
-										  <option value="" disabled selected style="display: none;">Food Style</option>
+										 <option value="" data-ng-selected="true">Food Style</option>
 										  <option data-ng-selected="{{item.value == editUser.foodStyleS1}}" ng-repeat="item in foodStyle" ng-value="item.value">{{item.label}}</option>
 										</select>
 										 <div ng-show="profileerrorcheck===false">
@@ -133,7 +133,7 @@
 						</div>
 				           <div class="form-group">
 										<select class="form-control input-s4 mb10" required name="foodtype" data-ng-model="editUser.foodStyleS2">
-										 <option value="" disabled selected style="display: none;">Food Type</option>										 
+										 <option value="" data-ng-selected="true">Food Type</option>
 										 <option ng-selected="{{item.value == editUser.foodStyleS2}}" ng-repeat="item in foodType" ng-value="item.value">{{item.label}}</option>
 										</select>
 										<div ng-show="profileerrorcheck===false">
@@ -142,7 +142,7 @@
 							</div>
 							<div class="form-group">
 										<select class="form-control input-s4 mb10" required name="Dinnerchoice" data-ng-model="editUser.dinnerChoice">
-										  <option value="" disabled selected style="display: none;">Dinner</option>
+										  <option value="" data-ng-selected="true">Dinner</option>
 										 <option data-ng-selected="{{item.value == editUser.dinnerChoice}}" ng-repeat="item in dinner" ng-value="item.value">{{item.label}}</option>
 										
 										</select>
@@ -152,7 +152,8 @@
 							</div>
 							<div class="form-group">
 										<select class="form-control input-s4 mb10" required name="packingtype" data-ng-model="editUser.packingChoice">
-										  <option value="" disabled selected style="display: none;">Packing Type</option>
+										  <option value="" data-ng-selected="true">Packing Type</option>
+										  <!-- <option value="" disabled selected style="display: none;">Packing Type</option> -->
 										 <option data-ng-selected="{{item.value == editUser.packingChoice}}" ng-repeat="item in packing" ng-value="item.value">{{item.label}}</option>
 										</select>
 										<div ng-show="profileerrorcheck===false">

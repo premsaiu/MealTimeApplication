@@ -97,8 +97,8 @@ http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
 		<property name="port" value="587" /> 
 		 <property name="host" value="localhost" />
 		<property name="port" value="25" /> -->
-		<property name="host" value="MealTime21180" />
-		<property name="port" value="465" /> 
+		<property name="host" value="ns1.mealtime.co.in" />
+		<property name="port" value="587" /> 
 		<property name="username" value="info@mealtime.co.in" />
 		<property name="password" value="Info@mealtime" />
  
