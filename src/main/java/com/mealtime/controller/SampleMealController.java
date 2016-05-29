@@ -31,6 +31,9 @@ public class SampleMealController {
 	SampleMealService sampleMealService;
 	
 	@Autowired
+	MealTimeUtil mealTimeUtil;
+	
+	@Autowired
 	MealTimeService mealTimeService;
 	
 	@Autowired
@@ -47,8 +50,8 @@ public class SampleMealController {
 			boolean isSuccess = sampleMealService.requestSampleMeal(sampleMeal, user);
 			if(isSuccess){
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-				//String message = "Thank you for trying our Sample Meal option. Breakfast with Juice n Dinner with Dessert will be delivered for one day.(www.mealtime.co.in)- Team Meal Time.";
-				//mealTimeUtil.sendSMS(sampleMeal.getMobileNumber(), message);
+				String message = "Thank you for trying our Sample Meal option. Breakfast with Juice n Dinner with Dessert will be delivered for one day.(www.mealtime.co.in)- Team Meal Time.";
+				mealTimeUtil.sendSMS(sampleMeal.getMobileNumber(), message);
 				/*String subject = "MealTime - Sample Meal";
 				String msgBody = "<i>Hi!</i><br><br>";
 				msgBody += "<b>Welcome to MealTime!</b><br>";

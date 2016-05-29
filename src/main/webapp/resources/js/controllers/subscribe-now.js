@@ -40,8 +40,8 @@ controller('SubscribeNowCtrl',  function ($scope, $rootScope, $state,$location, 
 		$scope.otp = "";
 		$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';*/
 		$localStorage.subcribelocal=$scope.subscribe;
-		$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';
-		/*$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';*/
+		/*$window.location.href='https://www.instamojo.com/mealtime/subscribe-5802d/';*/
+		$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';
 		
 		
 	}

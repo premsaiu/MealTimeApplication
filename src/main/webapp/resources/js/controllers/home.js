@@ -103,7 +103,6 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 								    $(".adminsection").hide();
 									$rootScope.newmenu = true;
 									$rootScope.status = true;
-									debugger;
 									$rootScope.profileShow = true;
 									$localStorage.newmenu = true;
 									$localStorage.status = true;
@@ -118,6 +117,15 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 									$localStorage.status = true;
 									$localStorage.profileShow = true;
 									/*$state.go('ourstory');*/
+								}
+								else{
+									$(".adminsection").hide();
+									$rootScope.newmenu = true;
+									$rootScope.status  =true;
+									$rootScope.profileShow = true;
+									$localStorage.newmenu = true;
+									$localStorage.status = true;
+									$localStorage.profileShow = true;
 								}
 							});
 	                	}
