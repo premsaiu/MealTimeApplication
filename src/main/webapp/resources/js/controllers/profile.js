@@ -83,9 +83,9 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 			}
 			UserService.updateUser(user, file).then(
 					 function(response) {
+						 $scope.profilesuccess=false;
 						 if(response.data.statusCode == 200){
 							 	$('#editSuccessModal').modal('show');
-						 		console.log(response.data.data);
 						 		$rootScope.user = response.data.data;
 						 		$localStorage.user = $rootScope.user;
 						 		$scope.editUser = angular.copy($rootScope.user);
@@ -93,12 +93,14 @@ controller('ProfileCtrl', function ($scope, $rootScope, $state, $localStorage, U
 						 		//var mobileNumber = $rootScope.user.mobileNumber;
 						 		var userId = $rootScope.user.userId;
 						 		$rootScope.userProfilePic = "images/"+userId+".jpg";
+						 		$scope.profilesuccess=true;
 						 		$scope.isEditForm=false;
 		                		//location.href = "#/profile";
 						 		$('body').removeClass('modal-open');
 								$('.modal-backdrop').remove();
 		                		$state.go("profile");
 		                	}else{
+		                		$scope.profilesuccess="Some thing went wrong";
 		                		console.log("Bad Request");
 		                	}
 		               },

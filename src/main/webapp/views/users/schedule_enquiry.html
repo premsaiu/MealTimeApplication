@@ -5,7 +5,7 @@
 					<hr class="header_s1">
 					<div class="clearfix"></div>
 					<div data-ng-show="schedEnqMsg" class="alert alert-success" >
-  								<strong>Success!</strong>Schedule Enquiry has been received.
+  								<strong>You have successfully Scheduled a visit.</strong>
 						</div>
 						<div data-ng-show="schedEnqErrorMsg != ''" class="alert alert-danger" >
   								{{schedEnqErrorMsg}}
@@ -111,7 +111,7 @@
 				        <form>
 				          <div class="form-group">
 				            <!-- <label for="recipient-name" class="control-label">Please Enter OTP</label> -->
-				            <input type="number" class="form-control mb10 input-s1" id="otp" ng-model="sched.otp" placeholder="Please Enter OTP">
+				            <input type="text" class="form-control mb10 input-s1" id="otp" ng-model="sched.otp" placeholder="Please Enter OTP">
 				          </div>
 				        </form>
 				      </div>

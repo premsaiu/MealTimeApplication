@@ -4,7 +4,7 @@
 					<hr class="header_s1">
 					<div class="clearfix"></div>
 					<div ng-show="sampleMealMsg" class="alert alert-success" >
-  								<strong>Success!</strong>Sample Meal order has been received.
+  								<strong>You made a successful payment! please fill your profile.Thanks!</strong>
 						</div>
 						<div ng-show="sampleMealErrorMsg != ''" class="alert alert-danger" >
   								{{sampleMealErrorMsg}}
@@ -51,7 +51,7 @@
 					 
 					  <div class="row form-group">
 					  
-					  <select class="form-control input-s1 mb10" data-ng-model="sampleMeal.area" required name="area" id="area" required>
+					  <select class="form-control input-s1 mb10" data-ng-model="sampleMeal.area" required name="area" id="area" >
 									     <option value="" data-ng-selected="true">Area</option>
 									     <option data-ng-selected="{{item.value == sched.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
 									</select>

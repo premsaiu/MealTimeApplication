@@ -32,8 +32,14 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $
 	var count=0;
 
 	var asd=0;
+	$scope.count = asd;
+    $scope.howrkvalue=howwrkvalue[asd];
 	if(homwcountvalue==='001'){
 		count=1;
+		$scope.count=count;
+		$scope.howrkvalue=howwrkvalue[$scope.count];
+		$('#'+$scope.count+'').removeClass('howitwork-bites-pic-s2');
+		$('#'+$scope.count+'').addClass("howitwork-bites-pic-s2");
 	}
 	$('.media-objectzoom').click(function(){
     	$('.media-objectzoom').removeClass('howitwork-bites-pic-s2');
@@ -45,8 +51,7 @@ controller('OurStoryCtrl',  function ($scope, $rootScope, $state,$stateParams, $
        });
 
     });
-	        $scope.count = asd;
-	        $scope.howrkvalue=howwrkvalue[asd];
+	        
 	       
 	
 	$scope.next=function(){

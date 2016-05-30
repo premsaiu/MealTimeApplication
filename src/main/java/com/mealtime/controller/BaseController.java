@@ -54,7 +54,7 @@ public class BaseController {
 		int flag = mealTimeService.smsOTP(otp, mobileNumber);
 		if(email != null && !email.equalsIgnoreCase("null")){
 			//email otp
-			mealTimeService.emailOTP(otp, email, subject);
+			/*mealTimeService.emailOTP(otp, email, subject);*/
 		}
 		if(flag == 0){
 			MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to send OTP");

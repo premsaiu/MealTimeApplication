@@ -80,7 +80,7 @@ controller('SampleMealCtrl',  function ($scope, $rootScope,$window,$location, $s
 				/*$window.location.href='https://www.instamojo.com/mealtime/samplemeal/';*/
 				$localStorage.samplelocal=$scope.sampleMeal;
 				$window.location.href='https://www.instamojo.com/mealtime/samplemeal/';
-				/*$window.location.href='https://www.instamojo.com/mealtime/dd-3e6bf/';*/
+				/*$window.open('https://www.instamojo.com/mealtime/dd-3e6bf/','_top');*/
 				/*$state.go("samplepayment");*/
 				
 			}else if(response.data.statusCode == 500){

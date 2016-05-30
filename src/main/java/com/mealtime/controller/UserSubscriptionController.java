@@ -61,7 +61,7 @@ public class UserSubscriptionController {
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = userSubscriptionService.subscribeNow(firstname,lastname,mobile,date,area);
 		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-		String message = "Welcome to Meal Time family!! Breakfast with Juice n Dinner with Dessert will be delivered for one month"+'\n'+"Thanks,"+'\n'+"(www.mealtime.co.in)"+'\n'+"- Team Meal Time.";
+		String message = "Welcome to Meal Time family!! Breakfast with Juice n Dinner with Dessert will be delivered for one month Thanks,(www.mealtime.co.in)- Team Meal Time.";
 		mealTimeUtil.sendSMS(userMaster.getMobileNumber(), message);
 		wsResponseStatus.setData(userMaster);
 		return wsResponseStatus;
