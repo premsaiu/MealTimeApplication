@@ -83,6 +83,7 @@ public class MealTimeService {
 		Timestamp currTime = new java.sql.Timestamp(date.getTime());
 		otpTable.setOtpTime(currTime);
 		OtpTable otpTable2 = otpTableDAO.findByMobileNumber(mobileNo);
+		logger.info("saveOTP() :: inside: "+otpTable2);
 		if(otpTable2 == null){
 			otpTableDAO.insert(otpTable);
 		}else{
@@ -115,7 +116,7 @@ public class MealTimeService {
 	
 	public void emailOTP(Integer otp, String email, String subject){
 		logger.info("emailOTP() :: email: "+email+" ::otp: "+otp);
-		String fromAddress = "premcse41@gmail.com";
+		String fromAddress = "info@mealtime.co.in";
 		String toAddress = email;
 		//String subject = "MealTime - One Time Password(OTP) ";
 		String msgBody = "<i>Hi!</i><br><br>";

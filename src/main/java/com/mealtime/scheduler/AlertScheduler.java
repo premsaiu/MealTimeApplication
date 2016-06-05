@@ -38,10 +38,10 @@ public class AlertScheduler {
 			logger.info("Quartz Scheduler list:"+alertBeanList.size());
 			for(AlertBean bean:alertBeanList)
 			{
-				mealTimeUtil.sendEmail("u.premsai@gmail.com", bean.getEmail(), MAILSUB,
+				mealTimeUtil.sendEmail(bean.getEmail(), "info@mealtime.co.in", MAILSUB,
 						MAILBODY+bean.getEnd_Date());
 				logger.info("Mail Sent successfully");
-				//mealTimeUtil.sendSMS(bean.getMobile_Number(),MAILBODY+bean.getEnd_Date());
+				mealTimeUtil.sendSMS(bean.getMobile_Number(),MAILBODY+bean.getEnd_Date());
 			}
 		}else{
 			logger.info("Alert List is Empty. Hence No Job.");

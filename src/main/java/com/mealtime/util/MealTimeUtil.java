@@ -47,7 +47,7 @@ public class MealTimeUtil {
 		MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {  
             public void prepare(MimeMessage mimeMessage) throws Exception {  
                mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(toAddress));  
-               mimeMessage.setFrom(new InternetAddress(fromAddress));  
+               mimeMessage.setFrom(new InternetAddress("info@mealtime.co.in"));  
                mimeMessage.setSubject(subject);  
                //mimeMessage.setText(msgBody);  
                mimeMessage.setContent(msgBody, "text/html");

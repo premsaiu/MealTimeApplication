@@ -15,7 +15,12 @@
 		    	 <h3 class="font-black text-uppercase inner-page-header">Profile</h3>
 		    <hr class="header_s1">
 			<div class="clearfix"></div>
-		    	
+		    	<div ng-show="profilesuccess" class="alert alert-success" >
+  								<strong>You are successful saved profile.Thanks!</strong>
+						</div>
+						<div ng-show="profileerror" class="alert alert-danger" >
+  								{{profileerror}}
+							</div>
 		    	<div class="row" style="margin-right: -55% !important;">
 							<div class="col-md-12 col-xs-12">
 		    	
@@ -165,6 +170,7 @@
 		    	
 		   </div>
 		   <div class="profileBtnGroup">
+		   <div ng-show="profileerrorcheck===false" class="help-block" id="validationMessage" >Please fill the Basic information and Food style</div>
 				  	<button id="editprofilesubmit" type="submit" class="btn custom-btn-s2">Save</button>
 				  	<!-- <button id="editprofilesubmit" type="submit" class="btn btn-success mb20" >Submit</button> -->
 				  	<a class="btn custom-btn-s2" ng-click="isEditForm=false;" ui-sref="home" id="editorBtn" role="button">Later</a>

@@ -108,7 +108,7 @@ private static final Logger logger = Logger.getLogger(BaseController.class);
 			msgBody += "<b>Welcome to MealTime!</b><br>";
 			msgBody += "Your Profile has been updated<br><br>";
 			msgBody += "Regards, <br>Meal Time Team";
-			mealTimeUtil.sendEmail(userMaster.getEmail(), "premcse41@gmail.com", subject, msgBody);
+			mealTimeUtil.sendEmail(userMaster.getEmail(), "info@mealtime.co.in", subject, msgBody);
 			MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 			wsResponseStatus.setData(userMaster);
 		}
@@ -138,7 +138,7 @@ private static final Logger logger = Logger.getLogger(BaseController.class);
 			msgBody += "Your Payment amount of Rs.4650.00 has been recieved by Admin<br>";
 			msgBody += "Your updated wallet balance is Rs.1000.00<br><br>";
 			msgBody += "Regards, <br>Meal Time Team";
-			mealTimeUtil.sendEmail(paymentForm.getEmail(), "premcse41@gmail.com", subject, msgBody);
+			mealTimeUtil.sendEmail(paymentForm.getEmail(), "info@mealtime.co.in", subject, msgBody);
 			String message = "Your payment amount of Rs.4650.00 has been recieved. Your updated wallet balance is Rs.1000.00";
 			//mealTimeUtil.sendSMS(paymentForm.getMobileNumber(), message);
 		}else{
