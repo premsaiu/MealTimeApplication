@@ -814,9 +814,9 @@ legend {
 .LeftMenuProfileBtn{
     font-size: 12px;
     position: relative;
-    top: 20px;
+    top: 0px;
     left: -3px;
-    margin-bottom: 52px;
+    
 }
 }
 @media (min-width: 768px){
@@ -990,5 +990,12 @@ img:hover {
     -o-box-shadow: 0 0 10px #333;
      -ms-box-shadow: 0 0 10px #333;
     }
+    .LeftMenuLoginBtn{
+    font-size: 12px;
+    position: relative;
+    top: 0px;
+    left: 16px;
+    margin-bottom: -16px;
+}
 
 

@@ -50,12 +50,12 @@ public class ScheduleEnquiryController {
 				MealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
 				String message = "Thank you for showing interest in Meal Time. Meal Time's executive shall call n visit you at your place. Please cooperate(www.mealtime.co.in)- Team Meal Time.";
 				mealTimeUtil.sendSMS(scheduleEnquiry.getMobileNumber(), message);
-				String subject = "MealTime - Schedule Enquriy";
+				/*String subject = "MealTime - Schedule Enquriy";
 				String msgBody = "<i>Hi!</i><br><br>";
 				msgBody += "<b>Welcome to MealTime!</b><br>";
 				msgBody += "Your Schedule Enquiry has been fixed. Our team will visit you shortly.<br><br>";
 				msgBody += "Regards, <br>Meal Time Team";
-				mealTimeUtil.sendEmail(user.getEmail(), "info@mealtime.co.in", subject, msgBody);
+				mealTimeUtil.sendEmail(user.getEmail(), "info@mealtime.co.in", subject, msgBody);*/
 			}else{
 				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to Save in table");
 			}
