@@ -1,7 +1,5 @@
 package com.mealtime.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +34,7 @@ public class UserSubscriptionController {
 			msgBody += "Your Payment request for Meal Time is in process</b>.<br>";
 			msgBody += "Our excecutive will reach you shortly and collect the payment. After payment your subscription will become active<br><br>";
 			msgBody += "Regards, <br>Meal Time Team";
-			mealTimeUtil.sendEmail("premcse41@gmail.com", user.getEmail(), subject, msgBody);
+			mealTimeUtil.sendEmail(user.getEmail(), "info@mealtime.co.in", subject, msgBody);
 			/*String message = "Welcome to Meal Time family!! Breakfast with Juice n Dinner with Dessert will be delivered for one month.<br>Thanks,<br>(www.mealtime.co.in)- Team Meal Time.";
 			mealTimeUtil.sendSMS(user.getMobileNumber(), message);*/
 			mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
@@ -61,7 +59,7 @@ public class UserSubscriptionController {
 		WSResponseStatus wsResponseStatus = new WSResponseStatus();
 		UserMaster userMaster = userSubscriptionService.subscribeNow(firstname,lastname,mobile,date,area);
 		mealTimeUtil.populateWSResponseStatusSuccessResponse(wsResponseStatus);
-		String message = "Welcome to Meal Time family!! Breakfast with Juice n Dinner with Dessert will be delivered for one month"+'\n'+"Thanks,"+'\n'+"(www.mealtime.co.in)"+'\n'+"- Team Meal Time.";
+		String message = "Welcome to Meal Time family!! Breakfast with Juice n Dinner with Dessert will be delivered for one month Thanks,(www.mealtime.co.in)- Team Meal Time.";
 		mealTimeUtil.sendSMS(userMaster.getMobileNumber(), message);
 		wsResponseStatus.setData(userMaster);
 		return wsResponseStatus;
