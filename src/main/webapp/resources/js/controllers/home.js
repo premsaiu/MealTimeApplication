@@ -24,10 +24,35 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	}
     
     $scope.addClassCSS = function(){
-	    	$('.nav-list-headnav').removeClass('active')
-	    	$('.nav-list-sub1').removeClass('active');
-	         $('.nav-list-sub1:nth-child(5)').addClass("active");
+	    $('.nav-list-headnav').removeClass('active')
+	    $('.nav-list-sub1').removeClass('active');
+	    $('.nav-list-sub1:nth-child(5)').addClass("active");
 	}
+    
+    $scope.addClassSMPLCSS = function(){
+    	$('.nav-list-headnav').removeClass('active')
+    	$('.nav-list-sub1').removeClass('active');
+        $('.nav-list-sub1:nth-child(4)').addClass("active");
+    	
+    }
+    
+    $scope.addClassCRISPCSS = function(){
+    	$('.nav-list-headnav').removeClass('active')
+    	$('.nav-list-sub1').removeClass('active');
+        $('.nav-list-headnav:nth-child(3)').addClass("active");
+    };
+    
+    $scope.addClassHOWCSS = function(){
+    	$('.nav-list-headnav').removeClass('active')
+    	$('.nav-list-sub1').removeClass('active');
+        $('.nav-list-headnav:nth-child(2)').addClass("active");
+    };
+    
+    $scope.addClassOURSTYCSS = function(){
+    	$('.nav-list-headnav').removeClass('active')
+    	$('.nav-list-sub1').removeClass('active');
+        $('.nav-list-headnav:nth-child(1)').addClass("active");
+    };
     
 	if(($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) && $rootScope.modalfirstshow == undefined){
 		$scope.modalShow();
