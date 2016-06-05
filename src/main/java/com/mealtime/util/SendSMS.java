@@ -1,7 +1,6 @@
 package com.mealtime.util;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 

@@ -22,6 +22,13 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
     	$rootScope.mobileNumber="";
 		$('#myModal').modal('show');
 	}
+    
+    $scope.addClassCSS = function(){
+	    	$('.nav-list-headnav').removeClass('active')
+	    	$('.nav-list-sub1').removeClass('active');
+	         $('.nav-list-sub1:nth-child(5)').addClass("active");
+	}
+    
 	if(($rootScope.loggedUser == undefined || $rootScope.loggedUser == false) && $rootScope.modalfirstshow == undefined){
 		$scope.modalShow();
 		$localStorage.$reset();
