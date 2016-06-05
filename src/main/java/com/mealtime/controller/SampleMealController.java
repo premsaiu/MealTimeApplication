@@ -57,7 +57,7 @@ public class SampleMealController {
 				msgBody += "<b>Welcome to MealTime!</b><br>";
 				msgBody += "Your Sample Meal request has been taken. Our team will deliver you on the requested date.<br><br>";
 				msgBody += "Regards, <br>Meal Time Team";
-				mealTimeUtil.sendEmail(sampleMeal.getEmail(), "premcse41@gmail.com", subject, msgBody);*/
+				mealTimeUtil.sendEmail(sampleMeal.getEmail(), "info@mealtime.co.in", subject, msgBody);*/
 			}else{
 				MealTimeUtil.populateWSResponseStatusFailsureStatusResponse(wsResponseStatus, "Failed to save Sample Meal");
 			}
