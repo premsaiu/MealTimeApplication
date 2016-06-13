@@ -90,6 +90,7 @@ controller('HomeCtrl',  function ($scope, $rootScope, $state, $localStorage, Use
 	            }
 	   );
 	}
+	
 	$rootScope.checkUser = function(valid){
 		$rootScope.userchecklogin=valid;
 		if(valid){

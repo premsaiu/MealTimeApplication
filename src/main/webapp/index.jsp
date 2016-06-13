@@ -71,7 +71,7 @@
 				    </div>
 				  </div>
 				</div> --><!-- modal --> 
-				 <div class="modal fade custom-modal-bg" id="myModal" tabindex="-1" role="dialog">
+				 <div class="modal fade custom-modal-bg" id="myModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
 				  <div class="modal-dialog max-w400">
 				    <div class="modal-content custom-modal-content">
 				      <div class="modal-header border-none">
@@ -83,7 +83,7 @@
 				        <form name="form">
 				          <div class="form-group">
 				            <label for="recipient-name" class="control-label center-block log-title-s1">Let us know your mobile number</label>
-				            <input type="text" class="form-control center-block w300 mt20" name="mobileno" id="mobileNo" placeholder="+91" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()" ng-keypress="$event.keyCode == 13 && checkUser()" autofocus="focusInput">
+				            <input type="text" class="form-control center-block w300 mt20" name="mobileno" id="mobileNo" placeholder="+91" data-ng-minlength=10 data-ng-maxlength=10 data-ng-pattern=" /^[789]\d{9}$/" required data-ng-model="mobileNumber" data-ng-change="adminchk()" ng-keypress="$event.keyCode == 13 && checkUser(form.$valid)" autofocus="focusInput">
 				           <div class="form-group" data-ng-show="adminuser">
 					            <label for="recipient-name" class="control-label">Password:</label>
 					            <input type="password" class="form-control" id="password" ng-model="password">

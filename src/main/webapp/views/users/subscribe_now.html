@@ -35,7 +35,7 @@
 								<span data-ng-show="form.lastname.$dirty  && form.lastname.$error.maxlength">MaxLength should be of 20 characters</span>
 					  </div> -->
 					  <div class="form-group row">
-					    <input class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-model="subscribe.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789]\d{9}$/" ng-minlength="10" ng-maxlength="10"  placeholder="mobileno" name="mobileno" required="">
+					    <input class="form-control mb10 input-s1" id="exampleInputPassword3" data-ng-model="subscribe.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789]\d{9}$/" ng-minlength="10" ng-maxlength="10"  placeholder="+91" name="mobileno" required="">
 							<div ng-show="suberrorcheck===false">
 						   <span id="validationMessage" data-ng-show="form.mobileno.$error.required">MobileNo is required.</span>
 						    <span id="validationMessage" data-ng-show="form.mobileno.$error.minlength || form.mobileno.$error.maxlength">Enter vaild mobile number.</span>
@@ -43,7 +43,7 @@
 							</div>
 					  </div>
 					<div class="form-group row">
-                    <input class="form-control mb10 input-s1 input-append date form_date" name="date" data-ng-model="subscribe.date" id="subscribeDate" data-date="" required data-date-format="dd MM yyyy"  placeholder="Date">
+                    <input class="form-control mb10 input-s1 input-append date form_date" name="date" data-ng-model="subscribe.date" id="subscribeDate" data-date="" required data-date-format="dd MM yyyy"  placeholder="Start Date">
                    
 					<div class="clearfix"></div>
 					<div ng-show="suberrorcheck===false">
