@@ -1,4 +1,4 @@
-	<div class="col-sm-12 col-md-9 col-lg-9 headaline">
+	<div class="col-sm-12 col-md-9 col-lg-9 headaline" style="position: relative;top: 130px; left: 0px;">
 				<div class="content_container-s1 slider-align">
 					<h3 class="font-black text-uppercase inner-page-header">SAMPLE MEAL</h3>
 					<hr class="header_s1">
@@ -17,7 +17,7 @@
 					
 					<form class="mt20" name="form" novalidate style="margin: 15px">
 					  <div class="row form-group">
-					    <input type="text" class="form-control mb10 input-s1" id="exampleInputname" placeholder="Name" ng-model="sampleMeal.name"   ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
+					    <input type="text" class="form-control mb10 input-s4" id="exampleInputname" placeholder="Name" ng-model="sampleMeal.name"   ng-pattern="/^[a-zA-Z ]{1,25}$/" name="name" ng-minlength="3" required ng-maxlength="20">
 							    <div class="clearfix"></div>
 							    <div ng-show="samerrorcheck===false">
 							    <span class="help-block" id="validationMessage" ng-show="form.name.$dirty  && form.name.$error.pattern" style="color:red">Enter only valid name..</span>
@@ -28,7 +28,7 @@
 					  </div>
 					  
 					  <div class="row form-group">
-					    <input type="text" class="form-control mb10 input-sm input-s1" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789][0-9]/" ng-minlength="10" ng-maxlength="10" required name="mobileno">
+					    <input type="text" class="form-control mb10 input-sm input-s4" id="exampleInputPassword3" id="exampleInputname" placeholder="+91" ng-model="sampleMeal.mobileNumber" ng-readonly="loggedUser" data-ng-pattern="/^[789][0-9]/" ng-minlength="10" ng-maxlength="10" required name="mobileno">
 
 							    <div class="clearfix"></div>
 							    <div ng-show="samerrorcheck===false">
@@ -38,7 +38,7 @@
 					  </div>
 					  </div>
 					  <div class="row form-group">
-					    <select class="form-control input-s1 mb10" ng-model="sampleMeal.date" id="sampleMealDate" name="date" placeholder="Date" required>
+					    <select class="form-control input-s4 mb10" ng-model="sampleMeal.date" id="sampleMealDate" name="date" placeholder="Date" required>
 						 <option value="" disabled selected style="display: none;">Date</option>
 						  <option ng-repeat="date in sampcustomdates" value="{{date}}"> {{date}}</option>
 						</select>
@@ -51,7 +51,7 @@
 					 
 					  <div class="row form-group">
 					  
-					  <select class="form-control input-s1 mb10" data-ng-model="sampleMeal.area" required name="area" id="area" >
+					  <select class="form-control input-s4 mb10" data-ng-model="sampleMeal.area" required name="area" id="area" >
 									     <option value="" data-ng-selected="true">Area</option>
 									     <option data-ng-selected="{{item.value == sched.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
 									</select>

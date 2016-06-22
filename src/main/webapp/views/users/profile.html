@@ -8,7 +8,7 @@
    } */
    </style>
 	    
-	    <div class="col-sm-12 col-md-9 col-lg-9 headaline">
+	    <div class="col-sm-12 col-md-9 col-lg-9 headaline" style="position: relative;top: 130px; left: 0px;">
 	    <div class="content_container-s1 slider-align">
 			 <!--  Edit Profile div Start-->
 			 <div class="col-md-9 col-xs-12 bg-color-s1">
@@ -25,21 +25,25 @@
 							<div class="col-md-12 col-xs-12">
 		    	
 		    <div  class="col-md-4 col-xs-4">
-		    	<div class="clearfix">
-		    	<div class="profile-pic center-block" style="margin: 10px -40px;">
-		    	<img id="profilephoto" src="{{userProfilePic}}" alt="...">
+		    	<div class="profile-pic center-block">
+		    	<img id="profilephoto" src="{{userProfilePic}}">
 		    	 <div class="profile-btn-bg">
 				  
-					<label for="profilePic" class="profile-pic-btn"><u>Upload Picture</u></label>
+					<label for="profilePic" class="profile-pic-btn cursor-pointer"><u>Upload Picture</u></label>
 				    <input type="file" id="profilePic" class="hidden profile-pic-btn" file-model ng-model="profilePic">
 			    </div>
-			    <h2 class="new-title-s1">Mohan Das</h2>
-			    <h4 class="new-title-s2">Subscribed</h4>
-			    <h4 class="new-title-s3">MT6789MAD2NVS1</h4> 
+			    
 			    </div>
 			    
-			    	<br><br>
-		    	</div>
+			    	<br>
+		    	
+		    	<div class="center-block">
+			    		<h2 class="new-title-s1">Mohan Das</h2>
+			    		<h4 class="new-title-s2">Subscribed</h4>
+			    		<h4 class="new-title-s3">MT6789MAD2NVS1</h4>
+			    	<div class="clearfix"></div>
+			    	</div>
+		    	
 		    	</div>
 		    	
 		   
@@ -99,26 +103,27 @@
 								  			   </div>
 								  <div class="clearfix"></div>
 								  </div>
-								  <div class="row" style="padding: 8px;">	
-						  		<div class="form-group">
-								    <select class="form-control input-s5 mb10 mr16" data-ng-model="editUser.area" required name="area" id="area" required>
-									     <option value="" data-ng-selected="true">Area</option>
-									     <option data-ng-selected="{{item.value == editUser.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
-									</select>
-									 <div ng-show="profileerrorcheck===false">
-							    <span class="help-block" id="validationMessage" ng-show="form.area.$error.required">Area is required.</span>
-							  </div>
-								  </div>
-								  <div class="form-group">
-									<select class="form-control input-s5 mb10" data-ng-model="editUser.city" name="city" required id="city" required>
-									  <option value="" data-ng-selected="true">City</option>
-									 <option  data-ng-selected="{{item.value == editUser.city}}"  data-ng-repeat="item in cityList" value="{{item.value}}">{{item.value}}</option>
-									  
-									</select>
-									 <div ng-show="profileerrorcheck===false">
-							    <span class="help-block" id="validationMessage" ng-show="form.city.$error.required">City is required.</span>
-							  </div>
-								  </div>
+								  <div class="form-group" style="width: 351px;">	
+								  		<div class="pull-left">
+										    <select class="form-control input-s5 mb10 mr16" data-ng-model="editUser.area" required name="area" id="area" required>
+											     <option value="" data-ng-selected="true">Area</option>
+											     <option data-ng-selected="{{item.value == editUser.area}}"  data-ng-repeat="item in areaList" value="{{item.value}}">{{item.value}}</option>
+											</select>
+											 <div ng-show="profileerrorcheck===false">
+									    <span class="help-block" id="validationMessage" ng-show="form.area.$error.required">Area is required.</span>
+									  </div>
+										  </div>
+										  <div class="pull-left">
+											<select class="form-control input-s5 mb10" data-ng-model="editUser.city" name="city" required id="city" required>
+											  <option value="" data-ng-selected="true">City</option>
+											 <option  data-ng-selected="{{item.value == editUser.city}}"  data-ng-repeat="item in cityList" value="{{item.value}}">{{item.value}}</option>
+											  
+											</select>
+											 <div ng-show="profileerrorcheck===false">
+									    <span class="help-block" id="validationMessage" ng-show="form.city.$error.required">City is required.</span>
+									  </div>
+										  </div>
+								  <div class="clearfix"></div>
 								  </div>
 						
 						

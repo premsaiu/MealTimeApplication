@@ -1,0 +1,65 @@
+	<div class="col-sm-12 col-md-9 col-lg-9 headaline">
+				<div class="content_container-s1 slider-align">
+					<h3 class="font-black text-uppercase">Crispy Bites</h3>
+					<hr class="header_s1">
+					<div class="clearfix"></div>
+					<p>
+						MealTime's Executive shall visit you at your place to explain you about our meal boxes & Our services
+					</p>
+					<br>
+					
+					<div class="media crispy-bites-main crispy-bites-main-s1 quote-pic quote-pic-s1">
+					  <div class="media-left">
+					    <a href="#" class="crispy-bites-pic mr20 center-block">
+					      <img class="media-object" src="resources/images/propic.jpg" alt="...">
+					    </a>
+					  </div>
+					  <div class="media-body">
+					    <p class="text-quote">
+					    	 MealTime's Executive shall visit you at your place to explain you about our meal boxes & Our services. MealTime's Executive shall visit you at your place to explain you about our meal boxes & Our services.MealTime's Executive shall visit you at your place to explain you about our meal boxes & Our services
+					  	</p>
+					  	<h5 class="media-heading text-align-right font-bold">Ramakrishna Rentala, Hyderabad, TechSoft</h5>
+					  </div>
+					</div>
+					
+					<div class="media crispy-bites-main crispy-bites-main-s2 quote-pic quote-pic-s2">
+					  <div class="media-body">
+					    <p class="text-quote">
+					    	MealTime's Executive shall visit you at your place to explain you about our meal boxes & Our services. MealTime's Executive shall visit you at your place to explain you about our meal boxes & Our services.MealTime's Executive shall visit you at your place to explain you about our meal boxes & Our services
+					  	</p>
+					  	<h5 class="media-heading text-align-right font-bold">Ramakrishna Rentala, Hyderabad, TechSoft</h5>
+					  </div>
+					  <div class="media-right">
+					    <a href="#" class="crispy-bites-pic center-block">
+					      <span class="play"></span><span class="play-bg"></span>
+					      <img class="media-object" src="resources/images/propic.jpg" alt="...">
+					    </a>
+					  </div>
+					</div>
+					
+				</div>
+			</div>
+			
+
+    <script type="text/javascript">
+    	//open a given url in a new tab by clicking a button
+	    $("#openlink-1").click(function () {
+			window.location = "index_admin.html"  //open on same tab
+	  });
+    </script>
+    <script>
+		$(document).ready(function() {
+			var d = new Date();
+			var curr_day = d.getDate();
+			var curr_month = d.getMonth() + 1;
+			var curr_year = d.getFullYear();
+			var today = curr_day + "-" + curr_month + "-" + curr_year;
+			$("div.datepicker input").attr('text',today);
+			
+			$('#samplemeal').datetimepicker({
+				autoclose: true,
+				pickTime:false
+				 //format: "dd/mm/yyyy"
+			});
+		});
+	</script>
