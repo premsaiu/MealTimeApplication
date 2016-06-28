@@ -5,8 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -102,5 +100,9 @@ public class SampleMealController {
 		}
 		return wsResponseStatus;
 	}
-
+	@RequestMapping("/SampleMealPDF")
+	public String sampleMealPDF()
+	{
+		return sampleMealService.sampleMealPDF();
+	}
 }

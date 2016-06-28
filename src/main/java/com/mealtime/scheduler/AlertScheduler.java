@@ -8,14 +8,18 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.mealtime.bean.AlertBean;
 import com.mealtime.service.AlertService;
+import com.mealtime.service.SampleMealService;
 import com.mealtime.util.MealTimeUtil;
 
 @EnableScheduling
+@PropertySource("classpath:jdbc.properties")
 public class AlertScheduler {
 	
 	private static final String MAILSUB = "Gentle Reminder from MealTime ";
@@ -28,6 +32,12 @@ public class AlertScheduler {
 	
 	@Autowired
 	AlertService alertService;
+	
+	@Autowired
+	SampleMealService sampleMealService;
+	
+	@Value("${admin.eMail}")
+	private String admineMail;
 	
 	@Scheduled(cron = "0 * 7 * * *")
 	public void cronTask(){
@@ -46,6 +56,14 @@ public class AlertScheduler {
 		}else{
 			logger.info("Alert List is Empty. Hence No Job.");
 		}
+	}
+	
+	@Scheduled(cron = "0 * 9 * * *")
+	public void cronTaskForAdmin(){
+		//Method call for Sample Meal
+		String filepath=sampleMealService.sampleMealPDF();
+		//Admin mail need to be set
+		mealTimeUtil.sendEmail(admineMail,"","Sample Meal Suscription Details","PFA",filepath);
 	}
 
 }

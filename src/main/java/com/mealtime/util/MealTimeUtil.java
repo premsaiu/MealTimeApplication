@@ -13,9 +13,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
+import javax.mail.Multipart;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +31,10 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.mealtime.bean.UserMaster;
 
 @Service
@@ -51,6 +62,36 @@ public class MealTimeUtil {
                mimeMessage.setSubject(subject);  
                //mimeMessage.setText(msgBody);  
                mimeMessage.setContent(msgBody, "text/html");
+            }  
+		};  
+		mailSender.send(messagePreparator);
+	}
+	
+	public void sendEmail(final String toAddress, final String fromAddress, final String subject, final String msgBody, final String path) {
+		MimeMessagePreparator messagePreparator = new MimeMessagePreparator() {  
+            public void prepare(MimeMessage mimeMessage) throws Exception {  
+               mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(toAddress));  
+               mimeMessage.setFrom(new InternetAddress("info@mealtime.co.in"));  
+               mimeMessage.setSubject(subject); 
+               //mimeMessage.setContent(msgBody, "text/html");
+               //mimeMessage.setText(msgBody);  
+              
+               BodyPart messageBodyPart1 = new MimeBodyPart();  
+               messageBodyPart1.setText(msgBody);  
+               
+               // Adding attachments
+               MimeBodyPart messageBodyPart = new MimeBodyPart();
+               DataSource source = new FileDataSource(path);
+               messageBodyPart.setDataHandler(new DataHandler(source));
+               messageBodyPart.setFileName(source.getName());
+              // messageBodyPart.setText(msgBody);
+             //  messageBodyPart.setContent(msgBody, "text/html");
+            // Create a multipar message
+               Multipart multipart = new MimeMultipart();
+               multipart.addBodyPart(messageBodyPart);
+               multipart.addBodyPart(messageBodyPart1);  
+               mimeMessage.setContent(multipart);
+               //mimeMessage.setContent(msgBody, "text/html");
             }  
 		};  
 		mailSender.send(messagePreparator);
@@ -126,4 +167,21 @@ public class MealTimeUtil {
 		}
 		return date;
 	}
+	
+	 public static void insertCell(PdfPTable table, String text, int align, int colspan, Font font){
+		  
+		  //create a new cell with the specified Text and Font
+		  PdfPCell cell = new PdfPCell(new Phrase(text.trim(), font));
+		  //set the cell alignment
+		  cell.setHorizontalAlignment(align);
+		  //set the cell column span in case you want to merge two or more cells
+		  cell.setColspan(colspan);
+		  //in case there is no text and you wan to create an empty row
+		  if(text.trim().equalsIgnoreCase("")){
+		   cell.setMinimumHeight(10f);
+		  }
+		  //add the call to the table
+		  table.addCell(cell);
+		  
+		 }
 }
