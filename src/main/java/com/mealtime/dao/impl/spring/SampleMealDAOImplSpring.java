@@ -50,7 +50,7 @@ public class SampleMealDAOImplSpring extends GenericDAO<SampleMeal> implements S
 	// NB : This entity has an auto-incremented primary key : "sample_meal_id"
 	private final static String AUTO_INCREMENTED_COLUMN = "sample_meal_id";
 	
-	private final static String  SELECT_SAMPLE_MEAL="select sample_meal_id, user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from sample_meal where created_date <= now()+2";
+	private final static String  SELECT_SAMPLE_MEAL="select sample_meal_id, user_id, sample_meal_date, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from sample_meal where created_date <= now()+1";
 
 	private final static int[] SQL_INSERT_TYPES = new int[] {
 			java.sql.Types.VARCHAR ,  // "user_id" : VARCHAR(7) - java.lang.String

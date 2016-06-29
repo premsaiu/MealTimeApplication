@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,6 +19,7 @@ import com.mealtime.service.AlertService;
 import com.mealtime.service.SampleMealService;
 import com.mealtime.util.MealTimeUtil;
 
+@Configuration
 @EnableScheduling
 @PropertySource("classpath:jdbc.properties")
 public class AlertScheduler {
@@ -58,7 +60,7 @@ public class AlertScheduler {
 		}
 	}
 	
-	@Scheduled(cron = "0 * 9 * * *")
+	@Scheduled(cron = "0 * 12 * * ?")
 	public void cronTaskForAdmin(){
 		//Method call for Sample Meal
 		String filepath=sampleMealService.sampleMealPDF();
