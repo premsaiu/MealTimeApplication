@@ -33,6 +33,8 @@ public class AlertScheduler {
 	private static final String ADMIN_MAILSUB = "Daily Status & Activities for Admin";
 	private static final String ADMIN_MAILBODY = "Dear Admin, \n\n\t Please find attached PDF documents contains all the required data."
 			+ "\n\nThanks & Regards, \n MealTime Team.";
+	private static final String ADMIN_MAILBODY_EMPTY = "Dear Admin, \n\n\t No Records found for all the three Schedule, Sample and Subscribe Services."
+			+ "\n\nThanks & Regards, \n MealTime Team.";
 	
 	private static final Logger logger = Logger.getLogger(AlertScheduler.class);
 	
@@ -80,17 +82,18 @@ public class AlertScheduler {
 		
 		String rootPath = System.getProperty("catalina.home");
         File dir = new File(rootPath+File.separator+"ADMIN");
-        
+        if(!dir.getAbsolutePath().isEmpty()){
+        	File[] files= dir.listFiles();
+       	 for (File file: files){
+       		 file.delete();
+       	 }
+        }
 		sampleMealService.sampleMealPDF();
 		scheduleEnquiryService.scheduleEnquiryPDF();
 		userSubscriptionService.userSubscriptionPDF();
 		//Admin mail need to be set
-		if(!dir.getAbsolutePath().isEmpty()) mealTimeUtil.sendEmail(admineMail,"",ADMIN_MAILSUB,ADMIN_MAILBODY,dir.getAbsolutePath());
-		
-		
+		if(dir.listFiles().length > 0) mealTimeUtil.sendEmail(admineMail,"",ADMIN_MAILSUB,ADMIN_MAILBODY,dir.getAbsolutePath());
+		else mealTimeUtil.sendEmail(admineMail,"",ADMIN_MAILSUB,ADMIN_MAILBODY_EMPTY);
 	}
-	
-	
-
 }
 

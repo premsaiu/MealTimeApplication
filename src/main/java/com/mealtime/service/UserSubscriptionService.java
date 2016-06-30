@@ -330,8 +330,8 @@ public class UserSubscriptionService {
 	  }
 	}
 	
-	public String userSubscriptionPDF() {
-		return userSubscriptionDAO.userSubscriptionPDF();
+	public void userSubscriptionPDF() {
+		userSubscriptionDAO.userSubscriptionPDF();
 	}
 
 }

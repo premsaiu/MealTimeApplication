@@ -47,8 +47,8 @@ public class ScheduleEnquiryService {
 		return scheduleEnquiryDAO.findByUserId(userId);
 	}
 	
-	public String scheduleEnquiryPDF() {
-		return scheduleEnquiryDAO.scheduleEnquiryPDF();
+	public void scheduleEnquiryPDF() {
+		scheduleEnquiryDAO.scheduleEnquiryPDF();
 	}
 
 }

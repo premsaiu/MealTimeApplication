@@ -88,7 +88,7 @@ public interface SampleMealDAO {
 	
 	public SampleMeal findByUserId( String userId ) ;
 	
-	public String sampleMealPDF();
+	public void sampleMealPDF();
 		
 	
 

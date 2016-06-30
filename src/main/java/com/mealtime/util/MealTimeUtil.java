@@ -60,8 +60,8 @@ public class MealTimeUtil {
                mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(toAddress));  
                mimeMessage.setFrom(new InternetAddress("info@mealtime.co.in"));  
                mimeMessage.setSubject(subject);  
-               //mimeMessage.setText(msgBody);  
-               mimeMessage.setContent(msgBody, "text/html");
+               mimeMessage.setText(msgBody);  
+               //mimeMessage.setContent(msgBody, "text/html");
             }  
 		};  
 		mailSender.send(messagePreparator);

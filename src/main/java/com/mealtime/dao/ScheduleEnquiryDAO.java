@@ -88,6 +88,6 @@ public interface ScheduleEnquiryDAO {
 	
 	public ScheduleEnquiry findByUserId( String userId ) ;
 	
-	public String scheduleEnquiryPDF();
+	public void scheduleEnquiryPDF();
 
 }

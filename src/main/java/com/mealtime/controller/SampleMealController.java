@@ -100,9 +100,4 @@ public class SampleMealController {
 		}
 		return wsResponseStatus;
 	}
-	@RequestMapping("/SampleMealPDF")
-	public String sampleMealPDF()
-	{
-		return sampleMealService.sampleMealPDF();
-	}
 }
