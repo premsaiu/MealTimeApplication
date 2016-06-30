@@ -328,19 +328,16 @@ public class ScheduleEnquiryDAOImplSpring extends GenericDAO<ScheduleEnquiry> im
 		}
 	}
 	
-	public String scheduleEnquiryPDF() {
-		String path=null;
+	public void scheduleEnquiryPDF() {
 		List<ScheduleEnquiry> listScheduleEnquiry= new ArrayList<ScheduleEnquiry>();
 		try{
 			listScheduleEnquiry=getJdbcTemplate().query(SELECT_SCHEDULE_ENQUIRY, new BeanPropertyRowMapper<ScheduleEnquiry>(ScheduleEnquiry.class));
-			path=createScheduleEnquiryPDF("ScheduleEnquiry", listScheduleEnquiry);
+			createScheduleEnquiryPDF("ScheduleEnquiry", listScheduleEnquiry);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		// TODO Auto-generated method stub
-		return path;
 	}
 	
 	private String createScheduleEnquiryPDF(String pdfFilename,List<ScheduleEnquiry> listOFSscheduleEnquiry){

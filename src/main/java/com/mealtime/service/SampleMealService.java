@@ -47,8 +47,8 @@ public class SampleMealService {
 		return sampleMealDAO.findByUserId(userId);
 	}
 	
-	public String sampleMealPDF() {
-		return sampleMealDAO.sampleMealPDF();
+	public void sampleMealPDF() {
+		sampleMealDAO.sampleMealPDF();
 	}
 
 }

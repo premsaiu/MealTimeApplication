@@ -91,5 +91,5 @@ public interface UserSubscriptionDAO {
 	
 	public List<UserSubscription> getPendingSubscribedUsers();
 
-	public String userSubscriptionPDF();
+	public void userSubscriptionPDF();
 }

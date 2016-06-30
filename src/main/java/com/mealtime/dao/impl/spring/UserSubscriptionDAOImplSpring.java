@@ -359,18 +359,16 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 		return getJdbcTemplate().query(SQL_SELECT_ALL_PENDING, getRowMapper());
 	}
 	
-	public String userSubscriptionPDF() {
-		String path=null;
+	public void userSubscriptionPDF() {
 		List<ScheduleEnquiryForm> listScheduleEnquiry= new ArrayList<ScheduleEnquiryForm>();
 		try{
 			listScheduleEnquiry=getJdbcTemplate().query(SELECT_USER_SUBSCRIPTION, new BeanPropertyRowMapper<ScheduleEnquiryForm>(ScheduleEnquiryForm.class));
-			path=createUserSubscriptionPDF("User_Subscrption", listScheduleEnquiry);
+			createUserSubscriptionPDF("User_Subscrption", listScheduleEnquiry);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		return path;
 	}
 	
 	private String createUserSubscriptionPDF(String pdfFilename,List<ScheduleEnquiryForm> listOfUserSubscription){

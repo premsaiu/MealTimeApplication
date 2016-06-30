@@ -328,18 +328,16 @@ public class SampleMealDAOImplSpring extends GenericDAO<SampleMeal> implements S
 		}
 	}
 	
-	public String sampleMealPDF() {
-		String path=null;
+	public void sampleMealPDF() {
 		List<SampleMeal> sampleMeal= new ArrayList<SampleMeal>();
 		try{
 			sampleMeal=getJdbcTemplate().query(SELECT_SAMPLE_MEAL, new BeanPropertyRowMapper<SampleMeal>(SampleMeal.class));
-			path=createSampleMealPDF("sampleMeal", sampleMeal);
+			createSampleMealPDF("sampleMeal", sampleMeal);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
-		return path;
 	}
 	
 	private String createSampleMealPDF(String pdfFilename,List<SampleMeal> listOFSampleMeal){
