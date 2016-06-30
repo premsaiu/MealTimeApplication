@@ -46,5 +46,9 @@ public class ScheduleEnquiryService {
 	public ScheduleEnquiry getScheduleEnquiry(String userId){
 		return scheduleEnquiryDAO.findByUserId(userId);
 	}
+	
+	public String scheduleEnquiryPDF() {
+		return scheduleEnquiryDAO.scheduleEnquiryPDF();
+	}
 
 }

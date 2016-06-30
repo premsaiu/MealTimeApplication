@@ -4,16 +4,32 @@
  */
 package com.mealtime.dao.impl.spring;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.mealtime.bean.ScheduleEnquiry;
 import com.mealtime.dao.ScheduleEnquiryDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
-
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
+import com.mealtime.util.MealTimeUtil;
 
 /**
  * ScheduleEnquiry DAO implementation 
@@ -30,6 +46,8 @@ public class ScheduleEnquiryDAOImplSpring extends GenericDAO<ScheduleEnquiry> im
 	private final static String SQL_SELECT_BY_USERID = 
 			"select enquiry_id, user_id, schedule_date_time, mobile_number, name, address, created_date, updated_date, created_by, updated_by, status, is_active, version from schedule_enquiry where user_id = ?";
 
+	private final static String SELECT_SCHEDULE_ENQUIRY = "select enquiry_id, user_id, schedule_date_time, mobile_number, name, address, created_date, "
+			+ "updated_date, created_by, updated_by, status, is_active, version from schedule_enquiry where created_date = now()+2";
 	// NB : This entity has an auto-incremented primary key : "enquiry_id"
 	private final static String AUTO_INCREMENTED_COLUMN = "enquiry_id";
 
@@ -309,4 +327,135 @@ public class ScheduleEnquiryDAOImplSpring extends GenericDAO<ScheduleEnquiry> im
 			return null;
 		}
 	}
+	
+	public String scheduleEnquiryPDF() {
+		String path=null;
+		List<ScheduleEnquiry> listScheduleEnquiry= new ArrayList<ScheduleEnquiry>();
+		try{
+			listScheduleEnquiry=getJdbcTemplate().query(SELECT_SCHEDULE_ENQUIRY, new BeanPropertyRowMapper<ScheduleEnquiry>(ScheduleEnquiry.class));
+			path=createScheduleEnquiryPDF("ScheduleEnquiry", listScheduleEnquiry);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		return path;
+	}
+	
+	private String createScheduleEnquiryPDF(String pdfFilename,List<ScheduleEnquiry> listOFSscheduleEnquiry){
+		
+		if(listOFSscheduleEnquiry.size() == 0 || listOFSscheduleEnquiry == null){
+			return "No Records Found for ScheduleEnquiry";
+		} else{
+
+		  Document doc = new Document();
+		  PdfWriter docWriter = null;
+		  
+		  String rootPath = System.getProperty("catalina.home");
+        File dir = new File(rootPath+File.separator+"ADMIN");
+        if (!dir.exists())
+            dir.mkdirs();
+        // Create the file on server
+        File serverFile = new File(dir.getAbsolutePath() + File.separator + pdfFilename+".pdf");
+		  //String path =LOCATION + pdfFilename+".pdf";
+
+		  try {
+		   
+		   //special font sizes
+		   Font bfBold12 = new Font(FontFamily.TIMES_ROMAN, 12, Font.BOLD, new BaseColor(0, 0, 0)); 
+		   Font bf12 = new Font(FontFamily.TIMES_ROMAN, 12); 
+
+		   //file path
+		   
+		   docWriter = PdfWriter.getInstance(doc , new FileOutputStream(serverFile));
+		   
+		   //document header attributes
+		  // doc.addAuthor("betterThanZero");
+		  // doc.addCreationDate();
+		  // doc.addProducer();
+		  // doc.addCreator("MySampleCode.com");
+		  // doc.addTitle("Report with Column Headings");
+		   doc.setPageSize(PageSize.LETTER);
+		  
+		   //open document
+		   doc.open();
+
+		   //create a paragraph
+		   Paragraph paragraph = new Paragraph();
+		   
+		   
+		   //specify column widths
+		   float[] columnWidths = {2f, 3f, 3f, 3f,3f};
+		   //create PDF table with the given widths
+		   PdfPTable table = new PdfPTable(columnWidths);
+		   // set table width a percentage of the page width
+		   table.setWidthPercentage(90f);
+
+		   //insert column headings
+		   MealTimeUtil.insertCell(table, "S.No", Element.ALIGN_RIGHT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Name", Element.ALIGN_LEFT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Mobile", Element.ALIGN_LEFT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Schedule Date Time", Element.ALIGN_LEFT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Area", Element.ALIGN_LEFT, 1, bfBold12);
+		  
+		   table.setHeaderRows(1);
+
+		   //insert an empty row
+		  // insertCell(table, "", Element.ALIGN_LEFT, 4, bfBold12);
+		   //create section heading by cell merging
+		   //insertCell(table, "New York Orders ...", Element.ALIGN_LEFT, 4, bfBold12);
+		   int count = 1;
+		   //just some random data to fill 
+		   for(ScheduleEnquiry scheduleEnquiry : listOFSscheduleEnquiry){
+			   MealTimeUtil.insertCell(table, ""+count, Element.ALIGN_RIGHT, 1, bf12);
+			   MealTimeUtil.insertCell(table, scheduleEnquiry.getName(), Element.ALIGN_LEFT, 1, bf12);
+			   MealTimeUtil.insertCell(table, scheduleEnquiry.getMobileNumber(), Element.ALIGN_LEFT, 1, bf12);
+			   MealTimeUtil.insertCell(table, scheduleEnquiry.getScheduleDateTime().toString(), Element.ALIGN_LEFT, 1, bf12);
+			   MealTimeUtil.insertCell(table, scheduleEnquiry.getAddress(), Element.ALIGN_LEFT, 1, bf12);
+			  count++;
+		    //orderTotal = Double.valueOf(df.format(Math.random() * 1000));
+		    //total = total + orderTotal;
+		   // MealTimeUtil.insertCell(table, df.format(orderTotal), Element.ALIGN_RIGHT, 1, bf12);
+		    
+		   }
+		   //merge the cells to create a footer for that section
+		  // insertCell(table, "New York Total...", Element.ALIGN_RIGHT, 3, bfBold12);
+		   //insertCell(table, df.format(total), Element.ALIGN_RIGHT, 1, bfBold12);
+		   
+		   //repeat the same as above to display another location
+		   //insertCell(table, "", Element.ALIGN_LEFT, 4, bfBold12);
+		  // insertCell(table, "California Orders ...", Element.ALIGN_LEFT, 4, bfBold12);
+		   
+		   //insertCell(table, "California Total...", Element.ALIGN_RIGHT, 3, bfBold12);
+		  // MealTimeUtil.insertCell(table, df.format(total), Element.ALIGN_RIGHT, 1, bfBold12);
+		   
+		   //add the PDF table to the paragraph 
+		   paragraph.add(table);
+		   // add the paragraph to the document
+		   doc.add(paragraph);
+
+		  }
+		  catch (DocumentException dex)
+		  {
+		   dex.printStackTrace();
+		  }
+		  catch (Exception ex)
+		  {
+		   ex.printStackTrace();
+		  }
+		  finally
+		  {
+		   if (doc != null){
+		    //close the document
+		    doc.close();
+		   }
+		   if (docWriter != null){
+		    //close the writer
+		    docWriter.close();
+		   }
+		  }
+		  return serverFile.getAbsolutePath();
+		}
+		 }
 }

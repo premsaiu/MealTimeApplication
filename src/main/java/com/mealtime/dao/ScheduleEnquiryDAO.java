@@ -87,5 +87,7 @@ public interface ScheduleEnquiryDAO {
 	public long count() ;
 	
 	public ScheduleEnquiry findByUserId( String userId ) ;
+	
+	public String scheduleEnquiryPDF();
 
 }

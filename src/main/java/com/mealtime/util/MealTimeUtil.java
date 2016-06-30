@@ -78,17 +78,26 @@ public class MealTimeUtil {
               
                BodyPart messageBodyPart1 = new MimeBodyPart();  
                messageBodyPart1.setText(msgBody);  
-               
-               // Adding attachments
-               MimeBodyPart messageBodyPart = new MimeBodyPart();
-               DataSource source = new FileDataSource(path);
-               messageBodyPart.setDataHandler(new DataHandler(source));
-               messageBodyPart.setFileName(source.getName());
-              // messageBodyPart.setText(msgBody);
-             //  messageBodyPart.setContent(msgBody, "text/html");
-            // Create a multipar message
                Multipart multipart = new MimeMultipart();
-               multipart.addBodyPart(messageBodyPart);
+               
+               File dir= new File(path);
+             if(dir.isDirectory()) 
+             {
+            	 File[] files= dir.listFiles();
+            	 for (File file: files){
+            		// Adding attachments
+                     MimeBodyPart messageBodyPart = new MimeBodyPart();
+                     DataSource source = new FileDataSource(file);
+                     messageBodyPart.setDataHandler(new DataHandler(source));
+                     messageBodyPart.setFileName(source.getName());
+                    // messageBodyPart.setText(msgBody);
+                   //  messageBodyPart.setContent(msgBody, "text/html");
+                  // Create a multipar message
+                     multipart.addBodyPart(messageBodyPart);
+            		 
+            	 }
+             }
+               
                multipart.addBodyPart(messageBodyPart1);  
                mimeMessage.setContent(multipart);
                //mimeMessage.setContent(msgBody, "text/html");

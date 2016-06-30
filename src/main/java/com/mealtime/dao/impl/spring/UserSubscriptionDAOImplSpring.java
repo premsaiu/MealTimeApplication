@@ -4,17 +4,33 @@
  */
 package com.mealtime.dao.impl.spring;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.mealtime.bean.UserSubscription;
 import com.mealtime.dao.UserSubscriptionDAO;
 import com.mealtime.dao.impl.spring.commons.GenericDAO;
+import com.mealtime.form.ScheduleEnquiryForm;
+import com.mealtime.util.MealTimeUtil;
 
 /**
  * UserSubscription DAO implementation 
@@ -50,6 +66,11 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 	private final static String SQL_COUNT = 
 		"select count(*) from user_subscription where user_subscription_id = ?";
 
+	private final static String SELECT_USER_SUBSCRIPTION ="select sub.user_subscription_id, sub.user_id, sub.subscription_id, sub.start_date, sub.end_date, user.first_name as name , user.mobile_number,user.address"
+					+" from user_subscription  sub left join user_master user on (sub.user_id = user.user_id) where "
+					+ "sub.created_date = now() and start_date is not null" ;
+		
+	
     //----------------------------------------------------------------------
 	/**
 	 * DAO constructor
@@ -231,6 +252,46 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 		//--- RowMapper to populate a new bean instance
 		return new UserSubscriptionRowMapper( new UserSubscription() ) ;
 	}
+	
+	protected RowMapper<ScheduleEnquiryForm> getRowMapperScheduleEnquiryForm(ScheduleEnquiryForm o)  {
+		//--- RowMapper to populate the given bean instance
+		return new ScheduleEnquiryFormRowMapper(o) ;
+	}
+	
+	private class ScheduleEnquiryFormRowMapper implements RowMapper<ScheduleEnquiryForm> {
+
+		/**
+		 * The bean instance that will be populated from the ResultSet
+		 */
+		private final ScheduleEnquiryForm bean ;
+		
+		/**
+		 * Constructor
+		 * @param bean the bean to be populated 
+		 */
+		ScheduleEnquiryFormRowMapper(ScheduleEnquiryForm bean) {
+			this.bean = bean ;
+		}
+		
+		
+		public ScheduleEnquiryForm mapRow(ResultSet rs, int rowNum) throws SQLException {
+			populateBeanScheduleEnquiryForm(rs, this.bean);
+			return this.bean;
+		}
+	}
+	
+	private void populateBeanScheduleEnquiryForm(ResultSet rs, ScheduleEnquiryForm scheduleEnquiryForm) throws SQLException {
+
+		//--- Set data from ResultSet to Bean attributes
+		scheduleEnquiryForm.setAddress(rs.getString("address"));
+		scheduleEnquiryForm.setEndDate(rs.getDate("end_date"));
+		scheduleEnquiryForm.setMobileNumber(rs.getString("mobile_number"));
+		scheduleEnquiryForm.setName(rs.getString("name"));
+		scheduleEnquiryForm.setStartDate(rs.getDate("start_date"));
+		scheduleEnquiryForm.setSubscriptionId(rs.getInt("subscription_id"));
+		scheduleEnquiryForm.setUserId(rs.getString("user_id"));
+		scheduleEnquiryForm.setUserSubscriptionId(rs.getInt("user_subscription_id"));
+	}
 
     //----------------------------------------------------------------------
 	/**
@@ -297,4 +358,137 @@ public class UserSubscriptionDAOImplSpring extends GenericDAO<UserSubscription> 
 	public List<UserSubscription> getPendingSubscribedUsers() {
 		return getJdbcTemplate().query(SQL_SELECT_ALL_PENDING, getRowMapper());
 	}
+	
+	public String userSubscriptionPDF() {
+		String path=null;
+		List<ScheduleEnquiryForm> listScheduleEnquiry= new ArrayList<ScheduleEnquiryForm>();
+		try{
+			listScheduleEnquiry=getJdbcTemplate().query(SELECT_USER_SUBSCRIPTION, new BeanPropertyRowMapper<ScheduleEnquiryForm>(ScheduleEnquiryForm.class));
+			path=createUserSubscriptionPDF("User_Subscrption", listScheduleEnquiry);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return path;
+	}
+	
+	private String createUserSubscriptionPDF(String pdfFilename,List<ScheduleEnquiryForm> listOfUserSubscription){
+
+		if(listOfUserSubscription.size() == 0 || listOfUserSubscription == null){
+			return "No Records Found for User Subscription";
+		}else{
+		  Document doc = new Document();
+		  PdfWriter docWriter = null;
+		  
+		  String rootPath = System.getProperty("catalina.home");
+        File dir = new File(rootPath+File.separator+"ADMIN");
+        if (!dir.exists())
+            dir.mkdirs();
+        // Create the file on server
+        File serverFile = new File(dir.getAbsolutePath() + File.separator + pdfFilename+".pdf");
+		  //String path =LOCATION + pdfFilename+".pdf";
+
+		  try {
+		   
+		   //special font sizes
+		   Font bfBold12 = new Font(FontFamily.TIMES_ROMAN, 12, Font.BOLD, new BaseColor(0, 0, 0)); 
+		   Font bf12 = new Font(FontFamily.TIMES_ROMAN, 12); 
+
+		   //file path
+		   
+		   docWriter = PdfWriter.getInstance(doc , new FileOutputStream(serverFile));
+		   
+		   //document header attributes
+		  // doc.addAuthor("betterThanZero");
+		  // doc.addCreationDate();
+		  // doc.addProducer();
+		  // doc.addCreator("MySampleCode.com");
+		  // doc.addTitle("Report with Column Headings");
+		   doc.setPageSize(PageSize.LETTER);
+		  
+		   //open document
+		   doc.open();
+
+		   //create a paragraph
+		   Paragraph paragraph = new Paragraph();
+		   
+		   
+		   //specify column widths
+		   float[] columnWidths = {2f, 3f, 3f,2f, 3f, 3f};
+		   //create PDF table with the given widths
+		   PdfPTable table = new PdfPTable(columnWidths);
+		   // set table width a percentage of the page width
+		   table.setWidthPercentage(90f);
+
+		   //insert column headings
+		   MealTimeUtil.insertCell(table, "S.No", Element.ALIGN_RIGHT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Name", Element.ALIGN_LEFT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Mobile", Element.ALIGN_LEFT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Start Date", Element.ALIGN_LEFT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "End Date", Element.ALIGN_LEFT, 1, bfBold12);
+		   MealTimeUtil.insertCell(table, "Area", Element.ALIGN_LEFT, 1, bfBold12);
+		  
+		   table.setHeaderRows(1);
+
+		   //insert an empty row
+		  // insertCell(table, "", Element.ALIGN_LEFT, 4, bfBold12);
+		   //create section heading by cell merging
+		   //insertCell(table, "New York Orders ...", Element.ALIGN_LEFT, 4, bfBold12);
+		   int count = 1;
+		   //just some random data to fill 
+		   for(ScheduleEnquiryForm userSubscription : listOfUserSubscription){
+			   
+			   MealTimeUtil.insertCell(table, ""+count, Element.ALIGN_RIGHT, 1, bf12);
+			   MealTimeUtil.insertCell(table, userSubscription.getName(), Element.ALIGN_LEFT, 1, bf12);
+			   MealTimeUtil.insertCell(table, userSubscription.getMobileNumber(), Element.ALIGN_LEFT, 1, bf12);
+			   MealTimeUtil.insertCell(table, userSubscription.getStartDate().toString(), Element.ALIGN_LEFT, 1, bf12);
+			   MealTimeUtil.insertCell(table, userSubscription.getEndDate().toString(), Element.ALIGN_LEFT, 1, bf12);
+			   MealTimeUtil.insertCell(table, userSubscription.getAddress(), Element.ALIGN_LEFT, 1, bf12);
+			   
+			   count++;
+		    //orderTotal = Double.valueOf(df.format(Math.random() * 1000));
+		    //total = total + orderTotal;
+		   // MealTimeUtil.insertCell(table, df.format(orderTotal), Element.ALIGN_RIGHT, 1, bf12);
+		    
+		   }
+		   //merge the cells to create a footer for that section
+		  // insertCell(table, "New York Total...", Element.ALIGN_RIGHT, 3, bfBold12);
+		   //insertCell(table, df.format(total), Element.ALIGN_RIGHT, 1, bfBold12);
+		   
+		   //repeat the same as above to display another location
+		   //insertCell(table, "", Element.ALIGN_LEFT, 4, bfBold12);
+		  // insertCell(table, "California Orders ...", Element.ALIGN_LEFT, 4, bfBold12);
+		   
+		   //insertCell(table, "California Total...", Element.ALIGN_RIGHT, 3, bfBold12);
+		  // MealTimeUtil.insertCell(table, df.format(total), Element.ALIGN_RIGHT, 1, bfBold12);
+		   
+		   //add the PDF table to the paragraph 
+		   paragraph.add(table);
+		   // add the paragraph to the document
+		   doc.add(paragraph);
+
+		  }
+		  catch (DocumentException dex)
+		  {
+		   dex.printStackTrace();
+		  }
+		  catch (Exception ex)
+		  {
+		   ex.printStackTrace();
+		  }
+		  finally
+		  {
+		   if (doc != null){
+		    //close the document
+		    doc.close();
+		   }
+		   if (docWriter != null){
+		    //close the writer
+		    docWriter.close();
+		   }
+		  }
+		  return serverFile.getAbsolutePath();
+		}
+		 }
 }

@@ -329,4 +329,9 @@ public class UserSubscriptionService {
 		  return null;
 	  }
 	}
+	
+	public String userSubscriptionPDF() {
+		return userSubscriptionDAO.userSubscriptionPDF();
+	}
+
 }
